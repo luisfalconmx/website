@@ -7,13 +7,14 @@ type Props = {
   className?: string
 }
 
-const Button = ({ children, variant = 'filled', className }: Props) => (
+const Button = ({ children, variant = 'filled', className = '' }: Props) => (
   <button
     type="button"
     className={cn(
       'rounded-full border-2 bg-nightfall px-8 py-4 text-xl text-ghost dark:bg-ghost dark:text-nightfall',
       {
-        'border-nightfall bg-transparent text-nightfall': variant === 'outlined'
+        'border-nightfall bg-transparent text-nightfall dark:border-ghost dark:bg-transparent dark:text-ghost':
+          variant === 'outlined'
       },
       className
     )}

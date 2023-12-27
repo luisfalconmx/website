@@ -1,44 +1,24 @@
 import axios from 'axios'
 
-type Response = {
-  login: string
-  id: number
-  node_id: string
-  avatar_url: string
-  gravatar_id: string
-  url: string
-  html_url: string
-  followers_url: string
-  following_url: string
-  gists_url: string
-  starred_url: string
-  subscriptions_url: string
-  organizations_url: string
-  repos_url: string
-  events_url: string
-  received_events_url: string
-  type: string
-  site_admin: boolean
-  name: string
-  company: null
-  blog: string
-  location: string
-  email: null
-  hireable: boolean
-  bio: string
-  twitter_username: null
-  public_repos: number
-  public_gists: number
-  followers: number
-  following: number
-  created_at: string
-  updated_at: string
-}
-
 const getGithubProfile = async (username: string) => {
-  const endpoint = `https://api.github.com/users/${username}`
-  const response = await axios.get(endpoint)
-  return response.data as Response
+  const profileEndpoint = `https://api.github.com/users/${username}`
+  const socialEndpoint = `https://api.github.com/users/${username}/social_accounts`
+
+  const profileResponse = await axios.get(profileEndpoint)
+  const socialResponse = await axios.get(socialEndpoint)
+
+  const data = {
+    ...profileResponse.data,
+    social: [
+      {
+        provider: 'github',
+        url: profileResponse.data.html_url
+      },
+      ...socialResponse.data
+    ]
+  }
+
+  return data as IGithubProfile
 }
 
 export default getGithubProfile
