@@ -1,0 +1,13 @@
+query getBlogPosts {
+  publication(host: "luisfalconmx.hashnode.dev") {
+    posts(first: 10) {
+      edges {
+        node {
+          title
+          brief
+          url
+        }
+      }
+    }
+  }
+}

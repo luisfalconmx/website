@@ -24,8 +24,8 @@ export default function Home({
   social
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <main>
-      <section className="mx-auto mt-24 max-w-[683px]">
+    <main className="my-24">
+      <section className="mx-auto max-w-[683px]">
         <Image
           width={220}
           height={200}

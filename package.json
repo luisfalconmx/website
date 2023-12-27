@@ -1,24 +1,32 @@
 {
   "name": "luisfalconmx",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "graphql-codegen --config ./src/graphql/codegen.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.8",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@tanstack/react-query": "^5.15.0",
     "@tanstack/react-query-devtools": "^5.15.0",
     "axios": "^1.6.3",
     "clsx": "^2.0.0",
+    "dotenv": "^16.3.1",
+    "graphql": "^16.8.1",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-request": "^6.1.0",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
     "@tanstack/eslint-plugin-query": "^5.14.6",
     "@types/node": "^20",
     "@types/react": "^18",
