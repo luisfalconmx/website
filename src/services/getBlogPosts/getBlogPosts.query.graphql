@@ -3,9 +3,12 @@ query getBlogPosts {
     posts(first: 10) {
       edges {
         node {
+          id
           title
-          brief
           url
+          coverImage {
+            url
+          }
         }
       }
     }

@@ -9,6 +9,9 @@ const config: CodegenConfig = {
       preset: 'client',
       plugins: ['typescript', 'typescript-operations']
     }
+  },
+  hooks: {
+    afterAllFileWrite: ['prettier --write']
   }
 }
 
