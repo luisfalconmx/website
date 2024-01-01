@@ -49,7 +49,9 @@ const Blog: NextPage<Props> = ({ posts }) => {
             width={1080}
             height={720}
           />
-          <div>- {post.title}</div>
+          <div>
+            - {post.title} : {post.slug}
+          </div>
         </div>
       ))}
     </main>

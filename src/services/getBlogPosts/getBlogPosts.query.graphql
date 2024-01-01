@@ -6,6 +6,7 @@ query getBlogPosts {
           id
           title
           url
+          slug
           coverImage {
             url
           }
