@@ -5,8 +5,8 @@ import {
   GetBlogPostsDocument,
   GetBlogPostsQuery,
   GetBlogPostsQueryVariables
-} from '@/graphql/graphql'
-import type { Post } from '@/graphql/graphql'
+} from '@/generated/graphql'
+import type { Post } from '@/generated/schema'
 import type { GetStaticProps, NextPage } from 'next'
 
 interface Props {

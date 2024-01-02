@@ -1,12 +1,16 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
-import { hashnodeConfig } from '../config'
+import { hashnodeConfig } from '.'
 
 const config: CodegenConfig = {
   schema: [hashnodeConfig.endpoint],
   documents: ['../**/*.graphql'],
   generates: {
-    './src/graphql/': {
-      plugins: ['typescript', 'typescript-operations']
+    './src/generated/graphql.ts': {
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-react-apollo'
+      ]
     }
   },
   hooks: {

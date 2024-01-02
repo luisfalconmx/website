@@ -9,13 +9,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "graphql-codegen --config ./src/graphql/codegen.ts",
+    "generate": "graphql-codegen --config ./src/config/codegen.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
-    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-request": "^6.1.0",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@tanstack/react-query": "^5.15.0",
     "@tanstack/react-query-devtools": "^5.15.0",
     "axios": "^1.6.3",
@@ -28,10 +32,6 @@
     "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-graphql-request": "^6.1.0",
-    "@graphql-codegen/typescript-operations": "^4.0.1",
     "@storybook/addon-a11y": "^7.6.6",
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/addon-interactions": "^7.6.6",
