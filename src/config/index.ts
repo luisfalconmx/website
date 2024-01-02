@@ -1,3 +1,4 @@
+import githubConfig from './github.config'
 import hashnodeConfig from './hashnode.config'
 
-export { hashnodeConfig }
+export { githubConfig, hashnodeConfig }

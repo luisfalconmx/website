@@ -1,8 +1,15 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
-import { hashnodeConfig } from '.'
+import { githubConfig, hashnodeConfig } from '.'
 
 const config: CodegenConfig = {
-  schema: [hashnodeConfig.endpoint],
+  schema: [
+    {
+      [githubConfig.endpoint]: {
+        token: githubConfig.token
+      }
+    },
+    hashnodeConfig.endpoint
+  ],
   documents: ['../**/*.graphql'],
   generates: {
     './src/generated/graphql.ts': {
