@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Button from '@/components/Button'
+import getGithubProfile from '@/services/getGithubProfile'
 import SocialIcons from '@/components/SocialIcons'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
