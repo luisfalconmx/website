@@ -1,0 +1,13 @@
+sources:
+  - name: Github
+    handler:
+      graphql:
+        endpoint: https://api.github.com/graphql
+        source: https://docs.github.com/public/schema.docs.graphql
+        operationHeaders:
+          Authorization: bearer {env.GITHUB_TOKEN}
+          User-Agent: GraphQL Mesh
+        batch: false
+
+documents:
+  - ./src/**/*.graphql

@@ -1,4 +1,4 @@
-query GetGitHubProfile {
+query UserViewer {
   viewer {
     login
   }
