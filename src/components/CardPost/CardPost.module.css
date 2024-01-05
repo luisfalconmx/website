@@ -1,0 +1,132 @@
+.CardPost {
+  @apply max-w-[335px] overflow-hidden rounded-xl bg-ghost dark:bg-onyx;
+}
+
+.CardPost__overlay {
+  @apply hidden;
+}
+
+.CardPost__image {
+  @apply w-full object-center;
+}
+
+.CardPost__content {
+  @apply flex flex-col px-6 py-10 text-nightfall dark:text-ghost;
+}
+
+.CardPost__tag {
+  @apply mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent;
+}
+
+.CardPost__title {
+  @apply mb-5 text-xl font-bold;
+}
+
+.CardPost__description {
+  @apply mb-10 text-onyx dark:text-smoke;
+}
+
+.CardPost__author {
+  @apply mt-auto;
+}
+
+/* Variants */
+.CardPost--imageless .CardPost__image {
+  @apply hidden;
+}
+
+.CardPost--square {
+  @apply max-w-[732px];
+}
+
+.CardPost--square .CardPost__image {
+  @apply max-h-[280px] object-cover;
+}
+
+.CardPost--square .CardPost__title {
+  @apply text-2xl;
+}
+
+.CardPost--square .CardPost__description {
+  @apply text-lg;
+}
+
+.CardPost--track {
+  @apply grid max-w-none grid-cols-[400px,1fr];
+}
+
+.CardPost--track .CardPost__image {
+  @apply h-full max-w-[400px] object-cover;
+}
+
+.CardPost--track .CardPost__title {
+  @apply text-xl;
+}
+
+.CardPost--track .CardPost__tag {
+  @apply text-lg;
+}
+
+.CardPost--track .CardPost__description {
+  @apply text-lg;
+}
+
+.CardPost--box {
+  @apply grid min-h-[500px] max-w-none grid-cols-2;
+}
+
+.CardPost--box .CardPost__content {
+  @apply order-1 col-start-1 row-start-1;
+}
+
+.CardPost--box .CardPost__image {
+  @apply col-start-2 h-full object-cover;
+}
+
+.CardPost--box .CardPost__title {
+  @apply text-3xl;
+}
+
+.CardPost--box .CardPost__tag {
+  @apply text-lg;
+}
+
+.CardPost--box .CardPost__description {
+  @apply text-lg;
+}
+
+.CardPost--box .CardPost__author {
+  @apply mt-0;
+}
+
+.CardPost--jumbo {
+  @apply relative min-h-[500px] max-w-none;
+}
+
+.CardPost--jumbo .CardPost__overlay {
+  @apply absolute inset-0 z-10 block bg-gradient-to-r from-black to-transparent;
+}
+
+.CardPost--jumbo .CardPost__tag {
+  @apply text-lg;
+}
+
+.CardPost--jumbo .CardPost__image {
+  @apply absolute inset-0 h-full object-cover;
+}
+
+.CardPost--jumbo .CardPost__title {
+  @apply text-3xl text-ghost dark:text-ghost;
+}
+
+.CardPost--jumbo .CardPost__content {
+  @apply absolute z-20 h-full max-w-[510px];
+}
+
+.CardPost--jumbo .CardPost__description {
+  @apply text-lg text-smoke dark:text-smoke;
+}
+
+.CardPost--jumbo .CardPost__author {
+  @apply mt-0 text-ghost dark:text-ghost;
+}

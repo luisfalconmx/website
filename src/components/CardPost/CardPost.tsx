@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import Author from '@/components/Author'
 import humanDate from '@/utils/humanDate'
+import cn from '@/utils/cn'
+import styles from './CardPost.module.css'
 
 interface Props {
+  variant?: 'default' | 'imageless' | 'square' | 'track' | 'box' | 'jumbo'
   title: string
   description: string
   image: string
@@ -14,16 +17,19 @@ interface Props {
     label: string
     image: string
   }
+  className?: string
 }
 
 const CardPost = ({
+  variant = 'default',
   title,
   description,
   image,
   tag,
   date,
   author,
-  readingTime
+  readingTime,
+  className = ''
 }: Props) => {
   const maxDescriptionLength = 110
   const formatedDescription =
@@ -34,22 +40,73 @@ const CardPost = ({
   const formatedDate = humanDate(date)
   const customLabel = `${formatedDate} • ${readingTime} min read`
 
+  let imageWidth = 0
+  let imageHeight = 0
+
+  if (variant === 'default') {
+    imageWidth = 335
+    imageHeight = 201
+  }
+
+  if (variant === 'imageless') {
+    imageWidth = 0
+    imageHeight = 0
+  }
+
+  if (variant === 'square') {
+    imageWidth = 732
+    imageHeight = 280
+  }
+
+  if (variant === 'track') {
+    imageWidth = 400
+    imageHeight = 295
+  }
+
+  if (variant === 'box') {
+    imageWidth = 550
+    imageHeight = 500
+  }
+
+  if (variant === 'jumbo') {
+    imageWidth = 1100
+    imageHeight = 500
+  }
+
   return (
-    <div className="max-w-[335px] bg-ghost dark:bg-onyx">
+    <div
+      className={cn(
+        styles.CardPost,
+        {
+          [styles['CardPost--imageless']]: variant === 'imageless',
+          [styles['CardPost--square']]: variant === 'square',
+          [styles['CardPost--track']]: variant === 'track',
+          [styles['CardPost--box']]: variant === 'box',
+          [styles['CardPost--jumbo']]: variant === 'jumbo'
+        },
+        className
+      )}
+    >
+      <div className={styles.CardPost__overlay} />
       <Image
         src={image}
         alt={title}
-        width={335}
-        height={200}
-        className="object-center"
+        width={imageWidth}
+        height={imageHeight}
+        className={styles.CardPost__image}
       />
-      <div className="px-6 py-10 text-nightfall dark:text-ghost">
-        <span className="mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent">
-          {tag}
-        </span>
-        <h1 className="mb-5 text-xl font-bold">{title}</h1>
-        <p className="mb-10 text-onyx dark:text-smoke">{formatedDescription}</p>
-        <Author image={author.image} name={author.name} label={customLabel} />
+      <div className={styles.CardPost__content}>
+        <div>
+          <span className={styles.CardPost__tag}>{tag}</span>
+          <h1 className={styles.CardPost__title}>{title}</h1>
+          <p className={styles.CardPost__description}>{formatedDescription}</p>
+        </div>
+        <Author
+          image={author.image}
+          name={author.name}
+          label={customLabel}
+          className={styles.CardPost__author}
+        />
       </div>
     </div>
   )
