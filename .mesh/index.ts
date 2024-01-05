@@ -3,21 +3,7 @@ import { GraphQLResolveInfo, SelectionSetNode, FieldNode, GraphQLScalarType, Gra
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { gql } from '@graphql-mesh/utils';
 
-import type { GetMeshOptions } from '@graphql-mesh/runtime';
-import type { YamlConfig } from '@graphql-mesh/types';
-import { PubSub } from '@graphql-mesh/utils';
-import { DefaultLogger } from '@graphql-mesh/utils';
-import MeshCache from "@graphql-mesh/cache-localforage";
-import { fetch as fetchFn } from '@whatwg-node/fetch';
-
-import { MeshResolvedSource } from '@graphql-mesh/runtime';
-import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
-import GraphqlHandler from "@graphql-mesh/graphql"
-import PrefixTransform from "@graphql-mesh/transform-prefix";
-import EncapsulateTransform from "@graphql-mesh/transform-encapsulate";
-import StitchingMerger from "@graphql-mesh/merger-stitching";
-import { printWithCache } from '@graphql-mesh/utils';
-import { usePersistedOperations } from '@graphql-yoga/plugin-persisted-operations';
+import { findAndParseConfig } from '@graphql-mesh/cli';
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
 import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
@@ -25,7 +11,6 @@ import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
 import type { HashnodeTypes } from './sources/Hashnode/types';
 import type { GithubTypes } from './sources/Github/types';
-import * as importedModule$0 from "./sources/Hashnode/introspectionSchema";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -47052,9 +47037,6 @@ const baseDir = pathModule.join(typeof __dirname === 'string' ? __dirname : '/',
 const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
-    case ".mesh/sources/Hashnode/introspectionSchema":
-      return Promise.resolve(importedModule$0) as T;
-    
     default:
       return Promise.reject(new Error(`Cannot find module '${relativeModuleId}'.`));
   }
@@ -47069,139 +47051,15 @@ const rootStore = new MeshStore('.mesh', new FsStoreStorageAdapter({
   validate: false
 });
 
-export const rawServeConfig: YamlConfig.Config['serve'] = undefined as any
-export async function getMeshOptions(): Promise<GetMeshOptions> {
-const pubsub = new PubSub();
-const sourcesStore = rootStore.child('sources');
-const logger = new DefaultLogger("🕸️  Mesh");
-const cache = new (MeshCache as any)({
-      ...({} as any),
-      importFn,
-      store: rootStore.child('cache'),
-      pubsub,
-      logger,
-    } as any)
-
-const sources: MeshResolvedSource[] = [];
-const transforms: MeshTransform[] = [];
-const additionalEnvelopPlugins: MeshPlugin<any>[] = [];
-const hashnodeTransforms = [];
-const githubTransforms = [];
-const additionalTypeDefs = [] as any[];
-const hashnodeHandler = new GraphqlHandler({
-              name: "Hashnode",
-              config: {"endpoint":"https://gql.hashnode.com"},
-              baseDir,
-              cache,
-              pubsub,
-              store: sourcesStore.child("Hashnode"),
-              logger: logger.child("Hashnode"),
-              importFn,
-            });
-const githubHandler = new GraphqlHandler({
-              name: "Github",
-              config: {"endpoint":"https://api.github.com/graphql","source":"https://docs.github.com/public/schema.docs.graphql","operationHeaders":{"Authorization":"bearer {env.NEXT_PUBLIC_GITHUB_TOKEN}","User-Agent":"GraphQL"}},
-              baseDir,
-              cache,
-              pubsub,
-              store: sourcesStore.child("Github"),
-              logger: logger.child("Github"),
-              importFn,
-            });
-hashnodeTransforms[0] = new PrefixTransform({
-                  apiName: "Hashnode",
-                  config: {"mode":"wrap","value":"hn_","includeRootOperations":true,"includeTypes":true},
-                  baseDir,
-                  cache,
-                  pubsub,
-                  importFn,
-                  logger,
-                });
-hashnodeTransforms[1] = new EncapsulateTransform({
-                  apiName: "Hashnode",
-                  config: {"applyTo":{"query":true,"mutation":true,"subscription":true}},
-                  baseDir,
-                  cache,
-                  pubsub,
-                  importFn,
-                  logger,
-                });
-githubTransforms[0] = new PrefixTransform({
-                  apiName: "Github",
-                  config: {"mode":"wrap","value":"gh_","includeRootOperations":true,"includeTypes":true},
-                  baseDir,
-                  cache,
-                  pubsub,
-                  importFn,
-                  logger,
-                });
-githubTransforms[1] = new EncapsulateTransform({
-                  apiName: "Github",
-                  config: {"applyTo":{"query":true,"mutation":true,"subscription":true}},
-                  baseDir,
-                  cache,
-                  pubsub,
-                  importFn,
-                  logger,
-                });
-sources[0] = {
-          name: 'Hashnode',
-          handler: hashnodeHandler,
-          transforms: hashnodeTransforms
-        }
-sources[1] = {
-          name: 'Github',
-          handler: githubHandler,
-          transforms: githubTransforms
-        }
-const additionalResolvers = [] as any[]
-const merger = new(StitchingMerger as any)({
-        cache,
-        pubsub,
-        logger: logger.child('stitchingMerger'),
-        store: rootStore.child('stitchingMerger')
-      })
-const documentHashMap = {
-        "d2c03154c60b622a05e911123142c585629b8007adf842f73996e2025418912b": GithubProfileDocument,
-"1b3635289c12fc267ddf40f225926b4f06e66d99e95390e8792a35b69bf5878e": LatestBlogPostsDocument
-      }
-additionalEnvelopPlugins.push(usePersistedOperations({
-        getPersistedOperation(key) {
-          return documentHashMap[key];
-        },
-      }))
-
-  return {
-    sources,
-    transforms,
-    additionalTypeDefs,
-    additionalResolvers,
-    cache,
-    pubsub,
-    merger,
-    logger,
-    additionalEnvelopPlugins,
-    get documents() {
-      return [
-      {
-        document: GithubProfileDocument,
-        get rawSDL() {
-          return printWithCache(GithubProfileDocument);
-        },
-        location: 'GithubProfileDocument.graphql',
-        sha256Hash: 'd2c03154c60b622a05e911123142c585629b8007adf842f73996e2025418912b'
-      },{
-        document: LatestBlogPostsDocument,
-        get rawSDL() {
-          return printWithCache(LatestBlogPostsDocument);
-        },
-        location: 'LatestBlogPostsDocument.graphql',
-        sha256Hash: '1b3635289c12fc267ddf40f225926b4f06e66d99e95390e8792a35b69bf5878e'
-      }
-    ];
-    },
-    fetchFn,
-  };
+export function getMeshOptions() {
+  console.warn('WARNING: These artifacts are built for development mode. Please run "mesh build" to build production artifacts');
+  return findAndParseConfig({
+    dir: baseDir,
+    artifactsDir: ".mesh",
+    configName: "mesh",
+    additionalPackagePrefixes: [],
+    initialLoggerPrefix: "🕸️  Mesh",
+  });
 }
 
 export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandler<TServerContext> {
@@ -47211,7 +47069,6 @@ export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandl
     rawServeConfig: undefined,
   })
 }
-
 
 let meshInstance$: Promise<MeshInstance> | undefined;
 

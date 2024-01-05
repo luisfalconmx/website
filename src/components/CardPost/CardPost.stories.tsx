@@ -12,11 +12,12 @@ export const Primary: Story = {
   args: {
     title: 'Guide for designing better mobile apps typography',
     description:
-      'In this article, I won’t talk about the general concepts of typography, which can be used both in print...',
+      'In this article, I won’t talk about the general concepts of typography, which can be used both in print and digital media. I will focus on the specific aspects of typography in mobile apps and how to design better typography for them.',
     image:
       'https://images.pexels.com/photos/7561989/pexels-photo-7561989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tag: 'Article',
-    date: '2021-04-30',
+    date: new Date(),
+    readingTime: 5,
     author: {
       name: 'luisfalconmx',
       label: 'Frontend Developer',
@@ -30,11 +31,12 @@ export const Dark = {
   args: {
     title: 'Guide for designing better mobile apps typography',
     description:
-      'In this article, I won’t talk about the general concepts of typography, which can be used both in print...',
+      'In this article, I won’t talk about the general concepts of typography, which can be used both in print and digital media. I will focus on the specific aspects of typography in mobile apps and how to design better typography for them.',
     image:
       'https://images.pexels.com/photos/7561989/pexels-photo-7561989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tag: 'Article',
-    date: '2021-04-30',
+    date: new Date(),
+    readingTime: 5,
     author: {
       name: 'luisfalconmx',
       label: 'Frontend Developer',
