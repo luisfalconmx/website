@@ -1,27 +1,30 @@
 import Image from 'next/image'
 import Button from '@/components/Button'
-import getGithubProfile from '@/services/getGithubProfile'
 import SocialIcons from '@/components/SocialIcons'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { getMeshSDK } from '../../.mesh'
 
 export const getStaticProps = (async () => {
-  const { avatar_url, bio, social, html_url } =
-    await getGithubProfile('luisfalconmx')
+  const { GithubProfile } = await getMeshSDK()
+  const {
+    Github: { gh_user }
+  } = await GithubProfile({ username: 'luisfalconmx' })
 
   return {
     props: {
-      avatar_url,
-      bio,
-      html_url,
-      social
+      login: gh_user?.login,
+      avatar_url: gh_user?.avatarUrl,
+      bio: gh_user?.bio,
+      socialAccounts: gh_user?.socialAccounts.edges
     }
   }
-}) satisfies GetStaticProps<Partial<IGithubProfile>>
+}) satisfies GetStaticProps
 
 export default function Home({
+  login,
   avatar_url,
   bio,
-  social
+  socialAccounts
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <main className="my-24">
@@ -35,7 +38,7 @@ export default function Home({
         />
 
         <h1 className="mb-10 text-center text-[3.438rem] font-bold leading-[115.195%]">
-          Hello, I am luisfalconmx{' '}
+          Hello, I am {login}{' '}
           <span className="m-0 w-fit bg-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Frontend Developer
           </span>
@@ -48,7 +51,14 @@ export default function Home({
           <Button variant="outlined">Download CV</Button>
         </div>
 
-        <SocialIcons data={social} className="mx-auto flex w-fit" />
+        <SocialIcons
+          data={socialAccounts?.map((i) => ({
+            displayName: i?.node?.displayName as string,
+            provider: i?.node?.provider as string,
+            url: i?.node?.url as string
+          }))}
+          className="mx-auto flex w-fit"
+        />
       </section>
     </main>
   )

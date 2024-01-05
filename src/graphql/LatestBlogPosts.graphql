@@ -1,0 +1,29 @@
+query LatestBlogPosts($host: String!, $posts: Int!) {
+  Hashnode {
+    hn_publication(host: $host) {
+      posts(first: $posts) {
+        edges {
+          node {
+            id
+            title
+            subtitle
+            tags {
+              name
+            }
+            coverImage {
+              url
+            }
+            author {
+              id
+              username
+              name
+              profilePicture
+            }
+            publishedAt
+            readTimeInMinutes
+          }
+        }
+      }
+    }
+  }
+}

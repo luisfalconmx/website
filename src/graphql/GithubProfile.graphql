@@ -1,0 +1,18 @@
+query GithubProfile($username: String!) {
+  Github {
+    gh_user(login: $username) {
+      login
+      avatarUrl
+      bio
+      socialAccounts(first: 10) {
+        edges {
+          node {
+            displayName
+            provider
+            url
+          }
+        }
+      }
+    }
+  }
+}

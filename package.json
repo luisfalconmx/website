@@ -17,6 +17,8 @@
   "dependencies": {
     "@graphql-mesh/cli": "^0.88.4",
     "@graphql-mesh/graphql": "^0.96.2",
+    "@graphql-mesh/transform-encapsulate": "^0.96.2",
+    "@graphql-mesh/transform-prefix": "^0.96.2",
     "@tanstack/react-query": "^5.15.0",
     "@tanstack/react-query-devtools": "^5.15.0",
     "axios": "^1.6.3",
