@@ -1,5 +1,5 @@
 .CardPost {
-  @apply max-w-[335px] overflow-hidden rounded-xl bg-ghost dark:bg-onyx;
+  @apply flex max-w-[360px] flex-col overflow-hidden rounded-xl bg-ghost dark:bg-onyx;
 }
 
 .CardPost__overlay {
@@ -7,11 +7,11 @@
 }
 
 .CardPost__image {
-  @apply w-full object-center;
+  @apply aspect-video w-full object-center;
 }
 
 .CardPost__content {
-  @apply flex flex-col px-6 py-10 text-nightfall dark:text-ghost;
+  @apply flex h-full flex-col px-6 py-10 text-nightfall dark:text-ghost;
 }
 
 .CardPost__tag {
@@ -40,7 +40,7 @@
 }
 
 .CardPost--square .CardPost__image {
-  @apply max-h-[280px] object-cover;
+  @apply max-h-[300px] object-cover;
 }
 
 .CardPost--square .CardPost__title {
@@ -52,11 +52,11 @@
 }
 
 .CardPost--track {
-  @apply grid max-w-none grid-cols-[400px,1fr];
+  @apply grid min-h-[300px] max-w-none grid-cols-[450px,1fr];
 }
 
 .CardPost--track .CardPost__image {
-  @apply h-full max-w-[400px] object-cover;
+  @apply aspect-video h-full w-full object-fill;
 }
 
 .CardPost--track .CardPost__title {
@@ -72,7 +72,7 @@
 }
 
 .CardPost--box {
-  @apply grid min-h-[500px] max-w-none grid-cols-2;
+  @apply grid min-h-[500px] max-w-none grid-cols-[450px,1fr];
 }
 
 .CardPost--box .CardPost__content {
@@ -80,7 +80,7 @@
 }
 
 .CardPost--box .CardPost__image {
-  @apply col-start-2 h-full object-cover;
+  @apply col-start-2 aspect-video h-full object-fill;
 }
 
 .CardPost--box .CardPost__title {
@@ -120,7 +120,7 @@
 }
 
 .CardPost--jumbo .CardPost__content {
-  @apply absolute z-20 h-full max-w-[510px];
+  @apply absolute z-20 h-full max-w-[510px] px-10;
 }
 
 .CardPost--jumbo .CardPost__description {
@@ -128,5 +128,5 @@
 }
 
 .CardPost--jumbo .CardPost__author {
-  @apply mt-0 text-ghost dark:text-ghost;
+  @apply text-ghost dark:text-ghost;
 }

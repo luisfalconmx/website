@@ -10,6 +10,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cdn.hashnode.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-images-1.medium.com'
       }
     ]
   },

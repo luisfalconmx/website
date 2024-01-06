@@ -5,8 +5,8 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "mesh build && next dev",
+    "build": "mesh build && next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",

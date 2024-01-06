@@ -6,7 +6,9 @@ query LatestBlogPosts($host: String!, $posts: Int!) {
           node {
             id
             title
-            subtitle
+            content {
+              text
+            }
             tags {
               name
             }

@@ -55,7 +55,7 @@ const CardPost = ({
 
   if (variant === 'square') {
     imageWidth = 732
-    imageHeight = 280
+    imageHeight = 300
   }
 
   if (variant === 'track') {
@@ -65,7 +65,7 @@ const CardPost = ({
 
   if (variant === 'box') {
     imageWidth = 550
-    imageHeight = 500
+    imageHeight = 250
   }
 
   if (variant === 'jumbo') {
@@ -97,7 +97,7 @@ const CardPost = ({
       />
       <div className={styles.CardPost__content}>
         <div>
-          <span className={styles.CardPost__tag}>{tag}</span>
+          {tag && <span className={styles.CardPost__tag}>{tag}</span>}
           <h1 className={styles.CardPost__title}>{title}</h1>
           <p className={styles.CardPost__description}>{formatedDescription}</p>
         </div>
