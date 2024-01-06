@@ -35,7 +35,7 @@ export default function Blog({
         tag={
           posts[0].node.tags?.map((tag, index) =>
             index === 0 ? tag.name : ''
-          )[0] || ''
+          )[0]
         }
         author={{
           name: posts[0].node.author.name,
@@ -56,9 +56,7 @@ export default function Blog({
             description={node.content.text || ''}
             image={node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) =>
-                index === 0 ? tag.name : ''
-              )[1] || ''
+              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
               name: node.author.name,
@@ -80,9 +78,7 @@ export default function Blog({
             description={node.content.text || ''}
             image={node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) =>
-                index === 0 ? tag.name : ''
-              )[1] || ''
+              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
               name: node.author.name,
@@ -105,7 +101,7 @@ export default function Blog({
         tag={
           posts[12].node.tags?.map((tag, index) =>
             index === 0 ? tag.name : ''
-          )[12] || ''
+          )[0]
         }
         author={{
           name: posts[12].node.author.name,
@@ -125,9 +121,7 @@ export default function Blog({
             description={node.content.text || ''}
             image={node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) =>
-                index === 0 ? tag.name : ''
-              )[1] || ''
+              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
               name: node.author.name,

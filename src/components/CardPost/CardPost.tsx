@@ -9,7 +9,7 @@ interface Props {
   title: string
   description: string
   image: string
-  tag: string
+  tag: string | undefined
   date: Date
   readingTime: number
   author: {
