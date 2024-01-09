@@ -53,7 +53,6 @@ export default function Home({
 
         <SocialIcons
           data={socialAccounts?.map((i) => ({
-            displayName: i?.node?.displayName as string,
             provider: i?.node?.provider as string,
             url: i?.node?.url as string
           }))}

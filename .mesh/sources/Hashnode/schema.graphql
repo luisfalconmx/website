@@ -1265,6 +1265,8 @@ type hn_PublicationIntegrations {
   wmPaymentPointer: String
   """The ID for the Hashnode-provided Umami analytics instance."""
   umamiWebsiteUUID: String
+  """Google Tag Manager ID for integration with Google Tag Manager."""
+  gTagManagerID: String
 }
 
 """Contains the publication's social media links."""
@@ -1809,6 +1811,16 @@ type hn_PublishPostPayload {
 
 type hn_UpdatePostPayload {
   post: hn_Post
+}
+
+type hn_RemovePostPayload {
+  """The deleted post."""
+  post: hn_Post
+}
+
+input hn_RemovePostInput {
+  """The ID of the post to remove."""
+  id: ID!
 }
 
 """
@@ -2591,6 +2603,8 @@ type HashnodeMutation {
   """Adds a post to a series."""
   hn_addPostToSeries(input: hn_AddPostToSeriesInput!): hn_AddPostToSeriesPayload!
   hn_updatePost(input: hn_UpdatePostInput!): hn_UpdatePostPayload!
+  """Removes a post."""
+  hn_removePost(input: hn_RemovePostInput!): hn_RemovePostPayload!
   """Reschedule a post."""
   hn_reschedulePost(input: hn_ReschedulePostInput!): hn_ScheduledPostPayload
 }

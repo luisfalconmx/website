@@ -1213,6 +1213,8 @@ export type hn_PublicationIntegrations = {
   wmPaymentPointer?: Maybe<Scalars['String']['output']>;
   /** The ID for the Hashnode-provided Umami analytics instance. */
   umamiWebsiteUUID?: Maybe<Scalars['String']['output']>;
+  /** Google Tag Manager ID for integration with Google Tag Manager. */
+  gTagManagerID?: Maybe<Scalars['String']['output']>;
 };
 
 /** Contains the publication's social media links. */
@@ -1709,6 +1711,16 @@ export type hn_PublishPostPayload = {
 
 export type hn_UpdatePostPayload = {
   post?: Maybe<hn_Post>;
+};
+
+export type hn_RemovePostPayload = {
+  /** The deleted post. */
+  post?: Maybe<hn_Post>;
+};
+
+export type hn_RemovePostInput = {
+  /** The ID of the post to remove. */
+  id: Scalars['ID']['input'];
 };
 
 /** Contains information about cover image options of the post. Like URL of the cover image, attribution, etc. */
@@ -2425,6 +2437,8 @@ export type HashnodeMutation = {
   /** Adds a post to a series. */
   hn_addPostToSeries: hn_AddPostToSeriesPayload;
   hn_updatePost: hn_UpdatePostPayload;
+  /** Removes a post. */
+  hn_removePost: hn_RemovePostPayload;
   /** Reschedule a post. */
   hn_reschedulePost?: Maybe<hn_ScheduledPostPayload>;
 };
@@ -2458,6 +2472,11 @@ export type HashnodeMutationhn_addPostToSeriesArgs = {
 
 export type HashnodeMutationhn_updatePostArgs = {
   input: hn_UpdatePostInput;
+};
+
+
+export type HashnodeMutationhn_removePostArgs = {
+  input: hn_RemovePostInput;
 };
 
 

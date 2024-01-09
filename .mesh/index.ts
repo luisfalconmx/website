@@ -30358,6 +30358,8 @@ export type hn_PublicationIntegrations = {
   wmPaymentPointer?: Maybe<Scalars['String']['output']>;
   /** The ID for the Hashnode-provided Umami analytics instance. */
   umamiWebsiteUUID?: Maybe<Scalars['String']['output']>;
+  /** Google Tag Manager ID for integration with Google Tag Manager. */
+  gTagManagerID?: Maybe<Scalars['String']['output']>;
 };
 
 /** Contains the publication's social media links. */
@@ -30854,6 +30856,16 @@ export type hn_PublishPostPayload = {
 
 export type hn_UpdatePostPayload = {
   post?: Maybe<hn_Post>;
+};
+
+export type hn_RemovePostPayload = {
+  /** The deleted post. */
+  post?: Maybe<hn_Post>;
+};
+
+export type hn_RemovePostInput = {
+  /** The ID of the post to remove. */
+  id: Scalars['ID']['input'];
 };
 
 /** Contains information about cover image options of the post. Like URL of the cover image, attribution, etc. */
@@ -31570,6 +31582,8 @@ export type HashnodeMutation = {
   /** Adds a post to a series. */
   hn_addPostToSeries: hn_AddPostToSeriesPayload;
   hn_updatePost: hn_UpdatePostPayload;
+  /** Removes a post. */
+  hn_removePost: hn_RemovePostPayload;
   /** Reschedule a post. */
   hn_reschedulePost?: Maybe<hn_ScheduledPostPayload>;
 };
@@ -31603,6 +31617,11 @@ export type HashnodeMutationhn_addPostToSeriesArgs = {
 
 export type HashnodeMutationhn_updatePostArgs = {
   input: hn_UpdatePostInput;
+};
+
+
+export type HashnodeMutationhn_removePostArgs = {
+  input: hn_RemovePostInput;
 };
 
 
@@ -33441,6 +33460,8 @@ export type ResolversTypes = ResolversObject<{
   hn_UserPostConnection: ResolverTypeWrapper<hn_UserPostConnection>;
   hn_PublishPostPayload: ResolverTypeWrapper<hn_PublishPostPayload>;
   hn_UpdatePostPayload: ResolverTypeWrapper<hn_UpdatePostPayload>;
+  hn_RemovePostPayload: ResolverTypeWrapper<hn_RemovePostPayload>;
+  hn_RemovePostInput: hn_RemovePostInput;
   hn_CoverImageOptionsInput: hn_CoverImageOptionsInput;
   hn_MetaTagsInput: hn_MetaTagsInput;
   hn_PublishPostTagInput: hn_PublishPostTagInput;
@@ -34896,6 +34917,8 @@ export type ResolversParentTypes = ResolversObject<{
   hn_UserPostConnection: hn_UserPostConnection;
   hn_PublishPostPayload: hn_PublishPostPayload;
   hn_UpdatePostPayload: hn_UpdatePostPayload;
+  hn_RemovePostPayload: hn_RemovePostPayload;
+  hn_RemovePostInput: hn_RemovePostInput;
   hn_CoverImageOptionsInput: hn_CoverImageOptionsInput;
   hn_MetaTagsInput: hn_MetaTagsInput;
   hn_PublishPostTagInput: hn_PublishPostTagInput;
@@ -45441,6 +45464,7 @@ export type hn_PublicationIntegrationsResolvers<ContextType = MeshContext, Paren
   plausibleAnalyticsEnabled?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   wmPaymentPointer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   umamiWebsiteUUID?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gTagManagerID?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -45676,6 +45700,11 @@ export type hn_PublishPostPayloadResolvers<ContextType = MeshContext, ParentType
 }>;
 
 export type hn_UpdatePostPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['hn_UpdatePostPayload'] = ResolversParentTypes['hn_UpdatePostPayload']> = ResolversObject<{
+  post?: Resolver<Maybe<ResolversTypes['hn_Post']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type hn_RemovePostPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['hn_RemovePostPayload'] = ResolversParentTypes['hn_RemovePostPayload']> = ResolversObject<{
   post?: Resolver<Maybe<ResolversTypes['hn_Post']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -45940,6 +45969,7 @@ export type HashnodeMutationResolvers<ContextType = MeshContext, ParentType exte
   hn_publishPost?: Resolver<ResolversTypes['hn_PublishPostPayload'], ParentType, ContextType, RequireFields<HashnodeMutationhn_publishPostArgs, 'input'>>;
   hn_addPostToSeries?: Resolver<ResolversTypes['hn_AddPostToSeriesPayload'], ParentType, ContextType, RequireFields<HashnodeMutationhn_addPostToSeriesArgs, 'input'>>;
   hn_updatePost?: Resolver<ResolversTypes['hn_UpdatePostPayload'], ParentType, ContextType, RequireFields<HashnodeMutationhn_updatePostArgs, 'input'>>;
+  hn_removePost?: Resolver<ResolversTypes['hn_RemovePostPayload'], ParentType, ContextType, RequireFields<HashnodeMutationhn_removePostArgs, 'input'>>;
   hn_reschedulePost?: Resolver<Maybe<ResolversTypes['hn_ScheduledPostPayload']>, ParentType, ContextType, RequireFields<HashnodeMutationhn_reschedulePostArgs, 'input'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -47002,6 +47032,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   hn_UserPostConnection?: hn_UserPostConnectionResolvers<ContextType>;
   hn_PublishPostPayload?: hn_PublishPostPayloadResolvers<ContextType>;
   hn_UpdatePostPayload?: hn_UpdatePostPayloadResolvers<ContextType>;
+  hn_RemovePostPayload?: hn_RemovePostPayloadResolvers<ContextType>;
   hn_AddPostToSeriesPayload?: hn_AddPostToSeriesPayloadResolvers<ContextType>;
   hn_Comment?: hn_CommentResolvers<ContextType>;
   hn_CommentReplyConnection?: hn_CommentReplyConnectionResolvers<ContextType>;

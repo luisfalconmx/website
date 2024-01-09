@@ -1,13 +1,13 @@
 import { getMeshSDK } from '../../.mesh'
 import { hashnodeConfig } from '@/config'
 import CardPost from '@/components/CardPost'
-import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-export const getStaticProps = (async () => {
+export const getServerSideProps = (async () => {
   const { LatestBlogPosts } = await getMeshSDK()
   const data = await LatestBlogPosts({
     host: hashnodeConfig.host,
-    posts: 20
+    posts: 12
   })
 
   const posts =
@@ -18,11 +18,11 @@ export const getStaticProps = (async () => {
       posts
     }
   }
-}) satisfies GetStaticProps
+}) satisfies GetServerSideProps
 
 export default function Blog({
   posts
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main className="mx-auto my-24 max-w-[1100px]">
       <CardPost

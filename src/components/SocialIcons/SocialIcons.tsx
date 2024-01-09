@@ -2,9 +2,9 @@ import Image from 'next/image'
 
 type Props = {
   data?: {
-    displayName: string
     provider: string
     url: string
+    displayName?: string
   }[]
   className?: string
 }
