@@ -1,15 +1,50 @@
 import Image from 'next/image'
+import githubClient from '@/clients/githubClient'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
+import {
+  GithubProfileDocument,
+  GithubProfileQuery,
+  GithubProfileQueryVariables
+} from '@/generated/github.schema'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async () => {
+  const client = githubClient()
+
+  const response = await client.query<
+    GithubProfileQuery,
+    GithubProfileQueryVariables
+  >({
+    query: GithubProfileDocument,
+    variables: {
+      username: 'luisfalconmx'
+    }
+  })
+
+  const socialAccounts = response.data.user?.socialAccounts?.edges?.map(
+    (i) => ({
+      provider: i?.node?.provider as string,
+      url: i?.node?.url as string,
+      displayName: i?.node?.displayName as string
+    })
+  )
+
+  const githubAccount = {
+    provider: 'github',
+    url: 'https://github.com/luisfalconmx',
+    displayName: 'luisfalconmx'
+  }
+
+  // add githubAccount first to socialAccounts array
+  socialAccounts?.unshift(githubAccount)
+
   return {
     props: {
-      login: 'luisfalconmx',
-      avatar_url: 'https://avatars.githubusercontent.com/u/2471291?v=4',
-      bio: 'bio',
-      socialAccounts: []
+      login: response.data.user?.login ?? '',
+      avatar_url: response.data.user?.avatarUrl ?? '',
+      bio: response.data.user?.bio ?? '',
+      socialAccounts: socialAccounts
     }
   }
 }) satisfies GetStaticProps
@@ -45,10 +80,7 @@ export default function Home({
           <Button variant="outlined">Download CV</Button>
         </div>
 
-        {/* <SocialIcons
-          data={}
-          className="mx-auto flex w-fit"
-        /> */}
+        <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
       </section>
     </main>
   )

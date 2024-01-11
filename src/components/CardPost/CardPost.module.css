@@ -52,11 +52,15 @@
 }
 
 .CardPost--track {
-  @apply grid min-h-[300px] max-w-none grid-cols-[450px,1fr];
+  @apply grid min-h-[300px] max-w-none grid-cols-[500px,1fr];
+}
+
+.CardPost--track .CardPost__content {
+  @apply pr-10;
 }
 
 .CardPost--track .CardPost__image {
-  @apply aspect-video h-full w-full object-fill;
+  @apply aspect-video h-full w-full;
 }
 
 .CardPost--track .CardPost__title {
@@ -69,34 +73,6 @@
 
 .CardPost--track .CardPost__description {
   @apply text-lg;
-}
-
-.CardPost--box {
-  @apply grid min-h-[500px] max-w-none grid-cols-[450px,1fr];
-}
-
-.CardPost--box .CardPost__content {
-  @apply order-1 col-start-1 row-start-1;
-}
-
-.CardPost--box .CardPost__image {
-  @apply col-start-2 aspect-video h-full object-fill;
-}
-
-.CardPost--box .CardPost__title {
-  @apply text-3xl;
-}
-
-.CardPost--box .CardPost__tag {
-  @apply text-lg;
-}
-
-.CardPost--box .CardPost__description {
-  @apply text-lg;
-}
-
-.CardPost--box .CardPost__author {
-  @apply mt-0;
 }
 
 .CardPost--jumbo {
@@ -120,7 +96,7 @@
 }
 
 .CardPost--jumbo .CardPost__content {
-  @apply absolute z-20 h-full max-w-[510px] px-10;
+  @apply absolute z-20 flex h-full max-w-[510px] flex-col-reverse justify-start px-10;
 }
 
 .CardPost--jumbo .CardPost__description {
@@ -128,5 +104,5 @@
 }
 
 .CardPost--jumbo .CardPost__author {
-  @apply text-ghost dark:text-ghost;
+  @apply mb-auto mt-0 text-ghost dark:text-ghost;
 }

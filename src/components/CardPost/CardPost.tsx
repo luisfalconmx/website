@@ -5,7 +5,7 @@ import cn from '@/utils/cn'
 import styles from './CardPost.module.css'
 
 interface Props {
-  variant?: 'default' | 'imageless' | 'square' | 'track' | 'box' | 'jumbo'
+  variant?: 'default' | 'imageless' | 'square' | 'track' | 'jumbo'
   title: string
   description: string
   image: string
@@ -63,11 +63,6 @@ const CardPost = ({
     imageHeight = 295
   }
 
-  if (variant === 'box') {
-    imageWidth = 550
-    imageHeight = 250
-  }
-
   if (variant === 'jumbo') {
     imageWidth = 1100
     imageHeight = 500
@@ -81,7 +76,6 @@ const CardPost = ({
           [styles['CardPost--imageless']]: variant === 'imageless',
           [styles['CardPost--square']]: variant === 'square',
           [styles['CardPost--track']]: variant === 'track',
-          [styles['CardPost--box']]: variant === 'box',
           [styles['CardPost--jumbo']]: variant === 'jumbo'
         },
         className

@@ -7,6 +7,10 @@ import {
   LatestBlogPostsQueryVariables
 } from '@/generated/hashnode.schema'
 
+import { Splide, SplideSlide } from '@splidejs/react-splide'
+import type { Options } from '@splidejs/react-splide'
+import '@splidejs/react-splide/css'
+
 export const getServerSideProps = (async () => {
   const client = hashnodeClient()
   const response = await client.query<
@@ -16,7 +20,7 @@ export const getServerSideProps = (async () => {
     query: LatestBlogPostsDocument,
     variables: {
       host: 'lo-victoria.com',
-      posts: 12
+      posts: 14
     }
   })
 
@@ -30,113 +34,104 @@ export const getServerSideProps = (async () => {
 export default function Blog({
   posts
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const carouselOptions: Options = {
+    pagination: false
+  }
+
   return (
     <main className="mx-auto my-24 max-w-[1100px]">
-      <CardPost
-        variant="jumbo"
-        className="mb-24"
-        key={posts[0].node.id}
-        title={posts[0].node.title}
-        description={posts[0].node.content.text || ''}
-        image={posts[0].node.coverImage?.url || ''}
-        tag={
-          posts[0].node.tags?.map((tag, index) =>
-            index === 0 ? tag.name : ''
-          )[0]
-        }
-        author={{
-          name: posts[0].node.author.name,
-          label: posts[0].node.author.username,
-          image: posts[0].node.author.profilePicture || ''
-        }}
-        date={posts[0].node.publishedAt}
-        readingTime={posts[0].node.readTimeInMinutes}
-      />
+      <Splide aria-label="My Favorite Images" options={carouselOptions}>
+        {posts.slice(0, 3).map((i) => (
+          <SplideSlide key={i.node.id}>
+            <CardPost
+              variant="jumbo"
+              className="mb-24"
+              key={i.node.id}
+              title={i.node.title}
+              description={i.node.content.text || ''}
+              image={i.node.coverImage?.url || ''}
+              tag={
+                i.node.tags?.map((tag, index) =>
+                  index === 0 ? tag.name : ''
+                )[0]
+              }
+              author={{
+                name: i.node.author.name,
+                label: i.node.author.username,
+                image: i.node.author.profilePicture || ''
+              }}
+              date={i.node.publishedAt}
+              readingTime={i.node.readTimeInMinutes}
+            />
+          </SplideSlide>
+        ))}
+      </Splide>
 
-      <div className="mb-24 grid grid-cols-3 gap-x-7 gap-y-10">
-        {posts.slice(1, 6).map(({ node }, index) => (
+      <div className="mb-16 grid grid-cols-3 gap-4">
+        {posts.slice(3, 9).map((i) => (
           <CardPost
-            variant={index === 0 ? 'square' : 'default'}
-            className={index === 0 ? 'col-span-2' : ''}
-            key={node.id}
-            title={node.title}
-            description={node.content.text || ''}
-            image={node.coverImage?.url || ''}
+            variant="default"
+            className=""
+            key={i.node.id}
+            title={i.node.title}
+            description={i.node.content.text || ''}
+            image={i.node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
+              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
-              name: node.author.name,
-              label: node.author.username,
-              image: node.author.profilePicture || ''
+              name: i.node.author.name,
+              label: i.node.author.username,
+              image: i.node.author.profilePicture || ''
             }}
-            date={node.publishedAt}
-            readingTime={node.readTimeInMinutes}
+            date={i.node.publishedAt}
+            readingTime={i.node.readTimeInMinutes}
           />
         ))}
       </div>
 
-      <div className="mb-24 grid grid-cols-3 gap-3">
-        {posts.slice(6, 12).map(({ node }) => (
+      <div className="mb-16 grid grid-cols-2 gap-x-4">
+        {posts.slice(9, 11).map((i) => (
           <CardPost
-            variant="imageless"
-            key={node.id}
-            title={node.title}
-            description={node.content.text || ''}
-            image={node.coverImage?.url || ''}
+            variant="square"
+            className=""
+            key={i.node.id}
+            title={i.node.title}
+            description={i.node.content.text || ''}
+            image={i.node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
+              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
-              name: node.author.name,
-              label: node.author.username,
-              image: node.author.profilePicture || ''
+              name: i.node.author.name,
+              label: i.node.author.username,
+              image: i.node.author.profilePicture || ''
             }}
-            date={node.publishedAt}
-            readingTime={node.readTimeInMinutes}
+            date={i.node.publishedAt}
+            readingTime={i.node.readTimeInMinutes}
           />
         ))}
       </div>
 
-      <CardPost
-        variant="box"
-        className="mb-24"
-        key={posts[12].node.id}
-        title={posts[12].node.title}
-        description={posts[12].node.content.text || ''}
-        image={posts[12].node.coverImage?.url || ''}
-        tag={
-          posts[12].node.tags?.map((tag, index) =>
-            index === 0 ? tag.name : ''
-          )[0]
-        }
-        author={{
-          name: posts[12].node.author.name,
-          label: posts[12].node.author.username,
-          image: posts[12].node.author.profilePicture || ''
-        }}
-        date={posts[12].node.publishedAt}
-        readingTime={posts[12].node.readTimeInMinutes}
-      />
-
-      <div className="grid grid-cols-1 gap-y-7">
-        {posts.slice(13, 20).map(({ node }) => (
+      <div className="grid grid-cols-1 gap-y-4">
+        {posts.slice(11).map((i) => (
           <CardPost
             variant="track"
-            key={node.id}
-            title={node.title}
-            description={node.content.text || ''}
-            image={node.coverImage?.url || ''}
+            className=""
+            key={i.node.id}
+            title={i.node.title}
+            description={i.node.content.text || ''}
+            image={i.node.coverImage?.url || ''}
             tag={
-              node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
+              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
             author={{
-              name: node.author.name,
-              label: node.author.username,
-              image: node.author.profilePicture || ''
+              name: i.node.author.name,
+              label: i.node.author.username,
+              image: i.node.author.profilePicture || ''
             }}
-            date={node.publishedAt}
-            readingTime={node.readTimeInMinutes}
+            date={i.node.publishedAt}
+            readingTime={i.node.readTimeInMinutes}
           />
         ))}
       </div>
