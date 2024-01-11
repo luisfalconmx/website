@@ -2,20 +2,14 @@ import Image from 'next/image'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { getMeshSDK } from '../../.mesh'
 
 export const getStaticProps = (async () => {
-  const { GithubProfile } = await getMeshSDK()
-  const {
-    Github: { gh_user }
-  } = await GithubProfile({ username: 'luisfalconmx' })
-
   return {
     props: {
-      login: gh_user?.login,
-      avatar_url: gh_user?.avatarUrl,
-      bio: gh_user?.bio,
-      socialAccounts: gh_user?.socialAccounts.edges
+      login: 'luisfalconmx',
+      avatar_url: 'https://avatars.githubusercontent.com/u/2471291?v=4',
+      bio: 'bio',
+      socialAccounts: []
     }
   }
 }) satisfies GetStaticProps
@@ -51,13 +45,10 @@ export default function Home({
           <Button variant="outlined">Download CV</Button>
         </div>
 
-        <SocialIcons
-          data={socialAccounts?.map((i) => ({
-            provider: i?.node?.provider as string,
-            url: i?.node?.url as string
-          }))}
+        {/* <SocialIcons
+          data={}
           className="mx-auto flex w-fit"
-        />
+        /> */}
       </section>
     </main>
   )

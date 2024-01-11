@@ -1,21 +1,28 @@
-import { getMeshSDK } from '../../.mesh'
-import { hashnodeConfig } from '@/config'
+import hashnodeClient from '@/clients/hashnodeClient'
 import CardPost from '@/components/CardPost'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import {
+  LatestBlogPostsDocument,
+  LatestBlogPostsQuery,
+  LatestBlogPostsQueryVariables
+} from '@/generated/hashnode.schema'
 
 export const getServerSideProps = (async () => {
-  const { LatestBlogPosts } = await getMeshSDK()
-  const data = await LatestBlogPosts({
-    host: hashnodeConfig.host,
-    posts: 12
+  const client = hashnodeClient()
+  const response = await client.query<
+    LatestBlogPostsQuery,
+    LatestBlogPostsQueryVariables
+  >({
+    query: LatestBlogPostsDocument,
+    variables: {
+      host: 'lo-victoria.com',
+      posts: 12
+    }
   })
-
-  const posts =
-    data.Hashnode.hn_publication?.posts.edges.map((node) => node) ?? []
 
   return {
     props: {
-      posts
+      posts: response.data.publication?.posts.edges || []
     }
   }
 }) satisfies GetServerSideProps

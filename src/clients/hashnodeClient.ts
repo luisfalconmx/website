@@ -1,12 +1,12 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
-const createClient = (uri: string) => {
+const hashnodeClient = () => {
   const client = new ApolloClient({
-    uri,
+    uri: 'https://gql.hashnode.com/',
     cache: new InMemoryCache()
   })
 
   return client
 }
 
-export default createClient
+export default hashnodeClient
