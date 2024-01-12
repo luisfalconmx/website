@@ -7,6 +7,7 @@ import {
   GithubProfileQuery,
   GithubProfileQueryVariables
 } from '@/generated/github.schema'
+import { GITHUB_USERNAME } from '@/config'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async () => {
@@ -18,7 +19,7 @@ export const getStaticProps = (async () => {
   >({
     query: GithubProfileDocument,
     variables: {
-      username: 'luisfalconmx'
+      username: GITHUB_USERNAME
     }
   })
 
@@ -32,8 +33,8 @@ export const getStaticProps = (async () => {
 
   const githubAccount = {
     provider: 'github',
-    url: 'https://github.com/luisfalconmx',
-    displayName: 'luisfalconmx'
+    url: `https://github.com/${GITHUB_USERNAME}`,
+    displayName: GITHUB_USERNAME
   }
 
   // add githubAccount first to socialAccounts array

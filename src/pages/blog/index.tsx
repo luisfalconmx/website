@@ -1,5 +1,6 @@
 import hashnodeClient from '@/clients/hashnodeClient'
 import CardPost from '@/components/CardPost'
+import { HASHNODE_HOST } from '@/config'
 import {
   LatestBlogPostsDocument,
   LatestBlogPostsQuery,
@@ -18,7 +19,7 @@ export const getStaticProps = (async () => {
   >({
     query: LatestBlogPostsDocument,
     variables: {
-      hostname: 'luisfalconmx.hashnode.dev',
+      hostname: HASHNODE_HOST,
       posts: 14
     }
   })

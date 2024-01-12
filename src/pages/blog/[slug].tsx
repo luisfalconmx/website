@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import hashnodeClient from '@/clients/hashnodeClient'
+import { HASHNODE_HOST } from '@/config'
 import {
   GetBlogPostDocument,
   GetBlogPostQuery,
@@ -18,7 +19,7 @@ export const getStaticProps = (async ({ params }) => {
   >({
     query: GetBlogPostDocument,
     variables: {
-      hostname: 'luisfalconmx.hashnode.dev',
+      hostname: HASHNODE_HOST,
       slug: params?.slug as string
     }
   })
@@ -39,7 +40,7 @@ export const getStaticPaths = async () => {
   >({
     query: LatestBlogPostsDocument,
     variables: {
-      hostname: 'luisfalconmx.hashnode.dev',
+      hostname: HASHNODE_HOST,
       posts: 14
     }
   })

@@ -1,8 +1,9 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { HASHNODE_ENDPOINT } from '@/config'
 
 const hashnodeClient = () => {
   const client = new ApolloClient({
-    uri: 'https://gql.hashnode.com/',
+    uri: HASHNODE_ENDPOINT,
     cache: new InMemoryCache()
   })
 

@@ -1,13 +1,12 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
-import dotenv from 'dotenv'
-dotenv.config()
+import { GITHUB_ENDPOINT, GITHUB_TOKEN } from '@/config'
 
 const githubClient = () => {
   const client = new ApolloClient({
-    uri: 'https://api.github.com/graphql',
+    uri: GITHUB_ENDPOINT,
     cache: new InMemoryCache(),
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
       'User-Agent': 'GraphQL Apollo'
     }
   })
