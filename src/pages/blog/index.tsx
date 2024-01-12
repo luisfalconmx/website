@@ -1,17 +1,16 @@
 import hashnodeClient from '@/clients/hashnodeClient'
 import CardPost from '@/components/CardPost'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import {
   LatestBlogPostsDocument,
   LatestBlogPostsQuery,
   LatestBlogPostsQueryVariables
 } from '@/generated/hashnode.schema'
-
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import type { Options } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
 
-export const getServerSideProps = (async () => {
+export const getStaticProps = (async () => {
   const client = hashnodeClient()
   const response = await client.query<
     LatestBlogPostsQuery,
@@ -19,7 +18,7 @@ export const getServerSideProps = (async () => {
   >({
     query: LatestBlogPostsDocument,
     variables: {
-      host: 'lo-victoria.com',
+      hostname: 'luisfalconmx.hashnode.dev',
       posts: 14
     }
   })
@@ -27,15 +26,19 @@ export const getServerSideProps = (async () => {
   return {
     props: {
       posts: response.data.publication?.posts.edges || []
-    }
+    },
+    revalidate: 60 * 5 // 5 minutes
   }
-}) satisfies GetServerSideProps
+}) satisfies GetStaticProps
 
 export default function Blog({
   posts
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const carouselOptions: Options = {
-    pagination: false
+    pagination: false,
+    rewind: true,
+    arrows: false,
+    keyboard: true
   }
 
   return (
@@ -48,8 +51,9 @@ export default function Blog({
               className="mb-24"
               key={i.node.id}
               title={i.node.title}
-              description={i.node.content.text || ''}
+              description={i.node.brief || ''}
               image={i.node.coverImage?.url || ''}
+              link={`blog/${i.node.slug}`}
               tag={
                 i.node.tags?.map((tag, index) =>
                   index === 0 ? tag.name : ''
@@ -74,8 +78,9 @@ export default function Blog({
             className=""
             key={i.node.id}
             title={i.node.title}
-            description={i.node.content.text || ''}
+            description={i.node.brief || ''}
             image={i.node.coverImage?.url || ''}
+            link={`blog/${i.node.slug}`}
             tag={
               i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
@@ -97,8 +102,9 @@ export default function Blog({
             className=""
             key={i.node.id}
             title={i.node.title}
-            description={i.node.content.text || ''}
+            description={i.node.brief || ''}
             image={i.node.coverImage?.url || ''}
+            link={`blog/${i.node.slug}`}
             tag={
               i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }
@@ -120,8 +126,9 @@ export default function Blog({
             className=""
             key={i.node.id}
             title={i.node.title}
-            description={i.node.content.text || ''}
+            description={i.node.brief || ''}
             image={i.node.coverImage?.url || ''}
+            link={`blog/${i.node.slug}`}
             tag={
               i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
             }

@@ -1,13 +1,13 @@
-query LatestBlogPosts($host: String!, $posts: Int!) {
-  publication(host: $host) {
+query LatestBlogPosts($hostname: String!, $posts: Int!) {
+  publication(host: $hostname) {
     posts(first: $posts) {
       edges {
         node {
           id
           title
-          content {
-            text
-          }
+          slug
+          url
+          brief
           tags {
             name
           }

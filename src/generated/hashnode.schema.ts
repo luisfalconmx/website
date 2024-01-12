@@ -2572,8 +2572,26 @@ export type WebhookMessageResponse = {
   timeToFirstByteMilliseconds?: Maybe<Scalars['Int']['output']>
 }
 
+export type GetBlogPostQueryVariables = Exact<{
+  hostname: Scalars['String']['input']
+  slug: Scalars['String']['input']
+}>
+
+export type GetBlogPostQuery = {
+  __typename?: 'Query'
+  publication?: {
+    __typename?: 'Publication'
+    post?: {
+      __typename?: 'Post'
+      title: string
+      coverImage?: { __typename?: 'PostCoverImage'; url: string } | null
+      content: { __typename?: 'Content'; text: string }
+    } | null
+  } | null
+}
+
 export type LatestBlogPostsQueryVariables = Exact<{
-  host: Scalars['String']['input']
+  hostname: Scalars['String']['input']
   posts: Scalars['Int']['input']
 }>
 
@@ -2589,9 +2607,11 @@ export type LatestBlogPostsQuery = {
           __typename?: 'Post'
           id: string
           title: string
+          slug: string
+          url: string
+          brief: string
           publishedAt: any
           readTimeInMinutes: number
-          content: { __typename?: 'Content'; text: string }
           tags?: Array<{ __typename?: 'Tag'; name: string }> | null
           coverImage?: { __typename?: 'PostCoverImage'; url: string } | null
           author: {
@@ -2607,17 +2627,97 @@ export type LatestBlogPostsQuery = {
   } | null
 }
 
+export const GetBlogPostDocument = gql`
+  query GetBlogPost($hostname: String!, $slug: String!) {
+    publication(host: $hostname) {
+      post(slug: $slug) {
+        title
+        coverImage {
+          url
+        }
+        content {
+          text
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetBlogPostQuery__
+ *
+ * To run a query within a React component, call `useGetBlogPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBlogPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBlogPostQuery({
+ *   variables: {
+ *      hostname: // value for 'hostname'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetBlogPostQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetBlogPostQuery,
+    GetBlogPostQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
+    GetBlogPostDocument,
+    options
+  )
+}
+export function useGetBlogPostLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBlogPostQuery,
+    GetBlogPostQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
+    GetBlogPostDocument,
+    options
+  )
+}
+export function useGetBlogPostSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetBlogPostQuery,
+    GetBlogPostQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
+    GetBlogPostDocument,
+    options
+  )
+}
+export type GetBlogPostQueryHookResult = ReturnType<typeof useGetBlogPostQuery>
+export type GetBlogPostLazyQueryHookResult = ReturnType<
+  typeof useGetBlogPostLazyQuery
+>
+export type GetBlogPostSuspenseQueryHookResult = ReturnType<
+  typeof useGetBlogPostSuspenseQuery
+>
+export type GetBlogPostQueryResult = Apollo.QueryResult<
+  GetBlogPostQuery,
+  GetBlogPostQueryVariables
+>
 export const LatestBlogPostsDocument = gql`
-  query LatestBlogPosts($host: String!, $posts: Int!) {
-    publication(host: $host) {
+  query LatestBlogPosts($hostname: String!, $posts: Int!) {
+    publication(host: $hostname) {
       posts(first: $posts) {
         edges {
           node {
             id
             title
-            content {
-              text
-            }
+            slug
+            url
+            brief
             tags {
               name
             }
@@ -2651,7 +2751,7 @@ export const LatestBlogPostsDocument = gql`
  * @example
  * const { data, loading, error } = useLatestBlogPostsQuery({
  *   variables: {
- *      host: // value for 'host'
+ *      hostname: // value for 'hostname'
  *      posts: // value for 'posts'
  *   },
  * });

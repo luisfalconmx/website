@@ -6,6 +6,7 @@ import styles from './CardPost.module.css'
 
 interface Props {
   variant?: 'default' | 'imageless' | 'square' | 'track' | 'jumbo'
+  link: string
   title: string
   description: string
   image: string
@@ -22,6 +23,7 @@ interface Props {
 
 const CardPost = ({
   variant = 'default',
+  link,
   title,
   description,
   image,
@@ -31,12 +33,6 @@ const CardPost = ({
   readingTime,
   className = ''
 }: Props) => {
-  const maxDescriptionLength = 110
-  const formatedDescription =
-    description.length > maxDescriptionLength
-      ? description.slice(0, maxDescriptionLength) + '...'
-      : description
-
   const formatedDate = humanDate(date)
   const customLabel = `${formatedDate} • ${readingTime} min read`
 
@@ -69,40 +65,38 @@ const CardPost = ({
   }
 
   return (
-    <div
-      className={cn(
-        styles.CardPost,
-        {
+    <a className={cn('block', className)} href={link}>
+      <div
+        className={cn(styles.CardPost, {
           [styles['CardPost--imageless']]: variant === 'imageless',
           [styles['CardPost--square']]: variant === 'square',
           [styles['CardPost--track']]: variant === 'track',
           [styles['CardPost--jumbo']]: variant === 'jumbo'
-        },
-        className
-      )}
-    >
-      <div className={styles.CardPost__overlay} />
-      <Image
-        src={image}
-        alt={title}
-        width={imageWidth}
-        height={imageHeight}
-        className={styles.CardPost__image}
-      />
-      <div className={styles.CardPost__content}>
-        <div>
-          {tag && <span className={styles.CardPost__tag}>{tag}</span>}
-          <h1 className={styles.CardPost__title}>{title}</h1>
-          <p className={styles.CardPost__description}>{formatedDescription}</p>
-        </div>
-        <Author
-          image={author.image}
-          name={author.name}
-          label={customLabel}
-          className={styles.CardPost__author}
+        })}
+      >
+        <div className={styles.CardPost__overlay} />
+        <Image
+          src={image}
+          alt={title}
+          width={imageWidth}
+          height={imageHeight}
+          className={styles.CardPost__image}
         />
+        <div className={styles.CardPost__content}>
+          <div>
+            {tag && <span className={styles.CardPost__tag}>{tag}</span>}
+            <h1 className={styles.CardPost__title}>{title}</h1>
+            <p className={styles.CardPost__description}>{description}</p>
+          </div>
+          <Author
+            image={author.image}
+            name={author.name}
+            label={customLabel}
+            className={styles.CardPost__author}
+          />
+        </div>
       </div>
-    </div>
+    </a>
   )
 }
 
