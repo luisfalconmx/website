@@ -3,7 +3,7 @@
 }
 
 .post p {
-  @apply pb-8 text-smoke;
+  @apply pb-5 text-smoke;
 }
 
 .post h1,
@@ -12,7 +12,15 @@
 .post h4,
 .post h5,
 .post h6 {
-  @apply pb-4 pt-6 text-3xl font-bold;
+  @apply pb-4 pt-6 text-2xl font-bold;
+}
+
+.post h1 {
+  @apply text-4xl;
+}
+
+.post h2 {
+  @apply text-3xl;
 }
 
 .post ul {
@@ -29,4 +37,8 @@
 
 .post a {
   @apply bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
+}
+
+.post pre {
+  @apply !mb-8 !mt-0 max-w-full overflow-hidden;
 }

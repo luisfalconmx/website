@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 import { highlightAll } from 'prismjs'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { HASHNODE_HOST } from '@/config'
-import parse from 'html-react-parser'
 import {
   GetBlogPostDocument,
   GetBlogPostQuery,
@@ -15,6 +15,18 @@ import {
 import humanDate from '@/utils/humanDate'
 import styles from '@/styles/modules/post.module.css'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import 'prismjs/components/prism-typescript.min'
+import 'prismjs/components/prism-json.min'
+import 'prismjs/components/prism-yaml.min'
+import 'prismjs/components/prism-bash.min'
+import 'prismjs/components/prism-docker.min'
+import 'prismjs/components/prism-jsx.min'
+import 'prismjs/components/prism-tsx.min'
+import 'prismjs/components/prism-markdown.min'
+import 'prismjs/components/prism-graphql.min'
+import 'prismjs/components/prism-css.min'
+import 'prismjs/components/prism-scss.min'
+import 'prismjs/components/prism-git.min'
 
 export const getStaticProps = (async ({ params }) => {
   const client = hashnodeClient()
@@ -71,10 +83,9 @@ export default function Blog({
 
   useEffect(() => {
     setIsClient(true)
-
     setTimeout(() => {
       highlightAll()
-    }, 3000)
+    }, 700)
   }, [])
 
   return (

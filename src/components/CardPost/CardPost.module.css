@@ -60,7 +60,7 @@
 }
 
 .CardPost--track .CardPost__content {
-  @apply py-5;
+  @apply py-5 pl-8;
 }
 
 .CardPost--track .CardPost__image {

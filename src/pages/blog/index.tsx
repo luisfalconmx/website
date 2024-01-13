@@ -121,7 +121,7 @@ export default function Blog({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-y-4">
+      <div className="grid grid-cols-1 gap-y-8">
         {posts.slice(11).map((i) => (
           <CardPost
             variant="track"
