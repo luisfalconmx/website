@@ -1,7 +1,11 @@
 .Carousel {
-  @apply relative overflow-hidden rounded;
+  @apply !relative !overflow-hidden !rounded;
 }
 
 .Carousel__arrow {
-  @apply absolute bottom-[50px] right-[40px] z-10 m-auto block h-fit w-fit;
+  @apply !absolute !bottom-[40px] !right-[40px] !top-auto !z-10 !m-0 !block !h-fit !w-fit !translate-y-0 !bg-transparent;
+}
+
+.Carousel__icon {
+  @apply !h-16 !w-16 !bg-transparent !fill-none !text-[30px] !text-[#fff];
 }

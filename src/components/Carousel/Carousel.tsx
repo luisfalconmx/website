@@ -28,9 +28,17 @@ const Carousel = ({ children, className = '' }: Props) => {
       <SplideTrack>{children}</SplideTrack>
 
       <div className="splide__arrows">
-        <button className="splide__arrow splide__arrow--prev !hidden"></button>
-        <button className={styles.Carousel__arrow}>
-          <ChevronRight size={62} color="#ffffff" />
+        <button className="splide__arrow splide__arrow--prev !hidden">
+          Prev
+        </button>
+        <button
+          className={`splide__arrow splide__arrow--next ${styles.Carousel__arrow}`}
+        >
+          <ChevronRight
+            size={62}
+            color="#ffffff"
+            className={styles.Carousel__icon}
+          />
         </button>
       </div>
     </Splide>
