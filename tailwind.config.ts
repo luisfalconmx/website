@@ -16,7 +16,7 @@ const config: Config = {
       colors: {
         nightfall: '#0D0D0F',
         onyx: '#121214',
-        smoke: '#E1E1E1',
+        smoke: '#CECECE',
         ghost: '#F8F8FF',
         primary: '#F03939',
         secondary: '#D833F3'

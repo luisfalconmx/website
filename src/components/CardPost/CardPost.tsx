@@ -84,16 +84,13 @@ const CardPost = ({
         />
         <div className={styles.CardPost__content}>
           <div>
-            {tag && <span className={styles.CardPost__tag}>{tag}</span>}
+            <div className="mb-2 flex items-center">
+              <span className={styles.CardPost__tag}>{tag}</span>
+              <span className={styles.CardPost__date}>- {customLabel}</span>
+            </div>
             <h1 className={styles.CardPost__title}>{title}</h1>
             <p className={styles.CardPost__description}>{description}</p>
           </div>
-          <Author
-            image={author.image}
-            name={author.name}
-            label={customLabel}
-            className={styles.CardPost__author}
-          />
         </div>
       </div>
     </a>

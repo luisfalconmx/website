@@ -1,5 +1,5 @@
 .CardPost {
-  @apply flex max-w-[360px] flex-col overflow-hidden rounded-xl bg-ghost dark:bg-onyx;
+  @apply flex flex-col;
 }
 
 .CardPost__overlay {
@@ -11,11 +11,15 @@
 }
 
 .CardPost__content {
-  @apply flex h-full flex-col px-6 py-10 text-nightfall dark:text-ghost;
+  @apply flex h-full flex-col px-4 pt-8 text-nightfall dark:text-ghost;
 }
 
 .CardPost__tag {
-  @apply mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent;
+  @apply block bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent;
+}
+
+.CardPost__date {
+  @apply ml-2 block text-sm text-ghost;
 }
 
 .CardPost__title {
@@ -52,19 +56,19 @@
 }
 
 .CardPost--track {
-  @apply grid min-h-[300px] max-w-none grid-cols-[400px,1fr];
+  @apply grid min-h-[200px] max-w-none grid-cols-[400px,1fr];
 }
 
 .CardPost--track .CardPost__content {
-  @apply pr-10;
+  @apply py-5;
 }
 
 .CardPost--track .CardPost__image {
-  @apply aspect-video h-full w-full object-cover;
+  @apply aspect-video h-full w-full;
 }
 
 .CardPost--track .CardPost__title {
-  @apply text-xl;
+  @apply max-w-[500px] text-xl;
 }
 
 .CardPost--track .CardPost__tag {
@@ -72,7 +76,7 @@
 }
 
 .CardPost--track .CardPost__description {
-  @apply text-lg;
+  @apply mb-0 text-lg;
 }
 
 .CardPost--jumbo {
@@ -80,7 +84,7 @@
 }
 
 .CardPost--jumbo .CardPost__overlay {
-  @apply absolute inset-0 z-10 block bg-gradient-to-r from-black to-black/40;
+  @apply absolute inset-0 z-10 block bg-gradient-to-r from-black to-black/10;
 }
 
 .CardPost--jumbo .CardPost__tag {
@@ -100,7 +104,7 @@
 }
 
 .CardPost--jumbo .CardPost__description {
-  @apply mb-0 text-lg text-smoke dark:text-smoke;
+  @apply mb-10 text-lg text-smoke dark:text-smoke;
 }
 
 .CardPost--jumbo .CardPost__author {

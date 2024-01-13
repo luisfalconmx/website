@@ -2,11 +2,21 @@ query GetBlogPost($hostname: String!, $slug: String!) {
   publication(host: $hostname) {
     post(slug: $slug) {
       title
+      readTimeInMinutes
+      publishedAt
+      tags {
+        id
+        name
+      }
       coverImage {
         url
       }
+      seo {
+        title
+        description
+      }
       content {
-        text
+        html
       }
     }
   }

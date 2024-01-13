@@ -2584,8 +2584,16 @@ export type GetBlogPostQuery = {
     post?: {
       __typename?: 'Post'
       title: string
+      readTimeInMinutes: number
+      publishedAt: any
+      tags?: Array<{ __typename?: 'Tag'; id: string; name: string }> | null
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null
-      content: { __typename?: 'Content'; text: string }
+      seo?: {
+        __typename?: 'SEO'
+        title?: string | null
+        description?: string | null
+      } | null
+      content: { __typename?: 'Content'; html: string }
     } | null
   } | null
 }
@@ -2632,11 +2640,21 @@ export const GetBlogPostDocument = gql`
     publication(host: $hostname) {
       post(slug: $slug) {
         title
+        readTimeInMinutes
+        publishedAt
+        tags {
+          id
+          name
+        }
         coverImage {
           url
         }
+        seo {
+          title
+          description
+        }
         content {
-          text
+          html
         }
       }
     }

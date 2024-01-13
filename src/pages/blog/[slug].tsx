@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { HASHNODE_HOST } from '@/config'
+import DOMPurify from 'isomorphic-dompurify'
 import {
   GetBlogPostDocument,
   GetBlogPostQuery,
@@ -9,6 +10,8 @@ import {
   LatestBlogPostsQuery,
   LatestBlogPostsQueryVariables
 } from '@/generated/hashnode.schema'
+import humanDate from '@/utils/humanDate'
+import styles from '@/styles/modules/post.module.css'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async ({ params }) => {
@@ -58,16 +61,41 @@ export const getStaticPaths = async () => {
 export default function Blog({
   post
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const content = DOMPurify.sanitize(post?.content.html || '')
+  const tag = post?.tags ? post?.tags[0].name : ''
+  const formatedDate = humanDate(post?.publishedAt)
+  const customLabel = `${formatedDate} • ${post?.readTimeInMinutes} min read`
+
   return (
     <main className="mx-auto my-24 max-w-[1100px]">
+      <div className="mb-10">
+        <span className="mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-center text-2xl font-black uppercase text-transparent">
+          {tag}
+        </span>
+
+        <h1 className="mx-auto mb-8 max-w-[850px] text-center text-5xl font-bold leading-tight">
+          {post?.title}
+        </h1>
+
+        <span className="mx-auto block text-center text-xl text-smoke">
+          {customLabel}
+        </span>
+      </div>
+
       <Image
         src={post?.coverImage?.url || ''}
         alt={post?.title || ''}
-        width="500"
-        height="250"
+        width="1100"
+        height="550"
+        className="mx-auto mb-14 aspect-video w-full"
       />
-      <h1>{post?.title}</h1>
-      <p>{post?.content.text}</p>
+
+      <div
+        className={styles.post}
+        dangerouslySetInnerHTML={{
+          __html: content
+        }}
+      />
     </main>
   )
 }

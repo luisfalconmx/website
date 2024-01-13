@@ -1,0 +1,28 @@
+.post {
+  @apply mx-auto max-w-[900px] text-xl;
+}
+
+.post p {
+  @apply pb-8 text-smoke;
+}
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+  @apply pb-4 pt-6 text-3xl font-bold;
+}
+
+.post ul {
+  @apply list-disc ps-12;
+}
+
+.post ul p {
+  @apply pb-2;
+}
+
+.post a {
+  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
+}

@@ -39,11 +39,12 @@ export default function Blog({
     pagination: false,
     rewind: true,
     arrows: false,
-    keyboard: true
+    keyboard: true,
+    autoplay: true
   }
 
   return (
-    <main className="mx-auto my-24 max-w-[1100px]">
+    <main className="mx-auto my-24 max-w-[1200px]">
       <Splide aria-label="My Favorite Images" options={carouselOptions}>
         {posts.slice(0, 3).map((i) => (
           <SplideSlide key={i.node.id}>
