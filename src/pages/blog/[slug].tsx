@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Giscus from '@giscus/react'
 import Image from 'next/image'
 import parse from 'html-react-parser'
 import { highlightAll } from 'prismjs'
@@ -113,7 +114,24 @@ export default function Blog({
       />
 
       {isClient && (
-        <div className={styles.post}>{parse(post?.content.html || '')}</div>
+        <>
+          <div className={styles.post}>{parse(post?.content.html || '')}</div>
+
+          <div className="mx-auto max-w-[900px]">
+            <Giscus
+              repo="luisfalconmx/luisfalconmx.dev"
+              repoId="R_kgDOKy3dAQ"
+              category="Announcements"
+              categoryId="DIC_kwDOKy3dAc4CcZd9"
+              mapping="pathname"
+              reactionsEnabled="1"
+              emitMetadata="0"
+              theme="dark"
+              lang="en"
+              loading="lazy"
+            />
+          </div>
+        </>
       )}
     </main>
   )

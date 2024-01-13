@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.9",
+    "@giscus/react": "^2.4.0",
     "@splidejs/react-splide": "^0.7.12",
     "@tanstack/react-query": "^5.15.0",
     "@tanstack/react-query-devtools": "^5.15.0",
