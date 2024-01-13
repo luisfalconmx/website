@@ -16,11 +16,15 @@
 }
 
 .post ul {
-  @apply list-disc ps-12;
+  @apply list-disc pb-4 ps-12;
 }
 
 .post ul p {
   @apply pb-2;
+}
+
+.post img {
+  @apply pb-5;
 }
 
 .post a {

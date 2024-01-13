@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { highlightAll } from 'prismjs'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { HASHNODE_HOST } from '@/config'
-import DOMPurify from 'isomorphic-dompurify'
+import parse from 'html-react-parser'
 import {
   GetBlogPostDocument,
   GetBlogPostQuery,
@@ -61,10 +63,19 @@ export const getStaticPaths = async () => {
 export default function Blog({
   post
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const content = DOMPurify.sanitize(post?.content.html || '')
+  const [isClient, setIsClient] = useState(false)
+
   const tag = post?.tags ? post?.tags[0].name : ''
   const formatedDate = humanDate(post?.publishedAt)
   const customLabel = `${formatedDate} • ${post?.readTimeInMinutes} min read`
+
+  useEffect(() => {
+    setIsClient(true)
+
+    setTimeout(() => {
+      highlightAll()
+    }, 3000)
+  }, [])
 
   return (
     <main className="mx-auto my-24 max-w-[1100px]">
@@ -90,12 +101,9 @@ export default function Blog({
         className="mx-auto mb-14 aspect-video w-full"
       />
 
-      <div
-        className={styles.post}
-        dangerouslySetInnerHTML={{
-          __html: content
-        }}
-      />
+      {isClient && (
+        <div className={styles.post}>{parse(post?.content.html || '')}</div>
+      )}
     </main>
   )
 }
