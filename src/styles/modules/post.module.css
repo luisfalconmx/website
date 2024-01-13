@@ -1,5 +1,5 @@
 .post {
-  @apply mx-auto mb-16 max-w-[900px] text-xl;
+  @apply mx-auto mb-10 max-w-[900px] text-xl;
 }
 
 .post p {
