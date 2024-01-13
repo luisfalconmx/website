@@ -1,0 +1,10 @@
+.splide_arrow {
+  @apply !bg-none;
+}
+
+.splide__arrow .splide__arrow--next {
+}
+
+.splide__arrow svg {
+  @apply h-6 w-6;
+}
