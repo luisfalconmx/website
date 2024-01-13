@@ -32,6 +32,16 @@ export type Scalars = {
   ObjectId: { input: any; output: any }
 }
 
+export type AddCommentInput = {
+  contentMarkdown: Scalars['String']['input']
+  postId: Scalars['ID']['input']
+}
+
+export type AddCommentPayload = {
+  __typename?: 'AddCommentPayload'
+  comment?: Maybe<Comment>
+}
+
 export type AddPostToSeriesInput = {
   /** The ID of the post to be added to the series. */
   postId: Scalars['ObjectId']['input']
@@ -43,6 +53,16 @@ export type AddPostToSeriesPayload = {
   __typename?: 'AddPostToSeriesPayload'
   /** The series to which the post was added. */
   series?: Maybe<Series>
+}
+
+export type AddReplyInput = {
+  commentId: Scalars['ID']['input']
+  contentMarkdown: Scalars['String']['input']
+}
+
+export type AddReplyPayload = {
+  __typename?: 'AddReplyPayload'
+  reply?: Maybe<Reply>
 }
 
 /**
@@ -230,6 +250,18 @@ export type CoverImageOptionsInput = {
   stickCoverToBottom?: InputMaybe<Scalars['Boolean']['input']>
 }
 
+export type CreateWebhookInput = {
+  events: Array<WebhookEvent>
+  publicationId: Scalars['ID']['input']
+  secret: Scalars['String']['input']
+  url: Scalars['String']['input']
+}
+
+export type CreateWebhookPayload = {
+  __typename?: 'CreateWebhookPayload'
+  webhook?: Maybe<Webhook>
+}
+
 export type CustomCss = {
   __typename?: 'CustomCSS'
   /** Custom CSS that will be applied on the publication homepage. */
@@ -263,6 +295,11 @@ export type DarkModePreferences = {
   enabled?: Maybe<Scalars['Boolean']['output']>
   /** The custom dark mode logo of the publication. */
   logo?: Maybe<Scalars['String']['output']>
+}
+
+export type DeleteWebhookPayload = {
+  __typename?: 'DeleteWebhookPayload'
+  webhook?: Maybe<Webhook>
 }
 
 /** Contains the publication's domain information. */
@@ -608,6 +645,26 @@ export type IUserPublicationsArgs = {
   first: Scalars['Int']['input']
 }
 
+export type LikeCommentInput = {
+  commentId: Scalars['ID']['input']
+  likesCount?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type LikeCommentPayload = {
+  __typename?: 'LikeCommentPayload'
+  comment?: Maybe<Comment>
+}
+
+export type LikePostInput = {
+  likesCount?: InputMaybe<Scalars['Int']['input']>
+  postId: Scalars['ID']['input']
+}
+
+export type LikePostPayload = {
+  __typename?: 'LikePostPayload'
+  post?: Maybe<Post>
+}
+
 /** Contains information about meta tags of the post. Used for SEO purpose. */
 export type MetaTagsInput = {
   /** The description of the post used in og:description for SEO. */
@@ -620,14 +677,31 @@ export type MetaTagsInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  /** Adds a comment to a post. */
+  addComment: AddCommentPayload
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload
+  /** Adds a reply to a comment. */
+  addReply: AddReplyPayload
+  createWebhook: CreateWebhookPayload
+  deleteWebhook: DeleteWebhookPayload
+  /** Likes a comment. */
+  likeComment: LikeCommentPayload
+  /** Likes a post. */
+  likePost: LikePostPayload
   /** Creates a new post. */
   publishPost: PublishPostPayload
+  recommendPublications: RecommendPublicationsPayload
+  /** Removes a comment from a post. */
+  removeComment: RemoveCommentPayload
   /** Removes a post. */
   removePost: RemovePostPayload
+  removeRecommendation: RemoveRecommendationPayload
+  /** Removes a reply from a comment. */
+  removeReply: RemoveReplyPayload
   /** Reschedule a post. */
   reschedulePost?: Maybe<ScheduledPostPayload>
+  resendWebhookRequest: ResendWebhookRequestPayload
   subscribeToNewsletter: SubscribeToNewsletterPayload
   /**
    * Update the follow state for the user that is provided via id or username.
@@ -636,24 +710,74 @@ export type Mutation = {
    * Only available to the authenticated user.
    */
   toggleFollowUser: ToggleFollowUserPayload
+  triggerWebhookTest: TriggerWebhookTestPayload
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload
+  /** Updates a comment on a post. */
+  updateComment: UpdateCommentPayload
   updatePost: UpdatePostPayload
+  /** Updates a reply */
+  updateReply: UpdateReplyPayload
+  updateWebhook: UpdateWebhookPayload
+}
+
+export type MutationAddCommentArgs = {
+  input: AddCommentInput
 }
 
 export type MutationAddPostToSeriesArgs = {
   input: AddPostToSeriesInput
 }
 
+export type MutationAddReplyArgs = {
+  input: AddReplyInput
+}
+
+export type MutationCreateWebhookArgs = {
+  input: CreateWebhookInput
+}
+
+export type MutationDeleteWebhookArgs = {
+  id: Scalars['ID']['input']
+}
+
+export type MutationLikeCommentArgs = {
+  input: LikeCommentInput
+}
+
+export type MutationLikePostArgs = {
+  input: LikePostInput
+}
+
 export type MutationPublishPostArgs = {
   input: PublishPostInput
+}
+
+export type MutationRecommendPublicationsArgs = {
+  input: RecommendPublicationsInput
+}
+
+export type MutationRemoveCommentArgs = {
+  input: RemoveCommentInput
 }
 
 export type MutationRemovePostArgs = {
   input: RemovePostInput
 }
 
+export type MutationRemoveRecommendationArgs = {
+  input: RemoveRecommendationInput
+}
+
+export type MutationRemoveReplyArgs = {
+  input: RemoveReplyInput
+}
+
 export type MutationReschedulePostArgs = {
   input: ReschedulePostInput
+}
+
+export type MutationResendWebhookRequestArgs = {
+  input: ResendWebhookRequestInput
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -665,12 +789,28 @@ export type MutationToggleFollowUserArgs = {
   username?: InputMaybe<Scalars['String']['input']>
 }
 
+export type MutationTriggerWebhookTestArgs = {
+  input: TriggerWebhookTestInput
+}
+
 export type MutationUnsubscribeFromNewsletterArgs = {
   input: UnsubscribeFromNewsletterInput
 }
 
+export type MutationUpdateCommentArgs = {
+  input: UpdateCommentInput
+}
+
 export type MutationUpdatePostArgs = {
   input: UpdatePostInput
+}
+
+export type MutationUpdateReplyArgs = {
+  input: UpdateReplyInput
+}
+
+export type MutationUpdateWebhookArgs = {
+  input: UpdateWebhookInput
 }
 
 /**
@@ -1752,6 +1892,16 @@ export type ReadTimeFeature = Feature & {
   isEnabled: Scalars['Boolean']['output']
 }
 
+export type RecommendPublicationsInput = {
+  recommendedPublicationIds: Array<Scalars['ID']['input']>
+  recommendingPublicationId: Scalars['ID']['input']
+}
+
+export type RecommendPublicationsPayload = {
+  __typename?: 'RecommendPublicationsPayload'
+  recommendedPublications?: Maybe<Array<UserRecommendedPublicationEdge>>
+}
+
 /** Contains a publication and a cursor for pagination. */
 export type RecommendedPublicationEdge = Edge & {
   __typename?: 'RecommendedPublicationEdge'
@@ -1771,6 +1921,15 @@ export type RedirectionRule = {
   type: HttpRedirectionType
 }
 
+export type RemoveCommentInput = {
+  id: Scalars['ID']['input']
+}
+
+export type RemoveCommentPayload = {
+  __typename?: 'RemoveCommentPayload'
+  comment?: Maybe<Comment>
+}
+
 export type RemovePostInput = {
   /** The ID of the post to remove. */
   id: Scalars['ID']['input']
@@ -1780,6 +1939,26 @@ export type RemovePostPayload = {
   __typename?: 'RemovePostPayload'
   /** The deleted post. */
   post?: Maybe<Post>
+}
+
+export type RemoveRecommendationInput = {
+  recommendedPublicationId: Scalars['ID']['input']
+  recommendingPublicationId: Scalars['ID']['input']
+}
+
+export type RemoveRecommendationPayload = {
+  __typename?: 'RemoveRecommendationPayload'
+  recommendedPublication: Publication
+}
+
+export type RemoveReplyInput = {
+  commentId: Scalars['ID']['input']
+  replyId: Scalars['ID']['input']
+}
+
+export type RemoveReplyPayload = {
+  __typename?: 'RemoveReplyPayload'
+  reply?: Maybe<Reply>
 }
 
 /**
@@ -1812,6 +1991,16 @@ export type ReschedulePostInput = {
   draftId: Scalars['ObjectId']['input']
   /** New scheduled date for the post to be rescheduled. */
   scheduledDate: Scalars['DateTime']['input']
+}
+
+export type ResendWebhookRequestInput = {
+  webhookId: Scalars['ID']['input']
+  webhookMessageId: Scalars['ID']['input']
+}
+
+export type ResendWebhookRequestPayload = {
+  __typename?: 'ResendWebhookRequestPayload'
+  webhookMessage?: Maybe<WebhookMessage>
 }
 
 /** Information to help in seo related meta tags. */
@@ -2159,6 +2348,15 @@ export type ToggleFollowUserPayload = {
   user?: Maybe<User>
 }
 
+export type TriggerWebhookTestInput = {
+  webhookId: Scalars['ID']['input']
+}
+
+export type TriggerWebhookTestPayload = {
+  __typename?: 'TriggerWebhookTestPayload'
+  webhook?: Maybe<Webhook>
+}
+
 export type UnsubscribeFromNewsletterInput = {
   /** The email that is currently subscribed. */
   email: Scalars['String']['input']
@@ -2169,6 +2367,16 @@ export type UnsubscribeFromNewsletterInput = {
 export type UnsubscribeFromNewsletterPayload = {
   __typename?: 'UnsubscribeFromNewsletterPayload'
   status?: Maybe<NewsletterUnsubscribeStatus>
+}
+
+export type UpdateCommentInput = {
+  contentMarkdown: Scalars['String']['input']
+  id: Scalars['ID']['input']
+}
+
+export type UpdateCommentPayload = {
+  __typename?: 'UpdateCommentPayload'
+  comment?: Maybe<Comment>
 }
 
 export type UpdatePostInput = {
@@ -2227,6 +2435,29 @@ export type UpdatePostSettingsInput = {
   isTableOfContentEnabled?: InputMaybe<Scalars['Boolean']['input']>
   /** Pin the post to the blog homepage. */
   pinToBlog?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type UpdateReplyInput = {
+  commentId: Scalars['ID']['input']
+  contentMarkdown: Scalars['String']['input']
+  replyId: Scalars['ID']['input']
+}
+
+export type UpdateReplyPayload = {
+  __typename?: 'UpdateReplyPayload'
+  reply?: Maybe<Reply>
+}
+
+export type UpdateWebhookInput = {
+  events?: InputMaybe<Array<WebhookEvent>>
+  id: Scalars['ID']['input']
+  secret?: InputMaybe<Scalars['String']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UpdateWebhookPayload = {
+  __typename?: 'UpdateWebhookPayload'
+  webhook?: Maybe<Webhook>
 }
 
 export enum UrlPattern {
@@ -2572,12 +2803,12 @@ export type WebhookMessageResponse = {
   timeToFirstByteMilliseconds?: Maybe<Scalars['Int']['output']>
 }
 
-export type GetBlogPostQueryVariables = Exact<{
+export type GetBlogPostBySlugQueryVariables = Exact<{
   hostname: Scalars['String']['input']
   slug: Scalars['String']['input']
 }>
 
-export type GetBlogPostQuery = {
+export type GetBlogPostBySlugQuery = {
   __typename?: 'Query'
   publication?: {
     __typename?: 'Publication'
@@ -2598,17 +2829,23 @@ export type GetBlogPostQuery = {
   } | null
 }
 
-export type LatestBlogPostsQueryVariables = Exact<{
+export type GetBlogPostsQueryVariables = Exact<{
   hostname: Scalars['String']['input']
-  posts: Scalars['Int']['input']
+  postCount: Scalars['Int']['input']
+  after: Scalars['String']['input']
 }>
 
-export type LatestBlogPostsQuery = {
+export type GetBlogPostsQuery = {
   __typename?: 'Query'
   publication?: {
     __typename?: 'Publication'
     posts: {
       __typename?: 'PublicationPostConnection'
+      pageInfo: {
+        __typename?: 'PageInfo'
+        hasNextPage?: boolean | null
+        endCursor?: string | null
+      }
       edges: Array<{
         __typename?: 'PostEdge'
         node: {
@@ -2635,8 +2872,8 @@ export type LatestBlogPostsQuery = {
   } | null
 }
 
-export const GetBlogPostDocument = gql`
-  query GetBlogPost($hostname: String!, $slug: String!) {
+export const GetBlogPostBySlugDocument = gql`
+  query GetBlogPostBySlug($hostname: String!, $slug: String!) {
     publication(host: $hostname) {
       post(slug: $slug) {
         title
@@ -2662,73 +2899,79 @@ export const GetBlogPostDocument = gql`
 `
 
 /**
- * __useGetBlogPostQuery__
+ * __useGetBlogPostBySlugQuery__
  *
- * To run a query within a React component, call `useGetBlogPostQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetBlogPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetBlogPostBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBlogPostBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetBlogPostQuery({
+ * const { data, loading, error } = useGetBlogPostBySlugQuery({
  *   variables: {
  *      hostname: // value for 'hostname'
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useGetBlogPostQuery(
+export function useGetBlogPostBySlugQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetBlogPostQuery,
-    GetBlogPostQueryVariables
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
-    GetBlogPostDocument,
-    options
-  )
+  return Apollo.useQuery<
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
+  >(GetBlogPostBySlugDocument, options)
 }
-export function useGetBlogPostLazyQuery(
+export function useGetBlogPostBySlugLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetBlogPostQuery,
-    GetBlogPostQueryVariables
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
-    GetBlogPostDocument,
-    options
-  )
+  return Apollo.useLazyQuery<
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
+  >(GetBlogPostBySlugDocument, options)
 }
-export function useGetBlogPostSuspenseQuery(
+export function useGetBlogPostBySlugSuspenseQuery(
   baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetBlogPostQuery,
-    GetBlogPostQueryVariables
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetBlogPostQuery, GetBlogPostQueryVariables>(
-    GetBlogPostDocument,
-    options
-  )
+  return Apollo.useSuspenseQuery<
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
+  >(GetBlogPostBySlugDocument, options)
 }
-export type GetBlogPostQueryHookResult = ReturnType<typeof useGetBlogPostQuery>
-export type GetBlogPostLazyQueryHookResult = ReturnType<
-  typeof useGetBlogPostLazyQuery
+export type GetBlogPostBySlugQueryHookResult = ReturnType<
+  typeof useGetBlogPostBySlugQuery
 >
-export type GetBlogPostSuspenseQueryHookResult = ReturnType<
-  typeof useGetBlogPostSuspenseQuery
+export type GetBlogPostBySlugLazyQueryHookResult = ReturnType<
+  typeof useGetBlogPostBySlugLazyQuery
 >
-export type GetBlogPostQueryResult = Apollo.QueryResult<
-  GetBlogPostQuery,
-  GetBlogPostQueryVariables
+export type GetBlogPostBySlugSuspenseQueryHookResult = ReturnType<
+  typeof useGetBlogPostBySlugSuspenseQuery
 >
-export const LatestBlogPostsDocument = gql`
-  query LatestBlogPosts($hostname: String!, $posts: Int!) {
+export type GetBlogPostBySlugQueryResult = Apollo.QueryResult<
+  GetBlogPostBySlugQuery,
+  GetBlogPostBySlugQueryVariables
+>
+export const GetBlogPostsDocument = gql`
+  query GetBlogPosts($hostname: String!, $postCount: Int!, $after: String!) {
     publication(host: $hostname) {
-      posts(first: $posts) {
+      posts(first: $postCount, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         edges {
           node {
             id
@@ -2758,68 +3001,69 @@ export const LatestBlogPostsDocument = gql`
 `
 
 /**
- * __useLatestBlogPostsQuery__
+ * __useGetBlogPostsQuery__
  *
- * To run a query within a React component, call `useLatestBlogPostsQuery` and pass it any options that fit your needs.
- * When your component renders, `useLatestBlogPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetBlogPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBlogPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useLatestBlogPostsQuery({
+ * const { data, loading, error } = useGetBlogPostsQuery({
  *   variables: {
  *      hostname: // value for 'hostname'
- *      posts: // value for 'posts'
+ *      postCount: // value for 'postCount'
+ *      after: // value for 'after'
  *   },
  * });
  */
-export function useLatestBlogPostsQuery(
+export function useGetBlogPostsQuery(
   baseOptions: Apollo.QueryHookOptions<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
+    GetBlogPostsQuery,
+    GetBlogPostsQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<LatestBlogPostsQuery, LatestBlogPostsQueryVariables>(
-    LatestBlogPostsDocument,
+  return Apollo.useQuery<GetBlogPostsQuery, GetBlogPostsQueryVariables>(
+    GetBlogPostsDocument,
     options
   )
 }
-export function useLatestBlogPostsLazyQuery(
+export function useGetBlogPostsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
+    GetBlogPostsQuery,
+    GetBlogPostsQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
-  >(LatestBlogPostsDocument, options)
+  return Apollo.useLazyQuery<GetBlogPostsQuery, GetBlogPostsQueryVariables>(
+    GetBlogPostsDocument,
+    options
+  )
 }
-export function useLatestBlogPostsSuspenseQuery(
+export function useGetBlogPostsSuspenseQuery(
   baseOptions?: Apollo.SuspenseQueryHookOptions<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
+    GetBlogPostsQuery,
+    GetBlogPostsQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
-  >(LatestBlogPostsDocument, options)
+  return Apollo.useSuspenseQuery<GetBlogPostsQuery, GetBlogPostsQueryVariables>(
+    GetBlogPostsDocument,
+    options
+  )
 }
-export type LatestBlogPostsQueryHookResult = ReturnType<
-  typeof useLatestBlogPostsQuery
+export type GetBlogPostsQueryHookResult = ReturnType<
+  typeof useGetBlogPostsQuery
 >
-export type LatestBlogPostsLazyQueryHookResult = ReturnType<
-  typeof useLatestBlogPostsLazyQuery
+export type GetBlogPostsLazyQueryHookResult = ReturnType<
+  typeof useGetBlogPostsLazyQuery
 >
-export type LatestBlogPostsSuspenseQueryHookResult = ReturnType<
-  typeof useLatestBlogPostsSuspenseQuery
+export type GetBlogPostsSuspenseQueryHookResult = ReturnType<
+  typeof useGetBlogPostsSuspenseQuery
 >
-export type LatestBlogPostsQueryResult = Apollo.QueryResult<
-  LatestBlogPostsQuery,
-  LatestBlogPostsQueryVariables
+export type GetBlogPostsQueryResult = Apollo.QueryResult<
+  GetBlogPostsQuery,
+  GetBlogPostsQueryVariables
 >

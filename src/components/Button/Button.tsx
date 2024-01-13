@@ -4,10 +4,16 @@ import type { ReactNode } from 'react'
 type Props = {
   children: ReactNode
   variant?: 'filled' | 'outlined'
+  onClick?: () => void
   className?: string
 }
 
-const Button = ({ children, variant = 'filled', className = '' }: Props) => (
+const Button = ({
+  children,
+  variant = 'filled',
+  className = '',
+  onClick
+}: Props) => (
   <button
     type="button"
     className={cn(
@@ -18,6 +24,7 @@ const Button = ({ children, variant = 'filled', className = '' }: Props) => (
       },
       className
     )}
+    onClick={onClick}
   >
     {children}
   </button>

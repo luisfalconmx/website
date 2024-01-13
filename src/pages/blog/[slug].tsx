@@ -6,12 +6,12 @@ import { highlightAll } from 'prismjs'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { HASHNODE_HOST } from '@/config'
 import {
-  GetBlogPostDocument,
-  GetBlogPostQuery,
-  GetBlogPostQueryVariables,
-  LatestBlogPostsDocument,
-  LatestBlogPostsQuery,
-  LatestBlogPostsQueryVariables
+  GetBlogPostBySlugDocument,
+  GetBlogPostBySlugQuery,
+  GetBlogPostBySlugQueryVariables,
+  GetBlogPostsDocument,
+  GetBlogPostsQuery,
+  GetBlogPostsQueryVariables
 } from '@/generated/hashnode.schema'
 import humanDate from '@/utils/humanDate'
 import styles from '@/styles/modules/post.module.css'
@@ -32,10 +32,10 @@ import 'prismjs/components/prism-git.min'
 export const getStaticProps = (async ({ params }) => {
   const client = hashnodeClient()
   const response = await client.query<
-    GetBlogPostQuery,
-    GetBlogPostQueryVariables
+    GetBlogPostBySlugQuery,
+    GetBlogPostBySlugQueryVariables
   >({
-    query: GetBlogPostDocument,
+    query: GetBlogPostBySlugDocument,
     variables: {
       hostname: HASHNODE_HOST,
       slug: params?.slug as string
@@ -53,13 +53,14 @@ export const getStaticProps = (async ({ params }) => {
 export const getStaticPaths = async () => {
   const client = hashnodeClient()
   const response = await client.query<
-    LatestBlogPostsQuery,
-    LatestBlogPostsQueryVariables
+    GetBlogPostsQuery,
+    GetBlogPostsQueryVariables
   >({
-    query: LatestBlogPostsDocument,
+    query: GetBlogPostsDocument,
     variables: {
       hostname: HASHNODE_HOST,
-      posts: 14
+      postCount: 14,
+      after: ''
     }
   })
 

@@ -1,6 +1,10 @@
-query LatestBlogPosts($hostname: String!, $posts: Int!) {
+query GetBlogPosts($hostname: String!, $postCount: Int!, $after: String!) {
   publication(host: $hostname) {
-    posts(first: $posts) {
+    posts(first: $postCount, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           id

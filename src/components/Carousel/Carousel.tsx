@@ -13,6 +13,7 @@ const Carousel = ({ children, className = '' }: Props) => {
   const carouselOptions: Options = {
     pagination: false,
     rewind: true,
+    rewindByDrag: true,
     arrows: true,
     keyboard: true,
     autoplay: true

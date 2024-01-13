@@ -1,4 +1,4 @@
-query GetBlogPost($hostname: String!, $slug: String!) {
+query GetBlogPostBySlug($hostname: String!, $slug: String!) {
   publication(host: $hostname) {
     post(slug: $slug) {
       title
