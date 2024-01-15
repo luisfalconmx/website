@@ -1,0 +1,19 @@
+.Navbar {
+  @apply mb-5 flex justify-between;
+}
+
+.Navbar__list {
+  @apply flex items-center;
+}
+
+.Navbar__item {
+  @apply mr-6 last:mr-0;
+}
+
+.Navbar__link {
+  @apply text-xl font-semibold hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent;
+}
+
+.Navbar__icon {
+  @apply h-8 w-8;
+}

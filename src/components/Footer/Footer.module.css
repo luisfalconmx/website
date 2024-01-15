@@ -1,0 +1,11 @@
+.Footer {
+  @apply mt-24 flex justify-between;
+}
+
+.Footer__text {
+  @apply text-smoke;
+}
+
+.Footer__link {
+  @apply text-smoke underline;
+}

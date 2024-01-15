@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import githubClient from '@/clients/githubClient'
+import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import {
@@ -57,7 +58,7 @@ export default function Home({
   socialAccounts
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <main className="my-24">
+    <MainLayout>
       <section className="mx-auto max-w-[683px]">
         <Image
           width={220}
@@ -83,6 +84,6 @@ export default function Home({
 
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
       </section>
-    </main>
+    </MainLayout>
   )
 }

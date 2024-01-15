@@ -1,5 +1,5 @@
 import { Splide, SplideTrack } from '@splidejs/react-splide'
-import { ChevronRight } from 'react-feather'
+import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import styles from './Carousel.module.css'
 import type { Options } from '@splidejs/react-splide'
 import type { CarouselProps } from './Carousel.d'
@@ -30,11 +30,7 @@ const Carousel = ({ children, className = '' }: CarouselProps) => {
         <button
           className={`splide__arrow splide__arrow--next ${styles.Carousel__arrow}`}
         >
-          <ChevronRight
-            size={62}
-            color="#ffffff"
-            className={styles.Carousel__icon}
-          />
+          <ChevronRightIcon className={styles.Carousel__icon} />
         </button>
       </div>
     </Splide>
