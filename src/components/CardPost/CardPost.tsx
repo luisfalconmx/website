@@ -1,25 +1,8 @@
 import Image from 'next/image'
-import Author from '@/components/Author'
 import humanDate from '@/utils/humanDate'
 import cn from '@/utils/cn'
 import styles from './CardPost.module.css'
-
-interface Props {
-  variant?: 'default' | 'imageless' | 'square' | 'track' | 'jumbo'
-  link: string
-  title: string
-  description: string
-  image: string
-  tag: string | undefined
-  date: Date
-  readingTime: number
-  author: {
-    name: string
-    label: string
-    image: string
-  }
-  className?: string
-}
+import type { CardPostProps } from './CardPost.d'
 
 const CardPost = ({
   variant = 'default',
@@ -32,7 +15,7 @@ const CardPost = ({
   author,
   readingTime,
   className = ''
-}: Props) => {
+}: CardPostProps) => {
   const formatedDate = humanDate(date)
   const customLabel = `${formatedDate} • ${readingTime} min read`
 

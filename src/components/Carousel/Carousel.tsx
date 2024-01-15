@@ -1,15 +1,10 @@
 import { Splide, SplideTrack } from '@splidejs/react-splide'
 import { ChevronRight } from 'react-feather'
 import styles from './Carousel.module.css'
-import type { ReactNode } from 'react'
 import type { Options } from '@splidejs/react-splide'
+import type { CarouselProps } from './Carousel.d'
 
-interface Props {
-  children: ReactNode
-  className?: string
-}
-
-const Carousel = ({ children, className = '' }: Props) => {
+const Carousel = ({ children, className = '' }: CarouselProps) => {
   const carouselOptions: Options = {
     pagination: false,
     rewind: true,

@@ -1,15 +1,7 @@
 import Image from 'next/image'
+import type { SocialIconsProps } from './SocialIcons.d'
 
-type Props = {
-  data?: {
-    provider: string
-    url: string
-    displayName?: string
-  }[]
-  className?: string
-}
-
-const SocialIcons = ({ data, className = '' }: Props) => {
+const SocialIcons = ({ data, className = '' }: SocialIconsProps) => {
   return (
     <ul className={className}>
       {data &&

@@ -1,19 +1,12 @@
 import cn from '@/utils/cn'
-import type { ReactNode } from 'react'
-
-type Props = {
-  children: ReactNode
-  variant?: 'filled' | 'outlined'
-  onClick?: () => void
-  className?: string
-}
+import type { ButtonProps } from './Button.d'
 
 const Button = ({
   children,
   variant = 'filled',
   className = '',
   onClick
-}: Props) => (
+}: ButtonProps) => (
   <button
     type="button"
     className={cn(
