@@ -12,5 +12,34 @@ query GithubProfile($username: String!) {
         }
       }
     }
+    pinnedItems(first: 10, types: REPOSITORY) {
+      edges {
+        node {
+          ... on Repository {
+            name
+            description
+            licenseInfo {
+              name
+            }
+            collaborators {
+              totalCount
+            }
+            issues {
+              totalCount
+            }
+            stargazerCount
+            forkCount
+            openGraphImageUrl
+            repositoryTopics(first: 10) {
+              nodes {
+                topic {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

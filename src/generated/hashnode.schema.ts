@@ -699,7 +699,10 @@ export type Mutation = {
   removeRecommendation: RemoveRecommendationPayload
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload
-  /** Reschedule a post. */
+  /**
+   * Reschedule a post.
+   * @deprecated Use rescheduleDraft instead. Will be taken down on 2024-02-1
+   */
   reschedulePost?: Maybe<ScheduledPostPayload>
   resendWebhookRequest: ResendWebhookRequestPayload
   subscribeToNewsletter: SubscribeToNewsletterPayload

@@ -1,0 +1,47 @@
+.CardProject {
+  @apply flex max-w-[550px] cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
+}
+
+.CardProject--full {
+  @apply max-w-full;
+}
+
+.CardProject__content {
+  @apply grid h-full grid-cols-1 gap-x-5 bg-onyx p-6;
+}
+
+.CardProject--full .CardProject__content {
+  @apply grid-cols-[1fr,200px];
+}
+
+.CardProject__title {
+  @apply flex;
+}
+
+.CardProject__icon {
+  @apply mr-2 h-8 w-8;
+}
+
+.CardProject__name {
+  @apply mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-2xl font-bold text-transparent;
+}
+
+.CardProject__description {
+  @apply mb-6 block max-w-[700px] text-smoke;
+}
+
+.CardProject__tags {
+  @apply flex flex-wrap;
+}
+
+.CardProject__tag {
+  @apply mb-1 mr-1 block rounded border border-smoke px-2 py-1 text-sm text-smoke last:mr-0;
+}
+
+.CardProject__track {
+  @apply flex w-full border-t border-smoke/40 bg-onyx  px-4 py-3;
+}
+
+.CardProject__item {
+  @apply mr-4 flex items-center text-sm last:mr-0;
+}

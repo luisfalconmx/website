@@ -17,7 +17,7 @@ const config: Config = {
         primary: '#FF4B2B',
         secondary: '#FF416C',
         nightfall: '#0D0D0F',
-        onyx: '#121214',
+        onyx: '#13161c',
         smoke: '#CECECE',
         ghost: '#F8F8FF'
       }

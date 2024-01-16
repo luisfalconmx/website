@@ -30542,6 +30542,36 @@ export type GithubProfileQuery = {
         } | null
       } | null> | null
     }
+    pinnedItems: {
+      __typename?: 'PinnableItemConnection'
+      edges?: Array<{
+        __typename?: 'PinnableItemEdge'
+        node?:
+          | { __typename?: 'Gist' }
+          | {
+              __typename?: 'Repository'
+              name: string
+              description?: string | null
+              stargazerCount: number
+              forkCount: number
+              openGraphImageUrl: any
+              licenseInfo?: { __typename?: 'License'; name: string } | null
+              collaborators?: {
+                __typename?: 'RepositoryCollaboratorConnection'
+                totalCount: number
+              } | null
+              issues: { __typename?: 'IssueConnection'; totalCount: number }
+              repositoryTopics: {
+                __typename?: 'RepositoryTopicConnection'
+                nodes?: Array<{
+                  __typename?: 'RepositoryTopic'
+                  topic: { __typename?: 'Topic'; name: string }
+                } | null> | null
+              }
+            }
+          | null
+      } | null> | null
+    }
   } | null
 }
 
@@ -30557,6 +30587,35 @@ export const GithubProfileDocument = gql`
             displayName
             provider
             url
+          }
+        }
+      }
+      pinnedItems(first: 10, types: REPOSITORY) {
+        edges {
+          node {
+            ... on Repository {
+              name
+              description
+              licenseInfo {
+                name
+              }
+              collaborators {
+                totalCount
+              }
+              issues {
+                totalCount
+              }
+              stargazerCount
+              forkCount
+              openGraphImageUrl
+              repositoryTopics(first: 10) {
+                nodes {
+                  topic {
+                    name
+                  }
+                }
+              }
+            }
           }
         }
       }

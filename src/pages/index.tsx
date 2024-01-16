@@ -15,8 +15,10 @@ import {
   GetExperiencesQueryVariables
 } from '@/generated/contentful.schema'
 import CardExperience from '@/components/CardExperience'
+import CardProject from '@/components/CardProject'
 import { GITHUB_USERNAME } from '@/config'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { Repository } from '@/generated/github.schema'
 
 export const getStaticProps = (async () => {
   const gh_client = githubClient()
@@ -53,8 +55,11 @@ export const getStaticProps = (async () => {
     displayName: GITHUB_USERNAME
   }
 
-  // add githubAccount first to socialAccounts array
   socialAccounts?.unshift(githubAccount)
+
+  console.log(
+    gh_response.data.user?.pinnedItems.edges?.map((i) => i?.node as Repository)
+  )
 
   return {
     props: {
@@ -62,6 +67,9 @@ export const getStaticProps = (async () => {
       avatar_url: gh_response.data.user?.avatarUrl ?? '',
       bio: gh_response.data.user?.bio ?? '',
       socialAccounts: socialAccounts,
+      projects: gh_response.data.user?.pinnedItems.edges?.map(
+        (i) => i?.node as Repository
+      ),
       experiences: contentful_response.data.experienceCollection?.items ?? []
     }
   }
@@ -72,6 +80,7 @@ export default function Home({
   avatar_url,
   bio,
   socialAccounts,
+  projects,
   experiences
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -100,6 +109,28 @@ export default function Home({
         </div>
 
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
+      </section>
+
+      <section className="mb-24">
+        <h2 className="mb-8 text-4xl font-bold">Featured Projects</h2>
+
+        <div className="mx-auto grid max-w-fit grid-cols-2 gap-6">
+          {projects?.map((project) => (
+            <CardProject
+              key={project.name}
+              name={project.name}
+              description={project.description as string}
+              tags={project?.repositoryTopics.nodes?.map((i) =>
+                i ? i.topic.name : ''
+              )}
+              licence={project.licenseInfo?.name as string}
+              stars={project.stargazerCount as number}
+              issues={project.issues.totalCount as number}
+              contributors={project.collaborators?.totalCount as number}
+              forks={project.forkCount as number}
+            />
+          ))}
+        </div>
       </section>
 
       <section className="">
