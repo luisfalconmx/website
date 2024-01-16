@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { SplideSlide } from '@splidejs/react-splide'
 import Button from '@/components/Button'
-import { Coffee } from 'react-feather'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import CardPost from '@/components/CardPost'
 import Carousel from '@/components/Carousel'
 import { HASHNODE_HOST } from '@/config'
@@ -195,8 +195,12 @@ export default function Blog({
 
       {page?.hasNextPage && (
         <div className="flex justify-center">
-          <Button variant="filled" onClick={getMorePosts} className="flex">
-            <Coffee size={24} className="mr-2" />
+          <Button
+            variant="filled"
+            onClick={getMorePosts}
+            className="flex items-center"
+          >
+            <ArrowPathIcon className="mr-2 h-6 w-6" />
             Load More
           </Button>
         </div>
