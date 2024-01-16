@@ -11,7 +11,7 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "generate": "graphql-codegen --config src/config/codegen.ts"
+    "codegen": "graphql-codegen --config src/config/codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.8.9",

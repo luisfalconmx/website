@@ -1,0 +1,27 @@
+.CardExperience {
+  @apply rounded p-1 transition-all ease-in-out hover:bg-gradient-to-br hover:from-primary hover:to-secondary hover:bg-clip-border;
+}
+
+.CardExperience__content {
+  @apply grid grid-cols-[50px,1fr,200px] gap-x-5 bg-onyx pb-10 pl-4 pr-8 pt-6;
+}
+
+.CardExperience__title {
+  @apply mb-1 text-2xl font-bold;
+}
+
+.CardExperience__companyName {
+  @apply mb-2 text-lg font-semibold;
+}
+
+.CardExperience__industry {
+  @apply mb-4;
+}
+
+.CardExperience__description {
+  @apply text-smoke;
+}
+
+.CardExperience__date {
+  @apply text-right font-bold;
+}
