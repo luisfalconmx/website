@@ -173,7 +173,7 @@ export default function Home({
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
       </section>
 
-      <section className="mb-32 grid grid-cols-4 gap-x-4">
+      <section className="mb-32 grid grid-cols-4 place-items-center gap-x-4">
         <div>
           <strong className="mb-4 block text-5xl font-bold">06</strong>
           <p className="block text-xl uppercase">projects</p>
@@ -200,6 +200,7 @@ export default function Home({
         <div className="mx-auto grid max-w-fit grid-cols-2 gap-6">
           {projects?.map((project) => (
             <CardProject
+              variant="full"
               key={project.name}
               name={project.name}
               description={project.description as string}

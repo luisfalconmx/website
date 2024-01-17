@@ -6,6 +6,7 @@ import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import CardPost from '@/components/CardPost'
 import Carousel from '@/components/Carousel'
 import { HASHNODE_HOST } from '@/config'
+import MainLayout from '@/Layouts/MainLayout'
 import {
   GetBlogPostsDocument,
   GetBlogPostsQuery,
@@ -71,7 +72,7 @@ export default function Blog({
   }, [page])
 
   return (
-    <main className="mx-auto my-24 max-w-[1200px]">
+    <MainLayout>
       <Carousel className="mb-16">
         {posts.slice(0, 3).map((i) => (
           <SplideSlide key={i.node.id}>
@@ -205,6 +206,6 @@ export default function Blog({
           </Button>
         </div>
       )}
-    </main>
+    </MainLayout>
   )
 }
