@@ -19,11 +19,11 @@
 }
 
 .CardProject__icon {
-  @apply mr-2 h-8 w-8;
+  @apply mr-2 h-8 w-8 text-primary;
 }
 
 .CardProject__name {
-  @apply mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-2xl font-bold text-transparent;
+  @apply mb-2 block text-2xl font-bold;
 }
 
 .CardProject__description {

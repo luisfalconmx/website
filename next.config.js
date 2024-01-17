@@ -26,6 +26,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'repository-images.githubusercontent.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.accredible.com'
       }
     ]
   },

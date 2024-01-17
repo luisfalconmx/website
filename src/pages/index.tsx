@@ -4,6 +4,7 @@ import contentfulClient from '@/clients/contentfulClient'
 import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
+import { Splide, SplideSlide } from '@splidejs/react-splide'
 import {
   GithubProfileDocument,
   GithubProfileQuery,
@@ -17,8 +18,10 @@ import {
 import CardExperience from '@/components/CardExperience'
 import CardProject from '@/components/CardProject'
 import { GITHUB_USERNAME } from '@/config'
+import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import type { Repository } from '@/generated/github.schema'
+import '@splidejs/react-splide/css'
 
 export const getStaticProps = (async () => {
   const gh_client = githubClient()
@@ -57,10 +60,6 @@ export const getStaticProps = (async () => {
 
   socialAccounts?.unshift(githubAccount)
 
-  console.log(
-    gh_response.data.user?.pinnedItems.edges?.map((i) => i?.node as Repository)
-  )
-
   return {
     props: {
       login: gh_response.data.user?.login ?? '',
@@ -83,9 +82,72 @@ export default function Home({
   projects,
   experiences
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const skills = [
+    {
+      title: 'Modern Frontend',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'JavaScript & Typescript',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Version control system',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'RESTFUL API & GraphQL',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Cross Browser Testing',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Unit Testing & E2E Testing',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Responsive Design',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Accessibility / WCAG',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'SEO',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Web optimization',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'Web security',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    },
+    {
+      title: 'CI & CD',
+      description:
+        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+    }
+  ]
+
   return (
     <MainLayout>
-      <section className="mx-auto mb-24 max-w-[683px]">
+      <section className="mx-auto mb-32 max-w-[683px]">
         <Image
           width={220}
           height={200}
@@ -104,14 +166,35 @@ export default function Home({
         <p className="mb-12 text-center text-lg text-smoke">{bio}</p>
 
         <div className="mb-16 text-center">
-          <Button className="mr-4">View Projects</Button>
+          <Button className="mr-4">View all projects</Button>
           <Button variant="outlined">Download CV</Button>
         </div>
 
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
       </section>
 
-      <section className="mb-24">
+      <section className="mb-32 grid grid-cols-4 gap-x-4">
+        <div>
+          <strong className="mb-4 block text-5xl font-bold">06</strong>
+          <p className="block text-xl uppercase">projects</p>
+        </div>
+        <div>
+          <strong className="mb-4 block text-5xl font-bold">03</strong>
+          <p className="block text-xl uppercase">years of experience</p>
+        </div>
+
+        <div>
+          <strong className="mb-4 block text-5xl font-bold">113</strong>
+          <p className="block text-xl uppercase">certifications</p>
+        </div>
+
+        <div>
+          <strong className="mb-4 block text-5xl font-bold">A2</strong>
+          <p className="block text-xl uppercase">English level</p>
+        </div>
+      </section>
+
+      <section className="mb-32">
         <h2 className="mb-8 text-4xl font-bold">Featured Projects</h2>
 
         <div className="mx-auto grid max-w-fit grid-cols-2 gap-6">
@@ -133,7 +216,7 @@ export default function Home({
         </div>
       </section>
 
-      <section className="">
+      <section className="mb-32">
         <h2 className="mb-8 text-4xl font-bold">Experience</h2>
 
         <div className="grid gap-y-5">
@@ -153,6 +236,88 @@ export default function Home({
             />
           ))}
         </div>
+      </section>
+
+      <section className="mb-24">
+        <h2 className="mb-8 text-4xl font-bold">Recent Certifications</h2>
+
+        <Splide
+          options={{
+            type: 'loop',
+            perPage: 2,
+            perMove: 1,
+            gap: '1rem',
+            autoplay: true,
+            pauseOnHover: true,
+            pauseOnFocus: true,
+            breakpoints: {
+              640: {
+                perPage: 1
+              }
+            }
+          }}
+          className="splide"
+        >
+          <SplideSlide>
+            <Image
+              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
+              alt="certificate"
+              width={640}
+              height={480}
+            />
+          </SplideSlide>
+          <SplideSlide>
+            <Image
+              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
+              alt="certificate"
+              width={640}
+              height={480}
+            />
+          </SplideSlide>
+          <SplideSlide>
+            <Image
+              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
+              alt="certificate"
+              width={640}
+              height={480}
+            />
+          </SplideSlide>
+          <SplideSlide>
+            <Image
+              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
+              alt="certificate"
+              width={640}
+              height={480}
+            />
+          </SplideSlide>
+          <SplideSlide>
+            <Image
+              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
+              alt="certificate"
+              width={640}
+              height={480}
+            />
+          </SplideSlide>
+        </Splide>
+      </section>
+
+      <section className="mb-24">
+        <h2 className="mb-8 text-4xl font-bold">Skills</h2>
+        <ul className="grid grid-cols-3 gap-3">
+          {skills.map(({ title, description }) => (
+            <li key={title}>
+              <div className="cursor-default rounded-lg bg-onyx p-1 hover:bg-gradient-to-r hover:from-primary hover:to-secondary">
+                <div className="bg-onyx px-3 py-5">
+                  <div className="mb-2 flex">
+                    <ChevronDoubleRightIcon className="mr-1 h-6 w-6 text-primary" />
+                    <b className="block text-lg uppercase">{title}</b>
+                  </div>
+                  <p className="text-smoke">{description}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
     </MainLayout>
   )

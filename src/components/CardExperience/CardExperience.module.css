@@ -3,7 +3,7 @@
 }
 
 .CardExperience__content {
-  @apply grid grid-cols-[50px,1fr,200px] gap-x-5 bg-onyx pb-10 pl-4 pr-8 pt-6;
+  @apply grid grid-cols-[50px,1fr,200px] gap-x-5 bg-onyx px-10 pb-10 pt-6;
 }
 
 .CardExperience__title {

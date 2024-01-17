@@ -5,7 +5,8 @@ import {
   StarIcon,
   UserIcon,
   CheckCircleIcon,
-  DocumentDuplicateIcon
+  DocumentDuplicateIcon,
+  CodeBracketIcon
 } from '@heroicons/react/24/outline'
 import styles from './CardProject.module.css'
 import type { CardProjectProps } from './CardProject.d'
@@ -30,7 +31,7 @@ const CardProject = ({
       <div className={styles.CardProject__content}>
         <div>
           <div className={styles.CardProject__title}>
-            {/* <CodeBracketSquareIcon className={styles.CardProject__icon} /> */}
+            <CodeBracketIcon className={styles.CardProject__icon} />
             <strong className={styles.CardProject__name}>{name}</strong>
           </div>
           <p className={styles.CardProject__description}>{description}</p>

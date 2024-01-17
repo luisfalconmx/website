@@ -11,20 +11,32 @@ import Link from 'next/link'
 const Navbar = () => {
   const { darkmode, toggleDarkmode } = useDarkmode()
 
+  const links = [
+    {
+      name: 'Home',
+      path: '/'
+    },
+    {
+      name: 'Projects',
+      path: '/projects'
+    },
+    {
+      name: 'Blog',
+      path: '/blog'
+    }
+  ]
+
   return (
     <header className={styles.Navbar}>
       <nav className={styles.Navbar__nav}>
         <ul className={styles.Navbar__list}>
-          <li className={styles.Navbar__item}>
-            <Link href="/" className={styles.Navbar__link}>
-              Home
-            </Link>
-          </li>
-          <li className={styles.Navbar__item}>
-            <Link href="/blog" className={styles.Navbar__link}>
-              Blog
-            </Link>
-          </li>
+          {links.map(({ name, path }) => (
+            <li className={styles.Navbar__item} key={path}>
+              <Link href={path} className={styles.Navbar__link}>
+                {name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
       <ul className={styles.Navbar__list}>
