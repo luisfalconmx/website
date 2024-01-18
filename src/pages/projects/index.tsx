@@ -14,8 +14,7 @@ export default function Projects() {
     <MainLayout>
       <h1 className="mb-24 text-4xl font-bold">Projects</h1>
 
-      <div className="grid grid-cols-[350px,1fr] gap-x-5">
-        <div className="h-full rounded-lg bg-onyx"></div>
+      <div className="grid grid-cols-[1fr,350px] gap-x-5">
         <div className="grid grid-cols-1 gap-y-5">
           <CardProject
             name="Project 1"
@@ -84,6 +83,7 @@ export default function Projects() {
             contributors={10}
           />
         </div>
+        <div className="h-full rounded-lg bg-onyx"></div>
       </div>
     </MainLayout>
   )
