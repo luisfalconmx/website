@@ -1,5 +1,5 @@
 .CardProject {
-  @apply flex max-w-[550px] cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
+  @apply flex  cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
 }
 
 .CardProject--full {
@@ -11,11 +11,15 @@
 }
 
 .CardProject--full .CardProject__content {
-  @apply grid-cols-[1fr,200px];
+  @apply grid-cols-[1fr,300px];
 }
 
-.CardProject__title {
-  @apply flex;
+.CardProject__head {
+  @apply mb-2 flex;
+}
+
+.CardProject--full .CardProject__head {
+  @apply mb-6;
 }
 
 .CardProject__icon {
@@ -23,11 +27,19 @@
 }
 
 .CardProject__name {
-  @apply mb-2 block text-2xl font-bold;
+  @apply block text-2xl font-bold;
+}
+
+.CardProject--full .CardProject__name {
+  @apply text-3xl;
 }
 
 .CardProject__description {
   @apply mb-6 block max-w-[700px] text-smoke;
+}
+
+.CardProject--full .CardProject__description {
+  @apply text-lg;
 }
 
 .CardProject__tags {
@@ -36,6 +48,10 @@
 
 .CardProject__tag {
   @apply mb-1 mr-1 block rounded border border-smoke px-2 py-1 text-sm text-smoke last:mr-0;
+}
+
+.CardProject__image {
+  @apply h-full max-h-[280px] w-full rounded-lg object-cover;
 }
 
 .CardProject__track {

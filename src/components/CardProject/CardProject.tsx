@@ -15,6 +15,7 @@ const CardProject = ({
   variant = 'compact',
   name,
   description,
+  image,
   licence,
   tags,
   stars,
@@ -30,7 +31,7 @@ const CardProject = ({
     >
       <div className={styles.CardProject__content}>
         <div>
-          <div className={styles.CardProject__title}>
+          <div className={styles.CardProject__head}>
             <CodeBracketIcon className={styles.CardProject__icon} />
             <strong className={styles.CardProject__name}>{name}</strong>
           </div>
@@ -50,7 +51,7 @@ const CardProject = ({
             src="https://repository-images.githubusercontent.com/724425985/b241f73a-52ab-43bf-860e-047dd8c468bf"
             width={200}
             height={100}
-            className="max-h-[170px] rounded-lg object-cover"
+            className={styles.CardProject__image}
           />
         )}
       </div>

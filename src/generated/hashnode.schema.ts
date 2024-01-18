@@ -142,6 +142,17 @@ export type BetaFeature = Node & {
   url?: Maybe<Scalars['String']['output']>
 }
 
+export type CancelScheduledDraftInput = {
+  /** The Draft ID of the scheduled draft. */
+  draftId: Scalars['ID']['input']
+}
+
+export type CancelScheduledDraftPayload = {
+  __typename?: 'CancelScheduledDraftPayload'
+  /** Payload returned in response of cancel scheduled post mutation. */
+  scheduledPost: ScheduledPost
+}
+
 /**
  * Contains basic information about the comment.
  * A comment is a response to a post.
@@ -683,6 +694,7 @@ export type Mutation = {
   addPostToSeries: AddPostToSeriesPayload
   /** Adds a reply to a comment. */
   addReply: AddReplyPayload
+  cancelScheduledDraft: CancelScheduledDraftPayload
   createWebhook: CreateWebhookPayload
   deleteWebhook: DeleteWebhookPayload
   /** Likes a comment. */
@@ -699,12 +711,15 @@ export type Mutation = {
   removeRecommendation: RemoveRecommendationPayload
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload
+  /** Reschedule a draft. */
+  rescheduleDraft: RescheduleDraftPayload
   /**
    * Reschedule a post.
    * @deprecated Use rescheduleDraft instead. Will be taken down on 2024-02-1
    */
   reschedulePost?: Maybe<ScheduledPostPayload>
   resendWebhookRequest: ResendWebhookRequestPayload
+  scheduleDraft: ScheduleDraftPayload
   subscribeToNewsletter: SubscribeToNewsletterPayload
   /**
    * Update the follow state for the user that is provided via id or username.
@@ -733,6 +748,10 @@ export type MutationAddPostToSeriesArgs = {
 
 export type MutationAddReplyArgs = {
   input: AddReplyInput
+}
+
+export type MutationCancelScheduledDraftArgs = {
+  input: CancelScheduledDraftInput
 }
 
 export type MutationCreateWebhookArgs = {
@@ -775,12 +794,20 @@ export type MutationRemoveReplyArgs = {
   input: RemoveReplyInput
 }
 
+export type MutationRescheduleDraftArgs = {
+  input: RescheduleDraftInput
+}
+
 export type MutationReschedulePostArgs = {
   input: ReschedulePostInput
 }
 
 export type MutationResendWebhookRequestArgs = {
   input: ResendWebhookRequestInput
+}
+
+export type MutationScheduleDraftArgs = {
+  input: ScheduleDraftInput
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -1989,6 +2016,19 @@ export type Reply = Node & {
   totalReactions: Scalars['Int']['output']
 }
 
+export type RescheduleDraftInput = {
+  /** The Draft ID of the scheduled draft. */
+  draftId: Scalars['ID']['input']
+  /** New scheduled date for the draft to be rescheduled. */
+  publishAt: Scalars['DateTime']['input']
+}
+
+export type RescheduleDraftPayload = {
+  __typename?: 'RescheduleDraftPayload'
+  /** Payload returned in response of reschedulePost mutation. */
+  scheduledPost: ScheduledPost
+}
+
 export type ReschedulePostInput = {
   /** The Draft ID of the scheduled post. */
   draftId: Scalars['ObjectId']['input']
@@ -2013,6 +2053,21 @@ export type Seo = {
   description?: Maybe<Scalars['String']['output']>
   /** The title used in og:title tag for SEO purposes. */
   title?: Maybe<Scalars['String']['output']>
+}
+
+export type ScheduleDraftInput = {
+  /** The Author ID of the draft that should be published */
+  authorId: Scalars['ID']['input']
+  /** The id of the draft that should be published */
+  draftId: Scalars['ID']['input']
+  /** The date the draft should be published */
+  publishAt: Scalars['DateTime']['input']
+}
+
+export type ScheduleDraftPayload = {
+  __typename?: 'ScheduleDraftPayload'
+  /** Payload returned in response of reschedulePost mutation. */
+  scheduledPost: ScheduledPost
 }
 
 /**

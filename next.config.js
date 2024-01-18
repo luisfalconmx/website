@@ -30,6 +30,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'api.accredible.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'opengraph.githubassets.com'
       }
     ]
   },

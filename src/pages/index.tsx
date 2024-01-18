@@ -200,18 +200,19 @@ export default function Home({
         <div className="mx-auto grid max-w-fit grid-cols-2 gap-6">
           {projects?.map((project) => (
             <CardProject
-              variant="full"
+              variant="compact"
               key={project.name}
               name={project.name}
-              description={project.description as string}
+              description={project.description || ''}
+              image={project?.openGraphImageUrl}
               tags={project?.repositoryTopics.nodes?.map((i) =>
                 i ? i.topic.name : ''
               )}
-              licence={project.licenseInfo?.name as string}
-              stars={project.stargazerCount as number}
-              issues={project.issues.totalCount as number}
+              licence={project.licenseInfo?.name || ''}
+              stars={project.stargazerCount || 0}
+              issues={project.issues.totalCount || 0}
               contributors={project.collaborators?.totalCount as number}
-              forks={project.forkCount as number}
+              forks={project.forkCount || 0}
             />
           ))}
         </div>
