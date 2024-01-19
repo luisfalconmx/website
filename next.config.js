@@ -34,6 +34,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'opengraph.githubassets.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.ui8.net'
       }
     ]
   },

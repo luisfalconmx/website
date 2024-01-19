@@ -1,5 +1,5 @@
 .CardProject {
-  @apply flex  cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
+  @apply flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
 }
 
 .CardProject--full {

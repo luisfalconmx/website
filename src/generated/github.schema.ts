@@ -30519,6 +30519,48 @@ export type WorkflowsParametersInput = {
   workflows: Array<WorkflowFileReferenceInput>
 }
 
+export type GetProjectBySlugQueryVariables = Exact<{
+  login: Scalars['String']['input']
+  slug: Scalars['String']['input']
+}>
+
+export type GetProjectBySlugQuery = {
+  __typename?: 'Query'
+  user?: {
+    __typename?: 'User'
+    repository?: {
+      __typename?: 'Repository'
+      name: string
+      description?: string | null
+      createdAt: any
+      stargazerCount: number
+      forkCount: number
+      homepageUrl?: any | null
+      url: any
+      openGraphImageUrl: any
+      licenseInfo?: { __typename?: 'License'; name: string } | null
+      collaborators?: {
+        __typename?: 'RepositoryCollaboratorConnection'
+        totalCount: number
+      } | null
+      issues: { __typename?: 'IssueConnection'; totalCount: number }
+      latestRelease?: { __typename?: 'Release'; name?: string | null } | null
+      primaryLanguage?: {
+        __typename?: 'Language'
+        color?: string | null
+        name: string
+      } | null
+      repositoryTopics: {
+        __typename?: 'RepositoryTopicConnection'
+        nodes?: Array<{
+          __typename?: 'RepositoryTopic'
+          topic: { __typename?: 'Topic'; name: string }
+        } | null> | null
+      }
+    } | null
+  } | null
+}
+
 export type GetProjectsQueryVariables = Exact<{
   username: Scalars['String']['input']
 }>
@@ -30613,6 +30655,112 @@ export type GithubProfileQuery = {
   } | null
 }
 
+export const GetProjectBySlugDocument = gql`
+  query GetProjectBySlug($login: String!, $slug: String!) {
+    user(login: $login) {
+      repository(name: $slug) {
+        name
+        description
+        createdAt
+        licenseInfo {
+          name
+        }
+        collaborators {
+          totalCount
+        }
+        issues {
+          totalCount
+        }
+        stargazerCount
+        forkCount
+        latestRelease {
+          name
+        }
+        primaryLanguage {
+          color
+          name
+        }
+        homepageUrl
+        url
+        openGraphImageUrl
+        repositoryTopics(first: 10) {
+          nodes {
+            topic {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetProjectBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectBySlugQuery({
+ *   variables: {
+ *      login: // value for 'login'
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetProjectBySlugQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectBySlugQuery, GetProjectBySlugQueryVariables>(
+    GetProjectBySlugDocument,
+    options
+  )
+}
+export function useGetProjectBySlugLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >(GetProjectBySlugDocument, options)
+}
+export function useGetProjectBySlugSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >(GetProjectBySlugDocument, options)
+}
+export type GetProjectBySlugQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugQuery
+>
+export type GetProjectBySlugLazyQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugLazyQuery
+>
+export type GetProjectBySlugSuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugSuspenseQuery
+>
+export type GetProjectBySlugQueryResult = Apollo.QueryResult<
+  GetProjectBySlugQuery,
+  GetProjectBySlugQueryVariables
+>
 export const GetProjectsDocument = gql`
   query GetProjects($username: String!) {
     user(login: $username) {

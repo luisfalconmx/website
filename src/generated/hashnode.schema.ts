@@ -701,6 +701,8 @@ export type Mutation = {
   likeComment: LikeCommentPayload
   /** Likes a post. */
   likePost: LikePostPayload
+  /** Publishes an existing draft as a post. */
+  publishDraft: PublishDraftPayload
   /** Creates a new post. */
   publishPost: PublishPostPayload
   recommendPublications: RecommendPublicationsPayload
@@ -713,11 +715,6 @@ export type Mutation = {
   removeReply: RemoveReplyPayload
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload
-  /**
-   * Reschedule a post.
-   * @deprecated Use rescheduleDraft instead. Will be taken down on 2024-02-1
-   */
-  reschedulePost?: Maybe<ScheduledPostPayload>
   resendWebhookRequest: ResendWebhookRequestPayload
   scheduleDraft: ScheduleDraftPayload
   subscribeToNewsletter: SubscribeToNewsletterPayload
@@ -770,6 +767,10 @@ export type MutationLikePostArgs = {
   input: LikePostInput
 }
 
+export type MutationPublishDraftArgs = {
+  input: PublishDraftInput
+}
+
 export type MutationPublishPostArgs = {
   input: PublishPostInput
 }
@@ -796,10 +797,6 @@ export type MutationRemoveReplyArgs = {
 
 export type MutationRescheduleDraftArgs = {
   input: RescheduleDraftInput
-}
-
-export type MutationReschedulePostArgs = {
-  input: ReschedulePostInput
 }
 
 export type MutationResendWebhookRequestArgs = {
@@ -1758,6 +1755,17 @@ export type PublicationUserRecommendingPublicationConnection =
     totalDocuments: Scalars['Int']['output']
   }
 
+export type PublishDraftInput = {
+  /** The id of the draft that should be published */
+  draftId: Scalars['ObjectId']['input']
+}
+
+export type PublishDraftPayload = {
+  __typename?: 'PublishDraftPayload'
+  /** The newly created post based on the draft */
+  post?: Maybe<Post>
+}
+
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
   /** Ids of the co-authors of the post. */
@@ -2029,13 +2037,6 @@ export type RescheduleDraftPayload = {
   scheduledPost: ScheduledPost
 }
 
-export type ReschedulePostInput = {
-  /** The Draft ID of the scheduled post. */
-  draftId: Scalars['ObjectId']['input']
-  /** New scheduled date for the post to be rescheduled. */
-  scheduledDate: Scalars['DateTime']['input']
-}
-
 export type ResendWebhookRequestInput = {
   webhookId: Scalars['ID']['input']
   webhookMessageId: Scalars['ID']['input']
@@ -2088,12 +2089,6 @@ export type ScheduledPost = Node & {
   scheduledBy?: Maybe<User>
   /** The scheduled date for the post to be published. This is the date the post will be published. */
   scheduledDate: Scalars['DateTime']['output']
-}
-
-export type ScheduledPostPayload = {
-  __typename?: 'ScheduledPostPayload'
-  /** Payload returned in response of reschedulePost mutation. */
-  payload: ScheduledPost
 }
 
 /** Enum of all the scopes that can be used with the @requireAuth directive. */

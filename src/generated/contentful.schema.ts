@@ -31,6 +31,7 @@ export type Scalars = {
   DateTime: { input: any; output: any }
   Dimension: { input: any; output: any }
   HexColor: { input: any; output: any }
+  JSON: { input: any; output: any }
   Quality: { input: any; output: any }
 }
 
@@ -666,6 +667,7 @@ export type Project = Entry & {
   contentfulMetadata: ContentfulMetadata
   linkedFrom?: Maybe<ProjectLinkingCollections>
   name?: Maybe<Scalars['String']['output']>
+  overview?: Maybe<ProjectOverview>
   sys: Sys
 }
 
@@ -676,6 +678,11 @@ export type ProjectLinkedFromArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type ProjectNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectOverviewArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -698,6 +705,9 @@ export type ProjectFilter = {
   name_not?: InputMaybe<Scalars['String']['input']>
   name_not_contains?: InputMaybe<Scalars['String']['input']>
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  overview_contains?: InputMaybe<Scalars['String']['input']>
+  overview_exists?: InputMaybe<Scalars['Boolean']['input']>
+  overview_not_contains?: InputMaybe<Scalars['String']['input']>
   sys?: InputMaybe<SysFilter>
 }
 
@@ -724,6 +734,39 @@ export enum ProjectOrder {
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type ProjectOverview = {
+  __typename?: 'ProjectOverview'
+  json: Scalars['JSON']['output']
+  links: ProjectOverviewLinks
+}
+
+export type ProjectOverviewAssets = {
+  __typename?: 'ProjectOverviewAssets'
+  block: Array<Maybe<Asset>>
+  hyperlink: Array<Maybe<Asset>>
+}
+
+export type ProjectOverviewEntries = {
+  __typename?: 'ProjectOverviewEntries'
+  block: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  inline: Array<Maybe<Entry>>
+}
+
+export type ProjectOverviewLinks = {
+  __typename?: 'ProjectOverviewLinks'
+  assets: ProjectOverviewAssets
+  entries: ProjectOverviewEntries
+  resources: ProjectOverviewResources
+}
+
+export type ProjectOverviewResources = {
+  __typename?: 'ProjectOverviewResources'
+  block: Array<ResourceLink>
+  hyperlink: Array<ResourceLink>
+  inline: Array<ResourceLink>
 }
 
 export type Query = {
@@ -813,6 +856,18 @@ export type QueryProjectCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ProjectFilter>
+}
+
+export type ResourceLink = {
+  __typename?: 'ResourceLink'
+  sys: ResourceSys
+}
+
+export type ResourceSys = {
+  __typename?: 'ResourceSys'
+  linkType: Scalars['String']['output']
+  type: Scalars['String']['output']
+  urn: Scalars['String']['output']
 }
 
 export type Sys = {
