@@ -7,7 +7,7 @@ const SocialIcons = ({ data, className = '' }: SocialIconsProps) => {
       {data &&
         data?.map(({ provider, url }) => (
           <li key={provider} className="mr-8 last:mr-0">
-            <a href={url} title={provider}>
+            <a href={url} title={provider} target="_blank">
               <Image
                 width={34}
                 height={34}

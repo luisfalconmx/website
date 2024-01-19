@@ -5,6 +5,7 @@ import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import skills from '@/json/skills.json'
 import {
   GithubProfileDocument,
   GithubProfileQuery,
@@ -22,6 +23,7 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import type { Repository } from '@/generated/github.schema'
 import '@splidejs/react-splide/css'
+import Link from 'next/link'
 
 export const getStaticProps = (async () => {
   const gh_client = githubClient()
@@ -58,7 +60,14 @@ export const getStaticProps = (async () => {
     displayName: GITHUB_USERNAME
   }
 
+  const platziAccount = {
+    provider: 'platzi',
+    url: 'https://platzi.com/p/luisfalconmx',
+    displayName: 'luisfalconmx'
+  }
+
   socialAccounts?.unshift(githubAccount)
+  socialAccounts?.push(platziAccount)
 
   return {
     props: {
@@ -69,7 +78,10 @@ export const getStaticProps = (async () => {
       projects: gh_response.data.user?.pinnedItems.edges?.map(
         (i) => i?.node as Repository
       ),
-      experiences: contentful_response.data.experienceCollection?.items ?? []
+      experiences: contentful_response.data.experienceCollection?.items ?? [],
+      certifications: contentful_response.data.certificationCollection?.items,
+      certificationCount:
+        contentful_response.data.certificationCollection?.total
     }
   }
 }) satisfies GetStaticProps
@@ -80,70 +92,24 @@ export default function Home({
   bio,
   socialAccounts,
   projects,
-  experiences
+  experiences,
+  certifications,
+  certificationCount
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const skills = [
-    {
-      title: 'Modern Frontend',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'JavaScript & Typescript',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Version control system',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'RESTFUL API & GraphQL',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Cross Browser Testing',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Unit Testing & E2E Testing',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Responsive Design',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Accessibility / WCAG',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'SEO',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Web optimization',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'Web security',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
-    },
-    {
-      title: 'CI & CD',
-      description:
-        'lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet'
+  const certificationsCarouselOptions = {
+    type: 'loop',
+    perPage: 2,
+    perMove: 1,
+    gap: '1rem',
+    autoplay: true,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    breakpoints: {
+      640: {
+        perPage: 1
+      }
     }
-  ]
+  }
 
   return (
     <MainLayout>
@@ -152,7 +118,7 @@ export default function Home({
           width={220}
           height={200}
           src={avatar_url}
-          alt="logo"
+          alt={login}
           className="mx-auto mb-10 rounded-full shadow-2xl shadow-black dark:shadow-none"
         />
 
@@ -166,8 +132,15 @@ export default function Home({
         <p className="mb-12 text-center text-lg text-smoke">{bio}</p>
 
         <div className="mb-16 text-center">
-          <Button className="mr-4">View all projects</Button>
-          <Button variant="outlined">Download CV</Button>
+          <Link href="/projects">
+            <Button className="mr-4">View all projects</Button>
+          </Link>
+          <a
+            href="https://drive.google.com/file/d/1q5afbC2XZrcErTQ8QExCpLFIFpuN4DLm/view?usp=sharing"
+            target="_blank"
+          >
+            <Button variant="outlined">Download CV</Button>
+          </a>
         </div>
 
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
@@ -184,7 +157,9 @@ export default function Home({
         </div>
 
         <div>
-          <strong className="mb-4 block text-5xl font-bold">113</strong>
+          <strong className="mb-4 block text-5xl font-bold">
+            {certificationCount}
+          </strong>
           <p className="block text-xl uppercase">certifications</p>
         </div>
 
@@ -242,63 +217,17 @@ export default function Home({
       <section className="mb-24">
         <h2 className="mb-8 text-4xl font-bold">Recent Certifications</h2>
 
-        <Splide
-          options={{
-            type: 'loop',
-            perPage: 2,
-            perMove: 1,
-            gap: '1rem',
-            autoplay: true,
-            pauseOnHover: true,
-            pauseOnFocus: true,
-            breakpoints: {
-              640: {
-                perPage: 1
-              }
-            }
-          }}
-          className="splide"
-        >
-          <SplideSlide>
-            <Image
-              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
-              alt="certificate"
-              width={640}
-              height={480}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
-              alt="certificate"
-              width={640}
-              height={480}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
-              alt="certificate"
-              width={640}
-              height={480}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
-              alt="certificate"
-              width={640}
-              height={480}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/40321798"
-              alt="certificate"
-              width={640}
-              height={480}
-            />
-          </SplideSlide>
+        <Splide options={certificationsCarouselOptions} className="splide">
+          {certifications?.map((certification) => (
+            <SplideSlide key={certification?.name}>
+              <Image
+                src={certification?.picture?.url || ''}
+                alt={certification?.name || ''}
+                width={640}
+                height={480}
+              />
+            </SplideSlide>
+          ))}
         </Splide>
       </section>
 

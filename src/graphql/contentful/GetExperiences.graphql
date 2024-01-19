@@ -26,4 +26,13 @@ query GetExperiences {
       description
     }
   }
+  certificationCollection {
+    total
+    items {
+      name
+      picture {
+        url
+      }
+    }
+  }
 }

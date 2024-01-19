@@ -176,8 +176,16 @@ export type AssetFilter = {
 
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections'
+  certificationCollection?: Maybe<CertificationCollection>
   entryCollection?: Maybe<EntryCollection>
   experienceCollection?: Maybe<ExperienceCollection>
+}
+
+export type AssetLinkingCollectionsCertificationCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
@@ -221,14 +229,39 @@ export enum AssetOrder {
 export type Certification = Entry & {
   __typename?: 'Certification'
   contentfulMetadata: ContentfulMetadata
-  date?: Maybe<Scalars['DateTime']['output']>
+  credentialId?: Maybe<Scalars['String']['output']>
+  credentialUrl?: Maybe<Scalars['String']['output']>
+  expirationDate?: Maybe<Scalars['DateTime']['output']>
+  issueDate?: Maybe<Scalars['DateTime']['output']>
+  issuingOrganization?: Maybe<Scalars['String']['output']>
   linkedFrom?: Maybe<CertificationLinkingCollections>
+  name?: Maybe<Scalars['String']['output']>
+  picture?: Maybe<Asset>
   sys: Sys
-  title?: Maybe<Scalars['String']['output']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
-export type CertificationDateArgs = {
+export type CertificationCredentialIdArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
+export type CertificationCredentialUrlArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
+export type CertificationExpirationDateArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
+export type CertificationIssueDateArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
+export type CertificationIssuingOrganizationArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -238,8 +271,14 @@ export type CertificationLinkedFromArgs = {
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
-export type CertificationTitleArgs = {
+export type CertificationNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/certification) */
+export type CertificationPictureArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type CertificationCollection = {
@@ -254,23 +293,66 @@ export type CertificationFilter = {
   AND?: InputMaybe<Array<InputMaybe<CertificationFilter>>>
   OR?: InputMaybe<Array<InputMaybe<CertificationFilter>>>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-  date?: InputMaybe<Scalars['DateTime']['input']>
-  date_exists?: InputMaybe<Scalars['Boolean']['input']>
-  date_gt?: InputMaybe<Scalars['DateTime']['input']>
-  date_gte?: InputMaybe<Scalars['DateTime']['input']>
-  date_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
-  date_lt?: InputMaybe<Scalars['DateTime']['input']>
-  date_lte?: InputMaybe<Scalars['DateTime']['input']>
-  date_not?: InputMaybe<Scalars['DateTime']['input']>
-  date_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
+  credentialId?: InputMaybe<Scalars['String']['input']>
+  credentialId_contains?: InputMaybe<Scalars['String']['input']>
+  credentialId_exists?: InputMaybe<Scalars['Boolean']['input']>
+  credentialId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  credentialId_not?: InputMaybe<Scalars['String']['input']>
+  credentialId_not_contains?: InputMaybe<Scalars['String']['input']>
+  credentialId_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  credentialUrl?: InputMaybe<Scalars['String']['input']>
+  credentialUrl_contains?: InputMaybe<Scalars['String']['input']>
+  credentialUrl_exists?: InputMaybe<Scalars['Boolean']['input']>
+  credentialUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  credentialUrl_not?: InputMaybe<Scalars['String']['input']>
+  credentialUrl_not_contains?: InputMaybe<Scalars['String']['input']>
+  credentialUrl_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  expirationDate?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_exists?: InputMaybe<Scalars['Boolean']['input']>
+  expirationDate_gt?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_gte?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_in?: InputMaybe<
+    Array<InputMaybe<Scalars['DateTime']['input']>>
+  >
+  expirationDate_lt?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_lte?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_not?: InputMaybe<Scalars['DateTime']['input']>
+  expirationDate_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['DateTime']['input']>>
+  >
+  issueDate?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_exists?: InputMaybe<Scalars['Boolean']['input']>
+  issueDate_gt?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_gte?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
+  issueDate_lt?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_lte?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_not?: InputMaybe<Scalars['DateTime']['input']>
+  issueDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
+  issuingOrganization?: InputMaybe<Scalars['String']['input']>
+  issuingOrganization_contains?: InputMaybe<Scalars['String']['input']>
+  issuingOrganization_exists?: InputMaybe<Scalars['Boolean']['input']>
+  issuingOrganization_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  issuingOrganization_not?: InputMaybe<Scalars['String']['input']>
+  issuingOrganization_not_contains?: InputMaybe<Scalars['String']['input']>
+  issuingOrganization_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  name?: InputMaybe<Scalars['String']['input']>
+  name_contains?: InputMaybe<Scalars['String']['input']>
+  name_exists?: InputMaybe<Scalars['Boolean']['input']>
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_not?: InputMaybe<Scalars['String']['input']>
+  name_not_contains?: InputMaybe<Scalars['String']['input']>
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  picture_exists?: InputMaybe<Scalars['Boolean']['input']>
   sys?: InputMaybe<SysFilter>
-  title?: InputMaybe<Scalars['String']['input']>
-  title_contains?: InputMaybe<Scalars['String']['input']>
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-  title_not?: InputMaybe<Scalars['String']['input']>
-  title_not_contains?: InputMaybe<Scalars['String']['input']>
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
 }
 
 export type CertificationLinkingCollections = {
@@ -286,8 +368,18 @@ export type CertificationLinkingCollectionsEntryCollectionArgs = {
 }
 
 export enum CertificationOrder {
-  DateAsc = 'date_ASC',
-  DateDesc = 'date_DESC',
+  CredentialIdAsc = 'credentialId_ASC',
+  CredentialIdDesc = 'credentialId_DESC',
+  CredentialUrlAsc = 'credentialUrl_ASC',
+  CredentialUrlDesc = 'credentialUrl_DESC',
+  ExpirationDateAsc = 'expirationDate_ASC',
+  ExpirationDateDesc = 'expirationDate_DESC',
+  IssueDateAsc = 'issueDate_ASC',
+  IssueDateDesc = 'issueDate_DESC',
+  IssuingOrganizationAsc = 'issuingOrganization_ASC',
+  IssuingOrganizationDesc = 'issuingOrganization_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -295,9 +387,7 @@ export enum CertificationOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export type ContentfulMetadata = {
@@ -963,6 +1053,15 @@ export type GetExperiencesQuery = {
       } | null
     } | null>
   } | null
+  certificationCollection?: {
+    __typename?: 'CertificationCollection'
+    total: number
+    items: Array<{
+      __typename?: 'Certification'
+      name?: string | null
+      picture?: { __typename?: 'Asset'; url?: string | null } | null
+    } | null>
+  } | null
 }
 
 export const GetExperiencesDocument = gql`
@@ -992,6 +1091,15 @@ export const GetExperiencesDocument = gql`
         endDate
         industry
         description
+      }
+    }
+    certificationCollection {
+      total
+      items {
+        name
+        picture {
+          url
+        }
       }
     }
   }

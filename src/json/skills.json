@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Modern Frontend",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "JavaScript & Typescript",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Version control system",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "RESTFUL API & GraphQL",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Cross Browser Testing",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Unit Testing & E2E Testing",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Responsive Design",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Accessibility / WCAG",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "SEO",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Web optimization",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "Web security",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  },
+  {
+    "title": "CI & CD",
+    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+  }
+]
