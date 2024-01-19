@@ -50,6 +50,10 @@ export const getStaticPaths = async () => {
 export default function Blog({
   project
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const cleanPrimaryLanguage = project?.primaryLanguage?.name
+    ?.toLowerCase()
+    .replace(' ', '-')
+
   return (
     <MainLayout>
       <section className="mb-24 grid grid-cols-[500px,1fr] gap-x-12">
@@ -62,7 +66,16 @@ export default function Blog({
         />
 
         <div className="pt-6">
-          <h1 className="mb-4 text-5xl font-bold">{project?.name}</h1>
+          <div className="mb-4 flex items-end">
+            <Image
+              src={`https://svgl.vercel.app/library/${cleanPrimaryLanguage}.svg`}
+              alt={project?.primaryLanguage?.name || ''}
+              width={56}
+              height={56}
+              className="mr-3 block max-h-[42px] max-w-[42px]"
+            />
+            <h1 className=" text-5xl font-bold">{project?.name}</h1>
+          </div>
 
           <div className="mb-4 flex">
             <div className="mr-6 flex items-center text-smoke">

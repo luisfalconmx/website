@@ -204,15 +204,14 @@ export default function Home({
               key={project.name}
               name={project.name}
               description={project.description || ''}
+              primaryLanguage={project.primaryLanguage?.name || ''}
               image={project?.openGraphImageUrl}
               tags={project?.repositoryTopics.nodes?.map((i) =>
                 i ? i.topic.name : ''
               )}
               licence={project.licenseInfo?.name || ''}
-              stars={project.stargazerCount || 0}
-              issues={project.issues.totalCount || 0}
-              contributors={project.collaborators?.totalCount as number}
-              forks={project.forkCount || 0}
+              createdDate={project.createdAt}
+              latestRelease={project.latestRelease?.name || ''}
             />
           ))}
         </div>

@@ -18,6 +18,13 @@ query GithubProfile($username: String!) {
           ... on Repository {
             name
             description
+            createdAt
+            primaryLanguage {
+              name
+            }
+            latestRelease {
+              name
+            }
             licenseInfo {
               name
             }

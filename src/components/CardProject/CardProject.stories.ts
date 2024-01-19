@@ -15,9 +15,10 @@ export const Default: Story = {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl aliquet nunc, quis aliquam nisl nisl nec nisl.',
     tags: ['nextjs', 'typescript', 'tailwindcss'],
     licence: 'MIT License',
-    stars: 10,
-    issues: 2,
-    contributors: 3,
-    forks: 5
+    createdDate: new Date(),
+    image: 'https://picsum.photos/200/300',
+    latestRelease: 'v1.0.0',
+    primaryLanguage: 'javascript',
+    variant: 'full'
   }
 }

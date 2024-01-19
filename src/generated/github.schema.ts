@@ -30577,9 +30577,15 @@ export type GetProjectsQuery = {
           __typename?: 'Repository'
           name: string
           description?: string | null
+          createdAt: any
           stargazerCount: number
           forkCount: number
           openGraphImageUrl: any
+          primaryLanguage?: { __typename?: 'Language'; name: string } | null
+          latestRelease?: {
+            __typename?: 'Release'
+            name?: string | null
+          } | null
           licenseInfo?: { __typename?: 'License'; name: string } | null
           collaborators?: {
             __typename?: 'RepositoryCollaboratorConnection'
@@ -30632,9 +30638,15 @@ export type GithubProfileQuery = {
               __typename?: 'Repository'
               name: string
               description?: string | null
+              createdAt: any
               stargazerCount: number
               forkCount: number
               openGraphImageUrl: any
+              primaryLanguage?: { __typename?: 'Language'; name: string } | null
+              latestRelease?: {
+                __typename?: 'Release'
+                name?: string | null
+              } | null
               licenseInfo?: { __typename?: 'License'; name: string } | null
               collaborators?: {
                 __typename?: 'RepositoryCollaboratorConnection'
@@ -30773,6 +30785,13 @@ export const GetProjectsDocument = gql`
           node {
             name
             description
+            createdAt
+            primaryLanguage {
+              name
+            }
+            latestRelease {
+              name
+            }
             licenseInfo {
               name
             }
@@ -30883,6 +30902,13 @@ export const GithubProfileDocument = gql`
             ... on Repository {
               name
               description
+              createdAt
+              primaryLanguage {
+                name
+              }
+              latestRelease {
+                name
+              }
               licenseInfo {
                 name
               }

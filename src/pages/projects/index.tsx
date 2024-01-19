@@ -49,10 +49,9 @@ export default function Projects({
               i ? i.topic.name : ''
             )}
             licence={project?.licenseInfo?.name || ''}
-            issues={project?.issues.totalCount || 0}
-            forks={project?.forkCount || 0}
-            stars={project?.stargazerCount || 0}
-            contributors={project?.collaborators?.totalCount || 0}
+            createdDate={project?.createdAt || ''}
+            latestRelease={project?.latestRelease?.name || ''}
+            primaryLanguage={project?.primaryLanguage?.name || ''}
           />
         ))}
       </div>

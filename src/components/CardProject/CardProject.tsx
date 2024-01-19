@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import cn from '@/utils/cn'
-import { CheckBadgeIcon } from '@heroicons/react/24/solid'
-import { CodeBracketIcon } from '@heroicons/react/24/outline'
+import humanDate from '@/utils/humanDate'
+import { CheckBadgeIcon, RocketLaunchIcon } from '@heroicons/react/24/solid'
+import { CalendarDaysIcon, CodeBracketIcon } from '@heroicons/react/24/outline'
 import styles from './CardProject.module.css'
 import type { CardProjectProps } from './CardProject.d'
 
@@ -11,13 +12,14 @@ const CardProject = ({
   name,
   description,
   image,
+  primaryLanguage,
   licence,
   tags,
-  stars,
-  issues,
-  contributors,
-  forks
+  createdDate,
+  latestRelease
 }: CardProjectProps) => {
+  const cleanPrimaryLanguage = primaryLanguage?.toLowerCase().replace(' ', '-')
+
   return (
     <Link href={`/projects/${name}`}>
       <div
@@ -28,7 +30,13 @@ const CardProject = ({
         <div className={styles.CardProject__content}>
           <div>
             <div className={styles.CardProject__head}>
-              <CodeBracketIcon className={styles.CardProject__icon} />
+              <Image
+                src={`https://svgl.vercel.app/library/${cleanPrimaryLanguage}.svg`}
+                alt={primaryLanguage}
+                width={42}
+                height={42}
+                className="mr-3 block max-h-[42px] max-w-[42px]"
+              />
               <strong className={styles.CardProject__name}>{name}</strong>
             </div>
             <p className={styles.CardProject__description}>{description}</p>
@@ -44,7 +52,7 @@ const CardProject = ({
           {variant === 'full' && (
             <Image
               alt={name}
-              src="https://repository-images.githubusercontent.com/724425985/b241f73a-52ab-43bf-860e-047dd8c468bf"
+              src={image}
               width={200}
               height={100}
               className={styles.CardProject__image}
@@ -53,8 +61,16 @@ const CardProject = ({
         </div>
         <div className={styles.CardProject__track}>
           <div className={styles.CardProject__item}>
-            <CheckBadgeIcon className="mr-1 h-5 w-5" />
+            <CheckBadgeIcon className="mr-1 h-5 w-5 text-green-500" />
             {licence}
+          </div>
+          <div className={styles.CardProject__item}>
+            <RocketLaunchIcon className="mr-1 h-5 w-5" />
+            {latestRelease}
+          </div>
+          <div className={styles.CardProject__item}>
+            <CalendarDaysIcon className="mr-1 h-5 w-5" />
+            {humanDate(createdDate)}
           </div>
         </div>
       </div>

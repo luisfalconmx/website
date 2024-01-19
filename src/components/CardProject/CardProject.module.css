@@ -15,11 +15,7 @@
 }
 
 .CardProject__head {
-  @apply mb-2 flex;
-}
-
-.CardProject--full .CardProject__head {
-  @apply mb-6;
+  @apply mb-4 flex items-end;
 }
 
 .CardProject__icon {
@@ -27,7 +23,7 @@
 }
 
 .CardProject__name {
-  @apply block text-2xl font-bold;
+  @apply block pb-1 text-3xl font-bold;
 }
 
 .CardProject--full .CardProject__name {
