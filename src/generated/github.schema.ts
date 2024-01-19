@@ -30628,6 +30628,7 @@ export type GithubProfileQuery = {
         } | null
       } | null> | null
     }
+    repositories: { __typename?: 'RepositoryConnection'; totalCount: number }
     pinnedItems: {
       __typename?: 'PinnableItemConnection'
       edges?: Array<{
@@ -30895,6 +30896,9 @@ export const GithubProfileDocument = gql`
             url
           }
         }
+      }
+      repositories(visibility: PUBLIC) {
+        totalCount
       }
       pinnedItems(first: 10, types: REPOSITORY) {
         edges {

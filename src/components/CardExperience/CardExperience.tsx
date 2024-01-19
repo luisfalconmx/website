@@ -17,7 +17,8 @@ const CardExperience = ({
 }: CardExperienceProps) => {
   const renderDate = (date?: string) => {
     if (date) {
-      return dayjs(date).format('DD MMM YYYY')
+      const extractedDate = date.substring(0, 10)
+      return dayjs(extractedDate).format('DD MMMM YYYY')
     }
 
     return 'Present'
@@ -26,21 +27,25 @@ const CardExperience = ({
   return (
     <div className={styles.CardExperience}>
       <div className={styles.CardExperience__content}>
-        <Image src={companyImage} alt={companyName} width={50} height={50} />
+        <Image
+          src={companyImage}
+          alt={companyName}
+          width={100}
+          height={100}
+          className={styles.CardExperience__image}
+        />
         <div>
           <b className={styles.CardExperience__title}>{title}</b>
           <p className={styles.CardExperience__companyName}>{companyName}</p>
+          <p className={styles.CardExperience__date}>
+            {renderDate(startDate)} - {renderDate(endDate)}
+          </p>
 
           <p>
             {location} - {locationType} - {employmentType}
           </p>
           <p className={styles.CardExperience__industry}>{industry}</p>
           <p className={styles.CardExperience__description}>{description}</p>
-        </div>
-        <div>
-          <p className={styles.CardExperience__date}>
-            {renderDate(startDate)} - {renderDate(endDate)}
-          </p>
         </div>
       </div>
     </div>

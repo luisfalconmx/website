@@ -1059,6 +1059,7 @@ export type GetExperiencesQuery = {
     items: Array<{
       __typename?: 'Certification'
       name?: string | null
+      credentialUrl?: string | null
       picture?: { __typename?: 'Asset'; url?: string | null } | null
     } | null>
   } | null
@@ -1097,6 +1098,7 @@ export const GetExperiencesDocument = gql`
       total
       items {
         name
+        credentialUrl
         picture {
           url
         }

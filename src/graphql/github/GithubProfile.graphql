@@ -12,6 +12,9 @@ query GithubProfile($username: String!) {
         }
       }
     }
+    repositories(visibility: PUBLIC) {
+      totalCount
+    }
     pinnedItems(first: 10, types: REPOSITORY) {
       edges {
         node {

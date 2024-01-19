@@ -30,6 +30,7 @@ query GetExperiences {
     total
     items {
       name
+      credentialUrl
       picture {
         url
       }

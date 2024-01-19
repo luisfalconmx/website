@@ -1,50 +1,50 @@
 [
   {
     "title": "Modern Frontend",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Modern frontend development with React, Next, Redux and other tools"
   },
   {
     "title": "JavaScript & Typescript",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "ES6 and Typescript to write clean and maintainable code"
   },
   {
     "title": "Version control system",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Git and Github to manage code and collaborate with other developers"
   },
   {
     "title": "RESTFUL API & GraphQL",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "RESTFUL API and GraphQL to communicate with backend or microservices"
   },
   {
     "title": "Cross Browser Testing",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Testing web application on different browsers and devices"
   },
   {
     "title": "Unit Testing & E2E Testing",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Jest, Enzyme, Cypress and other tools to write unit and E2E tests"
   },
   {
     "title": "Responsive Design",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "CSS Grid, Flexbox and other tools to build responsive web application"
   },
   {
     "title": "Accessibility / WCAG",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "WCAG to make web application accessible for everyone"
   },
   {
     "title": "SEO",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Tecnical SEO, On-page SEO and Analytics to make web application SEO friendly"
   },
   {
     "title": "Web optimization",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Static Site Generation, Code Splitting, Lazy Loading and other tools to make web application fast"
   },
   {
     "title": "Web security",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "OWASP standards to make web application secure"
   },
   {
     "title": "CI & CD",
-    "description": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet"
+    "description": "Docker, Github Actions and other tools to automate CI & CD process"
   }
 ]

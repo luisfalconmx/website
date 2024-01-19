@@ -6,6 +6,7 @@ import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import skills from '@/json/skills.json'
+import dayjs from 'dayjs'
 import {
   GithubProfileDocument,
   GithubProfileQuery,
@@ -78,11 +79,13 @@ export const getStaticProps = (async () => {
       projects: gh_response.data.user?.pinnedItems.edges?.map(
         (i) => i?.node as Repository
       ),
+      projectsCount: gh_response.data.user?.repositories.totalCount ?? 0,
       experiences: contentful_response.data.experienceCollection?.items ?? [],
       certifications: contentful_response.data.certificationCollection?.items,
       certificationCount:
         contentful_response.data.certificationCollection?.total
-    }
+    },
+    revalidate: 60 * 60 * 24 // 24 hours
   }
 }) satisfies GetStaticProps
 
@@ -92,10 +95,22 @@ export default function Home({
   bio,
   socialAccounts,
   projects,
+  projectsCount,
   experiences,
   certifications,
   certificationCount
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const totalMonthsOfExperience = experiences.map((i) => {
+    const now = dayjs()
+    const startDate = dayjs(i?.startDate?.substring(0, 10))
+    const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
+
+    return endDate.diff(startDate, 'month')
+  })
+
+  const totalExperience =
+    totalMonthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
+
   const certificationsCarouselOptions = {
     type: 'loop',
     perPage: 2,
@@ -148,11 +163,15 @@ export default function Home({
 
       <section className="mb-32 grid grid-cols-4 place-items-center gap-x-4">
         <div>
-          <strong className="mb-4 block text-5xl font-bold">06</strong>
+          <strong className="mb-4 block text-5xl font-bold">
+            {projectsCount}
+          </strong>
           <p className="block text-xl uppercase">projects</p>
         </div>
         <div>
-          <strong className="mb-4 block text-5xl font-bold">03</strong>
+          <strong className="mb-4 block text-5xl font-bold">
+            {parseFloat(totalExperience.toString()).toFixed(1)}
+          </strong>
           <p className="block text-xl uppercase">years of experience</p>
         </div>
 
@@ -176,8 +195,8 @@ export default function Home({
           {projects?.map((project) => (
             <CardProject
               variant="compact"
-              key={project.name}
-              name={project.name}
+              key={project?.name}
+              name={project?.name}
               description={project.description || ''}
               primaryLanguage={project.primaryLanguage?.name || ''}
               image={project?.openGraphImageUrl}
@@ -220,12 +239,14 @@ export default function Home({
         <Splide options={certificationsCarouselOptions} className="splide">
           {certifications?.map((certification) => (
             <SplideSlide key={certification?.name}>
-              <Image
-                src={certification?.picture?.url || ''}
-                alt={certification?.name || ''}
-                width={640}
-                height={480}
-              />
+              <a href={certification?.credentialUrl || ''} target="_blank">
+                <Image
+                  src={certification?.picture?.url || ''}
+                  alt={certification?.name || ''}
+                  width={640}
+                  height={500}
+                />
+              </a>
             </SplideSlide>
           ))}
         </Splide>

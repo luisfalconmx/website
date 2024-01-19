@@ -2856,6 +2856,32 @@ export type WebhookMessageResponse = {
   timeToFirstByteMilliseconds?: Maybe<Scalars['Int']['output']>
 }
 
+export type Widget = Node & {
+  __typename?: 'Widget'
+  /** Content of the widget, can be a simple string or HTML */
+  content: Scalars['String']['output']
+  /** The date and time the widget was created. */
+  createdAt: Scalars['DateTime']['output']
+  /** The unique identifier of the widget */
+  id: Scalars['ID']['output']
+  pinSettings?: Maybe<WidgetPinSettings>
+  /** WidgetId, can be embedded as %%[widgetId] in the article */
+  widgetId: Scalars['String']['output']
+}
+
+export enum WidgetPinLocation {
+  Bottom = 'BOTTOM',
+  Top = 'TOP'
+}
+
+export type WidgetPinSettings = {
+  __typename?: 'WidgetPinSettings'
+  /** Signifies if pinning of widget on all the articles of publication is enabled or not */
+  isPinned: Scalars['Boolean']['output']
+  /** Describes the location of the widget on the article, can be TOP or BOTTOM */
+  location: WidgetPinLocation
+}
+
 export type GetBlogPostBySlugQueryVariables = Exact<{
   hostname: Scalars['String']['input']
   slug: Scalars['String']['input']

@@ -3,15 +3,23 @@
 }
 
 .CardExperience__content {
-  @apply grid grid-cols-[50px,1fr,200px] gap-x-5 bg-onyx px-10 pb-10 pt-6;
+  @apply grid grid-cols-[80px,1fr] gap-x-5 bg-onyx px-10 pb-10 pt-6;
+}
+
+.CardExperience__image {
+  @apply rounded-lg;
 }
 
 .CardExperience__title {
-  @apply mb-1 text-2xl font-bold;
+  @apply mb-1 text-3xl font-bold;
 }
 
 .CardExperience__companyName {
-  @apply mb-2 text-lg font-semibold;
+  @apply mb-2 text-xl font-bold;
+}
+
+.CardExperience__date {
+  @apply text-lg font-medium;
 }
 
 .CardExperience__industry {
@@ -19,9 +27,5 @@
 }
 
 .CardExperience__description {
-  @apply text-smoke;
-}
-
-.CardExperience__date {
-  @apply text-right font-bold;
+  @apply text-lg text-smoke;
 }
