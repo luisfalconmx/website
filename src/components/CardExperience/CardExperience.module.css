@@ -27,5 +27,5 @@
 }
 
 .CardExperience__description {
-  @apply text-iron text-lg dark:text-smoke;
+  @apply text-lg text-iron dark:text-smoke;
 }

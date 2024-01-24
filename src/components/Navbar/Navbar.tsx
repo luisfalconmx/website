@@ -16,6 +16,10 @@ const Navbar = () => {
       path: '/projects'
     },
     {
+      name: 'Certifications',
+      path: '/certifications'
+    },
+    {
       name: 'Blog',
       path: '/blog'
     }
@@ -37,16 +41,16 @@ const Navbar = () => {
         </nav>
         <ul className={styles.Navbar__list}>
           <li className={styles.Navbar__item}>
-            <button onClick={toggleDarkmode}>
+            <button
+              className="flex h-full items-center"
+              onClick={toggleDarkmode}
+            >
               {darkmode ? (
                 <SunIcon className={styles.Navbar__icon} />
               ) : (
                 <MoonIcon className={styles.Navbar__icon} />
               )}
             </button>
-          </li>
-          <li>
-            <button></button>
           </li>
         </ul>
       </div>

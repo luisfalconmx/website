@@ -1857,6 +1857,8 @@ export type Query = {
   feed: FeedPostConnection
   /** Returns the current authenticated user. Only available to the authenticated user. */
   me: MyUser
+  /** Returns post by ID. Can be used to render post page on blog. */
+  post?: Maybe<Post>
   /**
    * Returns the publication with the given ID or host.
    * User can pass anyone of them.
@@ -1882,6 +1884,10 @@ export type QueryFeedArgs = {
   after?: InputMaybe<Scalars['String']['input']>
   filter?: InputMaybe<FeedFilter>
   first: Scalars['Int']['input']
+}
+
+export type QueryPostArgs = {
+  id: Scalars['ID']['input']
 }
 
 export type QueryPublicationArgs = {
