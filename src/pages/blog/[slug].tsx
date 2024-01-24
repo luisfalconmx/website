@@ -4,6 +4,7 @@ import parse from 'html-react-parser'
 import { highlightAll } from 'prismjs'
 import hashnodeClient from '@/clients/hashnodeClient'
 import { HASHNODE_HOST } from '@/config'
+import MainLayout from '@/Layouts/MainLayout'
 import {
   GetBlogPostBySlugDocument,
   GetBlogPostBySlugQuery,
@@ -90,7 +91,7 @@ export default function Blog({
   }, [])
 
   return (
-    <main className="mx-auto my-24 max-w-[1100px]">
+    <MainLayout>
       <div className="mb-10">
         <span className="mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-center text-2xl font-black uppercase text-transparent">
           {tag}
@@ -100,7 +101,7 @@ export default function Blog({
           {post?.title}
         </h1>
 
-        <span className="mx-auto block text-center text-xl text-smoke">
+        <span className="text-iron mx-auto block text-center text-xl dark:text-smoke">
           {customLabel}
         </span>
       </div>
@@ -110,7 +111,7 @@ export default function Blog({
         alt={post?.title || ''}
         width="1100"
         height="550"
-        className="mx-auto mb-14 aspect-video w-full"
+        className="mx-auto mb-14 aspect-video w-full rounded-lg"
       />
 
       {isClient && (
@@ -118,6 +119,19 @@ export default function Blog({
           <div className={styles.post}>{parse(post?.content.html || '')}</div>
         </>
       )}
-    </main>
+      {/* tags */}
+      {post?.tags && (
+        <ul className="mt-10 flex flex-wrap justify-center">
+          {post?.tags.map((tag) => (
+            <li
+              key={tag.name}
+              className="m-2 bg-gradient-to-r from-primary to-secondary px-4 py-2 text-lg font-bold text-white"
+            >
+              {tag.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </MainLayout>
   )
 }

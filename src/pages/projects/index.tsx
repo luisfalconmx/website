@@ -35,7 +35,7 @@ export default function Projects({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <MainLayout>
-      <h1 className="mb-24 text-4xl font-bold">Projects</h1>
+      <h1 className="mb-10 text-4xl font-bold">Projects</h1>
 
       <div className="grid grid-cols-1 gap-y-5">
         {projects?.map((project) => (

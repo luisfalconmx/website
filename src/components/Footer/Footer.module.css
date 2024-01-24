@@ -1,11 +1,15 @@
 .Footer {
-  @apply mt-24 flex justify-between;
+  @apply border-iron/30 mt-24 flex justify-between border-t dark:border-smoke/20;
+}
+
+.Footer__content {
+  @apply mx-auto flex w-full max-w-screen-xl items-center justify-between px-4 py-8;
 }
 
 .Footer__text {
-  @apply text-smoke;
+  @apply text-iron font-medium dark:text-smoke;
 }
 
 .Footer__link {
-  @apply text-smoke underline;
+  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
 }

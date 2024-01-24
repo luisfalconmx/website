@@ -5,11 +5,11 @@ import type { MainLayoutProps } from './MainLayout.d'
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <main className={styles.MainLayout}>
+    <>
       <Navbar />
-      {children}
+      <main className={styles.MainLayout}>{children}</main>
       <Footer />
-    </main>
+    </>
   )
 }
 

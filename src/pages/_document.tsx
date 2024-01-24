@@ -22,7 +22,7 @@ export default function Document() {
             `}
         </Script>
       </Head>
-      <body className="bg-ghost text-nightfall dark:bg-nightfall dark:text-ghost">
+      <body className="text-nightfall dark:bg-nightfall dark:text-ghost">
         <Main />
         <NextScript />
       </body>

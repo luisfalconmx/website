@@ -1,9 +1,9 @@
 .CardExperience {
-  @apply rounded p-1 transition-all ease-in-out hover:bg-gradient-to-br hover:from-primary hover:to-secondary hover:bg-clip-border;
+  @apply rounded bg-ghost p-1 transition-all ease-in-out hover:bg-gradient-to-br hover:from-primary hover:to-secondary hover:bg-clip-border dark:bg-onyx;
 }
 
 .CardExperience__content {
-  @apply grid grid-cols-[80px,1fr] gap-x-5 bg-onyx px-10 pb-10 pt-6;
+  @apply grid grid-cols-[80px,1fr] gap-x-5 rounded bg-ghost px-10 pb-10 pt-6 dark:bg-onyx;
 }
 
 .CardExperience__image {
@@ -27,5 +27,5 @@
 }
 
 .CardExperience__description {
-  @apply text-lg text-smoke;
+  @apply text-iron text-lg dark:text-smoke;
 }

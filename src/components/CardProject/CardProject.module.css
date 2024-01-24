@@ -1,5 +1,5 @@
 .CardProject {
-  @apply flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-onyx p-1 text-ghost hover:bg-gradient-to-r hover:from-primary hover:to-secondary;
+  @apply flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-ghost p-1 text-nightfall hover:bg-gradient-to-r hover:from-primary hover:to-secondary dark:bg-onyx dark:text-ghost;
 }
 
 .CardProject--full {
@@ -7,7 +7,7 @@
 }
 
 .CardProject__content {
-  @apply grid h-full grid-cols-1 gap-x-5 bg-onyx p-6;
+  @apply grid h-full grid-cols-1 gap-x-5 rounded-t bg-ghost p-6 dark:bg-onyx;
 }
 
 .CardProject--full .CardProject__content {
@@ -31,7 +31,7 @@
 }
 
 .CardProject__description {
-  @apply mb-6 block max-w-[700px] text-smoke;
+  @apply text-iron mb-6 block max-w-[700px] dark:text-smoke;
 }
 
 .CardProject--full .CardProject__description {
@@ -43,7 +43,7 @@
 }
 
 .CardProject__tag {
-  @apply mb-1 mr-1 block rounded border border-smoke px-2 py-1 text-sm text-smoke last:mr-0;
+  @apply border-iron text-iron mb-1 mr-1 block rounded border px-2 py-1 text-sm last:mr-0 dark:border-smoke dark:text-smoke;
 }
 
 .CardProject__image {
@@ -51,7 +51,7 @@
 }
 
 .CardProject__track {
-  @apply flex w-full border-t border-smoke/40 bg-onyx  px-4 py-3;
+  @apply flex w-full rounded-b border-t border-smoke/40 bg-ghost  px-4 py-3 dark:bg-onyx;
 }
 
 .CardProject__item {

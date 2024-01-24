@@ -7,11 +7,13 @@ const Footer = () => {
 
   return (
     <footer className={styles.Footer}>
-      <p className={styles.Footer__text}>{year} - luisfalconmx.dev</p>
-      <div>
-        <Link href="/privacy-policy" className={styles.Footer__link}>
-          Privacy
-        </Link>
+      <div className={styles.Footer__content}>
+        <p className={styles.Footer__text}>{year} - luisfalconmx.dev</p>
+        <div>
+          <Link href="/privacy-policy" className={styles.Footer__link}>
+            Privacy
+          </Link>
+        </div>
       </div>
     </footer>
   )

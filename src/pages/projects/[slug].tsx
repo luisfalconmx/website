@@ -6,7 +6,10 @@ import { GITHUB_USERNAME } from '@/config'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import humanDate from '@/utils/humanDate'
 import '@splidejs/react-splide/css'
-import { GlobeAltIcon, ServerIcon } from '@heroicons/react/24/outline'
+import {
+  CodeBracketIcon,
+  ArrowTopRightOnSquareIcon
+} from '@heroicons/react/24/outline'
 import {
   CheckBadgeIcon,
   RocketLaunchIcon,
@@ -78,21 +81,23 @@ export default function Blog({
           </div>
 
           <div className="mb-4 flex">
-            <div className="mr-6 flex items-center text-smoke">
+            <div className="text-iron mr-6 flex items-center dark:text-smoke">
               <CheckBadgeIcon className="mr-1 h-5 w-5 text-green-500" />
               <span className="block">{project?.licenseInfo?.name}</span>
             </div>
-            <div className="mr-6 flex items-center text-smoke">
+            <div className="text-iron mr-6 flex items-center dark:text-smoke">
               <RocketLaunchIcon className="mr-1 h-5 w-5" />
               <span className="block">{project?.latestRelease?.name}</span>
             </div>
-            <div className="mr-6 flex items-center text-smoke">
+            <div className="text-iron mr-6 flex items-center dark:text-smoke">
               <CalendarDaysIcon className="mr-1 h-5 w-5 " />
               <span className="block">{humanDate(project?.createdAt)}</span>
             </div>
           </div>
 
-          <p className="mb-8 text-xl text-smoke">{project?.description}</p>
+          <p className="text-iron mb-8 text-xl dark:text-smoke">
+            {project?.description}
+          </p>
 
           <div className="mb-8 flex flex-wrap">
             {project?.repositoryTopics.nodes?.map((node) => (
@@ -108,7 +113,7 @@ export default function Blog({
           <div className="flex">
             <a href={project?.homepageUrl}>
               <Button className="mr-3 flex items-center rounded-xl">
-                <GlobeAltIcon className="mr-2 h-5 w-5" />
+                <ArrowTopRightOnSquareIcon className="mr-2 h-5 w-5" />
                 Live preview
               </Button>
             </a>
@@ -117,8 +122,8 @@ export default function Blog({
                 variant="outlined"
                 className="mr-3 flex items-center rounded-xl"
               >
-                <ServerIcon className="mr-2 h-5 w-5" />
-                Repository
+                <CodeBracketIcon className="mr-2 h-6 w-6" />
+                Source code
               </Button>
             </a>
           </div>

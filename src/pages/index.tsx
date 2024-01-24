@@ -5,6 +5,7 @@ import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import addZero from '@/utils/startsWithZero'
 import skills from '@/json/skills.json'
 import dayjs from 'dayjs'
 import {
@@ -111,6 +112,8 @@ export default function Home({
   const totalExperience =
     totalMonthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
 
+  const experienceCount = Math.round(totalExperience * 2) / 2
+
   const certificationsCarouselOptions = {
     type: 'loop',
     perPage: 2,
@@ -144,7 +147,9 @@ export default function Home({
           </span>
         </h1>
 
-        <p className="mb-12 text-center text-lg text-smoke">{bio}</p>
+        <p className="text-iron mb-12 text-center text-lg dark:text-smoke">
+          {bio}
+        </p>
 
         <div className="mb-16 text-center">
           <Link href="/projects">
@@ -164,20 +169,20 @@ export default function Home({
       <section className="mb-32 grid grid-cols-4 place-items-center gap-x-4">
         <div>
           <strong className="mb-4 block text-5xl font-bold">
-            {projectsCount}
+            {addZero(projectsCount)}
           </strong>
           <p className="block text-xl uppercase">projects</p>
         </div>
         <div>
           <strong className="mb-4 block text-5xl font-bold">
-            {parseFloat(totalExperience.toString()).toFixed(1)}
+            {addZero(experienceCount)}
           </strong>
           <p className="block text-xl uppercase">years of experience</p>
         </div>
 
         <div>
           <strong className="mb-4 block text-5xl font-bold">
-            {certificationCount}
+            {addZero(certificationCount as number)}
           </strong>
           <p className="block text-xl uppercase">certifications</p>
         </div>
@@ -257,13 +262,13 @@ export default function Home({
         <ul className="grid grid-cols-3 gap-3">
           {skills.map(({ title, description }) => (
             <li key={title}>
-              <div className="cursor-default rounded-lg bg-onyx p-1 hover:bg-gradient-to-r hover:from-primary hover:to-secondary">
-                <div className="bg-onyx px-3 py-5">
+              <div className="h-full cursor-default rounded-lg bg-ghost p-1 hover:bg-gradient-to-r hover:from-primary hover:to-secondary dark:bg-onyx">
+                <div className="h-full rounded bg-ghost px-3 py-5 dark:bg-onyx">
                   <div className="mb-2 flex">
                     <ChevronDoubleRightIcon className="mr-1 h-6 w-6 text-primary" />
                     <b className="block text-lg uppercase">{title}</b>
                   </div>
-                  <p className="text-smoke">{description}</p>
+                  <p className="text-iron dark:text-smoke">{description}</p>
                 </div>
               </div>
             </li>
