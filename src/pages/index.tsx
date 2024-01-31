@@ -5,7 +5,7 @@ import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import addZero from '@/utils/startsWithZero'
+import addZero from '@/utils/addZero'
 import skills from '@/json/skills.json'
 import dayjs from 'dayjs'
 import {
@@ -147,7 +147,7 @@ export default function Home({
           </span>
         </h1>
 
-        <p className="text-iron mb-12 text-center text-lg dark:text-smoke">
+        <p className="mb-12 text-center text-lg text-iron dark:text-smoke">
           {bio}
         </p>
 

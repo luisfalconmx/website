@@ -1,5 +1,5 @@
-query GetCertifications {
-  certificationCollection {
+query GetCertifications($limit: Int!, $skip: Int!) {
+  certificationCollection(limit: $limit, skip: $skip) {
     total
     items {
       name

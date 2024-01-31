@@ -1027,7 +1027,10 @@ export type _Node = {
   _id: Scalars['ID']['output']
 }
 
-export type GetCertificationsQueryVariables = Exact<{ [key: string]: never }>
+export type GetCertificationsQueryVariables = Exact<{
+  limit: Scalars['Int']['input']
+  skip: Scalars['Int']['input']
+}>
 
 export type GetCertificationsQuery = {
   __typename?: 'Query'
@@ -1098,8 +1101,8 @@ export type GetExperiencesQuery = {
 }
 
 export const GetCertificationsDocument = gql`
-  query GetCertifications {
-    certificationCollection {
+  query GetCertifications($limit: Int!, $skip: Int!) {
+    certificationCollection(limit: $limit, skip: $skip) {
       total
       items {
         name
@@ -1131,11 +1134,13 @@ export const GetCertificationsDocument = gql`
  * @example
  * const { data, loading, error } = useGetCertificationsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
 export function useGetCertificationsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetCertificationsQuery,
     GetCertificationsQueryVariables
   >
