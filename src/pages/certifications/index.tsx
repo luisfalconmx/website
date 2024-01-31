@@ -20,6 +20,7 @@ export const getStaticProps = (async () => {
 
   return {
     props: {
+      total: response.data.certificationCollection?.total,
       certifications: response.data.certificationCollection?.items
     },
     revalidate: 60 * 5 // 5 minutes
@@ -27,11 +28,12 @@ export const getStaticProps = (async () => {
 }) satisfies GetStaticProps
 
 export default function Projects({
+  total,
   certifications
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <MainLayout>
-      <h1 className="mb-10 text-4xl font-bold">Certifications</h1>
+      <h1 className="mb-10 text-4xl font-bold">{total} Certifications</h1>
 
       <div className="grid grid-cols-1 gap-y-8">
         {certifications?.map((certification) => (

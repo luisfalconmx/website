@@ -1,11 +1,21 @@
-query GetProjects($username: String!) {
+query GetProjects(
+  $username: String!
+  $repositoriesCount: Int!
+  $after: String
+) {
   user(login: $username) {
     repositories(
-      first: 10
+      first: $repositoriesCount
       privacy: PUBLIC
       orderBy: { field: CREATED_AT, direction: DESC }
+      after: $after
     ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
       edges {
+        cursor
         node {
           name
           description

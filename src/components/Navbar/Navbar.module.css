@@ -1,9 +1,9 @@
 .Navbar {
-  @apply border-iron/30 mb-5 flex justify-between border-b dark:border-smoke/20;
+  @apply mb-5 flex justify-between border-b border-iron/30 dark:border-smoke/20;
 }
 
 .Navbar__content {
-  @apply mx-auto flex w-full max-w-screen-xl items-center justify-between px-5 py-4;
+  @apply mx-auto flex w-full max-w-screen-xl items-center justify-between py-4;
 }
 
 .Navbar__list {
