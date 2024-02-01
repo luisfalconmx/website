@@ -17938,6 +17938,10 @@ export type PullRequest = Assignable &
     isCrossRepository: Scalars['Boolean']['output']
     /** Identifies if the pull request is a draft. */
     isDraft: Scalars['Boolean']['output']
+    /** Indicates whether the pull request is in a merge queue */
+    isInMergeQueue: Scalars['Boolean']['output']
+    /** Indicates whether the pull request's base ref has a merge queue enabled. */
+    isMergeQueueEnabled: Scalars['Boolean']['output']
     /** Is this pull request read by the viewer */
     isReadByViewer?: Maybe<Scalars['Boolean']['output']>
     /** A list of labels associated with the object. */
@@ -17954,6 +17958,8 @@ export type PullRequest = Assignable &
     maintainerCanModify: Scalars['Boolean']['output']
     /** The commit that was created when this pull request was merged. */
     mergeCommit?: Maybe<Commit>
+    /** The merge queue for the pull request's base branch */
+    mergeQueue?: Maybe<MergeQueue>
     /** The merge queue entry of the pull request in the base branch's merge queue */
     mergeQueueEntry?: Maybe<MergeQueueEntry>
     /** Detailed information about the current pull request merge state status. */
@@ -29343,14 +29349,20 @@ export type UpdateTeamReviewAssignmentInput = {
   algorithm?: InputMaybe<TeamReviewAssignmentAlgorithm>
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>
+  /** Count any members whose review has already been requested against the required number of members assigned to review */
+  countMembersAlreadyRequested?: InputMaybe<Scalars['Boolean']['input']>
   /** Turn on or off review assignment */
   enabled: Scalars['Boolean']['input']
   /** An array of team member IDs to exclude */
   excludedTeamMemberIds?: InputMaybe<Array<Scalars['ID']['input']>>
   /** The Node ID of the team to update review assignments of */
   id: Scalars['ID']['input']
+  /** Include the members of any child teams when assigning */
+  includeChildTeamMembers?: InputMaybe<Scalars['Boolean']['input']>
   /** Notify the entire team of the PR if it is delegated */
   notifyTeam?: InputMaybe<Scalars['Boolean']['input']>
+  /** Remove the team review request when assigning */
+  removeTeamRequest?: InputMaybe<Scalars['Boolean']['input']>
   /** The number of team members to assign */
   teamMemberCount?: InputMaybe<Scalars['Int']['input']>
 }

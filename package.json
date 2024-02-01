@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.9",
+    "@contentful/rich-text-react-renderer": "^15.19.4",
     "@heroicons/react": "^2.1.1",
     "@splidejs/react-splide": "^0.7.12",
     "@tanstack/react-query": "^5.15.0",

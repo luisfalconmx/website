@@ -101,7 +101,7 @@ export default function Blog({
           {post?.title}
         </h1>
 
-        <span className="text-iron mx-auto block text-center text-xl dark:text-smoke">
+        <span className="mx-auto block text-center text-xl text-iron dark:text-smoke">
           {customLabel}
         </span>
       </div>
@@ -119,6 +119,7 @@ export default function Blog({
           <div className={styles.post}>{parse(post?.content.html || '')}</div>
         </>
       )}
+
       {/* tags */}
       {post?.tags && (
         <ul className="mt-10 flex flex-wrap justify-center">

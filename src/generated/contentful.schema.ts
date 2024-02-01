@@ -179,6 +179,7 @@ export type AssetLinkingCollections = {
   certificationCollection?: Maybe<CertificationCollection>
   entryCollection?: Maybe<EntryCollection>
   experienceCollection?: Maybe<ExperienceCollection>
+  projectCollection?: Maybe<ProjectCollection>
 }
 
 export type AssetLinkingCollectionsCertificationCollectionArgs = {
@@ -196,6 +197,13 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 }
 
 export type AssetLinkingCollectionsExperienceCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AssetLinkingCollectionsProjectCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
@@ -762,11 +770,32 @@ export type ImageTransformOptions = {
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type Project = Entry & {
   __typename?: 'Project'
+  budget?: Maybe<Scalars['Int']['output']>
+  clientName?: Maybe<Scalars['String']['output']>
   contentfulMetadata: ContentfulMetadata
+  designDescription?: Maybe<ProjectDesignDescription>
   linkedFrom?: Maybe<ProjectLinkingCollections>
   name?: Maybe<Scalars['String']['output']>
   overview?: Maybe<ProjectOverview>
+  prototypeUrl?: Maybe<Scalars['String']['output']>
+  screenshotsCollection?: Maybe<AssetCollection>
   sys: Sys
+  timeSpend?: Maybe<Scalars['Int']['output']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectBudgetArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectClientNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectDesignDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
@@ -784,6 +813,24 @@ export type ProjectOverviewArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
 
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectPrototypeUrlArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectScreenshotsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectTimeSpendArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
 export type ProjectCollection = {
   __typename?: 'ProjectCollection'
   items: Array<Maybe<Project>>
@@ -792,10 +839,62 @@ export type ProjectCollection = {
   total: Scalars['Int']['output']
 }
 
+export type ProjectDesignDescription = {
+  __typename?: 'ProjectDesignDescription'
+  json: Scalars['JSON']['output']
+  links: ProjectDesignDescriptionLinks
+}
+
+export type ProjectDesignDescriptionAssets = {
+  __typename?: 'ProjectDesignDescriptionAssets'
+  block: Array<Maybe<Asset>>
+  hyperlink: Array<Maybe<Asset>>
+}
+
+export type ProjectDesignDescriptionEntries = {
+  __typename?: 'ProjectDesignDescriptionEntries'
+  block: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  inline: Array<Maybe<Entry>>
+}
+
+export type ProjectDesignDescriptionLinks = {
+  __typename?: 'ProjectDesignDescriptionLinks'
+  assets: ProjectDesignDescriptionAssets
+  entries: ProjectDesignDescriptionEntries
+  resources: ProjectDesignDescriptionResources
+}
+
+export type ProjectDesignDescriptionResources = {
+  __typename?: 'ProjectDesignDescriptionResources'
+  block: Array<ResourceLink>
+  hyperlink: Array<ResourceLink>
+  inline: Array<ResourceLink>
+}
+
 export type ProjectFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectFilter>>>
   OR?: InputMaybe<Array<InputMaybe<ProjectFilter>>>
+  budget?: InputMaybe<Scalars['Int']['input']>
+  budget_exists?: InputMaybe<Scalars['Boolean']['input']>
+  budget_gt?: InputMaybe<Scalars['Int']['input']>
+  budget_gte?: InputMaybe<Scalars['Int']['input']>
+  budget_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
+  budget_lt?: InputMaybe<Scalars['Int']['input']>
+  budget_lte?: InputMaybe<Scalars['Int']['input']>
+  budget_not?: InputMaybe<Scalars['Int']['input']>
+  budget_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
+  clientName?: InputMaybe<Scalars['String']['input']>
+  clientName_contains?: InputMaybe<Scalars['String']['input']>
+  clientName_exists?: InputMaybe<Scalars['Boolean']['input']>
+  clientName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  clientName_not?: InputMaybe<Scalars['String']['input']>
+  clientName_not_contains?: InputMaybe<Scalars['String']['input']>
+  clientName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  designDescription_contains?: InputMaybe<Scalars['String']['input']>
+  designDescription_exists?: InputMaybe<Scalars['Boolean']['input']>
+  designDescription_not_contains?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_contains?: InputMaybe<Scalars['String']['input']>
   name_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -806,7 +905,26 @@ export type ProjectFilter = {
   overview_contains?: InputMaybe<Scalars['String']['input']>
   overview_exists?: InputMaybe<Scalars['Boolean']['input']>
   overview_not_contains?: InputMaybe<Scalars['String']['input']>
+  prototypeUrl?: InputMaybe<Scalars['String']['input']>
+  prototypeUrl_contains?: InputMaybe<Scalars['String']['input']>
+  prototypeUrl_exists?: InputMaybe<Scalars['Boolean']['input']>
+  prototypeUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  prototypeUrl_not?: InputMaybe<Scalars['String']['input']>
+  prototypeUrl_not_contains?: InputMaybe<Scalars['String']['input']>
+  prototypeUrl_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  screenshotsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
   sys?: InputMaybe<SysFilter>
+  timeSpend?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_exists?: InputMaybe<Scalars['Boolean']['input']>
+  timeSpend_gt?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_gte?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
+  timeSpend_lt?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_lte?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_not?: InputMaybe<Scalars['Int']['input']>
+  timeSpend_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
 }
 
 export type ProjectLinkingCollections = {
@@ -822,8 +940,14 @@ export type ProjectLinkingCollectionsEntryCollectionArgs = {
 }
 
 export enum ProjectOrder {
+  BudgetAsc = 'budget_ASC',
+  BudgetDesc = 'budget_DESC',
+  ClientNameAsc = 'clientName_ASC',
+  ClientNameDesc = 'clientName_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  PrototypeUrlAsc = 'prototypeUrl_ASC',
+  PrototypeUrlDesc = 'prototypeUrl_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -831,7 +955,9 @@ export enum ProjectOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TimeSpendAsc = 'timeSpend_ASC',
+  TimeSpendDesc = 'timeSpend_DESC'
 }
 
 export type ProjectOverview = {
@@ -1100,6 +1226,35 @@ export type GetExperiencesQuery = {
   } | null
 }
 
+export type GetProjectByIdQueryVariables = Exact<{
+  id: Scalars['String']['input']
+}>
+
+export type GetProjectByIdQuery = {
+  __typename?: 'Query'
+  project?: {
+    __typename?: 'Project'
+    name?: string | null
+    clientName?: string | null
+    budget?: number | null
+    timeSpend?: number | null
+    prototypeUrl?: string | null
+    overview?: { __typename?: 'ProjectOverview'; json: any } | null
+    designDescription?: {
+      __typename?: 'ProjectDesignDescription'
+      json: any
+    } | null
+    screenshotsCollection?: {
+      __typename?: 'AssetCollection'
+      items: Array<{
+        __typename?: 'Asset'
+        title?: string | null
+        url?: string | null
+      } | null>
+    } | null
+  } | null
+}
+
 export const GetCertificationsDocument = gql`
   query GetCertifications($limit: Int!, $skip: Int!) {
     certificationCollection(limit: $limit, skip: $skip) {
@@ -1293,4 +1448,93 @@ export type GetExperiencesSuspenseQueryHookResult = ReturnType<
 export type GetExperiencesQueryResult = Apollo.QueryResult<
   GetExperiencesQuery,
   GetExperiencesQueryVariables
+>
+export const GetProjectByIdDocument = gql`
+  query GetProjectById($id: String!) {
+    project(id: $id) {
+      name
+      clientName
+      budget
+      timeSpend
+      overview {
+        json
+      }
+      designDescription {
+        json
+      }
+      prototypeUrl
+      screenshotsCollection {
+        items {
+          title
+          url
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectByIdQuery__
+ *
+ * To run a query within a React component, call `useGetProjectByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetProjectByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetProjectByIdQuery,
+    GetProjectByIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectByIdQuery, GetProjectByIdQueryVariables>(
+    GetProjectByIdDocument,
+    options
+  )
+}
+export function useGetProjectByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProjectByIdQuery,
+    GetProjectByIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectByIdQuery, GetProjectByIdQueryVariables>(
+    GetProjectByIdDocument,
+    options
+  )
+}
+export function useGetProjectByIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectByIdQuery,
+    GetProjectByIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetProjectByIdQuery,
+    GetProjectByIdQueryVariables
+  >(GetProjectByIdDocument, options)
+}
+export type GetProjectByIdQueryHookResult = ReturnType<
+  typeof useGetProjectByIdQuery
+>
+export type GetProjectByIdLazyQueryHookResult = ReturnType<
+  typeof useGetProjectByIdLazyQuery
+>
+export type GetProjectByIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectByIdSuspenseQuery
+>
+export type GetProjectByIdQueryResult = Apollo.QueryResult<
+  GetProjectByIdQuery,
+  GetProjectByIdQueryVariables
 >

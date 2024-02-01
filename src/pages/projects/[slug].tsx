@@ -1,30 +1,40 @@
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import githubClient from '@/clients/githubClient'
+import contentfulClient from '@/clients/contentfulClient'
 import { GITHUB_USERNAME } from '@/config'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
 import humanDate from '@/utils/humanDate'
-import '@splidejs/react-splide/css'
 import {
   CodeBracketIcon,
   ArrowTopRightOnSquareIcon
 } from '@heroicons/react/24/outline'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
   CheckBadgeIcon,
   RocketLaunchIcon,
   CalendarDaysIcon
 } from '@heroicons/react/24/solid'
 import {
+  GetProjectByIdDocument,
+  GetProjectByIdQuery,
+  GetProjectByIdQueryVariables
+} from '@/generated/contentful.schema'
+import {
   GetProjectBySlugDocument,
   GetProjectBySlugQuery,
   GetProjectBySlugQueryVariables
 } from '@/generated/github.schema'
+import styles from '@/styles/modules/project.module.css'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import '@splidejs/react-splide/css'
 
 export const getStaticProps = (async ({ params }) => {
-  const client = githubClient()
-  const response = await client.query<
+  const gh_client = githubClient()
+  const contentful_client = contentfulClient()
+  const gh_response = await gh_client.query<
     GetProjectBySlugQuery,
     GetProjectBySlugQueryVariables
   >({
@@ -35,9 +45,20 @@ export const getStaticProps = (async ({ params }) => {
     }
   })
 
+  const contentful_response = await contentful_client.query<
+    GetProjectByIdQuery,
+    GetProjectByIdQueryVariables
+  >({
+    query: GetProjectByIdDocument,
+    variables: {
+      id: '5OMroCN0aN6M7d4Ek7QFfQ'
+    }
+  })
+
   return {
     props: {
-      project: response.data.user?.repository
+      project: gh_response.data.user?.repository,
+      contentful: contentful_response.data.project
     },
     revalidate: 60 * 5 // 5 minutes
   }
@@ -51,17 +72,47 @@ export const getStaticPaths = async () => {
 }
 
 export default function Blog({
-  project
+  project,
+  contentful
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [isClient, setIsClient] = useState(false)
+
+  const carouselOptions: Options = {
+    type: 'loop',
+    perPage: 2,
+    perMove: 1,
+    pagination: true,
+    arrows: true,
+    autoplay: true,
+    interval: 3000,
+    autoWidth: true,
+    gap: '40px',
+    focus: 'center'
+  }
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const cleanPrimaryLanguage = project?.primaryLanguage?.name
     ?.toLowerCase()
     .replace(' ', '-')
+
+  // add usd text after the amount
+  const formatCurrency = (amount: number) => {
+    return (
+      new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount) + ' USD'
+    )
+  }
 
   return (
     <MainLayout>
       <section className="mb-24 grid grid-cols-[500px,1fr] gap-x-12">
         <Image
-          src="https://images.ui8.net/uploads/preview-3_1636636114453.png"
+          src={project?.openGraphImageUrl || ''}
           alt={project?.name || ''}
           width={500}
           height={500}
@@ -81,21 +132,21 @@ export default function Blog({
           </div>
 
           <div className="mb-4 flex">
-            <div className="text-iron mr-6 flex items-center dark:text-smoke">
+            <div className="mr-6 flex items-center text-iron dark:text-smoke">
               <CheckBadgeIcon className="mr-1 h-5 w-5 text-green-500" />
               <span className="block">{project?.licenseInfo?.name}</span>
             </div>
-            <div className="text-iron mr-6 flex items-center dark:text-smoke">
+            <div className="mr-6 flex items-center text-iron dark:text-smoke">
               <RocketLaunchIcon className="mr-1 h-5 w-5" />
               <span className="block">{project?.latestRelease?.name}</span>
             </div>
-            <div className="text-iron mr-6 flex items-center dark:text-smoke">
+            <div className="mr-6 flex items-center text-iron dark:text-smoke">
               <CalendarDaysIcon className="mr-1 h-5 w-5 " />
               <span className="block">{humanDate(project?.createdAt)}</span>
             </div>
           </div>
 
-          <p className="text-iron mb-8 text-xl dark:text-smoke">
+          <p className="mb-8 text-xl text-iron dark:text-smoke">
             {project?.description}
           </p>
 
@@ -130,71 +181,73 @@ export default function Blog({
         </div>
       </section>
 
-      <section className="mb-24">
-        <h2 className="mb-8 text-5xl font-bold">Overview</h2>
-        <p className="text-xl">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam
-          fuga, alias autem voluptate aspernatur rem minus ad numquam.
-          Repellendus placeat nisi ipsam repellat omnis nemo saepe, neque
-          aliquam ex natus!
-        </p>
+      <section className="mb-32 grid grid-cols-3 justify-items-center gap-x-4">
+        <div>
+          <p className="mb-5 block text-3xl font-bold uppercase">Client</p>
+          <strong className="mb-4 block text-5xl font-light">
+            {contentful?.clientName}
+          </strong>
+        </div>
+        <div>
+          <p className="mb-5 block text-3xl font-bold uppercase">Budget</p>
+          <strong className="mb-4 block text-5xl font-light">
+            {formatCurrency(contentful?.budget || 0)}
+          </strong>
+        </div>
+
+        <div>
+          <p className="mb-5 block text-3xl font-bold uppercase">Time Spent</p>
+          <strong className="mb-4 block text-5xl font-light">
+            {contentful?.timeSpend} Hrs
+          </strong>
+        </div>
       </section>
 
-      <section className="mb-24">
-        <h2 className="mb-8 text-5xl font-bold">Screenshots</h2>
+      {isClient && (
+        <>
+          <section className="mb-24">
+            <h2 className="mb-8 text-5xl font-bold">Overview</h2>
+            <div className={styles.project}>
+              {documentToReactComponents(contentful?.overview?.json)}
+            </div>
+          </section>
+          <section className="mb-24">
+            <h2 className="mb-8 text-5xl font-bold">Screenshots</h2>
 
-        <Splide
-          options={{
-            type: 'loop',
-            perPage: 2,
-            perMove: 1,
-            pagination: true,
-            arrows: true,
-            autoplay: true,
-            interval: 3000,
-            autoWidth: true,
-            gap: '40px',
-            focus: 'center'
-          }}
-        >
-          <SplideSlide>
-            <Image
-              src="https://images.ui8.net/uploads/preview-4_1636636111505.png"
-              alt="asd"
-              width={800}
-              height={400}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://images.ui8.net/uploads/preview-6_1636636106995.png"
-              alt="asd"
-              width={800}
-              height={400}
-            />
-          </SplideSlide>
-          <SplideSlide>
-            <Image
-              src="https://images.ui8.net/uploads/preview-7_1636636101990.png"
-              alt="asd"
-              width={800}
-              height={400}
-            />
-          </SplideSlide>
-        </Splide>
-      </section>
+            <Splide options={carouselOptions}>
+              {contentful?.screenshotsCollection?.items.map((i) => (
+                <SplideSlide key={i?.title}>
+                  <Image
+                    src={i?.url || ''}
+                    alt={i?.title || ''}
+                    width={800}
+                    height={400}
+                    className="rounded-xl"
+                  />
+                </SplideSlide>
+              ))}
+            </Splide>
+          </section>
 
-      <section className="mb-24">
-        <h2 className="mb-8 text-5xl font-bold">Figma design</h2>
-        <p className="mb-4 text-xl">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi ab
-          veniam sed similique, odit minima minus commodi recusandae sit
-          molestias incidunt tenetur, consequuntur placeat excepturi atque
-          consectetur tempore veritatis! Corrupti?
-        </p>
-        <b>figma...</b>
-      </section>
-      <section className=""></section>
+          {contentful?.designDescription && (
+            <section className="mb-10">
+              <h2 className="mb-8 text-5xl font-bold">Design</h2>
+              <div className={styles.project}>
+                {documentToReactComponents(contentful?.designDescription?.json)}
+              </div>
+            </section>
+          )}
+
+          {contentful?.prototypeUrl && (
+            <iframe
+              width="100%"
+              height="500"
+              src={contentful.prototypeUrl}
+              allowFullScreen
+            />
+          )}
+        </>
+      )}
     </MainLayout>
   )
 }

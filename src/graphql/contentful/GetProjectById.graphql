@@ -1,0 +1,21 @@
+query GetProjectById($id: String!) {
+  project(id: $id) {
+    name
+    clientName
+    budget
+    timeSpend
+    overview {
+      json
+    }
+    designDescription {
+      json
+    }
+    prototypeUrl
+    screenshotsCollection {
+      items {
+        title
+        url
+      }
+    }
+  }
+}
