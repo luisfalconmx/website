@@ -131,7 +131,7 @@ export default function Home({
 
   return (
     <MainLayout>
-      <section className="mx-auto mb-32 max-w-[683px]">
+      <section className="mx-auto mb-32 mt-7 max-w-[683px]">
         <Image
           width={220}
           height={200}
@@ -166,40 +166,42 @@ export default function Home({
         <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
       </section>
 
-      <section className="mb-32 grid grid-cols-4 place-items-center gap-x-4">
-        <div>
-          <strong className="mb-4 block text-5xl font-bold">
-            {addZero(projectsCount)}
-          </strong>
-          <p className="block text-xl uppercase">projects</p>
-        </div>
-        <div>
-          <strong className="mb-4 block text-5xl font-bold">
-            {addZero(experienceCount)}
-          </strong>
-          <p className="block text-xl uppercase">years of experience</p>
-        </div>
+      <section className="mb-32  bg-onyx py-16">
+        <div className="mx-auto grid max-w-screen-xl grid-cols-4 place-items-center gap-x-4">
+          <div>
+            <strong className="mb-4 block text-5xl font-bold">
+              {addZero(projectsCount)}
+            </strong>
+            <p className="block text-xl uppercase">projects</p>
+          </div>
+          <div>
+            <strong className="mb-4 block text-5xl font-bold">
+              {addZero(experienceCount)}
+            </strong>
+            <p className="block text-xl uppercase">years of experience</p>
+          </div>
 
-        <div>
-          <strong className="mb-4 block text-5xl font-bold">
-            {addZero(certificationCount as number)}
-          </strong>
-          <p className="block text-xl uppercase">certifications</p>
-        </div>
+          <div>
+            <strong className="mb-4 block text-5xl font-bold">
+              {addZero(certificationCount as number)}
+            </strong>
+            <p className="block text-xl uppercase">certifications</p>
+          </div>
 
-        <div>
-          <strong className="mb-4 block text-5xl font-bold">A2</strong>
-          <p className="block text-xl uppercase">English level</p>
+          <div>
+            <strong className="mb-4 block text-5xl font-bold">A2</strong>
+            <p className="block text-xl uppercase">English level</p>
+          </div>
         </div>
       </section>
 
-      <section className="mb-32">
+      <section className="mx-auto mb-32 max-w-screen-xl">
         <h2 className="mb-8 text-4xl font-bold">Featured Projects</h2>
 
-        <div className="mx-auto grid max-w-fit grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-y-6">
           {projects?.map((project) => (
             <CardProject
-              variant="compact"
+              variant="full"
               key={project?.name}
               name={project?.name}
               description={project.description || ''}
@@ -216,7 +218,7 @@ export default function Home({
         </div>
       </section>
 
-      <section className="mb-32">
+      <section className="mx-auto mb-32 max-w-screen-xl">
         <h2 className="mb-8 text-4xl font-bold">Experience</h2>
 
         <div className="grid gap-y-5">
@@ -238,7 +240,7 @@ export default function Home({
         </div>
       </section>
 
-      <section className="mb-24">
+      <section className="mx-auto mb-24 max-w-screen-xl">
         <h2 className="mb-8 text-4xl font-bold">Recent Certifications</h2>
 
         <Splide options={certificationsCarouselOptions} className="splide">
@@ -257,7 +259,7 @@ export default function Home({
         </Splide>
       </section>
 
-      <section className="mb-24">
+      <section className="mx-auto mb-24 max-w-screen-xl">
         <h2 className="mb-8 text-4xl font-bold">Skills</h2>
         <ul className="grid grid-cols-3 gap-3">
           {skills.map(({ title, description }) => (

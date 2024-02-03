@@ -1,5 +1,5 @@
 .Navbar {
-  @apply mb-5 flex justify-between border-b border-iron/30 dark:border-smoke/20;
+  @apply flex justify-between border-b border-iron/40;
 }
 
 .Navbar__content {

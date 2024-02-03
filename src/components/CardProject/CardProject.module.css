@@ -1,17 +1,9 @@
 .CardProject {
-  @apply flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-ghost p-1 text-nightfall hover:bg-gradient-to-r hover:from-primary hover:to-secondary dark:bg-onyx dark:text-ghost;
-}
-
-.CardProject--full {
-  @apply max-w-full;
+  @apply grid h-full min-h-[480px] max-w-full grid-cols-2 flex-col gap-x-10 overflow-hidden rounded-lg border border-iron/40 px-12 pt-8 text-nightfall shadow-lg dark:bg-onyx;
 }
 
 .CardProject__content {
-  @apply grid h-full grid-cols-1 gap-x-5 rounded-t bg-ghost p-6 dark:bg-onyx;
-}
-
-.CardProject--full .CardProject__content {
-  @apply grid-cols-[1fr,300px];
+  @apply h-full gap-x-6 rounded-t pb-12 pt-8;
 }
 
 .CardProject__head {
@@ -19,19 +11,19 @@
 }
 
 .CardProject__icon {
-  @apply mr-2 h-8 w-8 text-primary;
+  @apply mr-2 h-8 w-8;
 }
 
 .CardProject__name {
-  @apply block pb-1 text-3xl font-bold;
+  @apply block pb-1 text-4xl font-bold dark:text-white;
 }
 
 .CardProject--full .CardProject__name {
-  @apply text-3xl;
+  @apply text-4xl;
 }
 
 .CardProject__description {
-  @apply text-iron mb-6 block max-w-[700px] dark:text-smoke;
+  @apply mb-6 block max-w-[700px] text-iron dark:text-smoke;
 }
 
 .CardProject--full .CardProject__description {
@@ -39,15 +31,15 @@
 }
 
 .CardProject__tags {
-  @apply flex flex-wrap;
+  @apply mb-8 flex flex-wrap;
 }
 
 .CardProject__tag {
-  @apply border-iron text-iron mb-1 mr-1 block rounded border px-2 py-1 text-sm last:mr-0 dark:border-smoke dark:text-smoke;
+  @apply mb-1 mr-1 block h-12 w-12 rounded-full border-iron bg-ghost p-2 text-sm text-iron last:mr-0 dark:border-smoke dark:bg-nightfall dark:text-smoke;
 }
 
 .CardProject__image {
-  @apply h-full max-h-[280px] w-full rounded-lg object-cover;
+  @apply h-full max-h-[480px] w-full rounded-t-lg object-cover;
 }
 
 .CardProject__track {

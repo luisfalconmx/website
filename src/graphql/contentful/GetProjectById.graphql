@@ -1,7 +1,13 @@
 query GetProjectById($id: String!) {
   project(id: $id) {
     name
+    description
     clientName
+    licenseName
+    featuredImage {
+      url
+    }
+    createdDate
     budget
     timeSpend
     overview {
@@ -15,6 +21,16 @@ query GetProjectById($id: String!) {
       items {
         title
         url
+      }
+    }
+    technologiesCollection {
+      items {
+        ... on Technology {
+          name
+          icon {
+            url
+          }
+        }
       }
     }
   }

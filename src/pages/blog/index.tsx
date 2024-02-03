@@ -73,12 +73,40 @@ export default function Blog({
 
   return (
     <MainLayout>
-      <Carousel className="mb-16">
-        {posts.slice(0, 3).map((i) => (
-          <SplideSlide key={i.node.id}>
+      <main className="mx-auto mt-8 max-w-screen-xl">
+        <Carousel className="mb-16">
+          {posts.slice(0, 3).map((i) => (
+            <SplideSlide key={i.node.id}>
+              <CardPost
+                variant="jumbo"
+                className=""
+                title={i.node.title}
+                description={i.node.brief || ''}
+                image={i.node.coverImage?.url || ''}
+                link={`blog/${i.node.slug}`}
+                tag={
+                  i.node.tags?.map((tag, index) =>
+                    index === 0 ? tag.name : ''
+                  )[0]
+                }
+                author={{
+                  name: i.node.author.name,
+                  label: i.node.author.username,
+                  image: i.node.author.profilePicture || ''
+                }}
+                date={i.node.publishedAt}
+                readingTime={i.node.readTimeInMinutes}
+              />
+            </SplideSlide>
+          ))}
+        </Carousel>
+
+        <div className="mb-16 grid grid-cols-3 gap-4">
+          {posts.slice(3, 9).map((i) => (
             <CardPost
-              variant="jumbo"
+              variant="default"
               className=""
+              key={i.node.id}
               title={i.node.title}
               description={i.node.brief || ''}
               image={i.node.coverImage?.url || ''}
@@ -96,116 +124,98 @@ export default function Blog({
               date={i.node.publishedAt}
               readingTime={i.node.readTimeInMinutes}
             />
-          </SplideSlide>
-        ))}
-      </Carousel>
-
-      <div className="mb-16 grid grid-cols-3 gap-4">
-        {posts.slice(3, 9).map((i) => (
-          <CardPost
-            variant="default"
-            className=""
-            key={i.node.id}
-            title={i.node.title}
-            description={i.node.brief || ''}
-            image={i.node.coverImage?.url || ''}
-            link={`blog/${i.node.slug}`}
-            tag={
-              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
-            }
-            author={{
-              name: i.node.author.name,
-              label: i.node.author.username,
-              image: i.node.author.profilePicture || ''
-            }}
-            date={i.node.publishedAt}
-            readingTime={i.node.readTimeInMinutes}
-          />
-        ))}
-      </div>
-
-      <div className="mb-16 grid grid-cols-2 gap-x-4">
-        {posts.slice(9, 11).map((i) => (
-          <CardPost
-            variant="square"
-            className=""
-            key={i.node.id}
-            title={i.node.title}
-            description={i.node.brief || ''}
-            image={i.node.coverImage?.url || ''}
-            link={`blog/${i.node.slug}`}
-            tag={
-              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
-            }
-            author={{
-              name: i.node.author.name,
-              label: i.node.author.username,
-              image: i.node.author.profilePicture || ''
-            }}
-            date={i.node.publishedAt}
-            readingTime={i.node.readTimeInMinutes}
-          />
-        ))}
-      </div>
-
-      <div className="mb-16 grid grid-cols-1 gap-y-8">
-        {posts.slice(11).map((i) => (
-          <CardPost
-            variant="track"
-            className=""
-            key={i.node.id}
-            title={i.node.title}
-            description={i.node.brief || ''}
-            image={i.node.coverImage?.url || ''}
-            link={`blog/${i.node.slug}`}
-            tag={
-              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
-            }
-            author={{
-              name: i.node.author.name,
-              label: i.node.author.username,
-              image: i.node.author.profilePicture || ''
-            }}
-            date={i.node.publishedAt}
-            readingTime={i.node.readTimeInMinutes}
-          />
-        ))}
-
-        {extraPostsList.map((i) => (
-          <CardPost
-            variant="track"
-            className=""
-            key={i.node.id}
-            title={i.node.title}
-            description={i.node.brief || ''}
-            image={i.node.coverImage?.url || ''}
-            link={`blog/${i.node.slug}`}
-            tag={
-              i.node.tags?.map((tag, index) => (index === 0 ? tag.name : ''))[0]
-            }
-            author={{
-              name: i.node.author.name,
-              label: i.node.author.username,
-              image: i.node.author.profilePicture || ''
-            }}
-            date={i.node.publishedAt}
-            readingTime={i.node.readTimeInMinutes}
-          />
-        ))}
-      </div>
-
-      {page?.hasNextPage && (
-        <div className="flex justify-center">
-          <Button
-            variant="filled"
-            onClick={getMorePosts}
-            className="flex items-center"
-          >
-            <ArrowPathIcon className="mr-2 h-6 w-6" />
-            Load More
-          </Button>
+          ))}
         </div>
-      )}
+
+        <div className="mb-16 grid grid-cols-2 gap-x-4">
+          {posts.slice(9, 11).map((i) => (
+            <CardPost
+              variant="square"
+              className=""
+              key={i.node.id}
+              title={i.node.title}
+              description={i.node.brief || ''}
+              image={i.node.coverImage?.url || ''}
+              link={`blog/${i.node.slug}`}
+              tag={
+                i.node.tags?.map((tag, index) =>
+                  index === 0 ? tag.name : ''
+                )[0]
+              }
+              author={{
+                name: i.node.author.name,
+                label: i.node.author.username,
+                image: i.node.author.profilePicture || ''
+              }}
+              date={i.node.publishedAt}
+              readingTime={i.node.readTimeInMinutes}
+            />
+          ))}
+        </div>
+
+        <div className="mb-16 grid grid-cols-1 gap-y-8">
+          {posts.slice(11).map((i) => (
+            <CardPost
+              variant="track"
+              className=""
+              key={i.node.id}
+              title={i.node.title}
+              description={i.node.brief || ''}
+              image={i.node.coverImage?.url || ''}
+              link={`blog/${i.node.slug}`}
+              tag={
+                i.node.tags?.map((tag, index) =>
+                  index === 0 ? tag.name : ''
+                )[0]
+              }
+              author={{
+                name: i.node.author.name,
+                label: i.node.author.username,
+                image: i.node.author.profilePicture || ''
+              }}
+              date={i.node.publishedAt}
+              readingTime={i.node.readTimeInMinutes}
+            />
+          ))}
+
+          {extraPostsList.map((i) => (
+            <CardPost
+              variant="track"
+              className=""
+              key={i.node.id}
+              title={i.node.title}
+              description={i.node.brief || ''}
+              image={i.node.coverImage?.url || ''}
+              link={`blog/${i.node.slug}`}
+              tag={
+                i.node.tags?.map((tag, index) =>
+                  index === 0 ? tag.name : ''
+                )[0]
+              }
+              author={{
+                name: i.node.author.name,
+                label: i.node.author.username,
+                image: i.node.author.profilePicture || ''
+              }}
+              date={i.node.publishedAt}
+              readingTime={i.node.readTimeInMinutes}
+            />
+          ))}
+        </div>
+
+        {page?.hasNextPage && (
+          <div className="mb-10 flex justify-center">
+            <Button
+              variant="filled"
+              onClick={getMorePosts}
+              className="flex items-center"
+            >
+              <ArrowPathIcon className="mr-2 h-6 w-6" />
+              Load More
+            </Button>
+          </div>
+        )}
+      </main>
     </MainLayout>
   )
 }

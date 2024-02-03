@@ -180,6 +180,7 @@ export type AssetLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>
   experienceCollection?: Maybe<ExperienceCollection>
   projectCollection?: Maybe<ProjectCollection>
+  technologyCollection?: Maybe<TechnologyCollection>
 }
 
 export type AssetLinkingCollectionsCertificationCollectionArgs = {
@@ -204,6 +205,13 @@ export type AssetLinkingCollectionsExperienceCollectionArgs = {
 }
 
 export type AssetLinkingCollectionsProjectCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AssetLinkingCollectionsTechnologyCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
@@ -770,16 +778,21 @@ export type ImageTransformOptions = {
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type Project = Entry & {
   __typename?: 'Project'
-  budget?: Maybe<Scalars['Int']['output']>
+  budget?: Maybe<Scalars['Float']['output']>
   clientName?: Maybe<Scalars['String']['output']>
   contentfulMetadata: ContentfulMetadata
+  createdDate?: Maybe<Scalars['DateTime']['output']>
+  description?: Maybe<Scalars['String']['output']>
   designDescription?: Maybe<ProjectDesignDescription>
+  featuredImage?: Maybe<Asset>
+  licenseName?: Maybe<Scalars['String']['output']>
   linkedFrom?: Maybe<ProjectLinkingCollections>
   name?: Maybe<Scalars['String']['output']>
   overview?: Maybe<ProjectOverview>
   prototypeUrl?: Maybe<Scalars['String']['output']>
   screenshotsCollection?: Maybe<AssetCollection>
   sys: Sys
+  technologiesCollection?: Maybe<ProjectTechnologiesCollection>
   timeSpend?: Maybe<Scalars['Int']['output']>
 }
 
@@ -794,7 +807,28 @@ export type ProjectClientNameArgs = {
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectCreatedDateArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type ProjectDesignDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectFeaturedImageArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectLicenseNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -820,6 +854,14 @@ export type ProjectPrototypeUrlArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type ProjectScreenshotsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectTechnologiesCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
@@ -875,15 +917,15 @@ export type ProjectDesignDescriptionResources = {
 export type ProjectFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectFilter>>>
   OR?: InputMaybe<Array<InputMaybe<ProjectFilter>>>
-  budget?: InputMaybe<Scalars['Int']['input']>
+  budget?: InputMaybe<Scalars['Float']['input']>
   budget_exists?: InputMaybe<Scalars['Boolean']['input']>
-  budget_gt?: InputMaybe<Scalars['Int']['input']>
-  budget_gte?: InputMaybe<Scalars['Int']['input']>
-  budget_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
-  budget_lt?: InputMaybe<Scalars['Int']['input']>
-  budget_lte?: InputMaybe<Scalars['Int']['input']>
-  budget_not?: InputMaybe<Scalars['Int']['input']>
-  budget_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>
+  budget_gt?: InputMaybe<Scalars['Float']['input']>
+  budget_gte?: InputMaybe<Scalars['Float']['input']>
+  budget_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>
+  budget_lt?: InputMaybe<Scalars['Float']['input']>
+  budget_lte?: InputMaybe<Scalars['Float']['input']>
+  budget_not?: InputMaybe<Scalars['Float']['input']>
+  budget_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>
   clientName?: InputMaybe<Scalars['String']['input']>
   clientName_contains?: InputMaybe<Scalars['String']['input']>
   clientName_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -892,9 +934,35 @@ export type ProjectFilter = {
   clientName_not_contains?: InputMaybe<Scalars['String']['input']>
   clientName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  createdDate?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_exists?: InputMaybe<Scalars['Boolean']['input']>
+  createdDate_gt?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_gte?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
+  createdDate_lt?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_lte?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_not?: InputMaybe<Scalars['DateTime']['input']>
+  createdDate_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['DateTime']['input']>>
+  >
+  description?: InputMaybe<Scalars['String']['input']>
+  description_contains?: InputMaybe<Scalars['String']['input']>
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  description_not?: InputMaybe<Scalars['String']['input']>
+  description_not_contains?: InputMaybe<Scalars['String']['input']>
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   designDescription_contains?: InputMaybe<Scalars['String']['input']>
   designDescription_exists?: InputMaybe<Scalars['Boolean']['input']>
   designDescription_not_contains?: InputMaybe<Scalars['String']['input']>
+  featuredImage_exists?: InputMaybe<Scalars['Boolean']['input']>
+  licenseName?: InputMaybe<Scalars['String']['input']>
+  licenseName_contains?: InputMaybe<Scalars['String']['input']>
+  licenseName_exists?: InputMaybe<Scalars['Boolean']['input']>
+  licenseName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  licenseName_not?: InputMaybe<Scalars['String']['input']>
+  licenseName_not_contains?: InputMaybe<Scalars['String']['input']>
+  licenseName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   name?: InputMaybe<Scalars['String']['input']>
   name_contains?: InputMaybe<Scalars['String']['input']>
   name_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -916,6 +984,7 @@ export type ProjectFilter = {
   >
   screenshotsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
   sys?: InputMaybe<SysFilter>
+  technologiesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
   timeSpend?: InputMaybe<Scalars['Int']['input']>
   timeSpend_exists?: InputMaybe<Scalars['Boolean']['input']>
   timeSpend_gt?: InputMaybe<Scalars['Int']['input']>
@@ -944,6 +1013,10 @@ export enum ProjectOrder {
   BudgetDesc = 'budget_DESC',
   ClientNameAsc = 'clientName_ASC',
   ClientNameDesc = 'clientName_DESC',
+  CreatedDateAsc = 'createdDate_ASC',
+  CreatedDateDesc = 'createdDate_DESC',
+  LicenseNameAsc = 'licenseName_ASC',
+  LicenseNameDesc = 'licenseName_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
   PrototypeUrlAsc = 'prototypeUrl_ASC',
@@ -993,6 +1066,14 @@ export type ProjectOverviewResources = {
   inline: Array<ResourceLink>
 }
 
+export type ProjectTechnologiesCollection = {
+  __typename?: 'ProjectTechnologiesCollection'
+  items: Array<Maybe<Entry>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
 export type Query = {
   __typename?: 'Query'
   _node?: Maybe<_Node>
@@ -1005,6 +1086,8 @@ export type Query = {
   experienceCollection?: Maybe<ExperienceCollection>
   project?: Maybe<Project>
   projectCollection?: Maybe<ProjectCollection>
+  technology?: Maybe<Technology>
+  technologyCollection?: Maybe<TechnologyCollection>
 }
 
 export type Query_NodeArgs = {
@@ -1082,6 +1165,21 @@ export type QueryProjectCollectionArgs = {
   where?: InputMaybe<ProjectFilter>
 }
 
+export type QueryTechnologyArgs = {
+  id: Scalars['String']['input']
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type QueryTechnologyCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  order?: InputMaybe<Array<InputMaybe<TechnologyOrder>>>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<TechnologyFilter>
+}
+
 export type ResourceLink = {
   __typename?: 'ResourceLink'
   sys: ResourceSys
@@ -1147,6 +1245,80 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<
     Array<InputMaybe<Scalars['Float']['input']>>
   >
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/technology) */
+export type Technology = Entry & {
+  __typename?: 'Technology'
+  contentfulMetadata: ContentfulMetadata
+  icon?: Maybe<Asset>
+  linkedFrom?: Maybe<TechnologyLinkingCollections>
+  name?: Maybe<Scalars['String']['output']>
+  sys: Sys
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/technology) */
+export type TechnologyIconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/technology) */
+export type TechnologyLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/technology) */
+export type TechnologyNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+export type TechnologyCollection = {
+  __typename?: 'TechnologyCollection'
+  items: Array<Maybe<Technology>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
+export type TechnologyFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TechnologyFilter>>>
+  OR?: InputMaybe<Array<InputMaybe<TechnologyFilter>>>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_contains?: InputMaybe<Scalars['String']['input']>
+  name_exists?: InputMaybe<Scalars['Boolean']['input']>
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  name_not?: InputMaybe<Scalars['String']['input']>
+  name_not_contains?: InputMaybe<Scalars['String']['input']>
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  sys?: InputMaybe<SysFilter>
+}
+
+export type TechnologyLinkingCollections = {
+  __typename?: 'TechnologyLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+}
+
+export type TechnologyLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export enum TechnologyOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export type _Node = {
@@ -1235,10 +1407,14 @@ export type GetProjectByIdQuery = {
   project?: {
     __typename?: 'Project'
     name?: string | null
+    description?: string | null
     clientName?: string | null
+    licenseName?: string | null
+    createdDate?: any | null
     budget?: number | null
     timeSpend?: number | null
     prototypeUrl?: string | null
+    featuredImage?: { __typename?: 'Asset'; url?: string | null } | null
     overview?: { __typename?: 'ProjectOverview'; json: any } | null
     designDescription?: {
       __typename?: 'ProjectDesignDescription'
@@ -1251,6 +1427,20 @@ export type GetProjectByIdQuery = {
         title?: string | null
         url?: string | null
       } | null>
+    } | null
+    technologiesCollection?: {
+      __typename?: 'ProjectTechnologiesCollection'
+      items: Array<
+        | { __typename?: 'Certification' }
+        | { __typename?: 'Experience' }
+        | { __typename?: 'Project' }
+        | {
+            __typename?: 'Technology'
+            name?: string | null
+            icon?: { __typename?: 'Asset'; url?: string | null } | null
+          }
+        | null
+      >
     } | null
   } | null
 }
@@ -1453,7 +1643,13 @@ export const GetProjectByIdDocument = gql`
   query GetProjectById($id: String!) {
     project(id: $id) {
       name
+      description
       clientName
+      licenseName
+      featuredImage {
+        url
+      }
+      createdDate
       budget
       timeSpend
       overview {
@@ -1467,6 +1663,16 @@ export const GetProjectByIdDocument = gql`
         items {
           title
           url
+        }
+      }
+      technologiesCollection {
+        items {
+          ... on Technology {
+            name
+            icon {
+              url
+            }
+          }
         }
       }
     }

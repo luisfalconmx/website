@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import MainLayout from '@/Layouts/MainLayout'
+import SidebarLayout from '@/Layouts/SidebarLayout'
 import githubClient from '@/clients/githubClient'
 import CardProject from '@/components/CardProject'
 import Button from '@/components/Button'
@@ -77,57 +77,60 @@ export default function Projects({
   }
 
   return (
-    <MainLayout>
-      <h1 className="mb-10 text-4xl font-bold">Projects</h1>
-
-      <div className="mb-8 grid grid-cols-1 gap-y-5">
-        {projects?.map((project) => (
-          <CardProject
-            key={project?.name}
-            name={project?.name || ''}
-            description={project?.description || ''}
-            image={project?.openGraphImageUrl}
-            variant="full"
-            tags={project?.repositoryTopics.nodes?.map((i) =>
-              i ? i.topic.name : ''
-            )}
-            licence={project?.licenseInfo?.name || ''}
-            createdDate={project?.createdAt || ''}
-            latestRelease={project?.latestRelease?.name || ''}
-            primaryLanguage={project?.primaryLanguage?.name || ''}
-          />
-        ))}
-
-        {extraProjectsList?.map((project) => (
-          <CardProject
-            key={project?.name}
-            name={project?.name || ''}
-            description={project?.description || ''}
-            image={project?.openGraphImageUrl}
-            variant="full"
-            tags={project?.repositoryTopics.nodes?.map((i) =>
-              i ? i.topic.name : ''
-            )}
-            licence={project?.licenseInfo?.name || ''}
-            createdDate={project?.createdAt || ''}
-            latestRelease={project?.latestRelease?.name || ''}
-            primaryLanguage={project?.primaryLanguage?.name || ''}
-          />
-        ))}
+    <SidebarLayout>
+      <div className="block px-6 py-8">
+        <h1 className="mb-10 text-3xl font-bold !text-white">Projects</h1>
       </div>
+      <main className="mx-auto mb-24 mt-8 max-w-screen-xl">
+        <div className="mb-8 grid grid-cols-1 gap-y-12">
+          {projects?.map((project) => (
+            <CardProject
+              key={project?.name}
+              name={project?.name || ''}
+              description={project?.description || ''}
+              image={project?.openGraphImageUrl}
+              variant="full"
+              tags={project?.repositoryTopics.nodes?.map((i) =>
+                i ? i.topic.name : ''
+              )}
+              licence={project?.licenseInfo?.name || ''}
+              createdDate={project?.createdAt || ''}
+              latestRelease={project?.latestRelease?.name || ''}
+              primaryLanguage={project?.primaryLanguage?.name || ''}
+            />
+          ))}
 
-      {hasNextPage && (
-        <div className="flex justify-center">
-          <Button
-            variant="filled"
-            onClick={getMoreProjects}
-            className="flex items-center"
-          >
-            <ArrowPathIcon className="mr-2 h-6 w-6" />
-            Load More
-          </Button>
+          {extraProjectsList?.map((project) => (
+            <CardProject
+              key={project?.name}
+              name={project?.name || ''}
+              description={project?.description || ''}
+              image={project?.openGraphImageUrl}
+              variant="full"
+              tags={project?.repositoryTopics.nodes?.map((i) =>
+                i ? i.topic.name : ''
+              )}
+              licence={project?.licenseInfo?.name || ''}
+              createdDate={project?.createdAt || ''}
+              latestRelease={project?.latestRelease?.name || ''}
+              primaryLanguage={project?.primaryLanguage?.name || ''}
+            />
+          ))}
         </div>
-      )}
-    </MainLayout>
+
+        {hasNextPage && (
+          <div className="flex justify-center">
+            <Button
+              variant="filled"
+              onClick={getMoreProjects}
+              className="flex items-center"
+            >
+              <ArrowPathIcon className="mr-2 h-6 w-6" />
+              Load More
+            </Button>
+          </div>
+        )}
+      </main>
+    </SidebarLayout>
   )
 }
