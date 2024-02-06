@@ -1,4 +1,5 @@
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { HeartIcon } from '@heroicons/react/24/solid'
 import useDarkmode from '@/hooks/useDarkmode'
 import styles from './Navbar.module.css'
 import Link from 'next/link'
@@ -40,7 +41,7 @@ const Navbar = () => {
           </ul>
         </nav>
         <ul className={styles.Navbar__list}>
-          <li className={styles.Navbar__item}>
+          <li className={(styles.Navbar__item, 'mr-3')}>
             <button
               className="flex h-full items-center"
               onClick={toggleDarkmode}
@@ -50,6 +51,13 @@ const Navbar = () => {
               ) : (
                 <MoonIcon className={styles.Navbar__icon} />
               )}
+            </button>
+          </li>
+          <li>
+            <button className="flex h-full items-center text-pink-600">
+              <a href="https://github.com/sponsors/luisfalconmx">
+                <HeartIcon className={styles.Navbar__icon} />
+              </a>
             </button>
           </li>
         </ul>

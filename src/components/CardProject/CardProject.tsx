@@ -17,13 +17,15 @@ const CardProject = ({
   name,
   description,
   image,
-  licence,
-  tags,
-  createdDate,
-  latestRelease
+  variant,
+  tags
 }: CardProjectProps) => {
   return (
-    <div className={cn(styles.CardProject)}>
+    <div
+      className={cn(styles.CardProject, {
+        [styles['CardProject--block']]: variant === 'block'
+      })}
+    >
       <div className={styles.CardProject__content}>
         <div>
           <div className={styles.CardProject__head}>
@@ -34,12 +36,12 @@ const CardProject = ({
             {tags &&
               tags.map((tag) => (
                 <Image
-                  src={`https://svgl.vercel.app/library/${tag}.svg`}
+                  src={tag.icon}
                   width={20}
                   height={20}
                   className={styles.CardProject__tag}
-                  alt={tag}
-                  key={tag}
+                  alt={tag.name}
+                  key={tag.name}
                 />
               ))}
           </div>

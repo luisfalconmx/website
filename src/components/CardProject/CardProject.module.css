@@ -2,6 +2,10 @@
   @apply grid h-full min-h-[480px] max-w-full grid-cols-2 flex-col gap-x-10 overflow-hidden rounded-lg border border-iron/40 px-12 pt-8 text-nightfall shadow-lg dark:bg-onyx;
 }
 
+.CardProject--block {
+  @apply rounded-none border-b-2 border-l-0 border-r-0 border-t-0 pt-14 shadow-none;
+}
+
 .CardProject__content {
   @apply h-full gap-x-6 rounded-t pb-12 pt-8;
 }
@@ -18,16 +22,8 @@
   @apply block pb-1 text-4xl font-bold dark:text-white;
 }
 
-.CardProject--full .CardProject__name {
-  @apply text-4xl;
-}
-
 .CardProject__description {
   @apply mb-6 block max-w-[700px] text-iron dark:text-smoke;
-}
-
-.CardProject--full .CardProject__description {
-  @apply text-lg;
 }
 
 .CardProject__tags {

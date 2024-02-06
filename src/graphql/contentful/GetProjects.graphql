@@ -1,0 +1,21 @@
+query GetProjects($skip: Int, $limit: Int!) {
+  projectCollection(skip: $skip, limit: $limit) {
+    items {
+      name
+      description
+      technologiesCollection {
+        items {
+          ... on Technology {
+            name
+            icon {
+              url
+            }
+          }
+        }
+      }
+      featuredImage {
+        url
+      }
+    }
+  }
+}

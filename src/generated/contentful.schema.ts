@@ -1445,6 +1445,38 @@ export type GetProjectByIdQuery = {
   } | null
 }
 
+export type GetProjectsQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>
+  limit: Scalars['Int']['input']
+}>
+
+export type GetProjectsQuery = {
+  __typename?: 'Query'
+  projectCollection?: {
+    __typename?: 'ProjectCollection'
+    items: Array<{
+      __typename?: 'Project'
+      name?: string | null
+      description?: string | null
+      technologiesCollection?: {
+        __typename?: 'ProjectTechnologiesCollection'
+        items: Array<
+          | { __typename?: 'Certification' }
+          | { __typename?: 'Experience' }
+          | { __typename?: 'Project' }
+          | {
+              __typename?: 'Technology'
+              name?: string | null
+              icon?: { __typename?: 'Asset'; url?: string | null } | null
+            }
+          | null
+        >
+      } | null
+      featuredImage?: { __typename?: 'Asset'; url?: string | null } | null
+    } | null>
+  } | null
+}
+
 export const GetCertificationsDocument = gql`
   query GetCertifications($limit: Int!, $skip: Int!) {
     certificationCollection(limit: $limit, skip: $skip) {
@@ -1743,4 +1775,92 @@ export type GetProjectByIdSuspenseQueryHookResult = ReturnType<
 export type GetProjectByIdQueryResult = Apollo.QueryResult<
   GetProjectByIdQuery,
   GetProjectByIdQueryVariables
+>
+export const GetProjectsDocument = gql`
+  query GetProjects($skip: Int, $limit: Int!) {
+    projectCollection(skip: $skip, limit: $limit) {
+      items {
+        name
+        description
+        technologiesCollection {
+          items {
+            ... on Technology {
+              name
+              icon {
+                url
+              }
+            }
+          }
+        }
+        featuredImage {
+          url
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectsQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetProjectsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(
+    GetProjectsDocument,
+    options
+  )
+}
+export function useGetProjectsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProjectsQuery, GetProjectsQueryVariables>(
+    GetProjectsDocument,
+    options
+  )
+}
+export function useGetProjectsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProjectsQuery, GetProjectsQueryVariables>(
+    GetProjectsDocument,
+    options
+  )
+}
+export type GetProjectsQueryHookResult = ReturnType<typeof useGetProjectsQuery>
+export type GetProjectsLazyQueryHookResult = ReturnType<
+  typeof useGetProjectsLazyQuery
+>
+export type GetProjectsSuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectsSuspenseQuery
+>
+export type GetProjectsQueryResult = Apollo.QueryResult<
+  GetProjectsQuery,
+  GetProjectsQueryVariables
 >

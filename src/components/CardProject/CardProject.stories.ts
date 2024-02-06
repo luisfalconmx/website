@@ -13,12 +13,13 @@ export const Default: Story = {
     name: 'nextjs-project',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl aliquet nunc, quis aliquam nisl nisl nec nisl.',
-    tags: ['nextjs', 'typescript', 'tailwindcss'],
-    licence: 'MIT License',
-    createdDate: new Date(),
+    tags: [
+      {
+        name: 'react',
+        icon: 'https://images.ctfassets.net/f6zp47ogowku/4Q7vctVdZ4cLEz3lXpHFzv/85923943250225aed45913c918e54351/react.svg'
+      }
+    ],
     image: 'https://picsum.photos/200/300',
-    latestRelease: 'v1.0.0',
-    primaryLanguage: 'javascript',
-    variant: 'full'
+    variant: 'card'
   }
 }

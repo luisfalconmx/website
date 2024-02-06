@@ -1,112 +1,102 @@
 import { useState } from 'react'
 import SidebarLayout from '@/Layouts/SidebarLayout'
-import githubClient from '@/clients/githubClient'
 import CardProject from '@/components/CardProject'
 import Button from '@/components/Button'
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import contentfulClient from '@/clients/contentfulClient'
 import {
   GetProjectsDocument,
   GetProjectsQuery,
   GetProjectsQueryVariables
-} from '@/generated/github.schema'
+} from '@/generated/contentful.schema'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async () => {
-  const client = githubClient()
+  const client = contentfulClient()
   const response = await client.query<
     GetProjectsQuery,
     GetProjectsQueryVariables
   >({
     query: GetProjectsDocument,
     variables: {
-      username: 'luisfalconmx',
-      repositoriesCount: 6
+      limit: 6
     }
   })
 
   return {
     props: {
-      projects:
-        response.data.user?.repositories?.edges?.map((edge) => edge?.node) ||
-        [],
-      pageInfo: response.data.user?.repositories.pageInfo
+      projects: response.data.projectCollection?.items
     },
     revalidate: 60 * 5 // 5 minutes
   }
 }) satisfies GetStaticProps
 
 export default function Projects({
-  projects,
-  pageInfo
+  projects
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [lastCursor, setLastCursor] = useState<string>(
-    pageInfo?.endCursor || ''
-  )
-  const [hasNextPage, setHasNextPage] = useState<boolean>(
-    pageInfo?.hasNextPage || false
-  )
+  const [lastCursor, setLastCursor] = useState<string>('')
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false)
   const [extraProjectsList, setExtraProjectsList] = useState<typeof projects>(
     []
   )
 
-  const getMoreProjects = async () => {
-    const client = githubClient()
-    const response = await client.query<
-      GetProjectsQuery,
-      GetProjectsQueryVariables
-    >({
-      query: GetProjectsDocument,
-      variables: {
-        username: 'luisfalconmx',
-        repositoriesCount: 6,
-        after: lastCursor
-      }
-    })
+  // const getMoreProjects = async () => {
+  //   const client = githubClient()
+  //   const response = await client.query<
+  //     GetProjectsQuery,
+  //     GetProjectsQueryVariables
+  //   >({
+  //     query: GetProjectsDocument,
+  //     variables: {
+  //       username: 'luisfalconmx',
+  //       repositoriesCount: 6,
+  //       after: lastCursor
+  //     }
+  //   })
 
-    setLastCursor(response.data.user?.repositories.pageInfo.endCursor || '')
+  //   setLastCursor(response.data.user?.repositories.pageInfo.endCursor || '')
 
-    setHasNextPage(
-      response.data.user?.repositories.pageInfo.hasNextPage || false
-    )
+  //   setHasNextPage(
+  //     response.data.user?.repositories.pageInfo.hasNextPage || false
+  //   )
 
-    setExtraProjectsList((prev) => [
-      ...prev,
-      ...(response.data.user?.repositories?.edges?.map((edge) => edge?.node) ||
-        [])
-    ])
-  }
+  //   setExtraProjectsList((prev) => [
+  //     ...prev,
+  //     ...(response.data.user?.repositories?.edges?.map((edge) => edge?.node) ||
+  //       [])
+  //   ])
+  // }
 
   return (
     <SidebarLayout>
       <div className="block px-6 py-8">
         <h1 className="mb-10 text-3xl font-bold !text-white">Projects</h1>
       </div>
-      <main className="mx-auto mb-24 mt-8 max-w-screen-xl">
-        <div className="mb-8 grid grid-cols-1 gap-y-12">
+      <main className="max-w-screen-2xl">
+        <div className="grid grid-cols-1 gap-y-0">
           {projects?.map((project) => (
             <CardProject
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
-              image={project?.openGraphImageUrl}
-              variant="full"
-              tags={project?.repositoryTopics.nodes?.map((i) =>
-                i ? i.topic.name : ''
-              )}
-              licence={project?.licenseInfo?.name || ''}
-              createdDate={project?.createdAt || ''}
-              latestRelease={project?.latestRelease?.name || ''}
-              primaryLanguage={project?.primaryLanguage?.name || ''}
+              image={project?.featuredImage?.url || ''}
+              variant="block"
+              tags={
+                project?.technologiesCollection?.items?.map((i: any) => ({
+                  icon: i.icon.url,
+                  name: i.name
+                })) || []
+              }
             />
           ))}
 
-          {extraProjectsList?.map((project) => (
+          {/* {extraProjectsList?.map((project) => (
             <CardProject
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
               image={project?.openGraphImageUrl}
-              variant="full"
+              variant="block"
               tags={project?.repositoryTopics.nodes?.map((i) =>
                 i ? i.topic.name : ''
               )}
@@ -115,10 +105,10 @@ export default function Projects({
               latestRelease={project?.latestRelease?.name || ''}
               primaryLanguage={project?.primaryLanguage?.name || ''}
             />
-          ))}
+          ))} */}
         </div>
 
-        {hasNextPage && (
+        {/* {hasNextPage && (
           <div className="flex justify-center">
             <Button
               variant="filled"
@@ -129,7 +119,7 @@ export default function Projects({
               Load More
             </Button>
           </div>
-        )}
+        )} */}
       </main>
     </SidebarLayout>
   )

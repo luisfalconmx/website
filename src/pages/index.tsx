@@ -201,18 +201,17 @@ export default function Home({
         <div className="grid grid-cols-1 gap-y-6">
           {projects?.map((project) => (
             <CardProject
-              variant="full"
+              variant="card"
               key={project?.name}
               name={project?.name}
               description={project.description || ''}
-              primaryLanguage={project.primaryLanguage?.name || ''}
               image={project?.openGraphImageUrl}
-              tags={project?.repositoryTopics.nodes?.map((i) =>
-                i ? i.topic.name : ''
-              )}
-              licence={project.licenseInfo?.name || ''}
-              createdDate={project.createdAt}
-              latestRelease={project.latestRelease?.name || ''}
+              tags={
+                project?.repositoryTopics?.edges?.map((i: any) => ({
+                  icon: i.icon.url,
+                  name: i.name
+                })) || []
+              }
             />
           ))}
         </div>
