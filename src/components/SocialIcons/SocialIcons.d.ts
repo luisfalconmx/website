@@ -1,8 +1,8 @@
 export interface SocialIconsProps {
   data?: {
-    provider: string
-    url: string
-    displayName?: string
+    title: string
+    link: string
+    iconUrl: string
   }[]
   className?: string
 }

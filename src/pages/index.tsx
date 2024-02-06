@@ -1,118 +1,97 @@
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import githubClient from '@/clients/githubClient'
+import Link from 'next/link'
 import contentfulClient from '@/clients/contentfulClient'
 import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
 import SocialIcons from '@/components/SocialIcons'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import addZero from '@/utils/addZero'
-import skills from '@/json/skills.json'
 import dayjs from 'dayjs'
 import {
-  GithubProfileDocument,
-  GithubProfileQuery,
-  GithubProfileQueryVariables
-} from '@/generated/github.schema'
-import {
-  GetExperiencesDocument,
-  GetExperiencesQuery,
-  GetExperiencesQueryVariables
+  GetHomePageInfoQuery,
+  GetHomePageInfoQueryVariables,
+  GetHomePageInfoDocument
 } from '@/generated/contentful.schema'
 import CardExperience from '@/components/CardExperience'
 import CardProject from '@/components/CardProject'
-import { GITHUB_USERNAME } from '@/config'
 import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import type { Repository } from '@/generated/github.schema'
 import '@splidejs/react-splide/css'
-import Link from 'next/link'
 
 export const getStaticProps = (async () => {
-  const gh_client = githubClient()
-  const contentful_client = contentfulClient()
+  const client = contentfulClient()
 
-  const gh_response = await gh_client.query<
-    GithubProfileQuery,
-    GithubProfileQueryVariables
+  const response = await client.query<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
   >({
-    query: GithubProfileDocument,
-    variables: {
-      username: GITHUB_USERNAME
+    query: GetHomePageInfoDocument,
+    variables: {}
+  })
+
+  let totalExperience = 0
+
+  const monthsOfExperience = response.data.experienceCollection?.items.map(
+    (i) => {
+      const now = dayjs()
+      const startDate = dayjs(i?.startDate?.substring(0, 10))
+      const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
+
+      return endDate.diff(startDate, 'month')
     }
-  })
-
-  const contentful_response = await contentful_client.query<
-    GetExperiencesQuery,
-    GetExperiencesQueryVariables
-  >({
-    query: GetExperiencesDocument
-  })
-
-  const socialAccounts = gh_response.data.user?.socialAccounts?.edges?.map(
-    (i) => ({
-      provider: i?.node?.provider as string,
-      url: i?.node?.url as string,
-      displayName: i?.node?.displayName as string
-    })
   )
 
-  const githubAccount = {
-    provider: 'github',
-    url: `https://github.com/${GITHUB_USERNAME}`,
-    displayName: GITHUB_USERNAME
-  }
+  if (monthsOfExperience) {
+    const sumExperience =
+      monthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
 
-  const platziAccount = {
-    provider: 'platzi',
-    url: 'https://platzi.com/p/luisfalconmx',
-    displayName: 'luisfalconmx'
+    totalExperience = Math.round(sumExperience * 2) / 2
   }
-
-  socialAccounts?.unshift(githubAccount)
-  socialAccounts?.push(platziAccount)
 
   return {
     props: {
-      login: gh_response.data.user?.login ?? '',
-      avatar_url: gh_response.data.user?.avatarUrl ?? '',
-      bio: gh_response.data.user?.bio ?? '',
-      socialAccounts: socialAccounts,
-      projects: gh_response.data.user?.pinnedItems.edges?.map(
-        (i) => i?.node as Repository
-      ),
-      projectsCount: gh_response.data.user?.repositories.totalCount ?? 0,
-      experiences: contentful_response.data.experienceCollection?.items ?? [],
-      certifications: contentful_response.data.certificationCollection?.items,
-      certificationCount:
-        contentful_response.data.certificationCollection?.total
+      username: response.data.profile?.username || '',
+      profilePicture: response.data.profile?.picture?.url || '',
+      heroHeadline: response.data.profile?.heroHeadline?.json || '',
+      heroDescription: response.data.profile?.heroDescription?.json || '',
+      cv: response.data.profile?.cv?.url || '',
+      socialLinks: response.data.profile?.socialLinksCollection?.items || [],
+      englishLevel: response.data.profile?.englishLevel || '',
+      totalProjects: response.data.projectCollection?.total || 0,
+      latestProjects: response.data.projectCollection?.items || [],
+      totalExperience,
+      experiences: response.data.experienceCollection?.items || [],
+      totalCertifications: response.data.certificationCollection?.total || 0,
+      certifications: response.data.certificationCollection?.items || [],
+      skills: response.data.skillsCollection?.items || []
     },
     revalidate: 60 * 60 * 24 // 24 hours
   }
 }) satisfies GetStaticProps
 
 export default function Home({
-  login,
-  avatar_url,
-  bio,
-  socialAccounts,
-  projects,
-  projectsCount,
+  username,
+  profilePicture,
+  heroHeadline,
+  heroDescription,
+  cv,
+  socialLinks,
+  englishLevel,
+  totalProjects,
+  latestProjects,
+  totalExperience,
   experiences,
+  totalCertifications,
   certifications,
-  certificationCount
+  skills
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const totalMonthsOfExperience = experiences.map((i) => {
-    const now = dayjs()
-    const startDate = dayjs(i?.startDate?.substring(0, 10))
-    const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
+  const [isClient, setIsClient] = useState(false)
 
-    return endDate.diff(startDate, 'month')
-  })
-
-  const totalExperience =
-    totalMonthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
-
-  const experienceCount = Math.round(totalExperience * 2) / 2
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const certificationsCarouselOptions = {
     type: 'loop',
@@ -135,79 +114,89 @@ export default function Home({
         <Image
           width={220}
           height={200}
-          src={avatar_url}
-          alt={login}
+          src={profilePicture}
+          alt={username}
           className="mx-auto mb-10 rounded-full shadow-2xl shadow-black dark:shadow-none"
         />
 
         <h1 className="mb-10 text-center text-[3.438rem] font-bold leading-[115.195%]">
+          {isClient && documentToReactComponents(heroHeadline)}
+        </h1>
+
+        {/* <h1 className="mb-10 text-center text-[3.438rem] font-bold leading-[115.195%]">
           Hello, I am {login}{' '}
           <span className="m-0 w-fit bg-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Frontend Developer
           </span>
-        </h1>
+        </h1> */}
 
         <p className="mb-12 text-center text-lg text-iron dark:text-smoke">
-          {bio}
+          {isClient && documentToReactComponents(heroDescription)}
         </p>
 
         <div className="mb-16 text-center">
           <Link href="/projects">
             <Button className="mr-4">View all projects</Button>
           </Link>
-          <a
-            href="https://drive.google.com/file/d/1q5afbC2XZrcErTQ8QExCpLFIFpuN4DLm/view?usp=sharing"
-            target="_blank"
-          >
+          <a href={cv} target="_blank">
             <Button variant="outlined">Download CV</Button>
           </a>
         </div>
 
-        <SocialIcons data={socialAccounts} className="mx-auto flex w-fit" />
+        <SocialIcons
+          data={socialLinks.map((i: any) => ({
+            title: i.title,
+            link: i.link,
+            iconUrl: i.icon.url
+          }))}
+          className="mx-auto flex w-fit"
+        />
       </section>
 
-      <section className="mb-32  bg-onyx py-16">
+      <section className="mb-32 border-y py-16 shadow-2xl dark:border-none dark:bg-onyx dark:shadow-none">
         <div className="mx-auto grid max-w-screen-xl grid-cols-4 place-items-center gap-x-4">
           <div>
             <strong className="mb-4 block text-5xl font-bold">
-              {addZero(projectsCount)}
+              {addZero(totalProjects)}
             </strong>
             <p className="block text-xl uppercase">projects</p>
           </div>
           <div>
             <strong className="mb-4 block text-5xl font-bold">
-              {addZero(experienceCount)}
+              {addZero(totalExperience)}
             </strong>
             <p className="block text-xl uppercase">years of experience</p>
           </div>
 
           <div>
             <strong className="mb-4 block text-5xl font-bold">
-              {addZero(certificationCount as number)}
+              {addZero(totalCertifications)}
             </strong>
             <p className="block text-xl uppercase">certifications</p>
           </div>
 
           <div>
-            <strong className="mb-4 block text-5xl font-bold">A2</strong>
+            <strong className="mb-4 block text-5xl font-bold">
+              {englishLevel}
+            </strong>
             <p className="block text-xl uppercase">English level</p>
           </div>
         </div>
       </section>
 
       <section className="mx-auto mb-32 max-w-screen-xl">
-        <h2 className="mb-8 text-4xl font-bold">Featured Projects</h2>
+        <h2 className="mb-8 text-4xl font-bold">Latest Projects</h2>
 
         <div className="grid grid-cols-1 gap-y-6">
-          {projects?.map((project) => (
+          {latestProjects?.map((project) => (
             <CardProject
               variant="card"
               key={project?.name}
-              name={project?.name}
-              description={project.description || ''}
-              image={project?.openGraphImageUrl}
+              name={project?.name || ''}
+              description={project?.description || ''}
+              image={project?.featuredImage?.url || ''}
               tags={
-                project?.repositoryTopics?.edges?.map((i: any) => ({
+                project?.technologiesCollection?.items?.map((i: any) => ({
                   icon: i.icon.url,
                   name: i.name
                 })) || []
@@ -218,7 +207,7 @@ export default function Home({
       </section>
 
       <section className="mx-auto mb-32 max-w-screen-xl">
-        <h2 className="mb-8 text-4xl font-bold">Experience</h2>
+        <h2 className="mb-8 text-4xl font-bold">Work Experience</h2>
 
         <div className="grid gap-y-5">
           {experiences.map((experience) => (
@@ -261,15 +250,19 @@ export default function Home({
       <section className="mx-auto mb-24 max-w-screen-xl">
         <h2 className="mb-8 text-4xl font-bold">Skills</h2>
         <ul className="grid grid-cols-3 gap-3">
-          {skills.map(({ title, description }) => (
-            <li key={title}>
+          {skills.map((skill) => (
+            <li key={skill?.title}>
               <div className="h-full cursor-default rounded-lg bg-ghost p-1 hover:bg-gradient-to-r hover:from-primary hover:to-secondary dark:bg-onyx">
                 <div className="h-full rounded bg-ghost px-3 py-5 dark:bg-onyx">
                   <div className="mb-2 flex">
                     <ChevronDoubleRightIcon className="mr-1 h-6 w-6 text-primary" />
-                    <b className="block text-lg uppercase">{title}</b>
+                    <b className="block text-lg uppercase">
+                      {skill?.title || ''}
+                    </b>
                   </div>
-                  <p className="text-iron dark:text-smoke">{description}</p>
+                  <p className="text-iron dark:text-smoke">
+                    {skill?.description || ''}
+                  </p>
                 </div>
               </div>
             </li>

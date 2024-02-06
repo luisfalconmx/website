@@ -179,7 +179,9 @@ export type AssetLinkingCollections = {
   certificationCollection?: Maybe<CertificationCollection>
   entryCollection?: Maybe<EntryCollection>
   experienceCollection?: Maybe<ExperienceCollection>
+  profileCollection?: Maybe<ProfileCollection>
   projectCollection?: Maybe<ProjectCollection>
+  socialMediaCollection?: Maybe<SocialMediaCollection>
   technologyCollection?: Maybe<TechnologyCollection>
 }
 
@@ -204,7 +206,21 @@ export type AssetLinkingCollectionsExperienceCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AssetLinkingCollectionsProfileCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
 export type AssetLinkingCollectionsProjectCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AssetLinkingCollectionsSocialMediaCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
@@ -775,6 +791,207 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>
 }
 
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type Profile = Entry & {
+  __typename?: 'Profile'
+  contentfulMetadata: ContentfulMetadata
+  cv?: Maybe<Asset>
+  englishLevel?: Maybe<Scalars['String']['output']>
+  heroDescription?: Maybe<ProfileHeroDescription>
+  heroHeadline?: Maybe<ProfileHeroHeadline>
+  linkedFrom?: Maybe<ProfileLinkingCollections>
+  picture?: Maybe<Asset>
+  socialLinksCollection?: Maybe<ProfileSocialLinksCollection>
+  sys: Sys
+  username?: Maybe<Scalars['String']['output']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileCvArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileEnglishLevelArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileHeroDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileHeroHeadlineArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfilePictureArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileSocialLinksCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileUsernameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+export type ProfileCollection = {
+  __typename?: 'ProfileCollection'
+  items: Array<Maybe<Profile>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
+export type ProfileFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProfileFilter>>>
+  OR?: InputMaybe<Array<InputMaybe<ProfileFilter>>>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  cv_exists?: InputMaybe<Scalars['Boolean']['input']>
+  englishLevel?: InputMaybe<Scalars['String']['input']>
+  englishLevel_contains?: InputMaybe<Scalars['String']['input']>
+  englishLevel_exists?: InputMaybe<Scalars['Boolean']['input']>
+  englishLevel_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  englishLevel_not?: InputMaybe<Scalars['String']['input']>
+  englishLevel_not_contains?: InputMaybe<Scalars['String']['input']>
+  englishLevel_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  heroDescription_contains?: InputMaybe<Scalars['String']['input']>
+  heroDescription_exists?: InputMaybe<Scalars['Boolean']['input']>
+  heroDescription_not_contains?: InputMaybe<Scalars['String']['input']>
+  heroHeadline_contains?: InputMaybe<Scalars['String']['input']>
+  heroHeadline_exists?: InputMaybe<Scalars['Boolean']['input']>
+  heroHeadline_not_contains?: InputMaybe<Scalars['String']['input']>
+  picture_exists?: InputMaybe<Scalars['Boolean']['input']>
+  socialLinksCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
+  sys?: InputMaybe<SysFilter>
+  username?: InputMaybe<Scalars['String']['input']>
+  username_contains?: InputMaybe<Scalars['String']['input']>
+  username_exists?: InputMaybe<Scalars['Boolean']['input']>
+  username_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  username_not?: InputMaybe<Scalars['String']['input']>
+  username_not_contains?: InputMaybe<Scalars['String']['input']>
+  username_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type ProfileHeroDescription = {
+  __typename?: 'ProfileHeroDescription'
+  json: Scalars['JSON']['output']
+  links: ProfileHeroDescriptionLinks
+}
+
+export type ProfileHeroDescriptionAssets = {
+  __typename?: 'ProfileHeroDescriptionAssets'
+  block: Array<Maybe<Asset>>
+  hyperlink: Array<Maybe<Asset>>
+}
+
+export type ProfileHeroDescriptionEntries = {
+  __typename?: 'ProfileHeroDescriptionEntries'
+  block: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  inline: Array<Maybe<Entry>>
+}
+
+export type ProfileHeroDescriptionLinks = {
+  __typename?: 'ProfileHeroDescriptionLinks'
+  assets: ProfileHeroDescriptionAssets
+  entries: ProfileHeroDescriptionEntries
+  resources: ProfileHeroDescriptionResources
+}
+
+export type ProfileHeroDescriptionResources = {
+  __typename?: 'ProfileHeroDescriptionResources'
+  block: Array<ResourceLink>
+  hyperlink: Array<ResourceLink>
+  inline: Array<ResourceLink>
+}
+
+export type ProfileHeroHeadline = {
+  __typename?: 'ProfileHeroHeadline'
+  json: Scalars['JSON']['output']
+  links: ProfileHeroHeadlineLinks
+}
+
+export type ProfileHeroHeadlineAssets = {
+  __typename?: 'ProfileHeroHeadlineAssets'
+  block: Array<Maybe<Asset>>
+  hyperlink: Array<Maybe<Asset>>
+}
+
+export type ProfileHeroHeadlineEntries = {
+  __typename?: 'ProfileHeroHeadlineEntries'
+  block: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  inline: Array<Maybe<Entry>>
+}
+
+export type ProfileHeroHeadlineLinks = {
+  __typename?: 'ProfileHeroHeadlineLinks'
+  assets: ProfileHeroHeadlineAssets
+  entries: ProfileHeroHeadlineEntries
+  resources: ProfileHeroHeadlineResources
+}
+
+export type ProfileHeroHeadlineResources = {
+  __typename?: 'ProfileHeroHeadlineResources'
+  block: Array<ResourceLink>
+  hyperlink: Array<ResourceLink>
+  inline: Array<ResourceLink>
+}
+
+export type ProfileLinkingCollections = {
+  __typename?: 'ProfileLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+}
+
+export type ProfileLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export enum ProfileOrder {
+  EnglishLevelAsc = 'englishLevel_ASC',
+  EnglishLevelDesc = 'englishLevel_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  UsernameAsc = 'username_ASC',
+  UsernameDesc = 'username_DESC'
+}
+
+export type ProfileSocialLinksCollection = {
+  __typename?: 'ProfileSocialLinksCollection'
+  items: Array<Maybe<Entry>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type Project = Entry & {
   __typename?: 'Project'
@@ -1084,8 +1301,14 @@ export type Query = {
   entryCollection?: Maybe<EntryCollection>
   experience?: Maybe<Experience>
   experienceCollection?: Maybe<ExperienceCollection>
+  profile?: Maybe<Profile>
+  profileCollection?: Maybe<ProfileCollection>
   project?: Maybe<Project>
   projectCollection?: Maybe<ProjectCollection>
+  skills?: Maybe<Skills>
+  skillsCollection?: Maybe<SkillsCollection>
+  socialMedia?: Maybe<SocialMedia>
+  socialMediaCollection?: Maybe<SocialMediaCollection>
   technology?: Maybe<Technology>
   technologyCollection?: Maybe<TechnologyCollection>
 }
@@ -1150,6 +1373,21 @@ export type QueryExperienceCollectionArgs = {
   where?: InputMaybe<ExperienceFilter>
 }
 
+export type QueryProfileArgs = {
+  id: Scalars['String']['input']
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type QueryProfileCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  order?: InputMaybe<Array<InputMaybe<ProfileOrder>>>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ProfileFilter>
+}
+
 export type QueryProjectArgs = {
   id: Scalars['String']['input']
   locale?: InputMaybe<Scalars['String']['input']>
@@ -1163,6 +1401,36 @@ export type QueryProjectCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
   where?: InputMaybe<ProjectFilter>
+}
+
+export type QuerySkillsArgs = {
+  id: Scalars['String']['input']
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type QuerySkillsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  order?: InputMaybe<Array<InputMaybe<SkillsOrder>>>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<SkillsFilter>
+}
+
+export type QuerySocialMediaArgs = {
+  id: Scalars['String']['input']
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type QuerySocialMediaCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  order?: InputMaybe<Array<InputMaybe<SocialMediaOrder>>>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<SocialMediaFilter>
 }
 
 export type QueryTechnologyArgs = {
@@ -1190,6 +1458,174 @@ export type ResourceSys = {
   linkType: Scalars['String']['output']
   type: Scalars['String']['output']
   urn: Scalars['String']['output']
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/skills) */
+export type Skills = Entry & {
+  __typename?: 'Skills'
+  contentfulMetadata: ContentfulMetadata
+  description?: Maybe<Scalars['String']['output']>
+  linkedFrom?: Maybe<SkillsLinkingCollections>
+  sys: Sys
+  title?: Maybe<Scalars['String']['output']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/skills) */
+export type SkillsDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/skills) */
+export type SkillsLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/skills) */
+export type SkillsTitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+export type SkillsCollection = {
+  __typename?: 'SkillsCollection'
+  items: Array<Maybe<Skills>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
+export type SkillsFilter = {
+  AND?: InputMaybe<Array<InputMaybe<SkillsFilter>>>
+  OR?: InputMaybe<Array<InputMaybe<SkillsFilter>>>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  description?: InputMaybe<Scalars['String']['input']>
+  description_contains?: InputMaybe<Scalars['String']['input']>
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  description_not?: InputMaybe<Scalars['String']['input']>
+  description_not_contains?: InputMaybe<Scalars['String']['input']>
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  sys?: InputMaybe<SysFilter>
+  title?: InputMaybe<Scalars['String']['input']>
+  title_contains?: InputMaybe<Scalars['String']['input']>
+  title_exists?: InputMaybe<Scalars['Boolean']['input']>
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  title_not?: InputMaybe<Scalars['String']['input']>
+  title_not_contains?: InputMaybe<Scalars['String']['input']>
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type SkillsLinkingCollections = {
+  __typename?: 'SkillsLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+}
+
+export type SkillsLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export enum SkillsOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/socialMedia) */
+export type SocialMedia = Entry & {
+  __typename?: 'SocialMedia'
+  contentfulMetadata: ContentfulMetadata
+  icon?: Maybe<Asset>
+  link?: Maybe<Scalars['String']['output']>
+  linkedFrom?: Maybe<SocialMediaLinkingCollections>
+  sys: Sys
+  title?: Maybe<Scalars['String']['output']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/socialMedia) */
+export type SocialMediaIconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/socialMedia) */
+export type SocialMediaLinkArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/socialMedia) */
+export type SocialMediaLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/socialMedia) */
+export type SocialMediaTitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+export type SocialMediaCollection = {
+  __typename?: 'SocialMediaCollection'
+  items: Array<Maybe<SocialMedia>>
+  limit: Scalars['Int']['output']
+  skip: Scalars['Int']['output']
+  total: Scalars['Int']['output']
+}
+
+export type SocialMediaFilter = {
+  AND?: InputMaybe<Array<InputMaybe<SocialMediaFilter>>>
+  OR?: InputMaybe<Array<InputMaybe<SocialMediaFilter>>>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>
+  link?: InputMaybe<Scalars['String']['input']>
+  link_contains?: InputMaybe<Scalars['String']['input']>
+  link_exists?: InputMaybe<Scalars['Boolean']['input']>
+  link_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  link_not?: InputMaybe<Scalars['String']['input']>
+  link_not_contains?: InputMaybe<Scalars['String']['input']>
+  link_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  sys?: InputMaybe<SysFilter>
+  title?: InputMaybe<Scalars['String']['input']>
+  title_contains?: InputMaybe<Scalars['String']['input']>
+  title_exists?: InputMaybe<Scalars['Boolean']['input']>
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  title_not?: InputMaybe<Scalars['String']['input']>
+  title_not_contains?: InputMaybe<Scalars['String']['input']>
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+export type SocialMediaLinkingCollections = {
+  __typename?: 'SocialMediaLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+}
+
+export type SocialMediaLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  locale?: InputMaybe<Scalars['String']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+export enum SocialMediaOrder {
+  LinkAsc = 'link_ASC',
+  LinkDesc = 'link_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
 }
 
 export type Sys = {
@@ -1325,33 +1761,6 @@ export type _Node = {
   _id: Scalars['ID']['output']
 }
 
-export type GetCertificationsQueryVariables = Exact<{
-  limit: Scalars['Int']['input']
-  skip: Scalars['Int']['input']
-}>
-
-export type GetCertificationsQuery = {
-  __typename?: 'Query'
-  certificationCollection?: {
-    __typename?: 'CertificationCollection'
-    total: number
-    items: Array<{
-      __typename?: 'Certification'
-      name?: string | null
-      credentialId?: string | null
-      credentialUrl?: string | null
-      expirationDate?: any | null
-      issueDate?: any | null
-      issuingOrganization?: string | null
-      picture?: { __typename?: 'Asset'; url?: string | null } | null
-      issuingOrganizationImage?: {
-        __typename?: 'Asset'
-        url?: string | null
-      } | null
-    } | null>
-  } | null
-}
-
 export type GetExperiencesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetExperiencesQuery = {
@@ -1398,6 +1807,118 @@ export type GetExperiencesQuery = {
   } | null
 }
 
+export type GetHomePageInfoQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetHomePageInfoQuery = {
+  __typename?: 'Query'
+  profile?: {
+    __typename?: 'Profile'
+    username?: string | null
+    englishLevel?: string | null
+    picture?: { __typename?: 'Asset'; url?: string | null } | null
+    heroHeadline?: { __typename?: 'ProfileHeroHeadline'; json: any } | null
+    heroDescription?: {
+      __typename?: 'ProfileHeroDescription'
+      json: any
+    } | null
+    cv?: { __typename?: 'Asset'; url?: string | null } | null
+    socialLinksCollection?: {
+      __typename?: 'ProfileSocialLinksCollection'
+      items: Array<
+        | { __typename?: 'Certification' }
+        | { __typename?: 'Experience' }
+        | { __typename?: 'Profile' }
+        | { __typename?: 'Project' }
+        | { __typename?: 'Skills' }
+        | {
+            __typename?: 'SocialMedia'
+            title?: string | null
+            link?: string | null
+            icon?: { __typename?: 'Asset'; url?: string | null } | null
+          }
+        | { __typename?: 'Technology' }
+        | null
+      >
+    } | null
+  } | null
+  experienceCollection?: {
+    __typename?: 'ExperienceCollection'
+    total: number
+    skip: number
+    limit: number
+    items: Array<{
+      __typename?: 'Experience'
+      title?: string | null
+      companyName?: string | null
+      employmentType?: Array<string | null> | null
+      location?: string | null
+      locationType?: Array<string | null> | null
+      currentWork?: boolean | null
+      startDate?: any | null
+      endDate?: any | null
+      industry?: string | null
+      description?: string | null
+      companyImage?: {
+        __typename?: 'Asset'
+        title?: string | null
+        description?: string | null
+        contentType?: string | null
+        fileName?: string | null
+        size?: number | null
+        url?: string | null
+        width?: number | null
+        height?: number | null
+      } | null
+    } | null>
+  } | null
+  projectCollection?: {
+    __typename?: 'ProjectCollection'
+    total: number
+    items: Array<{
+      __typename?: 'Project'
+      name?: string | null
+      description?: string | null
+      createdDate?: any | null
+      featuredImage?: { __typename?: 'Asset'; url?: string | null } | null
+      technologiesCollection?: {
+        __typename?: 'ProjectTechnologiesCollection'
+        items: Array<
+          | { __typename?: 'Certification' }
+          | { __typename?: 'Experience' }
+          | { __typename?: 'Profile' }
+          | { __typename?: 'Project' }
+          | { __typename?: 'Skills' }
+          | { __typename?: 'SocialMedia' }
+          | {
+              __typename?: 'Technology'
+              name?: string | null
+              icon?: { __typename?: 'Asset'; url?: string | null } | null
+            }
+          | null
+        >
+      } | null
+    } | null>
+  } | null
+  certificationCollection?: {
+    __typename?: 'CertificationCollection'
+    total: number
+    items: Array<{
+      __typename?: 'Certification'
+      name?: string | null
+      credentialUrl?: string | null
+      picture?: { __typename?: 'Asset'; url?: string | null } | null
+    } | null>
+  } | null
+  skillsCollection?: {
+    __typename?: 'SkillsCollection'
+    items: Array<{
+      __typename?: 'Skills'
+      title?: string | null
+      description?: string | null
+    } | null>
+  } | null
+}
+
 export type GetProjectByIdQueryVariables = Exact<{
   id: Scalars['String']['input']
 }>
@@ -1433,7 +1954,10 @@ export type GetProjectByIdQuery = {
       items: Array<
         | { __typename?: 'Certification' }
         | { __typename?: 'Experience' }
+        | { __typename?: 'Profile' }
         | { __typename?: 'Project' }
+        | { __typename?: 'Skills' }
+        | { __typename?: 'SocialMedia' }
         | {
             __typename?: 'Technology'
             name?: string | null
@@ -1463,7 +1987,10 @@ export type GetProjectsQuery = {
         items: Array<
           | { __typename?: 'Certification' }
           | { __typename?: 'Experience' }
+          | { __typename?: 'Profile' }
           | { __typename?: 'Project' }
+          | { __typename?: 'Skills' }
+          | { __typename?: 'SocialMedia' }
           | {
               __typename?: 'Technology'
               name?: string | null
@@ -1477,94 +2004,6 @@ export type GetProjectsQuery = {
   } | null
 }
 
-export const GetCertificationsDocument = gql`
-  query GetCertifications($limit: Int!, $skip: Int!) {
-    certificationCollection(limit: $limit, skip: $skip) {
-      total
-      items {
-        name
-        picture {
-          url
-        }
-        credentialId
-        credentialUrl
-        expirationDate
-        issueDate
-        issuingOrganization
-        issuingOrganizationImage {
-          url
-        }
-      }
-    }
-  }
-`
-
-/**
- * __useGetCertificationsQuery__
- *
- * To run a query within a React component, call `useGetCertificationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCertificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCertificationsQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *      skip: // value for 'skip'
- *   },
- * });
- */
-export function useGetCertificationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >(GetCertificationsDocument, options)
-}
-export function useGetCertificationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >(GetCertificationsDocument, options)
-}
-export function useGetCertificationsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetCertificationsQuery,
-    GetCertificationsQueryVariables
-  >(GetCertificationsDocument, options)
-}
-export type GetCertificationsQueryHookResult = ReturnType<
-  typeof useGetCertificationsQuery
->
-export type GetCertificationsLazyQueryHookResult = ReturnType<
-  typeof useGetCertificationsLazyQuery
->
-export type GetCertificationsSuspenseQueryHookResult = ReturnType<
-  typeof useGetCertificationsSuspenseQuery
->
-export type GetCertificationsQueryResult = Apollo.QueryResult<
-  GetCertificationsQuery,
-  GetCertificationsQueryVariables
->
 export const GetExperiencesDocument = gql`
   query GetExperiences {
     experienceCollection {
@@ -1670,6 +2109,166 @@ export type GetExperiencesSuspenseQueryHookResult = ReturnType<
 export type GetExperiencesQueryResult = Apollo.QueryResult<
   GetExperiencesQuery,
   GetExperiencesQueryVariables
+>
+export const GetHomePageInfoDocument = gql`
+  query GetHomePageInfo {
+    profile(id: "4BROQ6eCIHypEsqVkqWkE") {
+      username
+      englishLevel
+      picture {
+        url
+      }
+      heroHeadline {
+        json
+      }
+      heroDescription {
+        json
+      }
+      cv {
+        url
+      }
+      socialLinksCollection {
+        items {
+          ... on SocialMedia {
+            title
+            link
+            icon {
+              url
+            }
+          }
+        }
+      }
+    }
+    experienceCollection {
+      total
+      skip
+      limit
+      items {
+        title
+        companyName
+        companyImage {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        employmentType
+        location
+        locationType
+        currentWork
+        startDate
+        endDate
+        industry
+        description
+      }
+    }
+    projectCollection(limit: 3) {
+      total
+      items {
+        name
+        description
+        createdDate
+        featuredImage {
+          url
+        }
+        technologiesCollection {
+          items {
+            ... on Technology {
+              name
+              icon {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+    certificationCollection(limit: 6) {
+      total
+      items {
+        name
+        credentialUrl
+        picture {
+          url
+        }
+      }
+    }
+    skillsCollection(limit: 12) {
+      items {
+        title
+        description
+      }
+    }
+  }
+`
+
+/**
+ * __useGetHomePageInfoQuery__
+ *
+ * To run a query within a React component, call `useGetHomePageInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHomePageInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHomePageInfoQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetHomePageInfoQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetHomePageInfoQuery, GetHomePageInfoQueryVariables>(
+    GetHomePageInfoDocument,
+    options
+  )
+}
+export function useGetHomePageInfoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
+  >(GetHomePageInfoDocument, options)
+}
+export function useGetHomePageInfoSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetHomePageInfoQuery,
+    GetHomePageInfoQueryVariables
+  >(GetHomePageInfoDocument, options)
+}
+export type GetHomePageInfoQueryHookResult = ReturnType<
+  typeof useGetHomePageInfoQuery
+>
+export type GetHomePageInfoLazyQueryHookResult = ReturnType<
+  typeof useGetHomePageInfoLazyQuery
+>
+export type GetHomePageInfoSuspenseQueryHookResult = ReturnType<
+  typeof useGetHomePageInfoSuspenseQuery
+>
+export type GetHomePageInfoQueryResult = Apollo.QueryResult<
+  GetHomePageInfoQuery,
+  GetHomePageInfoQueryVariables
 >
 export const GetProjectByIdDocument = gql`
   query GetProjectById($id: String!) {

@@ -21,3 +21,11 @@
 .Navbar__icon {
   @apply h-8 w-8;
 }
+
+.Navbar__icon--sun {
+  @apply text-yellow-500;
+}
+
+.Navbar__icon--moon {
+  @apply h-8 w-8;
+}

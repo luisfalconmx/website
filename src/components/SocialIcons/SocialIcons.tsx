@@ -5,14 +5,14 @@ const SocialIcons = ({ data, className = '' }: SocialIconsProps) => {
   return (
     <ul className={className}>
       {data &&
-        data?.map(({ provider, url }) => (
-          <li key={provider} className="mr-8 last:mr-0">
-            <a href={url} title={provider} target="_blank">
+        data?.map(({ title, link, iconUrl }) => (
+          <li key={title} className="mr-8 last:mr-0">
+            <a href={link} title={title} target="_blank">
               <Image
                 width={34}
                 height={34}
-                src={`https://unpkg.com/simple-icons@v10/icons/${provider.toLowerCase()}.svg`}
-                alt={provider}
+                src={iconUrl}
+                alt={title}
                 className="dark:invert"
               />
             </a>
