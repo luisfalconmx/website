@@ -3,8 +3,9 @@ import Image from 'next/image'
 import parse from 'html-react-parser'
 import { highlightAll } from 'prismjs'
 import hashnodeClient from '@/clients/hashnodeClient'
+import { BookmarkIcon } from '@heroicons/react/20/solid'
 import { HASHNODE_HOST } from '@/config'
-import MainLayout from '@/Layouts/MainLayout'
+import TOCLayout from '@/Layouts/TOCLayout/TOCLayout'
 import {
   GetBlogPostBySlugDocument,
   GetBlogPostBySlugQuery,
@@ -14,6 +15,7 @@ import {
   GetBlogPostsQueryVariables
 } from '@/generated/hashnode.schema'
 import humanDate from '@/utils/humanDate'
+import cn from '@/utils/cn'
 import styles from '@/styles/modules/post.module.css'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import 'prismjs/components/prism-typescript.min'
@@ -91,28 +93,59 @@ export default function Blog({
   }, [])
 
   return (
-    <MainLayout>
-      <div className="mb-10">
-        <span className="mb-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-center text-2xl font-black uppercase text-transparent">
-          {tag}
-        </span>
+    <TOCLayout>
+      <div className="mb-5">
+        <div className="mb-2 flex items-center">
+          <span className="mr-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-2xl font-black uppercase text-transparent">
+            {tag}
+          </span>
 
-        <h1 className="mx-auto mb-8 max-w-[850px] text-center text-5xl font-bold leading-tight">
+          <span className="block text-xl text-iron dark:text-smoke">
+            - {customLabel}
+          </span>
+        </div>
+
+        <h1 className="mx-auto mb-8 text-5xl font-bold leading-tight">
           {post?.title}
         </h1>
 
-        <span className="mx-auto block text-center text-xl text-iron dark:text-smoke">
-          {customLabel}
-        </span>
+        <Image
+          src={post?.coverImage?.url || ''}
+          alt={post?.title || ''}
+          width="800"
+          height="550"
+          className="aspect-video w-full rounded-lg"
+        />
       </div>
 
-      <Image
-        src={post?.coverImage?.url || ''}
-        alt={post?.title || ''}
-        width="1100"
-        height="550"
-        className="mx-auto mb-14 aspect-video w-full rounded-lg"
-      />
+      <section className="w-full">
+        {post?.features.tableOfContents.isEnabled && (
+          <>
+            <strong className="mb-6 block text-2xl">Table of contents</strong>
+            <ul>
+              {post.features.tableOfContents.items.map((item) => (
+                <li
+                  key={item.title.toLowerCase().replace(' ', '-')}
+                  className={cn('mb-2 hover:text-white', {
+                    'font-bold text-smoke': item.level === 2,
+                    'ml-6 text-iron': item.level === 3
+                  })}
+                >
+                  <a
+                    href={`#heading-${item.title
+                      .toLowerCase()
+                      .replace(/ /g, '-')}`}
+                    className="flex items-start text-lg"
+                  >
+                    <BookmarkIcon className="mr-2 mt-1 block h-[18px] min-h-[18px] w-[18px] min-w-[18px]" />
+                    <span className="block">{item.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
 
       {isClient && (
         <>
@@ -133,6 +166,6 @@ export default function Blog({
           ))}
         </ul>
       )}
-    </MainLayout>
+    </TOCLayout>
   )
 }

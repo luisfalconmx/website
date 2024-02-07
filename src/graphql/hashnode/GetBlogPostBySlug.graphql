@@ -18,6 +18,18 @@ query GetBlogPostBySlug($hostname: String!, $slug: String!) {
       content {
         html
       }
+      features {
+        tableOfContents {
+          isEnabled
+          items {
+            id
+            level
+            slug
+            title
+            parentId
+          }
+        }
+      }
     }
   }
 }

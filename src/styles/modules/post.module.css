@@ -1,9 +1,9 @@
 .post {
-  @apply mx-auto mb-10 max-w-[900px] text-xl;
+  @apply mb-10 pr-8 text-2xl;
 }
 
 .post p {
-  @apply text-iron pb-5 dark:text-smoke;
+  @apply pb-5 text-iron dark:text-smoke;
 }
 
 .post h1,
@@ -12,15 +12,15 @@
 .post h4,
 .post h5,
 .post h6 {
-  @apply pb-4 pt-6 text-2xl font-bold;
+  @apply pb-4 pt-6 text-3xl font-bold;
 }
 
 .post h1 {
-  @apply text-4xl;
+  @apply text-5xl;
 }
 
 .post h2 {
-  @apply text-3xl;
+  @apply text-4xl;
 }
 
 .post ul {
@@ -32,13 +32,21 @@
 }
 
 .post img {
-  @apply pb-5;
+  @apply max-w-[600px] pb-5;
 }
 
 .post a {
-  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
+  @apply border-b border-primary bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
+}
+
+.post hr {
+  @apply mb-5 block;
 }
 
 .post pre {
-  @apply !mb-8 !mt-0 max-w-full overflow-hidden;
+  @apply !mb-8 !mt-0 block w-full max-w-0 overflow-hidden;
+}
+
+.post pre[class*='language-'] {
+  @apply max-w-none rounded-lg shadow-lg;
 }

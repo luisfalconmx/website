@@ -2927,6 +2927,21 @@ export type GetBlogPostBySlugQuery = {
         description?: string | null
       } | null
       content: { __typename?: 'Content'; html: string }
+      features: {
+        __typename?: 'PostFeatures'
+        tableOfContents: {
+          __typename?: 'TableOfContentsFeature'
+          isEnabled: boolean
+          items: Array<{
+            __typename?: 'TableOfContentsItem'
+            id: string
+            level: number
+            slug: string
+            title: string
+            parentId?: string | null
+          }>
+        }
+      }
     } | null
   } | null
 }
@@ -2994,6 +3009,18 @@ export const GetBlogPostBySlugDocument = gql`
         }
         content {
           html
+        }
+        features {
+          tableOfContents {
+            isEnabled
+            items {
+              id
+              level
+              slug
+              title
+              parentId
+            }
+          }
         }
       }
     }
