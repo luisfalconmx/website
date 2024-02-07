@@ -44,9 +44,9 @@
 }
 
 .post pre {
-  @apply !mb-8 !mt-0 block w-full max-w-0 overflow-hidden;
+  @apply !mb-8 !mt-0 block w-full max-w-[912px] overflow-hidden;
 }
 
 .post pre[class*='language-'] {
-  @apply max-w-none rounded-lg shadow-lg;
+  @apply rounded-lg shadow-lg;
 }

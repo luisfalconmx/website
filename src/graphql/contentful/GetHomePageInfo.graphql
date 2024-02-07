@@ -5,12 +5,8 @@ query GetHomePageInfo {
     picture {
       url
     }
-    heroHeadline {
-      json
-    }
-    heroDescription {
-      json
-    }
+    position
+    description
     cv {
       url
     }

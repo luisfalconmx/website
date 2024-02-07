@@ -796,11 +796,11 @@ export type Profile = Entry & {
   __typename?: 'Profile'
   contentfulMetadata: ContentfulMetadata
   cv?: Maybe<Asset>
+  description?: Maybe<Scalars['String']['output']>
   englishLevel?: Maybe<Scalars['String']['output']>
-  heroDescription?: Maybe<ProfileHeroDescription>
-  heroHeadline?: Maybe<ProfileHeroHeadline>
   linkedFrom?: Maybe<ProfileLinkingCollections>
   picture?: Maybe<Asset>
+  position?: Maybe<Scalars['String']['output']>
   socialLinksCollection?: Maybe<ProfileSocialLinksCollection>
   sys: Sys
   username?: Maybe<Scalars['String']['output']>
@@ -813,17 +813,12 @@ export type ProfileCvArgs = {
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfileDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
 export type ProfileEnglishLevelArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>
-}
-
-/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
-export type ProfileHeroDescriptionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>
-}
-
-/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
-export type ProfileHeroHeadlineArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -836,6 +831,11 @@ export type ProfileLinkedFromArgs = {
 export type ProfilePictureArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
+export type ProfilePositionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/profile) */
@@ -864,6 +864,13 @@ export type ProfileFilter = {
   OR?: InputMaybe<Array<InputMaybe<ProfileFilter>>>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
   cv_exists?: InputMaybe<Scalars['Boolean']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  description_contains?: InputMaybe<Scalars['String']['input']>
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  description_not?: InputMaybe<Scalars['String']['input']>
+  description_not_contains?: InputMaybe<Scalars['String']['input']>
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   englishLevel?: InputMaybe<Scalars['String']['input']>
   englishLevel_contains?: InputMaybe<Scalars['String']['input']>
   englishLevel_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -873,13 +880,14 @@ export type ProfileFilter = {
   englishLevel_not_in?: InputMaybe<
     Array<InputMaybe<Scalars['String']['input']>>
   >
-  heroDescription_contains?: InputMaybe<Scalars['String']['input']>
-  heroDescription_exists?: InputMaybe<Scalars['Boolean']['input']>
-  heroDescription_not_contains?: InputMaybe<Scalars['String']['input']>
-  heroHeadline_contains?: InputMaybe<Scalars['String']['input']>
-  heroHeadline_exists?: InputMaybe<Scalars['Boolean']['input']>
-  heroHeadline_not_contains?: InputMaybe<Scalars['String']['input']>
   picture_exists?: InputMaybe<Scalars['Boolean']['input']>
+  position?: InputMaybe<Scalars['String']['input']>
+  position_contains?: InputMaybe<Scalars['String']['input']>
+  position_exists?: InputMaybe<Scalars['Boolean']['input']>
+  position_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  position_not?: InputMaybe<Scalars['String']['input']>
+  position_not_contains?: InputMaybe<Scalars['String']['input']>
+  position_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   socialLinksCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
   sys?: InputMaybe<SysFilter>
   username?: InputMaybe<Scalars['String']['input']>
@@ -889,72 +897,6 @@ export type ProfileFilter = {
   username_not?: InputMaybe<Scalars['String']['input']>
   username_not_contains?: InputMaybe<Scalars['String']['input']>
   username_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-}
-
-export type ProfileHeroDescription = {
-  __typename?: 'ProfileHeroDescription'
-  json: Scalars['JSON']['output']
-  links: ProfileHeroDescriptionLinks
-}
-
-export type ProfileHeroDescriptionAssets = {
-  __typename?: 'ProfileHeroDescriptionAssets'
-  block: Array<Maybe<Asset>>
-  hyperlink: Array<Maybe<Asset>>
-}
-
-export type ProfileHeroDescriptionEntries = {
-  __typename?: 'ProfileHeroDescriptionEntries'
-  block: Array<Maybe<Entry>>
-  hyperlink: Array<Maybe<Entry>>
-  inline: Array<Maybe<Entry>>
-}
-
-export type ProfileHeroDescriptionLinks = {
-  __typename?: 'ProfileHeroDescriptionLinks'
-  assets: ProfileHeroDescriptionAssets
-  entries: ProfileHeroDescriptionEntries
-  resources: ProfileHeroDescriptionResources
-}
-
-export type ProfileHeroDescriptionResources = {
-  __typename?: 'ProfileHeroDescriptionResources'
-  block: Array<ResourceLink>
-  hyperlink: Array<ResourceLink>
-  inline: Array<ResourceLink>
-}
-
-export type ProfileHeroHeadline = {
-  __typename?: 'ProfileHeroHeadline'
-  json: Scalars['JSON']['output']
-  links: ProfileHeroHeadlineLinks
-}
-
-export type ProfileHeroHeadlineAssets = {
-  __typename?: 'ProfileHeroHeadlineAssets'
-  block: Array<Maybe<Asset>>
-  hyperlink: Array<Maybe<Asset>>
-}
-
-export type ProfileHeroHeadlineEntries = {
-  __typename?: 'ProfileHeroHeadlineEntries'
-  block: Array<Maybe<Entry>>
-  hyperlink: Array<Maybe<Entry>>
-  inline: Array<Maybe<Entry>>
-}
-
-export type ProfileHeroHeadlineLinks = {
-  __typename?: 'ProfileHeroHeadlineLinks'
-  assets: ProfileHeroHeadlineAssets
-  entries: ProfileHeroHeadlineEntries
-  resources: ProfileHeroHeadlineResources
-}
-
-export type ProfileHeroHeadlineResources = {
-  __typename?: 'ProfileHeroHeadlineResources'
-  block: Array<ResourceLink>
-  hyperlink: Array<ResourceLink>
-  inline: Array<ResourceLink>
 }
 
 export type ProfileLinkingCollections = {
@@ -972,6 +914,8 @@ export type ProfileLinkingCollectionsEntryCollectionArgs = {
 export enum ProfileOrder {
   EnglishLevelAsc = 'englishLevel_ASC',
   EnglishLevelDesc = 'englishLevel_DESC',
+  PositionAsc = 'position_ASC',
+  PositionDesc = 'position_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -1842,12 +1786,9 @@ export type GetHomePageInfoQuery = {
     __typename?: 'Profile'
     username?: string | null
     englishLevel?: string | null
+    position?: string | null
+    description?: string | null
     picture?: { __typename?: 'Asset'; url?: string | null } | null
-    heroHeadline?: { __typename?: 'ProfileHeroHeadline'; json: any } | null
-    heroDescription?: {
-      __typename?: 'ProfileHeroDescription'
-      json: any
-    } | null
     cv?: { __typename?: 'Asset'; url?: string | null } | null
     socialLinksCollection?: {
       __typename?: 'ProfileSocialLinksCollection'
@@ -2233,12 +2174,8 @@ export const GetHomePageInfoDocument = gql`
       picture {
         url
       }
-      heroHeadline {
-        json
-      }
-      heroDescription {
-        json
-      }
+      position
+      description
       cv {
         url
       }

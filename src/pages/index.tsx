@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import contentfulClient from '@/clients/contentfulClient'
@@ -54,8 +53,8 @@ export const getStaticProps = (async () => {
     props: {
       username: response.data.profile?.username || '',
       profilePicture: response.data.profile?.picture?.url || '',
-      heroHeadline: response.data.profile?.heroHeadline?.json || '',
-      heroDescription: response.data.profile?.heroDescription?.json || '',
+      position: response.data.profile?.position || '',
+      description: response.data.profile?.description || '',
       cv: response.data.profile?.cv?.url || '',
       socialLinks: response.data.profile?.socialLinksCollection?.items || [],
       englishLevel: response.data.profile?.englishLevel || '',
@@ -74,8 +73,8 @@ export const getStaticProps = (async () => {
 export default function Home({
   username,
   profilePicture,
-  heroHeadline,
-  heroDescription,
+  position,
+  description,
   cv,
   socialLinks,
   englishLevel,
@@ -87,12 +86,6 @@ export default function Home({
   certifications,
   skills
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
   const certificationsCarouselOptions = {
     type: 'loop',
     perPage: 2,
@@ -120,18 +113,14 @@ export default function Home({
         />
 
         <h1 className="mb-10 text-center text-[3.438rem] font-bold leading-[115.195%]">
-          {isClient && documentToReactComponents(heroHeadline)}
+          Hello, I am {username}{' '}
+          <span className="m-0 w-fit bg-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            {position}
+          </span>
         </h1>
 
-        {/* <h1 className="mb-10 text-center text-[3.438rem] font-bold leading-[115.195%]">
-          Hello, I am {login}{' '}
-          <span className="m-0 w-fit bg-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Frontend Developer
-          </span>
-        </h1> */}
-
         <p className="mb-12 text-center text-lg text-iron dark:text-smoke">
-          {isClient && documentToReactComponents(heroDescription)}
+          {description}
         </p>
 
         <div className="mb-16 text-center">

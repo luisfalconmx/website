@@ -14,7 +14,7 @@ const Button = ({
       {
         'border-nightfall bg-transparent text-nightfall dark:border-ghost dark:bg-transparent dark:text-ghost':
           variant === 'outlined',
-        'border-none bg-gradient-to-r from-primary to-secondary !text-white':
+        'border-none bg-gradient-to-br from-primary to-secondary !text-white':
           variant === 'brand'
       },
       className

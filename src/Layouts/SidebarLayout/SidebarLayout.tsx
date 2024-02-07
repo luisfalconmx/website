@@ -19,6 +19,7 @@ const SidebarLayout = ({ children }: SidebarLayoutProps) => {
       result.push(
         <main key={index}>
           <Navbar />
+          <div className="crazy-gradient-2 absolute top-0 -z-10 h-[600px] w-full"></div>
           {child}
         </main>
       )

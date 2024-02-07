@@ -10,8 +10,8 @@ const config: Config = {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans]
       },
       colors: {
-        primary: '#FF4B2B',
-        secondary: '#FF416C',
+        primary: '#3183FF',
+        secondary: '#8F00FF',
         nightfall: '#080808',
         onyx: '#121212',
         iron: '#6c6d6e',

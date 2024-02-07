@@ -112,7 +112,7 @@ export default function Blog({
         <Image
           src={post?.coverImage?.url || ''}
           alt={post?.title || ''}
-          width="920"
+          width="912"
           height="550"
           className="aspect-video w-full rounded-lg"
         />

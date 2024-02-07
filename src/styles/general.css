@@ -1,10 +1,23 @@
 :root {
   --geist-background: #080808;
-  --gradient-from: 255 75 43;
-  --gradient-to: 255 65 108;
+  --gradient-from: 49 131 255;
+  --gradient-to: 143 0 255;
 }
 
 .crazy-gradient {
+  background: linear-gradient(
+      to top,
+      var(--geist-background) 0,
+      hsla(0, 0%, 100%, 0) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(var(--gradient-from, 85 85 85) / 0.3) 0,
+      rgb(var(--gradient-to, 85 85 85) / 0.3) 100%
+    );
+}
+
+.crazy-gradient-2 {
   background: linear-gradient(
       to top,
       var(--geist-background) 0,
@@ -17,7 +30,7 @@
     );
 }
 
-.crazy-gradient-2 {
+.crazy-gradient-3 {
   background: linear-gradient(
       to top,
       var(--geist-background) 0,
