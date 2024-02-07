@@ -1761,6 +1761,33 @@ export type _Node = {
   _id: Scalars['ID']['output']
 }
 
+export type GetCertificationsQueryVariables = Exact<{
+  limit: Scalars['Int']['input']
+  skip: Scalars['Int']['input']
+}>
+
+export type GetCertificationsQuery = {
+  __typename?: 'Query'
+  certificationCollection?: {
+    __typename?: 'CertificationCollection'
+    total: number
+    items: Array<{
+      __typename?: 'Certification'
+      name?: string | null
+      credentialId?: string | null
+      credentialUrl?: string | null
+      expirationDate?: any | null
+      issueDate?: any | null
+      issuingOrganization?: string | null
+      picture?: { __typename?: 'Asset'; url?: string | null } | null
+      issuingOrganizationImage?: {
+        __typename?: 'Asset'
+        url?: string | null
+      } | null
+    } | null>
+  } | null
+}
+
 export type GetExperiencesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetExperiencesQuery = {
@@ -2004,6 +2031,94 @@ export type GetProjectsQuery = {
   } | null
 }
 
+export const GetCertificationsDocument = gql`
+  query GetCertifications($limit: Int!, $skip: Int!) {
+    certificationCollection(limit: $limit, skip: $skip) {
+      total
+      items {
+        name
+        picture {
+          url
+        }
+        credentialId
+        credentialUrl
+        expirationDate
+        issueDate
+        issuingOrganization
+        issuingOrganizationImage {
+          url
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetCertificationsQuery__
+ *
+ * To run a query within a React component, call `useGetCertificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCertificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCertificationsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useGetCertificationsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >(GetCertificationsDocument, options)
+}
+export function useGetCertificationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >(GetCertificationsDocument, options)
+}
+export function useGetCertificationsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >(GetCertificationsDocument, options)
+}
+export type GetCertificationsQueryHookResult = ReturnType<
+  typeof useGetCertificationsQuery
+>
+export type GetCertificationsLazyQueryHookResult = ReturnType<
+  typeof useGetCertificationsLazyQuery
+>
+export type GetCertificationsSuspenseQueryHookResult = ReturnType<
+  typeof useGetCertificationsSuspenseQuery
+>
+export type GetCertificationsQueryResult = Apollo.QueryResult<
+  GetCertificationsQuery,
+  GetCertificationsQueryVariables
+>
 export const GetExperiencesDocument = gql`
   query GetExperiences {
     experienceCollection {

@@ -18,7 +18,7 @@ const TOCLayout = ({ children }: TOCLayoutProps) => {
     if (index === 1) {
       result.push(
         <aside
-          className="row-span-2 block w-full border-l border-iron/40 p-5"
+          className="row-span-2 block w-full border-l border-iron/40 px-5 py-12"
           key={index}
         >
           {child}
@@ -34,6 +34,7 @@ const TOCLayout = ({ children }: TOCLayoutProps) => {
   return (
     <>
       <Navbar />
+      <div className="crazy-gradient-2 absolute top-0 -z-10 h-[600px] w-full"></div>
       <div className="mx-auto grid max-w-screen-xl grid-cols-[1fr_350px]">
         {result}
       </div>

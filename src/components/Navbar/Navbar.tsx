@@ -57,11 +57,6 @@ const Navbar = () => {
               )}
             </button>
           </li>
-          <li className={(styles.Navbar__item, 'mr-3')}>
-            <button className="flex h-full items-center">
-              <LanguageIcon className={styles.Navbar__icon} />
-            </button>
-          </li>
           <li>
             <button className="flex h-full items-center">
               <a href="https://github.com/sponsors/luisfalconmx">

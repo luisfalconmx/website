@@ -112,7 +112,7 @@ export default function Blog({
         <Image
           src={post?.coverImage?.url || ''}
           alt={post?.title || ''}
-          width="800"
+          width="920"
           height="550"
           className="aspect-video w-full rounded-lg"
         />
@@ -127,7 +127,7 @@ export default function Blog({
                 <li
                   key={item.title.toLowerCase().replace(' ', '-')}
                   className={cn('mb-2 hover:text-white', {
-                    'font-bold text-smoke': item.level === 2,
+                    'font-bold text-iron': item.level === 2,
                     'ml-6 text-iron': item.level === 3
                   })}
                 >
