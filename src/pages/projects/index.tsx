@@ -1,18 +1,22 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import SidebarLayout from '@/Layouts/SidebarLayout'
 import CardProject from '@/components/CardProject'
-import Button from '@/components/Button'
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import contentfulClient from '@/clients/contentfulClient'
 import {
   GetProjectsDocument,
   GetProjectsQuery,
-  GetProjectsQueryVariables
+  GetProjectsQueryVariables,
+  GetTagsQuery,
+  GetTagsQueryVariables,
+  GetTagsDocument
 } from '@/generated/contentful.schema'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async () => {
   const client = contentfulClient()
+
   const response = await client.query<
     GetProjectsQuery,
     GetProjectsQueryVariables
@@ -23,16 +27,22 @@ export const getStaticProps = (async () => {
     }
   })
 
+  const responseTags = await client.query<GetTagsQuery, GetTagsQueryVariables>({
+    query: GetTagsDocument
+  })
+
   return {
     props: {
-      projects: response.data.projectCollection?.items
+      projects: response.data.projectCollection?.items,
+      tags: responseTags.data.technologyCollection?.items
     },
     revalidate: 60 * 5 // 5 minutes
   }
 }) satisfies GetStaticProps
 
 export default function Projects({
-  projects
+  projects,
+  tags
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [lastCursor, setLastCursor] = useState<string>('')
   const [hasNextPage, setHasNextPage] = useState<boolean>(false)
@@ -69,18 +79,39 @@ export default function Projects({
 
   return (
     <SidebarLayout>
-      <div className="block px-6 py-8">
+      <div className="mx-auto block h-full max-w-screen-xl border-r border-iron/40 py-8">
         <h1 className="mb-10 text-3xl font-bold !text-white">Projects</h1>
+
+        <div className="grid gap-y-3 pr-4">
+          {tags?.map((tag) => (
+            <div
+              className="cursor-pointer rounded-xl bg-onyx p-[2px] hover:bg-gradient-to-r hover:from-primary hover:to-secondary"
+              key={tag?.name}
+            >
+              <div className="flex items-center rounded-xl bg-onyx px-5 py-4">
+                <Image
+                  src={tag?.icon?.url || ''}
+                  alt={tag?.name || ''}
+                  width="24"
+                  height="24"
+                  className="mr-3"
+                />
+                <strong className="block text-lg">{tag?.name}</strong>
+                <ArrowRightIcon className="ml-auto h-6 w-6" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <main className="max-w-screen-2xl">
-        <div className="grid grid-cols-1 gap-y-0">
+      <main className="mx-auto max-w-screen-xl py-4 pl-4">
+        <div className="grid grid-cols-1 gap-y-6">
           {projects?.map((project) => (
             <CardProject
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
               image={project?.featuredImage?.url || ''}
-              variant="block"
+              variant="card"
               tags={
                 project?.technologiesCollection?.items?.map((i: any) => ({
                   icon: i.icon.url,

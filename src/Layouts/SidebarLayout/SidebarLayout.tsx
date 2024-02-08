@@ -9,26 +9,24 @@ const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   Children.forEach(children, (child, index) => {
     if (index === 0) {
       result.push(
-        <aside className="h-full bg-black" key={index}>
+        <aside className="h-full" key={index}>
           {child}
         </aside>
       )
     }
 
     if (index === 1) {
-      result.push(
-        <main key={index}>
-          <Navbar />
-          <div className="crazy-gradient-2 absolute top-0 -z-10 h-[600px] w-full"></div>
-          {child}
-        </main>
-      )
+      result.push(<main key={index}>{child}</main>)
     }
   })
 
   return (
     <>
-      <div className="grid grid-cols-[350px_1fr]">{result}</div>
+      <Navbar />
+      <div className="crazy-gradient-2 absolute top-0 -z-10 h-[600px] w-full"></div>
+      <div className="mx-auto grid max-w-screen-xl grid-cols-[300px_1fr]">
+        {result}
+      </div>
       <Footer />
     </>
   )
