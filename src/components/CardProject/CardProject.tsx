@@ -1,29 +1,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import cn from '@/utils/cn'
-import humanDate from '@/utils/humanDate'
-import {
-  CheckBadgeIcon,
-  RocketLaunchIcon,
-  LinkIcon,
-  ArrowTopRightOnSquareIcon
-} from '@heroicons/react/24/solid'
-import { CalendarDaysIcon, CodeBracketIcon } from '@heroicons/react/24/outline'
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
 import styles from './CardProject.module.css'
-import type { CardProjectProps } from './CardProject.d'
 import Button from '@/components/Button'
+import type { CardProjectProps } from './CardProject.d'
 
 const CardProject = ({
+  variant,
   name,
   description,
-  image,
-  variant,
-  tags
+  tags,
+  image
 }: CardProjectProps) => {
   return (
     <div
       className={cn(styles.CardProject, {
-        [styles['CardProject--block']]: variant === 'block'
+        [styles['CardProject--featured']]: variant === 'featured'
       })}
     >
       <div className={styles.CardProject__content}>
@@ -37,8 +30,8 @@ const CardProject = ({
               tags.map((tag) => (
                 <Image
                   src={tag.icon}
-                  width={20}
-                  height={20}
+                  width={variant === 'featured' ? 44 : 32}
+                  height={variant === 'featured' ? 44 : 32}
                   className={styles.CardProject__tag}
                   alt={tag.name}
                   key={tag.name}
@@ -46,8 +39,8 @@ const CardProject = ({
               ))}
           </div>
 
-          <Link href={`/projects/${name}`} className="block w-fit">
-            <Button variant="brand" className="flex rounded-lg text-base">
+          <Link href={`/projects/${name}`} className="block w-fit ">
+            <Button variant="brand" className=" flex rounded-lg text-base">
               View Project
               <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" />
             </Button>

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import SidebarLayout from '@/Layouts/SidebarLayout'
+import MainLayout from '@/Layouts/MainLayout'
 import CardProject from '@/components/CardProject'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import contentfulClient from '@/clients/contentfulClient'
+import { Splide, SplideSlide } from '@splidejs/react-splide'
 import {
   GetProjectsDocument,
   GetProjectsQuery,
@@ -12,6 +13,8 @@ import {
   GetTagsQueryVariables,
   GetTagsDocument
 } from '@/generated/contentful.schema'
+import '@splidejs/react-splide/css'
+import type { Options } from '@splidejs/react-splide'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = (async () => {
@@ -44,6 +47,9 @@ export default function Projects({
   projects,
   tags
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [selectedTechnology, setSelectedTechnology] = useState<
+    'default' | 'react' | 'vue' | 'angular'
+  >('react')
   const [lastCursor, setLastCursor] = useState<string>('')
   const [hasNextPage, setHasNextPage] = useState<boolean>(false)
   const [extraProjectsList, setExtraProjectsList] = useState<typeof projects>(
@@ -77,34 +83,63 @@ export default function Projects({
   //   ])
   // }
 
-  return (
-    <SidebarLayout>
-      <div className="mx-auto block h-full max-w-screen-xl border-r border-iron/40 py-8">
-        <h1 className="mb-10 text-3xl font-bold !text-white">Projects</h1>
+  const mainTechnologies = [
+    {
+      id: '',
+      name: 'React JS',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
+      icon: '/icons/react.svg'
+    },
+    // vue
+    {
+      id: '',
+      name: 'Vue JS',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
+      icon: '/icons/vue.svg'
+    },
+    // angular
+    {
+      id: '',
+      name: 'Angular',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
+      icon: '/icons/angular.svg'
+    }
+  ]
 
-        <div className="grid gap-y-3 pr-4">
-          {tags?.map((tag) => (
-            <div
-              className="cursor-pointer rounded-xl bg-onyx p-[2px] hover:bg-gradient-to-r hover:from-primary hover:to-secondary"
-              key={tag?.name}
-            >
-              <div className="flex items-center rounded-xl bg-onyx px-5 py-4">
-                <Image
-                  src={tag?.icon?.url || ''}
-                  alt={tag?.name || ''}
-                  width="24"
-                  height="24"
-                  className="mr-3"
-                />
-                <strong className="block text-lg">{tag?.name}</strong>
-                <ArrowRightIcon className="ml-auto h-6 w-6" />
-              </div>
-            </div>
+  return (
+    <MainLayout gradientType="default">
+      <div className="mx-auto block h-full max-w-screen-xl py-8">
+        <Splide
+          options={
+            {
+              type: 'loop',
+              pagination: false
+            } as Options
+          }
+        >
+          {projects?.slice(0, 3).map((project) => (
+            <SplideSlide key={project?.name}>
+              <CardProject
+                name={project?.name || ''}
+                description={project?.description || ''}
+                image={project?.featuredImage?.url || ''}
+                variant="featured"
+                tags={
+                  project?.technologiesCollection?.items?.map((i: any) => ({
+                    icon: i.icon.url,
+                    name: i.name
+                  })) || []
+                }
+              />
+            </SplideSlide>
           ))}
-        </div>
+        </Splide>
       </div>
-      <main className="mx-auto max-w-screen-xl py-4 pl-4">
-        <div className="grid grid-cols-1 gap-y-6">
+      <main className="mx-auto mb-8 max-w-screen-xl">
+        <div className="grid grid-cols-3 gap-4">
           {projects?.map((project) => (
             <CardProject
               key={project?.name}
@@ -152,6 +187,6 @@ export default function Projects({
           </div>
         )} */}
       </main>
-    </SidebarLayout>
+    </MainLayout>
   )
 }

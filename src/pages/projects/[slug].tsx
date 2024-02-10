@@ -108,7 +108,7 @@ export default function Blog({
                   src={i.icon.url || ''}
                   width={20}
                   height={20}
-                  className="mb-1 mr-1 block h-12 w-12 rounded-full border-iron bg-ghost p-2 text-sm text-iron last:mr-0 dark:border-smoke dark:bg-nightfall dark:text-smoke"
+                  className="mb-1 mr-1 block h-12 w-12 border-iron p-2 text-sm text-iron last:mr-0 dark:border-smoke dark:text-smoke"
                   alt={i.name || ''}
                   key={i.name || ''}
                 />

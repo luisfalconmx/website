@@ -1,12 +1,16 @@
 .CardProject {
+  @apply flex h-full min-h-[480px] max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 text-nightfall shadow-lg dark:bg-onyx;
+}
+
+.CardProject--featured {
   @apply grid h-full min-h-[480px] max-w-full grid-cols-2 flex-col gap-x-10 overflow-hidden rounded-lg border border-iron/40 px-12 pt-8 text-nightfall shadow-lg dark:bg-onyx;
 }
 
-.CardProject--block {
-  @apply rounded-none border-b-2 border-l-0 border-r-0 border-t-0 pt-14 shadow-none;
+.CardProject__content {
+  @apply h-full gap-x-6 rounded-t px-8 py-8;
 }
 
-.CardProject__content {
+.CardProject--featured .CardProject__content {
   @apply h-full gap-x-6 rounded-t pb-12 pt-8;
 }
 
@@ -26,15 +30,27 @@
   @apply mb-6 block max-w-[700px] text-iron dark:text-smoke;
 }
 
+.CardProject--featured .CardProject__description {
+  @apply mb-6 block max-w-[700px] text-lg text-iron dark:text-smoke;
+}
+
 .CardProject__tags {
   @apply mb-8 flex flex-wrap;
 }
 
 .CardProject__tag {
-  @apply mb-1 mr-1 block h-12 w-12 rounded-full border-iron bg-ghost p-2 text-sm text-iron last:mr-0 dark:border-smoke dark:bg-nightfall dark:text-smoke;
+  @apply mb-1 mr-1 block h-8 w-8 p-1 text-sm text-iron last:mr-0 dark:text-smoke;
+}
+
+.CardProject--featured .CardProject__tag {
+  @apply mb-1 mr-1 block h-11 w-11 p-1 text-sm text-iron last:mr-0 dark:text-smoke;
 }
 
 .CardProject__image {
+  @apply h-full max-h-[280px] w-full rounded-t-lg object-cover;
+}
+
+.CardProject--featured .CardProject__image {
   @apply h-full max-h-[480px] w-full rounded-t-lg object-cover;
 }
 

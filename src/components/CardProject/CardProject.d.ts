@@ -1,5 +1,5 @@
 export interface CardProjectProps {
-  variant?: 'card' | 'block'
+  variant?: 'card' | 'featured'
   name: string
   description: string
   image: string

@@ -178,7 +178,7 @@ export default function Home({
         <div className="grid grid-cols-1 gap-y-6">
           {latestProjects?.map((project) => (
             <CardProject
-              variant="card"
+              variant="featured"
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
