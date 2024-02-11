@@ -7,4 +7,5 @@ export interface CardProjectProps {
     icon: string
     name: string
   }[]
+  className?: string
 }

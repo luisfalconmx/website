@@ -11,15 +11,20 @@ const CardProject = ({
   name,
   description,
   tags,
-  image
+  image,
+  className = ''
 }: CardProjectProps) => {
   const maxTags = 4
 
   return (
     <div
-      className={cn(styles.CardProject, {
-        [styles['CardProject--featured']]: variant === 'featured'
-      })}
+      className={cn(
+        styles.CardProject,
+        {
+          [styles['CardProject--featured']]: variant === 'featured'
+        },
+        className
+      )}
     >
       <div className={styles.CardProject__content}>
         <div>
@@ -45,7 +50,7 @@ const CardProject = ({
               )}
 
             {tags && tags.length > maxTags && (
-              <div className="flex h-11 w-11 items-center justify-center rounded-full  px-3 text-center text-xl text-iron">
+              <div className="flex items-center justify-center rounded-full  px-3 text-center text-lg text-iron">
                 +{tags.length - maxTags}
               </div>
             )}

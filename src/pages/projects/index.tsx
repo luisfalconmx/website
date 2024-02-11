@@ -47,9 +47,6 @@ export default function Projects({
   projects,
   tags
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [selectedTechnology, setSelectedTechnology] = useState<
-    'default' | 'react' | 'vue' | 'angular'
-  >('react')
   const [lastCursor, setLastCursor] = useState<string>('')
   const [hasNextPage, setHasNextPage] = useState<boolean>(false)
   const [extraProjectsList, setExtraProjectsList] = useState<typeof projects>(
@@ -83,64 +80,55 @@ export default function Projects({
   //   ])
   // }
 
-  const mainTechnologies = [
-    {
-      id: '',
-      name: 'React JS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
-      icon: '/icons/react.svg'
-    },
-    // vue
-    {
-      id: '',
-      name: 'Vue JS',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
-      icon: '/icons/vue.svg'
-    },
-    // angular
-    {
-      id: '',
-      name: 'Angular',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita magni atque ratione iure alias quibusdam repellat tempora provident iusto cumque iste blanditiis eligendi odio asperiores, dolor suscipit, dolore corrupti aspernatur?',
-      icon: '/icons/angular.svg'
-    }
-  ]
-
   return (
     <MainLayout gradientType="default">
-      <div className="mx-auto block h-full max-w-screen-xl py-8">
-        <Splide
-          options={
-            {
-              type: 'loop',
-              pagination: false
-            } as Options
-          }
-        >
+      <main className="mx-auto mb-8 mt-8 max-w-screen-xl px-2 md:px-4 lg:box-content lg:px-6">
+        <div className="mb-8 hidden lg:block">
+          <Splide
+            options={
+              {
+                type: 'loop',
+                pagination: false
+              } as Options
+            }
+          >
+            {projects?.slice(0, 3).map((project) => (
+              <SplideSlide key={project?.name}>
+                <CardProject
+                  name={project?.name || ''}
+                  description={project?.description || ''}
+                  image={project?.featuredImage?.url || ''}
+                  variant="featured"
+                  tags={
+                    project?.technologiesCollection?.items?.map((i: any) => ({
+                      icon: i.icon.url,
+                      name: i.name
+                    })) || []
+                  }
+                />
+              </SplideSlide>
+            ))}
+          </Splide>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects?.slice(0, 3).map((project) => (
-            <SplideSlide key={project?.name}>
-              <CardProject
-                name={project?.name || ''}
-                description={project?.description || ''}
-                image={project?.featuredImage?.url || ''}
-                variant="featured"
-                tags={
-                  project?.technologiesCollection?.items?.map((i: any) => ({
-                    icon: i.icon.url,
-                    name: i.name
-                  })) || []
-                }
-              />
-            </SplideSlide>
+            <CardProject
+              key={project?.name}
+              name={project?.name || ''}
+              description={project?.description || ''}
+              image={project?.featuredImage?.url || ''}
+              variant="card"
+              className="lg:!hidden"
+              tags={
+                project?.technologiesCollection?.items?.map((i: any) => ({
+                  icon: i.icon.url,
+                  name: i.name
+                })) || []
+              }
+            />
           ))}
-        </Splide>
-      </div>
-      <main className="mx-auto mb-8 max-w-screen-xl">
-        <div className="grid grid-cols-3 gap-4">
-          {projects?.map((project) => (
+
+          {projects?.slice(3).map((project) => (
             <CardProject
               key={project?.name}
               name={project?.name || ''}

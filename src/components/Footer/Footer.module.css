@@ -3,7 +3,7 @@
 }
 
 .Footer__content {
-  @apply mx-auto flex w-full max-w-screen-xl items-center justify-between px-6 py-8;
+  @apply mx-auto box-content flex w-full max-w-screen-xl items-center justify-between px-6 py-8;
 }
 
 .Footer__text {
