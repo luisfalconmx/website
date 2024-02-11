@@ -20,7 +20,7 @@ export const getStaticProps = (async () => {
   >({
     query: GetCertificationsDocument,
     variables: {
-      limit: 10,
+      limit: 9,
       skip: 0
     }
   })
@@ -38,7 +38,7 @@ export default function Projects({
   total,
   certifications
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const limitCertifications = 6
+  const limitCertifications = 9
   const [iterationCount, setIterationCount] =
     useState<number>(limitCertifications)
   const [extraCertificationsList, setExtraCertificationsList] = useState<
@@ -76,7 +76,7 @@ export default function Projects({
           <span className="block text-4xl font-bold">{addZero(total)}</span>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {certifications?.map((certification) => (
             <CardCertification
               key={certification?.name}

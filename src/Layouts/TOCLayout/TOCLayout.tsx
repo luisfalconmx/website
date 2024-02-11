@@ -2,6 +2,7 @@ import { Children } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import type { TOCLayoutProps } from './TOCLayout.d'
+import BlockGradient from '@/components/BlockGradient'
 
 const TOCLayout = ({ children }: TOCLayoutProps) => {
   const result: any = []
@@ -9,7 +10,7 @@ const TOCLayout = ({ children }: TOCLayoutProps) => {
   Children.forEach(children, (child, index) => {
     if (index === 0) {
       result.push(
-        <main className="py-12 pr-8" key={index}>
+        <main className="pb-2 pt-12 md:py-12 lg:pr-8" key={index}>
           {child}
         </main>
       )
@@ -18,7 +19,7 @@ const TOCLayout = ({ children }: TOCLayoutProps) => {
     if (index === 1) {
       result.push(
         <aside
-          className="row-span-2 block w-full border-l border-iron/40 px-5 py-12"
+          className="row-span-2 block w-full border-iron/40 px-5 py-12 lg:border-l"
           key={index}
         >
           {child}
@@ -34,8 +35,8 @@ const TOCLayout = ({ children }: TOCLayoutProps) => {
   return (
     <>
       <Navbar />
-      <div className="crazy-gradient-3 absolute top-0 -z-10 h-[600px] w-full"></div>
-      <div className="mx-auto grid max-w-screen-xl grid-cols-[1fr_350px]">
+      <BlockGradient variant="right" />
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 lg:grid-cols-[1fr_350px]">
         {result}
       </div>
       <Footer />

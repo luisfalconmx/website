@@ -19,7 +19,7 @@
 }
 
 .CardPost__date {
-  @apply ml-2 block text-sm text-ghost;
+  @apply block text-sm text-ghost lg:ml-2;
 }
 
 .CardPost__title {
@@ -84,7 +84,7 @@
 }
 
 .CardPost--jumbo .CardPost__overlay {
-  @apply absolute inset-0 z-10 block bg-gradient-to-t from-black to-onyx/60 lg:bg-gradient-to-r lg:to-black/10;
+  @apply absolute inset-0 z-10 block bg-gradient-to-t from-black to-onyx/50 lg:bg-gradient-to-r lg:to-black/10;
 }
 
 .CardPost--jumbo .CardPost__tag {

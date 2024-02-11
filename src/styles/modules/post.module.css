@@ -1,5 +1,5 @@
 .post {
-  @apply mb-10 pr-8 text-2xl;
+  @apply mb-10 px-4 text-lg md:text-2xl lg:pl-0 lg:pr-8;
 }
 
 .post p {
@@ -12,19 +12,19 @@
 .post h4,
 .post h5,
 .post h6 {
-  @apply pb-4 pt-6 text-3xl font-bold;
+  @apply pb-4 pt-6 text-2xl font-bold md:text-3xl;
 }
 
 .post h1 {
-  @apply text-5xl;
+  @apply text-4xl md:text-5xl;
 }
 
 .post h2 {
-  @apply text-4xl;
+  @apply text-3xl md:text-4xl;
 }
 
 .post ul {
-  @apply list-disc pb-4 ps-12;
+  @apply list-disc pb-4 ps-4 md:ps-12;
 }
 
 .post ul p {
@@ -32,7 +32,7 @@
 }
 
 .post img {
-  @apply max-w-[600px] pb-5;
+  @apply w-full max-w-[920px] pb-5;
 }
 
 .post a {
@@ -48,5 +48,5 @@
 }
 
 .post pre[class*='language-'] {
-  @apply rounded-lg shadow-lg;
+  @apply overflow-auto rounded-lg shadow-lg;
 }

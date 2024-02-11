@@ -21,7 +21,7 @@ const CardCertification = ({
       height="720"
       className="w-full rounded-t-xl border border-r-0 border-onyx/30"
     />
-    <div className="border border-l-0 border-onyx/30 px-8 py-10">
+    <div className="flex h-full flex-col border border-l-0 border-onyx/30 px-8 py-10">
       <h2 className="mb-4 text-3xl font-bold">{name}</h2>
 
       <p className="mb-6 flex items-center text-xl font-bold text-iron dark:text-smoke">
@@ -43,7 +43,7 @@ const CardCertification = ({
         {credentialId}
       </p>
 
-      <a className="block" href={credentialUrl}>
+      <a className="mt-auto block" href={credentialUrl}>
         <Button
           variant="filled"
           className="flex items-center text-base lg:text-xl"

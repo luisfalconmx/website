@@ -94,18 +94,18 @@ export default function Blog({
 
   return (
     <TOCLayout>
-      <div className="mb-5">
-        <div className="mb-2 flex items-center">
-          <span className="mr-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-2xl font-black uppercase text-transparent">
+      <div className="mb-2 box-content px-4 md:mb-5 lg:pl-0 lg:pr-4">
+        <div className="mb-2 flex flex-col md:flex-row md:items-center">
+          <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-2xl font-black uppercase text-transparent md:mr-2">
             {tag}
           </span>
 
           <span className="block text-xl text-iron dark:text-smoke">
-            - {customLabel}
+            {customLabel}
           </span>
         </div>
 
-        <h1 className="mx-auto mb-8 text-5xl font-bold leading-tight">
+        <h1 className="mx-auto mb-8 text-3xl font-bold leading-tight md:text-5xl">
           {post?.title}
         </h1>
 
@@ -119,6 +119,7 @@ export default function Blog({
       </div>
 
       <section className="w-full">
+        no content
         {post?.features.tableOfContents.isEnabled && (
           <>
             <strong className="mb-6 block text-2xl">Table of contents</strong>
