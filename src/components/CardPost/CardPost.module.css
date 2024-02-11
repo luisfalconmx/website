@@ -15,7 +15,7 @@
 }
 
 .CardPost__tag {
-  @apply block bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent;
+  @apply block bg-gradient-to-t from-primary to-secondary bg-clip-text text-sm font-black uppercase text-transparent;
 }
 
 .CardPost__date {
@@ -56,11 +56,11 @@
 }
 
 .CardPost--track {
-  @apply grid min-h-[200px] max-w-none grid-cols-[400px,1fr];
+  @apply grid min-h-[200px] max-w-none grid-cols-1 lg:grid-cols-[400px,1fr];
 }
 
 .CardPost--track .CardPost__content {
-  @apply py-5 pl-8;
+  @apply py-5 pl-4 lg:pl-8;
 }
 
 .CardPost--track .CardPost__image {
@@ -84,11 +84,15 @@
 }
 
 .CardPost--jumbo .CardPost__overlay {
-  @apply absolute inset-0 z-10 block bg-gradient-to-r from-black to-black/10;
+  @apply absolute inset-0 z-10 block bg-gradient-to-t from-black to-onyx/60 lg:bg-gradient-to-r lg:to-black/10;
 }
 
 .CardPost--jumbo .CardPost__tag {
-  @apply text-lg;
+  @apply text-base lg:text-lg;
+}
+
+.CardPost--jumbo .CardPost__date {
+  @apply ml-0 lg:ml-2;
 }
 
 .CardPost--jumbo .CardPost__image {
@@ -96,15 +100,15 @@
 }
 
 .CardPost--jumbo .CardPost__title {
-  @apply text-3xl text-ghost dark:text-ghost;
+  @apply text-2xl text-ghost dark:text-ghost lg:text-3xl;
 }
 
 .CardPost--jumbo .CardPost__content {
-  @apply absolute z-20 flex h-full max-w-[60%] flex-col-reverse justify-start px-10;
+  @apply absolute z-20 flex h-full flex-col-reverse justify-start lg:max-w-[60%] lg:px-10;
 }
 
 .CardPost--jumbo .CardPost__description {
-  @apply mb-10 text-lg text-smoke dark:text-smoke;
+  @apply mb-10 text-sm text-smoke dark:text-smoke lg:text-lg;
 }
 
 .CardPost--jumbo .CardPost__author {

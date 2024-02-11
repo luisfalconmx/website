@@ -54,7 +54,7 @@ export default function Blog({
       query: GetBlogPostsDocument,
       variables: {
         hostname: HASHNODE_HOST,
-        postCount: 3,
+        postCount: 7,
         after: lastCursor
       }
     })
@@ -73,13 +73,12 @@ export default function Blog({
 
   return (
     <MainLayout>
-      <main className="mx-auto mt-8 max-w-screen-xl">
+      <main className="mx-auto max-w-screen-xl lg:mt-8">
         <Carousel className="mb-16">
           {posts.slice(0, 3).map((i) => (
             <SplideSlide key={i.node.id}>
               <CardPost
                 variant="jumbo"
-                className=""
                 title={i.node.title}
                 description={i.node.brief || ''}
                 image={i.node.coverImage?.url || ''}
@@ -101,7 +100,7 @@ export default function Blog({
           ))}
         </Carousel>
 
-        <div className="mb-16 grid grid-cols-3 gap-4">
+        <div className="mb-16 grid grid-cols-1 gap-4 px-2 md:grid-cols-2 md:px-4 lg:grid-cols-3 lg:px-6">
           {posts.slice(3, 9).map((i) => (
             <CardPost
               variant="default"
@@ -127,7 +126,7 @@ export default function Blog({
           ))}
         </div>
 
-        <div className="mb-16 grid grid-cols-2 gap-x-4">
+        <div className="mb-16 grid grid-cols-1 gap-x-4 px-2 md:grid-cols-2 md:px-4 lg:px-6">
           {posts.slice(9, 11).map((i) => (
             <CardPost
               variant="square"
@@ -153,7 +152,7 @@ export default function Blog({
           ))}
         </div>
 
-        <div className="mb-16 grid grid-cols-1 gap-y-8">
+        <div className="mb-16 grid grid-cols-1 gap-y-8 px-2 md:grid-cols-2 md:gap-x-3 md:px-4 lg:grid-cols-1 lg:gap-x-0 lg:px-6">
           {posts.slice(11).map((i) => (
             <CardPost
               variant="track"

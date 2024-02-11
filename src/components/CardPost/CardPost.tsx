@@ -67,9 +67,9 @@ const CardPost = ({
         />
         <div className={styles.CardPost__content}>
           <div>
-            <div className="mb-2 flex items-center">
+            <div className="mb-2 flex flex-col lg:flex-row lg:items-center">
               <span className={styles.CardPost__tag}>{tag}</span>
-              <span className={styles.CardPost__date}>- {customLabel}</span>
+              <span className={styles.CardPost__date}>{customLabel}</span>
             </div>
             <h1 className={styles.CardPost__title}>{title}</h1>
             <p className={styles.CardPost__description}>{description}</p>

@@ -67,7 +67,7 @@ export default function Projects({
   }
 
   return (
-    <MainLayout>
+    <MainLayout gradientType="right">
       <main className="mx-auto mb-8 mt-8 max-w-screen-xl px-2 md:px-4 lg:box-content lg:px-6">
         <div className="mb-10 flex flex-col items-center lg:flex-row lg:items-start">
           <h1 className="mb-2 mr-4 text-4xl font-bold lg:mb-0">

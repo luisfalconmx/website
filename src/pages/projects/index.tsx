@@ -81,7 +81,7 @@ export default function Projects({
   // }
 
   return (
-    <MainLayout gradientType="default">
+    <MainLayout gradientType="left">
       <main className="mx-auto mb-8 mt-8 max-w-screen-xl px-2 md:px-4 lg:box-content lg:px-6">
         <div className="mb-8 hidden lg:block">
           <Splide
