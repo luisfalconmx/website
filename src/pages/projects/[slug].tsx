@@ -84,8 +84,8 @@ export default function Blog({
   return (
     <MainLayout>
       <main className="mt-10">
-        <section className="mx-auto grid max-w-screen-xl grid-cols-[1fr_650px] gap-x-12">
-          <div className="pt-4">
+        <section className="mx-auto grid max-w-screen-xl grid-cols-1 gap-x-12 px-4 lg:grid-cols-[1fr_650px] lg:px-0">
+          <div className="mb-12 pt-4 lg:mb-0">
             <h1 className="mb-4 text-5xl font-bold">{project?.name}</h1>
             <div className="mb-4 flex">
               <div className="mr-6 flex items-center text-iron dark:text-smoke">
@@ -137,25 +137,26 @@ export default function Blog({
         </section>
 
         <section className="mb-16 bg-onyx py-8">
-          <div className="mx-auto grid max-w-screen-xl grid-cols-3 justify-items-center gap-x-4">
-            <div>
+          <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-x-4 gap-y-8 px-4 lg:grid-cols-3 lg:justify-items-center lg:gap-y-0 lg:px-0">
+            <div className="text-center lg:text-left">
               <p className="mb-5 block text-3xl font-bold uppercase">Client</p>
-              <strong className="mb-4 block text-5xl font-light">
+              <strong className="mb-4 block text-4xl font-light lg:text-5xl">
                 {project?.clientName}
               </strong>
             </div>
-            <div>
+
+            <div className="text-center lg:text-left">
               <p className="mb-5 block text-3xl font-bold uppercase">Budget</p>
-              <strong className="mb-4 block text-5xl font-light">
+              <strong className="mb-4 block text-4xl font-light lg:text-5xl">
                 {formatCurrency(project?.budget || 0)}
               </strong>
             </div>
 
-            <div>
+            <div className="text-center lg:text-left">
               <p className="mb-5 block text-3xl font-bold uppercase">
                 Time Spent
               </p>
-              <strong className="mb-4 block text-5xl font-light">
+              <strong className="mb-4 block text-4xl font-light lg:text-5xl">
                 {project?.timeSpend} Hrs
               </strong>
             </div>
@@ -164,25 +165,27 @@ export default function Blog({
 
         {isClient && (
           <>
-            <section className="mx-auto mb-24 max-w-screen-xl">
-              <h2 className="mb-8 text-5xl font-bold">Overview</h2>
+            <section className="mx-auto mb-24 max-w-screen-xl px-4 lg:px-0">
+              <h2 className="mb-8 text-4xl font-bold lg:text-5xl">Overview</h2>
               <div className={styles.project}>
                 {documentToReactComponents(project?.overview?.json)}
               </div>
             </section>
 
-            <section className="mx-auto mb-24 max-w-screen-xl">
-              <h2 className="mb-8 text-5xl font-bold">Screenshots</h2>
+            <section className="mx-auto mb-24 max-w-screen-xl px-4 lg:px-0">
+              <h2 className="mb-8 text-4xl font-bold lg:text-5xl">
+                Screenshots
+              </h2>
 
-              <Splide options={carouselOptions}>
+              <Splide options={carouselOptions} className="w-full">
                 {project?.screenshotsCollection?.items.map((i) => (
-                  <SplideSlide key={i?.title}>
+                  <SplideSlide key={i?.title} className="w-full">
                     <Image
                       src={i?.url || ''}
                       alt={i?.title || ''}
                       width={800}
-                      height={400}
-                      className="rounded-xl"
+                      height={800}
+                      className="w-full rounded-xl"
                     />
                   </SplideSlide>
                 ))}
@@ -190,8 +193,8 @@ export default function Blog({
             </section>
 
             {project?.designDescription && (
-              <section className="mx-auto mb-10 max-w-screen-xl">
-                <h2 className="mb-8 text-5xl font-bold">Design</h2>
+              <section className="mx-auto mb-10 max-w-screen-xl px-4 lg:px-0">
+                <h2 className="mb-8 text-4xl font-bold lg:text-5xl">Design</h2>
                 <div className={styles.project}>
                   {documentToReactComponents(project?.designDescription?.json)}
                 </div>
@@ -204,7 +207,7 @@ export default function Blog({
                 height="500"
                 src={project.prototypeUrl}
                 allowFullScreen
-                className="mx-auto mb-10 max-w-screen-xl"
+                className="mx-auto mb-10 max-w-screen-xl px-4 lg:px-0"
               />
             )}
           </>

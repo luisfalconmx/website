@@ -1,5 +1,5 @@
 .project {
-  @apply mb-10 text-2xl;
+  @apply mb-10 text-lg lg:text-2xl;
 }
 
 .project p {
@@ -12,20 +12,20 @@
 .project h4,
 .project h5,
 .project h6 {
-  @apply pb-4 pt-6 text-2xl font-bold;
+  @apply pb-4 pt-6 text-xl font-bold lg:text-2xl;
 }
 
 .project h1 {
-  @apply text-4xl;
+  @apply text-3xl lg:text-4xl;
 }
 
 .project h2 {
-  @apply text-3xl;
+  @apply text-2xl lg:text-3xl;
 }
 
 .project ul,
 .project ol {
-  @apply list-disc pb-4 ps-12;
+  @apply list-disc pb-4 ps-4 lg:ps-12;
 }
 
 .project ol {
