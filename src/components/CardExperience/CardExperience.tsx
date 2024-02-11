@@ -7,12 +7,8 @@ const CardExperience = ({
   title,
   companyName,
   companyImage,
-  employmentType,
-  location,
-  locationType,
   startDate,
   endDate,
-  industry,
   description
 }: CardExperienceProps) => {
   const renderDate = (date?: string) => {
@@ -41,10 +37,6 @@ const CardExperience = ({
             {renderDate(startDate)} - {renderDate(endDate)}
           </p>
 
-          <p>
-            {location} - {locationType} - {employmentType}
-          </p>
-          <p className={styles.CardExperience__industry}>{industry}</p>
           <p className={styles.CardExperience__description}>{description}</p>
         </div>
       </div>

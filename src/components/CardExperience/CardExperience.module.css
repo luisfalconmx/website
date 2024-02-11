@@ -1,31 +1,27 @@
 .CardExperience {
-  @apply rounded bg-ghost p-1 transition-all ease-in-out hover:bg-gradient-to-br hover:from-primary hover:to-secondary hover:bg-clip-border dark:bg-onyx;
+  @apply rounded border border-iron/40 bg-ghost p-1 transition-all ease-in-out dark:bg-onyx lg:bg-none lg:hover:bg-gradient-to-br lg:hover:from-primary lg:hover:to-secondary lg:hover:bg-clip-border lg:dark:bg-onyx;
 }
 
 .CardExperience__content {
-  @apply grid grid-cols-[80px,1fr] gap-x-5 rounded bg-ghost px-10 pb-10 pt-6 dark:bg-onyx;
+  @apply grid grid-cols-1 gap-x-5 rounded bg-ghost px-6 pb-10 pt-6 dark:bg-onyx md:px-10 lg:grid-cols-[80px,1fr];
 }
 
 .CardExperience__image {
-  @apply rounded-lg;
+  @apply mx-auto mb-8 rounded-lg lg:mx-0 lg:mb-0;
 }
 
 .CardExperience__title {
-  @apply mb-1 text-3xl font-bold;
+  @apply mb-2 block text-center text-3xl font-bold lg:text-left;
 }
 
 .CardExperience__companyName {
-  @apply mb-2 text-xl font-bold;
+  @apply mb-4 block text-center text-xl font-bold lg:text-left;
 }
 
 .CardExperience__date {
-  @apply text-lg font-medium;
-}
-
-.CardExperience__industry {
-  @apply mb-4;
+  @apply mb-6 block text-center text-base font-medium text-smoke md:text-lg lg:text-left;
 }
 
 .CardExperience__description {
-  @apply text-lg text-iron dark:text-smoke;
+  @apply text-base text-iron dark:text-iron md:text-lg;
 }

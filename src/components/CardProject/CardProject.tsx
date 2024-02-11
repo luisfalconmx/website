@@ -13,6 +13,8 @@ const CardProject = ({
   tags,
   image
 }: CardProjectProps) => {
+  const maxTags = 4
+
   return (
     <div
       className={cn(styles.CardProject, {
@@ -27,16 +29,26 @@ const CardProject = ({
           <p className={styles.CardProject__description}>{description}</p>
           <div className={styles.CardProject__tags}>
             {tags &&
-              tags.map((tag) => (
-                <Image
-                  src={tag.icon}
-                  width={variant === 'featured' ? 44 : 32}
-                  height={variant === 'featured' ? 44 : 32}
-                  className={styles.CardProject__tag}
-                  alt={tag.name}
-                  key={tag.name}
-                />
-              ))}
+              // max 5 tags
+              tags.map(
+                (tag, index) =>
+                  index < maxTags && (
+                    <Image
+                      src={tag.icon}
+                      width={variant === 'featured' ? 44 : 32}
+                      height={variant === 'featured' ? 44 : 32}
+                      className={styles.CardProject__tag}
+                      alt={tag.name}
+                      key={tag.name}
+                    />
+                  )
+              )}
+
+            {tags && tags.length > maxTags && (
+              <div className="flex h-11 w-11 items-center justify-center rounded-full  px-3 text-center text-xl text-iron">
+                +{tags.length - maxTags}
+              </div>
+            )}
           </div>
 
           <Link href={`/projects/${name}`} className="block w-fit ">

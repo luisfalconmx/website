@@ -3,7 +3,7 @@
 }
 
 .CardProject--featured {
-  @apply grid h-full min-h-[480px] max-w-full grid-cols-2 flex-col gap-x-10 overflow-hidden rounded-lg border border-iron/40 px-12 pt-8 text-nightfall shadow-lg dark:bg-onyx;
+  @apply flex h-full max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 text-nightfall shadow-lg dark:bg-onyx lg:grid lg:min-h-[480px] lg:grid-cols-2 lg:px-12 lg:pt-8;
 }
 
 .CardProject__content {
@@ -26,12 +26,16 @@
   @apply block pb-1 text-4xl font-bold dark:text-white;
 }
 
+.CardProject--featured .CardProject__name {
+  @apply text-3xl md:text-5xl lg:text-4xl;
+}
+
 .CardProject__description {
   @apply mb-6 block max-w-[700px] text-iron dark:text-smoke;
 }
 
 .CardProject--featured .CardProject__description {
-  @apply mb-6 block max-w-[700px] text-lg text-iron dark:text-smoke;
+  @apply mb-6 block max-w-[700px] text-base text-iron dark:text-smoke md:text-2xl lg:text-lg;
 }
 
 .CardProject__tags {
