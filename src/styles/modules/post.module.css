@@ -3,7 +3,7 @@
 }
 
 .post p {
-  @apply pb-5 text-iron dark:text-smoke;
+  @apply pb-5 text-smoke;
 }
 
 .post h1,

@@ -10,10 +10,9 @@ const Button = ({
   <button
     type="button"
     className={cn(
-      'rounded-full border-2 bg-nightfall px-8 py-4 text-xl text-ghost dark:bg-ghost dark:text-nightfall',
+      'rounded-full border-2 bg-ghost px-8 py-4 text-xl text-nightfall',
       {
-        'border-nightfall bg-transparent text-nightfall dark:border-ghost dark:bg-transparent dark:text-ghost':
-          variant === 'outlined',
+        'border-ghost bg-transparent text-ghost': variant === 'outlined',
         'border-none bg-gradient-to-br from-primary to-secondary !text-white':
           variant === 'brand'
       },

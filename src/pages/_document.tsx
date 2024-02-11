@@ -3,7 +3,7 @@ import Script from 'next/script'
 
 export default function Document() {
   return (
-    <Html lang="en" className="scroll-smooth dark:bg-nightfall dark:text-ghost">
+    <Html lang="en" className="scroll-smooth bg-nightfall text-ghost">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -22,7 +22,7 @@ export default function Document() {
             `}
         </Script>
       </Head>
-      <body className="text-nightfall dark:bg-nightfall dark:text-ghost">
+      <body className=" text-ghost">
         <Main />
         <NextScript />
       </body>

@@ -13,7 +13,7 @@ const SocialIcons = ({ data, className = '' }: SocialIconsProps) => {
                 height={34}
                 src={iconUrl}
                 alt={title}
-                className="dark:invert"
+                className="invert"
               />
             </a>
           </li>

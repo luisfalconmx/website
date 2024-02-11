@@ -100,9 +100,7 @@ export default function Blog({
             {tag}
           </span>
 
-          <span className="block text-xl text-iron dark:text-smoke">
-            {customLabel}
-          </span>
+          <span className="block text-xl text-smoke">{customLabel}</span>
         </div>
 
         <h1 className="mx-auto mb-8 text-3xl font-bold leading-tight md:text-5xl">

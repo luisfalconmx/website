@@ -11,7 +11,7 @@
 }
 
 .CardPost__content {
-  @apply flex h-full flex-col px-4 pt-8 text-nightfall dark:text-ghost;
+  @apply flex h-full flex-col px-4 pt-8 text-ghost;
 }
 
 .CardPost__tag {
@@ -27,7 +27,7 @@
 }
 
 .CardPost__description {
-  @apply mb-10 text-onyx dark:text-smoke;
+  @apply mb-10 text-smoke;
 }
 
 .CardPost__author {
@@ -100,7 +100,7 @@
 }
 
 .CardPost--jumbo .CardPost__title {
-  @apply text-2xl text-ghost dark:text-ghost lg:text-3xl;
+  @apply text-2xl text-ghost lg:text-3xl;
 }
 
 .CardPost--jumbo .CardPost__content {
@@ -108,9 +108,9 @@
 }
 
 .CardPost--jumbo .CardPost__description {
-  @apply mb-10 text-sm text-smoke dark:text-smoke lg:text-lg;
+  @apply mb-10 text-sm text-smoke lg:text-lg;
 }
 
 .CardPost--jumbo .CardPost__author {
-  @apply mb-auto mt-0 text-ghost dark:text-ghost;
+  @apply mb-auto mt-0 text-ghost;
 }

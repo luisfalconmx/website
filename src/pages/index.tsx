@@ -108,7 +108,7 @@ export default function Home({
           height={200}
           src={profilePicture}
           alt={username}
-          className="mx-auto mb-10 rounded-full shadow-2xl shadow-black dark:shadow-none"
+          className="mx-auto mb-10 rounded-full shadow-none shadow-black"
         />
 
         <h1 className="mb-10 text-center text-5xl font-bold leading-[115.195%] lg:text-[3.438rem]">
@@ -118,7 +118,7 @@ export default function Home({
           </span>
         </h1>
 
-        <p className="mb-12 text-center text-2xl text-iron dark:text-smoke lg:text-lg">
+        <p className="mb-12 text-center text-2xl text-smoke lg:text-lg">
           {description}
         </p>
 
@@ -143,7 +143,7 @@ export default function Home({
         />
       </section>
 
-      <section className="mb-32 border-y py-16 shadow-2xl dark:border-none dark:bg-onyx dark:shadow-none">
+      <section className="mb-32 border-y border-none bg-onyx py-16 shadow-none">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 place-items-center gap-x-6 gap-y-14 text-center md:grid-cols-2 md:place-items-start md:gap-y-10 md:px-16 md:text-left lg:grid-cols-4 lg:place-items-center lg:gap-y-0 lg:px-0">
           <div>
             <strong className="mb-4 block text-5xl font-bold">
@@ -235,7 +235,7 @@ export default function Home({
                 alt={certification?.name || ''}
                 width={640}
                 height={500}
-                className="rounded-lg shadow-2xl dark:shadow-none"
+                className="rounded-lg shadow-none"
               />
             </SplideSlide>
           ))}
@@ -250,15 +250,15 @@ export default function Home({
         <ul className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {skills.map((skill) => (
             <li key={skill?.title}>
-              <div className="h-full cursor-default rounded-lg border border-iron/40 bg-ghost p-1 dark:bg-onyx lg:bg-none lg:hover:bg-gradient-to-r lg:hover:from-primary lg:hover:to-secondary lg:dark:bg-onyx">
-                <div className="h-full rounded bg-ghost px-3 py-5 dark:bg-onyx">
+              <div className="h-full cursor-default rounded-lg border border-iron/40 bg-onyx p-1 lg:bg-onyx lg:bg-none lg:hover:bg-gradient-to-r lg:hover:from-primary lg:hover:to-secondary">
+                <div className="h-full rounded bg-onyx px-3 py-5">
                   <div className="mb-2 flex">
                     <ChevronDoubleRightIcon className="mr-1 h-6 w-6 text-primary" />
                     <b className="block text-xl uppercase lg:text-lg">
                       {skill?.title || ''}
                     </b>
                   </div>
-                  <p className="text-iron lg:dark:text-smoke">
+                  <p className="text-iron lg:text-smoke">
                     {skill?.description || ''}
                   </p>
                 </div>

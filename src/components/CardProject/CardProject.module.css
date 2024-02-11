@@ -1,9 +1,9 @@
 .CardProject {
-  @apply flex h-full min-h-[480px] max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 text-nightfall shadow-lg dark:bg-onyx;
+  @apply flex h-full min-h-[480px] max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 bg-onyx text-nightfall shadow-lg;
 }
 
 .CardProject--featured {
-  @apply flex h-full max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 text-nightfall shadow-lg dark:bg-onyx lg:grid lg:min-h-[480px] lg:grid-cols-2 lg:px-12 lg:pt-8;
+  @apply flex h-full max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg border border-iron/40 bg-onyx text-nightfall shadow-lg lg:grid lg:min-h-[480px] lg:grid-cols-2 lg:px-12 lg:pt-8;
 }
 
 .CardProject__content {
@@ -23,7 +23,7 @@
 }
 
 .CardProject__name {
-  @apply block pb-1 text-4xl font-bold dark:text-white;
+  @apply block pb-1 text-4xl font-bold text-white;
 }
 
 .CardProject--featured .CardProject__name {
@@ -31,11 +31,11 @@
 }
 
 .CardProject__description {
-  @apply mb-6 block max-w-[700px] text-iron dark:text-smoke;
+  @apply mb-6 block max-w-[700px] text-smoke;
 }
 
 .CardProject--featured .CardProject__description {
-  @apply mb-6 block max-w-[700px] text-base text-iron dark:text-smoke md:text-2xl lg:text-lg;
+  @apply mb-6 block max-w-[700px] text-base text-smoke md:text-2xl lg:text-lg;
 }
 
 .CardProject__tags {
@@ -43,11 +43,11 @@
 }
 
 .CardProject__tag {
-  @apply mb-1 mr-1 block h-8 w-8 p-1 text-sm text-iron last:mr-0 dark:text-smoke;
+  @apply mb-1 mr-1 block h-8 w-8 p-1 text-sm text-smoke last:mr-0;
 }
 
 .CardProject--featured .CardProject__tag {
-  @apply mb-1 mr-1 block h-11 w-11 p-1 text-sm text-iron last:mr-0 dark:text-smoke;
+  @apply mb-1 mr-1 block h-11 w-11 p-1 text-sm text-smoke last:mr-0;
 }
 
 .CardProject__image {
@@ -59,7 +59,7 @@
 }
 
 .CardProject__track {
-  @apply flex w-full rounded-b border-t border-smoke/40 bg-ghost  px-4 py-3 dark:bg-onyx;
+  @apply flex w-full rounded-b border-t border-smoke/40 bg-onyx px-4 py-3;
 }
 
 .CardProject__item {

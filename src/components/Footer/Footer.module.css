@@ -1,5 +1,5 @@
 .Footer {
-  @apply flex justify-between border-t border-iron/40 bg-black dark:border-iron/40;
+  @apply flex justify-between border-t border-iron/40 bg-black;
 }
 
 .Footer__content {
@@ -7,7 +7,7 @@
 }
 
 .Footer__text {
-  @apply font-medium text-iron dark:text-smoke;
+  @apply font-medium text-smoke;
 }
 
 .Footer__link {

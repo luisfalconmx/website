@@ -88,19 +88,17 @@ export default function Blog({
           <div className="mb-12 pt-4 lg:mb-0">
             <h1 className="mb-4 text-5xl font-bold">{project?.name}</h1>
             <div className="mb-4 flex">
-              <div className="mr-6 flex items-center text-iron dark:text-smoke">
+              <div className="mr-6 flex items-center text-smoke">
                 <CheckBadgeIcon className="mr-1 h-5 w-5 text-green-500" />
                 <span className="block">{project?.licenseName}</span>
               </div>
-              <div className="mr-6 flex items-center text-iron dark:text-smoke">
+              <div className="mr-6 flex items-center text-smoke">
                 <CalendarDaysIcon className="mr-1 h-5 w-5 " />
                 <span className="block">{humanDate(project?.createdDate)}</span>
               </div>
             </div>
 
-            <p className="mb-8 text-xl text-iron dark:text-smoke">
-              {project?.description}
-            </p>
+            <p className="mb-8 text-xl text-smoke">{project?.description}</p>
 
             <div className="mb-8 flex flex-wrap">
               {project?.technologiesCollection?.items.map((i: any) => (
@@ -108,7 +106,7 @@ export default function Blog({
                   src={i.icon.url || ''}
                   width={20}
                   height={20}
-                  className="mb-1 mr-1 block h-12 w-12 border-iron p-2 text-sm text-iron last:mr-0 dark:border-smoke dark:text-smoke"
+                  className="mb-1 mr-1 block h-12 w-12 border-smoke p-2 text-sm text-smoke last:mr-0"
                   alt={i.name || ''}
                   key={i.name || ''}
                 />

@@ -3,7 +3,7 @@
 }
 
 .project p {
-  @apply pb-5 text-iron dark:text-smoke;
+  @apply pb-5 text-smoke;
 }
 
 .project h1,
