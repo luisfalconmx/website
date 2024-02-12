@@ -57,8 +57,8 @@ const CardProject = ({
             )}
           </div>
 
-          <Link href={`/projects/${slug}`} className="block w-fit ">
-            <Button variant="brand" className=" flex rounded-lg text-base">
+          <Link href={`/projects/${slug}`} className="mt-auto block  w-fit">
+            <Button variant="brand" className="flex rounded-lg text-base">
               View Project
               <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" />
             </Button>

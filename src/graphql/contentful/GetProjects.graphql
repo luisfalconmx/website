@@ -1,5 +1,6 @@
 query GetProjects($skip: Int, $limit: Int!) {
-  projectCollection(skip: $skip, limit: $limit) {
+  projectCollection(skip: $skip, limit: $limit, order: createdDate_DESC) {
+    total
     items {
       name
       description

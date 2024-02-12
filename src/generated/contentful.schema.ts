@@ -1987,6 +1987,7 @@ export type GetProjectsQuery = {
   __typename?: 'Query'
   projectCollection?: {
     __typename?: 'ProjectCollection'
+    total: number
     items: Array<{
       __typename?: 'Project'
       name?: string | null
@@ -2567,7 +2568,8 @@ export type GetProjectByIdQueryResult = Apollo.QueryResult<
 >
 export const GetProjectsDocument = gql`
   query GetProjects($skip: Int, $limit: Int!) {
-    projectCollection(skip: $skip, limit: $limit) {
+    projectCollection(skip: $skip, limit: $limit, order: createdDate_DESC) {
+      total
       items {
         name
         description

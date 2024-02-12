@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import MainLayout from '@/Layouts/MainLayout'
 import CardProject from '@/components/CardProject'
+import Button from '@/components/Button'
 import contentfulClient from '@/clients/contentfulClient'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import {
   GetProjectsDocument,
   GetProjectsQuery,
-  GetProjectsQueryVariables,
-  GetTagsQuery,
-  GetTagsQueryVariables,
-  GetTagsDocument
+  GetProjectsQueryVariables
 } from '@/generated/contentful.schema'
 import '@splidejs/react-splide/css'
 import type { Options } from '@splidejs/react-splide'
@@ -24,18 +23,14 @@ export const getStaticProps = (async () => {
   >({
     query: GetProjectsDocument,
     variables: {
-      limit: 6
+      limit: 4
     }
-  })
-
-  const responseTags = await client.query<GetTagsQuery, GetTagsQueryVariables>({
-    query: GetTagsDocument
   })
 
   return {
     props: {
-      projects: response.data.projectCollection?.items,
-      tags: responseTags.data.technologyCollection?.items
+      projects: response.data.projectCollection?.items || [],
+      total: response.data.projectCollection?.total || 0
     },
     revalidate: 60 * 5 // 5 minutes
   }
@@ -43,40 +38,34 @@ export const getStaticProps = (async () => {
 
 export default function Projects({
   projects,
-  tags
+  total
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [lastCursor, setLastCursor] = useState<string>('')
-  const [hasNextPage, setHasNextPage] = useState<boolean>(false)
+  const limitItems = 4
+  const [iterationCount, setIterationCount] = useState<number>(limitItems)
   const [extraProjectsList, setExtraProjectsList] = useState<typeof projects>(
     []
   )
 
-  // const getMoreProjects = async () => {
-  //   const client = githubClient()
-  //   const response = await client.query<
-  //     GetProjectsQuery,
-  //     GetProjectsQueryVariables
-  //   >({
-  //     query: GetProjectsDocument,
-  //     variables: {
-  //       username: 'luisfalconmx',
-  //       repositoriesCount: 6,
-  //       after: lastCursor
-  //     }
-  //   })
+  const getMoreProjects = async () => {
+    const client = contentfulClient()
+    const response = await client.query<
+      GetProjectsQuery,
+      GetProjectsQueryVariables
+    >({
+      query: GetProjectsDocument,
+      variables: {
+        limit: limitItems,
+        skip: iterationCount
+      }
+    })
 
-  //   setLastCursor(response.data.user?.repositories.pageInfo.endCursor || '')
+    setExtraProjectsList((prev) => [
+      ...prev,
+      ...(response.data.projectCollection?.items || [])
+    ])
 
-  //   setHasNextPage(
-  //     response.data.user?.repositories.pageInfo.hasNextPage || false
-  //   )
-
-  //   setExtraProjectsList((prev) => [
-  //     ...prev,
-  //     ...(response.data.user?.repositories?.edges?.map((edge) => edge?.node) ||
-  //       [])
-  //   ])
-  // }
+    setIterationCount((prev) => prev + limitItems)
+  }
 
   return (
     <MainLayout gradientType="left">
@@ -109,7 +98,8 @@ export default function Projects({
             ))}
           </Splide>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+        <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects?.slice(0, 3).map((project) => (
             <CardProject
               slug={project?.slug || ''}
@@ -145,25 +135,25 @@ export default function Projects({
             />
           ))}
 
-          {/* {extraProjectsList?.map((project) => (
+          {extraProjectsList?.map((project) => (
             <CardProject
+              slug={project?.slug || ''}
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
-              image={project?.openGraphImageUrl}
-              variant="block"
-              tags={project?.repositoryTopics.nodes?.map((i) =>
-                i ? i.topic.name : ''
-              )}
-              licence={project?.licenseInfo?.name || ''}
-              createdDate={project?.createdAt || ''}
-              latestRelease={project?.latestRelease?.name || ''}
-              primaryLanguage={project?.primaryLanguage?.name || ''}
+              image={project?.featuredImage?.url || ''}
+              variant="card"
+              tags={
+                project?.technologiesCollection?.items?.map((i: any) => ({
+                  icon: i.icon.url,
+                  name: i.name
+                })) || []
+              }
             />
-          ))} */}
+          ))}
         </div>
 
-        {/* {hasNextPage && (
+        {iterationCount < total && (
           <div className="flex justify-center">
             <Button
               variant="filled"
@@ -174,7 +164,7 @@ export default function Projects({
               Load More
             </Button>
           </div>
-        )} */}
+        )}
       </main>
     </MainLayout>
   )
