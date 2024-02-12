@@ -950,8 +950,10 @@ export type Project = Entry & {
   linkedFrom?: Maybe<ProjectLinkingCollections>
   name?: Maybe<Scalars['String']['output']>
   overview?: Maybe<ProjectOverview>
+  paid?: Maybe<Scalars['Boolean']['output']>
   prototypeUrl?: Maybe<Scalars['String']['output']>
   screenshotsCollection?: Maybe<AssetCollection>
+  slug?: Maybe<Scalars['String']['output']>
   sys: Sys
   technologiesCollection?: Maybe<ProjectTechnologiesCollection>
   timeSpend?: Maybe<Scalars['Int']['output']>
@@ -1009,6 +1011,11 @@ export type ProjectOverviewArgs = {
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectPaidArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type ProjectPrototypeUrlArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
 }
@@ -1019,6 +1026,11 @@ export type ProjectScreenshotsCollectionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>
   preview?: InputMaybe<Scalars['Boolean']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectSlugArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
@@ -1134,6 +1146,9 @@ export type ProjectFilter = {
   overview_contains?: InputMaybe<Scalars['String']['input']>
   overview_exists?: InputMaybe<Scalars['Boolean']['input']>
   overview_not_contains?: InputMaybe<Scalars['String']['input']>
+  paid?: InputMaybe<Scalars['Boolean']['input']>
+  paid_exists?: InputMaybe<Scalars['Boolean']['input']>
+  paid_not?: InputMaybe<Scalars['Boolean']['input']>
   prototypeUrl?: InputMaybe<Scalars['String']['input']>
   prototypeUrl_contains?: InputMaybe<Scalars['String']['input']>
   prototypeUrl_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -1144,6 +1159,13 @@ export type ProjectFilter = {
     Array<InputMaybe<Scalars['String']['input']>>
   >
   screenshotsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
+  slug?: InputMaybe<Scalars['String']['input']>
+  slug_contains?: InputMaybe<Scalars['String']['input']>
+  slug_exists?: InputMaybe<Scalars['Boolean']['input']>
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  slug_not?: InputMaybe<Scalars['String']['input']>
+  slug_not_contains?: InputMaybe<Scalars['String']['input']>
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   sys?: InputMaybe<SysFilter>
   technologiesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>
   timeSpend?: InputMaybe<Scalars['Int']['input']>
@@ -1180,8 +1202,12 @@ export enum ProjectOrder {
   LicenseNameDesc = 'licenseName_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  PaidAsc = 'paid_ASC',
+  PaidDesc = 'paid_DESC',
   PrototypeUrlAsc = 'prototypeUrl_ASC',
   PrototypeUrlDesc = 'prototypeUrl_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -1705,6 +1731,21 @@ export type _Node = {
   _id: Scalars['ID']['output']
 }
 
+export type FindProjectIdBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input']
+}>
+
+export type FindProjectIdBySlugQuery = {
+  __typename?: 'Query'
+  projectCollection?: {
+    __typename?: 'ProjectCollection'
+    items: Array<{
+      __typename?: 'Project'
+      sys: { __typename?: 'Sys'; id: string }
+    } | null>
+  } | null
+}
+
 export type GetCertificationsQueryVariables = Exact<{
   limit: Scalars['Int']['input']
   skip: Scalars['Int']['input']
@@ -1950,6 +1991,7 @@ export type GetProjectsQuery = {
       __typename?: 'Project'
       name?: string | null
       description?: string | null
+      slug?: string | null
       technologiesCollection?: {
         __typename?: 'ProjectTechnologiesCollection'
         items: Array<
@@ -1991,6 +2033,83 @@ export type GetTagsQuery = {
   } | null
 }
 
+export const FindProjectIdBySlugDocument = gql`
+  query FindProjectIdBySlug($slug: String!) {
+    projectCollection(where: { slug: $slug }) {
+      items {
+        sys {
+          id
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useFindProjectIdBySlugQuery__
+ *
+ * To run a query within a React component, call `useFindProjectIdBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindProjectIdBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindProjectIdBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useFindProjectIdBySlugQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >(FindProjectIdBySlugDocument, options)
+}
+export function useFindProjectIdBySlugLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >(FindProjectIdBySlugDocument, options)
+}
+export function useFindProjectIdBySlugSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >(FindProjectIdBySlugDocument, options)
+}
+export type FindProjectIdBySlugQueryHookResult = ReturnType<
+  typeof useFindProjectIdBySlugQuery
+>
+export type FindProjectIdBySlugLazyQueryHookResult = ReturnType<
+  typeof useFindProjectIdBySlugLazyQuery
+>
+export type FindProjectIdBySlugSuspenseQueryHookResult = ReturnType<
+  typeof useFindProjectIdBySlugSuspenseQuery
+>
+export type FindProjectIdBySlugQueryResult = Apollo.QueryResult<
+  FindProjectIdBySlugQuery,
+  FindProjectIdBySlugQueryVariables
+>
 export const GetCertificationsDocument = gql`
   query GetCertifications($limit: Int!, $skip: Int!) {
     certificationCollection(limit: $limit, skip: $skip) {
@@ -2452,6 +2571,7 @@ export const GetProjectsDocument = gql`
       items {
         name
         description
+        slug
         technologiesCollection {
           items {
             ... on Technology {

@@ -9,21 +9,32 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
   CheckBadgeIcon,
-  RocketLaunchIcon,
   CalendarDaysIcon
 } from '@heroicons/react/24/solid'
 import {
+  FindProjectIdBySlugQuery,
+  FindProjectIdBySlugQueryVariables,
+  FindProjectIdBySlugDocument,
   GetProjectByIdDocument,
   GetProjectByIdQuery,
   GetProjectByIdQueryVariables
 } from '@/generated/contentful.schema'
 import styles from '@/styles/modules/project.module.css'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import type { ITechnologyItem } from '@/types/ITechnologyItem.d'
 import '@splidejs/react-splide/css'
 
 export const getStaticProps = (async ({ params }) => {
   const client = contentfulClient()
+
+  const firstResponse = await client.query<
+    FindProjectIdBySlugQuery,
+    FindProjectIdBySlugQueryVariables
+  >({
+    query: FindProjectIdBySlugDocument,
+    variables: {
+      slug: params?.slug as string
+    }
+  })
 
   const response = await client.query<
     GetProjectByIdQuery,
@@ -31,7 +42,7 @@ export const getStaticProps = (async ({ params }) => {
   >({
     query: GetProjectByIdDocument,
     variables: {
-      id: '5OMroCN0aN6M7d4Ek7QFfQ'
+      id: firstResponse.data?.projectCollection?.items[0]?.sys.id as string
     }
   })
 

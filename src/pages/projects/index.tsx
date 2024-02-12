@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import Image from 'next/image'
 import MainLayout from '@/Layouts/MainLayout'
 import CardProject from '@/components/CardProject'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import contentfulClient from '@/clients/contentfulClient'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import {
@@ -95,6 +93,7 @@ export default function Projects({
             {projects?.slice(0, 3).map((project) => (
               <SplideSlide key={project?.name}>
                 <CardProject
+                  slug={project?.slug || ''}
                   name={project?.name || ''}
                   description={project?.description || ''}
                   image={project?.featuredImage?.url || ''}
@@ -113,6 +112,7 @@ export default function Projects({
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects?.slice(0, 3).map((project) => (
             <CardProject
+              slug={project?.slug || ''}
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}
@@ -130,6 +130,7 @@ export default function Projects({
 
           {projects?.slice(3).map((project) => (
             <CardProject
+              slug={project?.slug || ''}
               key={project?.name}
               name={project?.name || ''}
               description={project?.description || ''}

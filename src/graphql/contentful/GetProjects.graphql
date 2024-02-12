@@ -3,6 +3,7 @@ query GetProjects($skip: Int, $limit: Int!) {
     items {
       name
       description
+      slug
       technologiesCollection {
         items {
           ... on Technology {
