@@ -28,36 +28,41 @@ const CardProject = ({
       )}
     >
       <div className={styles.CardProject__content}>
-        <div>
-          <div className={styles.CardProject__head}>
-            <strong className={styles.CardProject__name}>{name}</strong>
-          </div>
-          <p className={styles.CardProject__description}>{description}</p>
-          <div className={styles.CardProject__tags}>
-            {tags &&
-              // max 5 tags
-              tags.map(
-                (tag, index) =>
-                  index < maxTags && (
-                    <Image
-                      src={tag.icon}
-                      width={variant === 'featured' ? 44 : 32}
-                      height={variant === 'featured' ? 44 : 32}
-                      className={styles.CardProject__tag}
-                      alt={tag.name}
-                      key={tag.name}
-                    />
-                  )
+        <div
+          className={cn({
+            ['flex h-full flex-col']: variant === 'card'
+          })}
+        >
+          <div>
+            <div className={styles.CardProject__head}>
+              <strong className={styles.CardProject__name}>{name}</strong>
+            </div>
+            <p className={styles.CardProject__description}>{description}</p>
+            <div className={styles.CardProject__tags}>
+              {tags &&
+                // max 5 tags
+                tags.map(
+                  (tag, index) =>
+                    index < maxTags && (
+                      <Image
+                        src={tag.icon}
+                        width={variant === 'featured' ? 44 : 32}
+                        height={variant === 'featured' ? 44 : 32}
+                        className={styles.CardProject__tag}
+                        alt={tag.name}
+                        key={tag.name}
+                      />
+                    )
+                )}
+
+              {tags && tags.length > maxTags && (
+                <div className="flex items-center justify-center rounded-full  px-3 text-center text-lg text-iron">
+                  +{tags.length - maxTags}
+                </div>
               )}
-
-            {tags && tags.length > maxTags && (
-              <div className="flex items-center justify-center rounded-full  px-3 text-center text-lg text-iron">
-                +{tags.length - maxTags}
-              </div>
-            )}
+            </div>
           </div>
-
-          <Link href={`/projects/${slug}`} className="mt-auto block  w-fit">
+          <Link href={`/projects/${slug}`} className="mt-auto block w-fit">
             <Button variant="brand" className="flex rounded-lg text-base">
               View Project
               <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" />

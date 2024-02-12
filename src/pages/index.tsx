@@ -184,6 +184,7 @@ export default function Home({
             <CardProject
               variant="featured"
               key={project?.name}
+              slug={project?.slug || ''}
               name={project?.name || ''}
               description={project?.description || ''}
               image={project?.featuredImage?.url || ''}

@@ -23,7 +23,7 @@ export const getStaticProps = (async () => {
   >({
     query: GetProjectsDocument,
     variables: {
-      limit: 4
+      limit: 12
     }
   })
 
@@ -40,7 +40,7 @@ export default function Projects({
   projects,
   total
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const limitItems = 4
+  const limitItems = 12
   const [iterationCount, setIterationCount] = useState<number>(limitItems)
   const [extraProjectsList, setExtraProjectsList] = useState<typeof projects>(
     []

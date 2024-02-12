@@ -1887,6 +1887,7 @@ export type GetHomePageInfoQuery = {
       __typename?: 'Project'
       name?: string | null
       description?: string | null
+      slug?: string | null
       createdDate?: any | null
       featuredImage?: { __typename?: 'Asset'; url?: string | null } | null
       technologiesCollection?: {
@@ -2362,6 +2363,7 @@ export const GetHomePageInfoDocument = gql`
       items {
         name
         description
+        slug
         createdDate
         featuredImage {
           url

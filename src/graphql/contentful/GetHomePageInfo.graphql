@@ -54,6 +54,7 @@ query GetHomePageInfo {
     items {
       name
       description
+      slug
       createdDate
       featuredImage {
         url
