@@ -7,10 +7,7 @@ import { Options, Splide, SplideSlide } from '@splidejs/react-splide'
 import humanDate from '@/utils/humanDate'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import {
-  CheckBadgeIcon,
-  CalendarDaysIcon
-} from '@heroicons/react/24/solid'
+import { CheckBadgeIcon, CalendarDaysIcon } from '@heroicons/react/24/solid'
 import {
   FindProjectIdBySlugQuery,
   FindProjectIdBySlugQueryVariables,
@@ -26,7 +23,7 @@ import '@splidejs/react-splide/css'
 export const getStaticProps = (async ({ params }) => {
   const client = contentfulClient()
 
-  const firstResponse = await client.query<
+  const criticalResponse = await client.query<
     FindProjectIdBySlugQuery,
     FindProjectIdBySlugQueryVariables
   >({
@@ -36,13 +33,23 @@ export const getStaticProps = (async ({ params }) => {
     }
   })
 
+  // redirect to 404 page
+  if (!criticalResponse.data?.projectCollection?.items[0]?.sys.id) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false
+      }
+    }
+  }
+
   const response = await client.query<
     GetProjectByIdQuery,
     GetProjectByIdQueryVariables
   >({
     query: GetProjectByIdDocument,
     variables: {
-      id: firstResponse.data?.projectCollection?.items[0]?.sys.id as string
+      id: criticalResponse.data?.projectCollection?.items[0]?.sys.id as string
     }
   })
 
