@@ -2114,7 +2114,7 @@ export type FindProjectIdBySlugQueryResult = Apollo.QueryResult<
 >
 export const GetCertificationsDocument = gql`
   query GetCertifications($limit: Int!, $skip: Int!) {
-    certificationCollection(limit: $limit, skip: $skip) {
+    certificationCollection(limit: $limit, skip: $skip, order: issueDate_DESC) {
       total
       items {
         name

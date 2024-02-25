@@ -22,7 +22,7 @@ const CardCertification = ({
       className="w-full rounded-t-xl border border-r-0 border-onyx/30"
     />
     <div className="flex h-full flex-col border border-l-0 border-onyx/30 px-8 py-10">
-      <h2 className="mb-4 text-3xl font-bold">{name}</h2>
+      <h2 className="mb-4 text-2xl font-bold">{name}</h2>
 
       <p className="mb-6 flex items-center text-xl font-bold text-smoke">
         <Image

@@ -1,5 +1,5 @@
 query GetCertifications($limit: Int!, $skip: Int!) {
-  certificationCollection(limit: $limit, skip: $skip) {
+  certificationCollection(limit: $limit, skip: $skip, order: issueDate_DESC) {
     total
     items {
       name
