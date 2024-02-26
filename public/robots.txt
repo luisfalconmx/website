@@ -1,0 +1,5 @@
+# robots.txt for https://www.luisfalconmx.dev
+
+# Allow all crawlers
+User-agent: *
+Allow: /
