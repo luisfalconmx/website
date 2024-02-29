@@ -109,6 +109,7 @@ export default function Home({
           name="description"
           content="I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development."
         />
+        <link rel="canonical" href="https://www.luisfalconmx.dev" />
       </Head>
       <MainLayout>
         <section className="mx-auto mb-32 mt-7 max-w-[683px] px-6 lg:px-0">
