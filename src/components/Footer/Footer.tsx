@@ -9,7 +9,6 @@ const Footer = () => {
     <footer className={styles.Footer}>
       <div className={styles.Footer__content}>
         <p className={styles.Footer__text}>{year} - luisfalconmx.dev</p>
-        <div></div>
       </div>
     </footer>
   )
