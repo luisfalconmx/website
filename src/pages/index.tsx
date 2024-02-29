@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
+import Script from 'next/script'
 import contentfulClient from '@/clients/contentfulClient'
 import MainLayout from '@/Layouts/MainLayout'
 import Button from '@/components/Button'
@@ -111,6 +112,7 @@ export default function Home({
         />
         <link rel="canonical" href="https://www.luisfalconmx.dev" />
       </Head>
+
       <MainLayout>
         <section className="mx-auto mb-32 mt-7 max-w-[683px] px-6 lg:px-0">
           <Image
@@ -281,6 +283,25 @@ export default function Home({
           </ul>
         </section>
       </MainLayout>
+
+      <Script id="schema" type="application/ld+json">
+        {`{
+          "@context": "https://schema.org/",
+          "@type": "Person",
+          "name": "Luis Falcon (luisfalconmx)",
+          "url": "https://www.luisfalconmx.dev/",
+          "image": "https://www.luisfalconmx.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Ff6zp47ogowku%2F38N5Da3rtuMRI2HuM4o8D1%2Fe73cc100ff68d07d3ba4bb51fd552de2%2Fluisfalconmx-2023.jpg&w=640&q=75",
+          "sameAs": [
+            "https://www.facebook.com/luisfalconmx.dev",
+            "https://twitter.com/luisfalconmx",
+            "https://www.instagram.com/luisfalconmx",
+            "https://www.linkedin.com/in/luisfalconmx",
+            "https://github.com/luisfalconmx",
+            "https://www.luisfalconmx.dev"
+          ],
+          "jobTitle": "Frontend Developer"  
+        }`}
+      </Script>
     </>
   )
 }
