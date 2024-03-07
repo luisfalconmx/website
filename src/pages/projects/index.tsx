@@ -70,55 +70,24 @@ export default function Projects({
   return (
     <MainLayout gradientType="left">
       <main className="mx-auto mb-8 mt-8 max-w-screen-xl px-2 md:px-4 lg:box-content lg:px-6">
-        <div className="mb-8 hidden lg:block">
-          <Splide
-            options={
-              {
-                type: 'loop',
-                pagination: false
-              } as Options
+        <div className="mb-8">
+          <CardProject
+            slug={projects[0]?.slug || ''}
+            name={projects[0]?.name || ''}
+            description={projects[0]?.description || ''}
+            image={projects[0]?.featuredImage?.url || ''}
+            variant="featured"
+            tags={
+              projects[0]?.technologiesCollection?.items?.map((i: any) => ({
+                icon: i.icon.url,
+                name: i.name
+              })) || []
             }
-          >
-            {projects?.slice(0, 3).map((project) => (
-              <SplideSlide key={project?.name}>
-                <CardProject
-                  slug={project?.slug || ''}
-                  name={project?.name || ''}
-                  description={project?.description || ''}
-                  image={project?.featuredImage?.url || ''}
-                  variant="featured"
-                  tags={
-                    project?.technologiesCollection?.items?.map((i: any) => ({
-                      icon: i.icon.url,
-                      name: i.name
-                    })) || []
-                  }
-                />
-              </SplideSlide>
-            ))}
-          </Splide>
+          />
         </div>
 
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {projects?.slice(0, 3).map((project) => (
-            <CardProject
-              slug={project?.slug || ''}
-              key={project?.name}
-              name={project?.name || ''}
-              description={project?.description || ''}
-              image={project?.featuredImage?.url || ''}
-              variant="card"
-              className="lg:!hidden"
-              tags={
-                project?.technologiesCollection?.items?.map((i: any) => ({
-                  icon: i.icon.url,
-                  name: i.name
-                })) || []
-              }
-            />
-          ))}
-
-          {projects?.slice(3).map((project) => (
+          {projects?.slice(1).map((project) => (
             <CardProject
               slug={project?.slug || ''}
               key={project?.name}
