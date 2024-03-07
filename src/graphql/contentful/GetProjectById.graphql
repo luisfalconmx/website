@@ -3,6 +3,7 @@ query GetProjectById($id: String!) {
     name
     description
     clientName
+    liveUrl
     licenseName
     featuredImage {
       url

@@ -132,7 +132,7 @@ export default function Blog({
             </div>
 
             <div className="flex">
-              <a href={''}>
+              <a href={project?.liveUrl || ''}>
                 <Button
                   variant="brand"
                   className="mr-3 flex items-center rounded-xl"

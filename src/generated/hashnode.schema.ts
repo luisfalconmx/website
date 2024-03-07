@@ -30,6 +30,7 @@ export type Scalars = {
   Float: { input: number; output: number }
   DateTime: { input: any; output: any }
   ObjectId: { input: any; output: any }
+  URL: { input: any; output: any }
 }
 
 export type AddCommentInput = {
@@ -259,6 +260,81 @@ export type CoverImageOptionsInput = {
   isCoverAttributionHidden?: InputMaybe<Scalars['Boolean']['input']>
   /** A flag to indicate if the cover image is sticked to bottom. */
   stickCoverToBottom?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type CreateDraftInput = {
+  /** Ids of the co-authors of the resulting draft. */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>
+  /** Content of the resulting draft in markdown format. */
+  contentMarkdown?: InputMaybe<Scalars['String']['input']>
+  /** Options for the cover image of the resulting draft. */
+  coverImageOptions?: InputMaybe<CoverImageOptionsInput>
+  /** A flag to indicate if the comments are disabled for the resulting draft. */
+  disableComments?: InputMaybe<Scalars['Boolean']['input']>
+  /** Information about the meta tags added to the resulting draft, used for SEO purpose. */
+  metaTags?: InputMaybe<MetaTagsInput>
+  /** The URL of the original article if the draft is imported from an external source. */
+  originalArticleURL?: InputMaybe<Scalars['String']['input']>
+  /** The ID of publication the draft and resulting post belongs to. */
+  publicationId: Scalars['ID']['input']
+  /**
+   * Publish the draft on behalf of another user who is a member of the publication.
+   *
+   * Only applicable for team publications.
+   */
+  publishAs?: InputMaybe<Scalars['ObjectId']['input']>
+  /** Date when the resulting draft is published. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>
+  /** Providing a seriesId will add the resulting draft to that series. */
+  seriesId?: InputMaybe<Scalars['ObjectId']['input']>
+  /** Settings for the resulting draft like table of contents and newsletter activation. */
+  settings?: InputMaybe<CreateDraftSettingsInput>
+  /** Slug of the resulting draft. */
+  slug?: InputMaybe<Scalars['String']['input']>
+  /** The subtitle of the resulting draft. */
+  subtitle?: InputMaybe<Scalars['String']['input']>
+  /** A list of tags added to the resulting draft. */
+  tags?: InputMaybe<Array<CreateDraftTagInput>>
+  /** The title of the resulting draft. */
+  title?: InputMaybe<Scalars['String']['input']>
+}
+
+export type CreateDraftPayload = {
+  __typename?: 'CreateDraftPayload'
+  /** The newly created draft */
+  draft?: Maybe<Draft>
+}
+
+export type CreateDraftSettingsInput = {
+  /** Wether to send a newsletter for the resulting draft's post. */
+  activateNewsletter?: InputMaybe<Scalars['Boolean']['input']>
+  /** A flag to indicate if the resulting draft should be delisted, used to hide the post created from the draft from public feed. */
+  delist?: InputMaybe<Scalars['Boolean']['input']>
+  /** A flag to indicate if the resulting draft'S post should contain a table of content */
+  enableTableOfContent?: InputMaybe<Scalars['Boolean']['input']>
+  /** Flag to indicate if the slug is overridden by the user. */
+  slugOverridden?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type CreateDraftTagInput = {
+  /**
+   * A tag id that is referencing an existing tag.
+   *
+   * Either this or name and slug should be provided. If both are provided, the id will be used.
+   */
+  id?: InputMaybe<Scalars['ObjectId']['input']>
+  /**
+   * A name of a new tag to create.
+   *
+   * Either this and slug or id should be provided. If both are provided, the id will be used.
+   */
+  name?: InputMaybe<Scalars['String']['input']>
+  /**
+   * A slug of a new tag to create.
+   *
+   * Either this and name or id should be provided. If both are provided, the id will be used.
+   */
+  slug?: InputMaybe<Scalars['String']['input']>
 }
 
 export type CreateWebhookInput = {
@@ -575,10 +651,40 @@ export enum FeedType {
   Relevant = 'RELEVANT'
 }
 
+/** Views implementation that will be returned if grouping by page. */
+export type GroupedByPageViews = Node &
+  Views & {
+    __typename?: 'GroupedByPageViews'
+    /** The start of the time range that these views belong to. */
+    from: Scalars['DateTime']['output']
+    id: Scalars['ID']['output']
+    /** The page that these views belong to. */
+    page: StaticPage
+    /** The end of the time range that these views belong to. */
+    to: Scalars['DateTime']['output']
+    /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+    total: Scalars['Int']['output']
+  }
+
+/** Views implementation that will be returned if grouping by post. */
+export type GroupedByPostViews = Node &
+  Views & {
+    __typename?: 'GroupedByPostViews'
+    /** The start of the time range that these views belong to. */
+    from: Scalars['DateTime']['output']
+    id: Scalars['ID']['output']
+    /** The post that these views belong to. */
+    post: Post
+    /** The end of the time range that these views belong to. */
+    to: Scalars['DateTime']['output']
+    /** The aggregated views for a post in the time range indicated by `from` and `to`. */
+    total: Scalars['Int']['output']
+  }
+
 export enum HttpRedirectionType {
-  /** A permanent redirect that corresponds to the 308 HTTP status code. */
+  /** A permanent redirect that corresponds to the 302 HTTP status code. */
   Permanent = 'PERMANENT',
-  /** A temporary redirect that corresponds to the 307 HTTP status code. */
+  /** A temporary redirect that corresponds to the 301 HTTP status code. */
   Temporary = 'TEMPORARY'
 }
 
@@ -715,6 +821,8 @@ export type Mutation = {
   /** Adds a reply to a comment. */
   addReply: AddReplyPayload
   cancelScheduledDraft: CancelScheduledDraftPayload
+  /** Creates a new draft for a post. */
+  createDraft: CreateDraftPayload
   createWebhook: CreateWebhookPayload
   deleteWebhook: DeleteWebhookPayload
   /** Likes a comment. */
@@ -771,6 +879,10 @@ export type MutationAddReplyArgs = {
 
 export type MutationCancelScheduledDraftArgs = {
   input: CancelScheduledDraftInput
+}
+
+export type MutationCreateDraftArgs = {
+  input: CreateDraftInput
 }
 
 export type MutationCreateWebhookArgs = {
@@ -1690,6 +1802,27 @@ export type PublicationLinks = {
   youtube?: Maybe<Scalars['String']['output']>
 }
 
+/** Contains the publication member information. */
+export type PublicationMember = Node & {
+  __typename?: 'PublicationMember'
+  /** The ID of the publication member. */
+  id: Scalars['ID']['output']
+  /** The role of the user in the publication. */
+  role: PublicationMemberRole
+  /** The user who is a member of the publication. */
+  user?: Maybe<User>
+}
+
+/** The role of the user in the publication. */
+export enum PublicationMemberRole {
+  /** The user is an admin of the publication. */
+  Admin = 'ADMIN',
+  /** The user is a owner of the publication. */
+  Author = 'AUTHOR',
+  /** The user is a member of the publication. */
+  Contributor = 'CONTRIBUTOR'
+}
+
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
   __typename?: 'PublicationNavbarItem'
@@ -1787,6 +1920,12 @@ export type PublicationUserRecommendingPublicationConnection =
     /** The total number of documents in the connection. */
     totalDocuments: Scalars['Int']['output']
   }
+
+export type PublicationViewEdge = Edge & {
+  __typename?: 'PublicationViewEdge'
+  cursor: Scalars['String']['output']
+  node: Views
+}
 
 export type PublishDraftInput = {
   /** The id of the draft that should be published */
@@ -1991,10 +2130,11 @@ export type RecommendedPublicationEdge = Edge & {
   node: Publication
 }
 
-export type RedirectionRule = {
+export type RedirectionRule = Node & {
   __typename?: 'RedirectionRule'
   /** The destination URL of the redirection rule. */
-  destination: Scalars['String']['output']
+  destination: Scalars['URL']['output']
+  id: Scalars['ID']['output']
   /** The source URL of the redirection rule. */
   source: Scalars['String']['output']
   /** The type of the redirection rule. */
@@ -2468,6 +2608,19 @@ export type TriggerWebhookTestPayload = {
   webhook?: Maybe<Webhook>
 }
 
+/** Views implementation that will be returned if no grouping is applied. */
+export type UngroupedViews = Node &
+  Views & {
+    __typename?: 'UngroupedViews'
+    /** The start of the time range that these views belong to. */
+    from: Scalars['DateTime']['output']
+    id: Scalars['ID']['output']
+    /** The end of the time range that these views belong to. */
+    to: Scalars['DateTime']['output']
+    /** The aggregated views in the time range indicated by `from` and `to`. */
+    total: Scalars['Int']['output']
+  }
+
 export type UnsubscribeFromNewsletterInput = {
   /** The email that is currently subscribed. */
   email: Scalars['String']['input']
@@ -2829,6 +2982,16 @@ export type ViewCountFeature = Feature & {
   __typename?: 'ViewCountFeature'
   /** A flag indicating if the view count feature is enabled or not. */
   isEnabled: Scalars['Boolean']['output']
+}
+
+export type Views = {
+  /** The start of the time range that these views belong to. */
+  from: Scalars['DateTime']['output']
+  id: Scalars['ID']['output']
+  /** The end of the time range that these views belong to. */
+  to: Scalars['DateTime']['output']
+  /** The aggregated views in the time range indicated by `from` and `to`. */
+  total: Scalars['Int']['output']
 }
 
 export type Webhook = Node & {

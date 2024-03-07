@@ -948,6 +948,7 @@ export type Project = Entry & {
   featuredImage?: Maybe<Asset>
   licenseName?: Maybe<Scalars['String']['output']>
   linkedFrom?: Maybe<ProjectLinkingCollections>
+  liveUrl?: Maybe<Scalars['String']['output']>
   name?: Maybe<Scalars['String']['output']>
   overview?: Maybe<ProjectOverview>
   paid?: Maybe<Scalars['Boolean']['output']>
@@ -998,6 +999,11 @@ export type ProjectLicenseNameArgs = {
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
 export type ProjectLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
+export type ProjectLiveUrlArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/f6zp47ogowku/content_types/project) */
@@ -1136,6 +1142,13 @@ export type ProjectFilter = {
   licenseName_not?: InputMaybe<Scalars['String']['input']>
   licenseName_not_contains?: InputMaybe<Scalars['String']['input']>
   licenseName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  liveUrl?: InputMaybe<Scalars['String']['input']>
+  liveUrl_contains?: InputMaybe<Scalars['String']['input']>
+  liveUrl_exists?: InputMaybe<Scalars['Boolean']['input']>
+  liveUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  liveUrl_not?: InputMaybe<Scalars['String']['input']>
+  liveUrl_not_contains?: InputMaybe<Scalars['String']['input']>
+  liveUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   name?: InputMaybe<Scalars['String']['input']>
   name_contains?: InputMaybe<Scalars['String']['input']>
   name_exists?: InputMaybe<Scalars['Boolean']['input']>
@@ -1200,6 +1213,8 @@ export enum ProjectOrder {
   CreatedDateDesc = 'createdDate_DESC',
   LicenseNameAsc = 'licenseName_ASC',
   LicenseNameDesc = 'licenseName_DESC',
+  LiveUrlAsc = 'liveUrl_ASC',
+  LiveUrlDesc = 'liveUrl_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
   PaidAsc = 'paid_ASC',
@@ -1940,6 +1955,7 @@ export type GetProjectByIdQuery = {
     name?: string | null
     description?: string | null
     clientName?: string | null
+    liveUrl?: string | null
     licenseName?: string | null
     createdDate?: any | null
     budget?: number | null
@@ -2469,6 +2485,7 @@ export const GetProjectByIdDocument = gql`
       name
       description
       clientName
+      liveUrl
       licenseName
       featuredImage {
         url
