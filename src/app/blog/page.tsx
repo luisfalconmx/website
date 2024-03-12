@@ -1,10 +1,11 @@
-import Link from "next/link";
-import { Button } from "@nextui-org/button";
-import type { Metadata } from "next";
+// RENDER STRATEGY: SSR (Server Side Rendering)
+import Link from 'next/link'
+import { Button } from '@nextui-org/button'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "blog",
-};
+  title: 'blog'
+}
 
 export default function Blog() {
   return (
@@ -14,5 +15,5 @@ export default function Blog() {
         <Button>go to home</Button>
       </Link>
     </>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { ThemeSwitcher } from "./components/ThemeSwitcher";
-import { Button } from "@nextui-org/button";
+import Link from 'next/link'
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
+import { Button } from '@nextui-org/button'
 
 export default function Home() {
   return (
@@ -11,5 +11,5 @@ export default function Home() {
         <Button>Click me</Button>
       </Link>
     </>
-  );
+  )
 }
