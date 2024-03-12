@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 export default function Home() {
   return (
     <>
-      <h1>Home page</h1>
+      <h1>Home</h1>
       <ThemeSwitcher />
       <Link href="/blog">
         <Button>Click me</Button>
