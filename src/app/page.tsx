@@ -1,9 +1,13 @@
 import Link from 'next/link'
-import { Button } from '@nextui-org/button'
 import Image from 'next/image'
+import { Button } from '@nextui-org/react'
 import { BriefcaseIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import profilePicture from '@/assets/images/luisfalconmx.jpg'
+import AccordionInfo from '@/components/AccordionInfo'
 import ProjectCard from '@/components/ProjectCard'
+import CertificationCard from '@/components/CertificationCard'
+import SkillCard from '@/components/SkillCard'
+import Footer from '@/components/Footer'
+import profilePicture from '@/assets/images/luisfalconmx.jpg'
 
 export default function Home() {
   return (
@@ -55,7 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mb-32 border-y border-none bg-content1 py-16 shadow-none">
+      <section className="mb-32 border-y border-divider py-16 shadow-none">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 place-items-center gap-x-6 gap-y-14 text-center md:grid-cols-2 md:place-items-start md:gap-y-10 md:px-16 md:text-left lg:grid-cols-4 lg:place-items-center lg:gap-y-0 lg:px-0">
           <div>
             <strong className="mb-4 block text-5xl font-bold">12</strong>
@@ -79,11 +83,11 @@ export default function Home() {
       </section>
 
       <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-14 text-center text-5xl font-bold">
+        <h2 className="mb-24 text-center text-5xl font-bold">
           Latest Projects
         </h2>
 
-        <div className="grid grid-cols-1 gap-6 lg:mx-0">
+        <div className="grid grid-cols-1 gap-y-24 lg:mx-0">
           <ProjectCard
             variant="featured"
             slug="123"
@@ -126,6 +130,39 @@ export default function Home() {
             ))} */}
         </div>
       </section>
+
+      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
+        <h2 className="mb-24 text-center text-5xl font-bold">
+          Work Experience
+        </h2>
+
+        <AccordionInfo />
+      </section>
+
+      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
+        <h2 className="mb-24 text-center text-5xl font-bold">
+          Recent Certifications
+        </h2>
+
+        <div className="grid grid-cols-2 gap-6">
+          <CertificationCard />
+          <CertificationCard />
+          <CertificationCard />
+          <CertificationCard />
+        </div>
+      </section>
+
+      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
+        <h2 className="mb-24 text-center text-5xl font-bold">Skills</h2>
+
+        <div className="grid grid-cols-4 gap-6">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <SkillCard key={i} />
+          ))}
+        </div>
+      </section>
+
+      <Footer />
     </>
   )
 }

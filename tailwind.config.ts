@@ -32,7 +32,7 @@ const config: Config = {
               DEFAULT: '#CB356B',
               foreground: '#ffffff'
             },
-            focus: '#e11d48'
+            focus: '#BD3F32'
           }
         }
       }

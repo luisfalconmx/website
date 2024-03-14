@@ -1,6 +1,7 @@
 import { Poppins } from 'next/font/google'
 import { Providers } from './providers'
 import NavigationMenu from '@/components/NavigationMenu'
+import BlockGradient from '@/components/BlockGradient'
 import type { Metadata } from 'next'
 import './globals.css'
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={font.className}>
+        <BlockGradient variant="default" />
         <NavigationMenu />
         <Providers>{children}</Providers>
       </body>

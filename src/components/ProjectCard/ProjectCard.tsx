@@ -67,7 +67,7 @@ const ProjectCard = ({
               size="lg"
               radius="full"
               color="primary"
-              className="flex bg-gradient-to-r from-primary to-secondary p-8 text-lg"
+              className="flex bg-gradient-to-r from-primary to-secondary p-7 text-lg"
               endContent={<ArrowTopRightOnSquareIcon className="h-5 w-5" />}
             >
               View Project

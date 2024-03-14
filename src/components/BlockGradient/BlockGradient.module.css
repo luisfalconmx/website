@@ -1,0 +1,18 @@
+.BlockGradient {
+  @apply absolute top-0 -z-10 h-[650px] w-full;
+}
+
+.BlockGradient--default {
+  background: linear-gradient(to top, #000000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(90deg, rgb(189 63 50 / 0.3) 0, rgb(203 53 107 / 0.3) 100%);
+}
+
+.BlockGradient--left {
+  background: linear-gradient(to top, #000000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(90deg, rgb(189 63 50 / 0.3) 0, rgb(143 0 255 / 0.1) 100%);
+}
+
+.BlockGradient--right {
+  background: linear-gradient(to top, #000000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(90deg, rgb(189 63 50 / 0.1) 0, rgb(203 53 107 / 0.3) 100%);
+}
