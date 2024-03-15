@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import {
   Navbar,
@@ -49,23 +48,23 @@ const NavigationMenu = () => {
       </NavbarContent>
 
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        <NavbarItem isActive>
-          <Link color="foreground" href="#" aria-current="page">
+        <NavbarItem>
+          <Link color="foreground" href="/">
             About me
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/projects">
             Projects
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/certifications">
             Certifications
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/blog">
             Blog
           </Link>
         </NavbarItem>

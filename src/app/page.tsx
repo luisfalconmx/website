@@ -1,17 +1,19 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import BlockGradient from '@/components/BlockGradient'
 import { Button } from '@nextui-org/react'
 import { BriefcaseIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import AccordionInfo from '@/components/AccordionInfo'
 import ProjectCard from '@/components/ProjectCard'
 import CertificationCard from '@/components/CertificationCard'
 import SkillCard from '@/components/SkillCard'
-import Footer from '@/components/Footer'
 import profilePicture from '@/assets/images/luisfalconmx.jpg'
 
 export default function Home() {
   return (
     <>
+      <BlockGradient variant="default" />
+
       <section className="mx-auto mb-32 mt-7 max-w-[683px] px-6 lg:px-0">
         <Image
           width={190}
@@ -161,8 +163,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      <Footer />
     </>
   )
 }

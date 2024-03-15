@@ -51,7 +51,7 @@
 }
 
 .CardProject__image {
-  @apply h-full max-h-[300px] w-full rounded-lg object-cover;
+  @apply h-full max-h-[400px] w-full rounded-lg object-cover;
 }
 
 .CardProject--featured .CardProject__image {
