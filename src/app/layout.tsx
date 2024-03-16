@@ -18,11 +18,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="scroll-smooth dark">
       <body className={font.className}>
         <NavigationMenu />
         <Providers>{children}</Providers>
         <Footer />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/onedark.min.css"
+        />
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          defer
+        ></script>
       </body>
     </html>
   )

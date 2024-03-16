@@ -9,6 +9,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.luisfalconmx.dev'
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.hashnode.com'
       }
     ]
   }

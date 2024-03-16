@@ -1,0 +1,33 @@
+query GetBlogPosts($hostname: String!, $postCount: Int!, $after: String!) {
+  publication(host: $hostname) {
+    posts(first: $postCount, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          id
+          title
+          slug
+          url
+          brief
+          tags {
+            name
+          }
+          coverImage {
+            url
+          }
+          author {
+            id
+            username
+            name
+            profilePicture
+          }
+          publishedAt
+          readTimeInMinutes
+        }
+      }
+    }
+  }
+}
