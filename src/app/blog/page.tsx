@@ -1,13 +1,10 @@
-import hashnodeClient from '@/clients/hashnodeClient'
 import BlockGradient from '@/components/BlockGradient'
 import Breadcrumb from '@/components/Breadcrumb'
 import PostCard from '@/components/PostCard'
-import {
-  GetBlogPostsQuery,
-  GetBlogPostsQueryVariables,
-  GetBlogPostsDocument
-} from '@/generated/hashnode.schema'
-import { HASHNODE_HOST } from '@/config'
+import humanDate from '@/utils/humanDate'
+import getArticles from '@/api/devto/getArticles'
+import PaginationTrack from '@/components/PaginationTrack'
+import devtoArticlesCount from '@/generated/devtoArticlesCount.json'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -16,23 +13,17 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
-export default async function Blog() {
-  const client = hashnodeClient()
+export default async function Blog({
+  searchParams
+}: {
+  searchParams: { page: string }
+}) {
+  const page = parseInt(searchParams.page) || 0
+  const itemsPerPage = 12
 
-  const response = await client.query<
-    GetBlogPostsQuery,
-    GetBlogPostsQueryVariables
-  >({
-    query: GetBlogPostsDocument,
-    variables: {
-      hostname: HASHNODE_HOST,
-      postCount: 12,
-      after: ''
-    }
-  })
-
-  const posts = response.data.publication?.posts.edges
-  const pageInfo = response.data.publication?.posts.pageInfo
+  const response = await getArticles({ page: page, per_page: itemsPerPage })
+  const total = devtoArticlesCount.total || 0
+  const posts = response?.data || []
 
   return (
     <>
@@ -53,17 +44,15 @@ export default async function Blog() {
           ?.slice(0, 1)
           .map((post) => (
             <PostCard
-              key={post.node.title}
-              title={post.node.title}
-              description={post.node.brief}
-              link={`/blog/${post.node.slug}`}
-              image={post.node.coverImage?.url || ''}
-              date={post.node.publishedAt}
-              readingTime={post.node.readTimeInMinutes}
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              link={`/blog/${post.slug}`}
+              image={post.cover_image || ''}
+              date={new Date(post.published_at)}
+              readingTime={post.reading_time_minutes}
               tag={
-                post.node.tags?.map((tag, index) =>
-                  index === 0 ? tag.name : ''
-                )[0]
+                post.tag_list?.map((tag, index) => (index === 0 ? tag : ''))[0]
               }
               variant="jumbo"
             />
@@ -75,17 +64,15 @@ export default async function Blog() {
           ?.slice(1, 7)
           .map((post) => (
             <PostCard
-              key={post.node.title}
-              title={post.node.title}
-              description={post.node.brief}
-              link={`/blog/${post.node.slug}`}
-              image={post.node.coverImage?.url || ''}
-              date={post.node.publishedAt}
-              readingTime={post.node.readTimeInMinutes}
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              link={`/blog/${post.slug}`}
+              image={post.cover_image || ''}
+              date={new Date(post.published_at)}
+              readingTime={post.reading_time_minutes}
               tag={
-                post.node.tags?.map((tag, index) =>
-                  index === 0 ? tag.name : ''
-                )[0]
+                post.tag_list?.map((tag, index) => (index === 0 ? tag : ''))[0]
               }
               variant="default"
             />
@@ -97,17 +84,15 @@ export default async function Blog() {
           ?.slice(7, 9)
           .map((post) => (
             <PostCard
-              key={post.node.title}
-              title={post.node.title}
-              description={post.node.brief}
-              link={`/blog/${post.node.slug}`}
-              image={post.node.coverImage?.url || ''}
-              date={post.node.publishedAt}
-              readingTime={post.node.readTimeInMinutes}
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              link={`/blog/${post.slug}`}
+              image={post.cover_image || ''}
+              date={new Date(post.published_at)}
+              readingTime={post.reading_time_minutes}
               tag={
-                post.node.tags?.map((tag, index) =>
-                  index === 0 ? tag.name : ''
-                )[0]
+                post.tag_list?.map((tag, index) => (index === 0 ? tag : ''))[0]
               }
               variant="square"
             />
@@ -119,22 +104,28 @@ export default async function Blog() {
           ?.slice(9, 13)
           .map((post) => (
             <PostCard
-              key={post.node.title}
-              title={post.node.title}
-              description={post.node.brief}
-              link={`/blog/${post.node.slug}`}
-              image={post.node.coverImage?.url || ''}
-              date={post.node.publishedAt}
-              readingTime={post.node.readTimeInMinutes}
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              link={`/blog/${post.slug}`}
+              image={post.cover_image || ''}
+              date={new Date(post.published_at)}
+              readingTime={post.reading_time_minutes}
               tag={
-                post.node.tags?.map((tag, index) =>
-                  index === 0 ? tag.name : ''
-                )[0]
+                post.tag_list?.map((tag, index) => (index === 0 ? tag : ''))[0]
               }
               variant="track"
             />
           ))}
       </section>
+
+      <div className="mx-auto w-fit">
+        <PaginationTrack
+          total={total}
+          itemsPerPage={itemsPerPage}
+          currentPage={page || 1}
+        />
+      </div>
     </>
   )
 }

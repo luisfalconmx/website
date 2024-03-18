@@ -45,6 +45,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.luisfalconmx.dev'
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.dev.to'
       }
     ]
   }

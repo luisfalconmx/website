@@ -35,7 +35,6 @@ export default function RootLayout({
         />
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"
-          integrity="sha512-H69VMoQ814lKjFuFwLImb4OwoK8Rm8fcvsqZexaxjp/VkJfEnrt5TO7oaOdNlMf/j51QUctfLTe8+rgozW7l2A=="
           referrerPolicy="no-referrer"
           defer
         />

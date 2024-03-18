@@ -3,14 +3,12 @@ import Image from 'next/image'
 import BlockGradient from '@/components/BlockGradient'
 import Breadcrumb from '@/components/Breadcrumb'
 import { Chip } from '@nextui-org/react'
-import hashnodeClient from '@/clients/hashnodeClient'
 import {
   GetBlogPostBySlugQuery,
   GetBlogPostBySlugQueryVariables,
   GetBlogPostBySlugDocument
 } from '@/generated/hashnode.schema'
 import parse from 'html-react-parser'
-import { HASHNODE_HOST } from '@/config'
 import styles from './post.module.css'
 import cn from '@/utils/cn'
 import { BookmarkIcon } from '@heroicons/react/24/solid'
@@ -22,19 +20,19 @@ export const metadata: Metadata = {
 }
 
 export default async function Post({ params }: { params: { slug: string } }) {
-  const client = hashnodeClient()
-  const response = await client.query<
-    GetBlogPostBySlugQuery,
-    GetBlogPostBySlugQueryVariables
-  >({
-    query: GetBlogPostBySlugDocument,
-    variables: {
-      hostname: HASHNODE_HOST,
-      slug: params?.slug as string
-    }
-  })
+  // const client = hashnodeClient()
+  // const response = await client.query<
+  //   GetBlogPostBySlugQuery,
+  //   GetBlogPostBySlugQueryVariables
+  // >({
+  //   query: GetBlogPostBySlugDocument,
+  //   variables: {
+  //     hostname: HASHNODE_HOST,
+  //     slug: params?.slug as string
+  //   }
+  // })
 
-  const post = response.data.publication?.post
+  // const post = response.data.publication?.post
 
   return (
     <>
@@ -48,7 +46,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
                 size="lg"
                 className="mr-3 bg-gradient-to-r from-primary to-secondary"
               >
-                {post?.tags ? post?.tags[0].name : ''}
+                {/* {post?.tags ? post?.tags[0].name : ''} */}
               </Chip>
 
               <span className="block text-xl text-smoke">
@@ -57,21 +55,21 @@ export default async function Post({ params }: { params: { slug: string } }) {
             </div>
 
             <h1 className="mx-auto mb-8 text-3xl font-bold leading-tight md:text-5xl">
-              {post?.title}
+              {/* {post?.title} */}
             </h1>
 
-            <Image
+            {/* <Image
               src={post?.coverImage?.url || ''}
               alt={post?.title || ''}
               width="912"
               height="550"
               className="aspect-video w-full rounded-lg object-cover"
-            />
+            /> */}
           </div>
 
-          <div className={styles.post}>{parse(post?.content.html || '')}</div>
+          {/* <div className={styles.post}>{parse(post?.content.html || '')}</div> */}
 
-          {post?.tags && (
+          {/* {post?.tags && (
             <ul className="mb-12 mt-10 flex flex-wrap">
               {post?.tags.map((tag) => (
                 <Chip key={tag.name} size="lg" variant="faded" className="mr-1">
@@ -79,7 +77,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
                 </Chip>
               ))}
             </ul>
-          )}
+          )} */}
         </main>
         <aside className="row-span-2 block w-full border-divider px-5 py-12 lg:border-l">
           <User
@@ -96,7 +94,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             }}
           />
 
-          {post?.features.tableOfContents.isEnabled && (
+          {/* {post?.features.tableOfContents.isEnabled && (
             <>
               <strong className="mb-6 block text-2xl">Table of contents</strong>
               <ul>
@@ -121,7 +119,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
                 ))}
               </ul>
             </>
-          )}
+          )} */}
         </aside>
       </div>
     </>
