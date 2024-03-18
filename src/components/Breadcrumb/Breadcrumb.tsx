@@ -1,18 +1,24 @@
 'use client'
+import { usePathname } from 'next/navigation'
 import { Breadcrumbs, BreadcrumbItem } from '@nextui-org/breadcrumbs'
 
 const Breadcrumb = () => {
+  const pathname = usePathname()
+  const routes = pathname.split('/')
+
+  const humanRoute = (route: string) => {
+    return route.replace(/-/g, ' ')
+  }
+
   return (
     <Breadcrumbs className="mx-auto mt-8 max-w-screen-xl px-6">
-      <BreadcrumbItem href="/docs/components/button">Home</BreadcrumbItem>
-      <BreadcrumbItem href="/docs/components/breadcrumbs">
-        Projects
-      </BreadcrumbItem>
-      <BreadcrumbItem href="/docs/components/card">Card</BreadcrumbItem>
-      <BreadcrumbItem href="/docs/components/checkbox">Checkbox</BreadcrumbItem>
-      <BreadcrumbItem href="/docs/components/code" isCurrent>
-        Code
-      </BreadcrumbItem>
+      {routes.map((route, index) => (
+        <BreadcrumbItem key={`${route || 'home'}-${index}`} href={`/${route}`}>
+          <span className="first-letter:uppercase">
+            {humanRoute(route) || 'home'}
+          </span>
+        </BreadcrumbItem>
+      ))}
     </Breadcrumbs>
   )
 }

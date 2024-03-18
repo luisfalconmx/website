@@ -1,0 +1,19 @@
+query GetCertifications($limit: Int!, $skip: Int!) {
+  certificationCollection(limit: $limit, skip: $skip, order: issueDate_DESC) {
+    total
+    items {
+      name
+      picture {
+        url
+      }
+      credentialId
+      credentialUrl
+      expirationDate
+      issueDate
+      issuingOrganization
+      issuingOrganizationImage {
+        url
+      }
+    }
+  }
+}

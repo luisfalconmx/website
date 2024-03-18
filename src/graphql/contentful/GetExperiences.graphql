@@ -1,0 +1,39 @@
+query GetExperiences {
+  experienceCollection {
+    total
+    skip
+    limit
+    items {
+      title
+      companyName
+      companyImage {
+        title
+        description
+        contentType
+        fileName
+        size
+        url
+        width
+        height
+      }
+      employmentType
+      location
+      locationType
+      currentWork
+      startDate
+      endDate
+      industry
+      description
+    }
+  }
+  certificationCollection {
+    total
+    items {
+      name
+      credentialUrl
+      picture {
+        url
+      }
+    }
+  }
+}

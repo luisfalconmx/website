@@ -12,7 +12,7 @@
 .post h4,
 .post h5,
 .post h6 {
-  @apply pb-4 pt-6 text-2xl font-bold md:text-3xl;
+  @apply pb-6 pt-12 text-2xl font-bold md:text-3xl;
 }
 
 .post h1 {
@@ -24,7 +24,7 @@
 }
 
 .post ul {
-  @apply list-disc pb-4 ps-4 md:ps-12;
+  @apply list-disc pb-8 ps-4 md:ps-12;
 }
 
 .post ul p {
@@ -32,7 +32,7 @@
 }
 
 .post img {
-  @apply w-full max-w-[920px] pb-5;
+  @apply mb-8 ml-0 mr-auto h-full max-w-[920px] rounded-xl border border-divider;
 }
 
 .post a {
@@ -45,4 +45,8 @@
 
 .post pre {
   @apply !mb-8 !mt-0 block w-full max-w-[912px] overflow-hidden rounded-xl border border-divider bg-[#282c34] p-4 text-lg;
+}
+
+.post mark {
+  @apply bg-secondary;
 }

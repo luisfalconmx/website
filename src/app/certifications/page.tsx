@@ -1,15 +1,42 @@
-// RENDER STRATEGY: SSR (Server Side Rendering)
 import CertificationCard from '@/components/CertificationCard'
+import contentfulClient from '@/clients/contentfulClient'
 import Breadcrumb from '@/components/Breadcrumb'
 import BlockGradient from '@/components/BlockGradient'
-import { Pagination } from '@nextui-org/react'
+import PaginationTrack from '@/components/PaginationTrack'
+import {
+  GetCertificationsDocument,
+  GetCertificationsQuery,
+  GetCertificationsQueryVariables
+} from '@/generated/contentful.schema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'certifications'
 }
 
-export default function Certifications() {
+export default async function Certifications({
+  searchParams
+}: {
+  searchParams: { page: string }
+}) {
+  const page = parseInt(searchParams.page) || 0
+  const itemsPerPage = 10
+
+  const client = contentfulClient()
+  const response = await client.query<
+    GetCertificationsQuery,
+    GetCertificationsQueryVariables
+  >({
+    query: GetCertificationsDocument,
+    variables: {
+      limit: itemsPerPage,
+      skip: (page - 1) * itemsPerPage
+    }
+  })
+
+  const totalCertifications = response.data.certificationCollection?.total || 0
+  const certifications = response.data.certificationCollection?.items || []
+
   return (
     <>
       <BlockGradient variant="left" />
@@ -23,24 +50,23 @@ export default function Certifications() {
         </p>
       </div>
       <div className="mx-auto mb-8 grid max-w-screen-xl grid-cols-1 gap-4 px-6 md:grid-cols-2">
-        {[...new Array(6)].map((_, i) => (
-          <CertificationCard key={i} />
+        {certifications.map((i) => (
+          <CertificationCard
+            key={i?.name}
+            name={i?.name || ''}
+            image={i?.picture?.url || ''}
+            organizationName={i?.issuingOrganization || ''}
+            organizationImage={i?.issuingOrganizationImage?.url || ''}
+            date={i?.issueDate || ''}
+            credentialUrl={i?.credentialUrl || ''}
+          />
         ))}
       </div>
       <div className="mx-auto w-fit">
-        <Pagination
-          showControls
-          total={10}
-          initialPage={1}
-          color="default"
-          className="mb-16"
-          classNames={{
-            wrapper: ' p-12',
-            next: 'text-2xl',
-            prev: 'text-2xl',
-            cursor: 'text-2xl bg-gradient-to-r from-primary to-secondary',
-            item: 'text-xl'
-          }}
+        <PaginationTrack
+          total={totalCertifications}
+          itemsPerPage={itemsPerPage}
+          currentPage={page || 1}
         />
       </div>
     </>

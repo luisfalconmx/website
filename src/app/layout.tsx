@@ -26,11 +26,19 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/onedark.min.css"
+          referrerPolicy="no-referrer"
         />
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          referrerPolicy="no-referrer"
           defer
-        ></script>
+        />
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"
+          integrity="sha512-H69VMoQ814lKjFuFwLImb4OwoK8Rm8fcvsqZexaxjp/VkJfEnrt5TO7oaOdNlMf/j51QUctfLTe8+rgozW7l2A=="
+          referrerPolicy="no-referrer"
+          defer
+        />
       </body>
     </html>
   )

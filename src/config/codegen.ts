@@ -17,16 +17,16 @@ const config: CodegenConfig = {
         'typescript-operations',
         'typescript-react-apollo'
       ]
+    },
+    './src/generated/contentful.schema.ts': {
+      schema: `${CONTENTFUL_ENDPOINT}/${CONTENTFUL_SPACE_ID}?access_token=${CONTENTFUL_DELIVERY_TOKEN}`,
+      documents: ['src/graphql/contentful/**/*.graphql'],
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-react-apollo'
+      ]
     }
-    // './src/generated/contentful.schema.ts': {
-    //   schema: `${CONTENTFUL_ENDPOINT}/${CONTENTFUL_SPACE_ID}?access_token=${CONTENTFUL_DELIVERY_TOKEN}`,
-    //   documents: ['src/graphql/contentful/**/*.graphql'],
-    //   plugins: [
-    //     'typescript',
-    //     'typescript-operations',
-    //     'typescript-react-apollo'
-    //   ]
-    // }
   },
   hooks: {
     afterAllFileWrite: ['prettier --write']

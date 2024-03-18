@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@nextui-org/react'
+import { Button, Chip } from '@nextui-org/react'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
 import cn from '@/utils/cn'
 import styles from './ProjectCard.module.css'
+
 import type { ProjectCardProps } from './ProjectCard.d'
 
 const ProjectCard = ({
@@ -20,38 +21,48 @@ const ProjectCard = ({
   return (
     <div
       className={cn(
-        styles.CardProject,
+        styles.ProjectCard,
         {
-          [styles['CardProject--featured']]: variant === 'featured'
+          [styles['ProjectCard--featured']]: variant === 'featured'
         },
         className
       )}
     >
-      <div className={styles.CardProject__content}>
+      <div className={styles.ProjectCard__content}>
         <div
           className={cn({
             ['flex h-full flex-col']: variant === 'card'
           })}
         >
           <div>
-            <div className={styles.CardProject__head}>
-              <strong className={styles.CardProject__name}>{name}</strong>
+            <div className={styles.ProjectCard__head}>
+              <strong className={styles.ProjectCard__name}>{name}</strong>
             </div>
-            <p className={styles.CardProject__description}>{description}</p>
-            <div className={styles.CardProject__tags}>
+            <p className={styles.ProjectCard__description}>{description}</p>
+            <div className={styles.ProjectCard__tags}>
               {tags &&
                 // max 5 tags
                 tags.map(
                   (tag, index) =>
                     index < maxTags && (
-                      <Image
-                        src={tag.icon}
-                        width={variant === 'featured' ? 44 : 32}
-                        height={variant === 'featured' ? 44 : 32}
-                        className={styles.CardProject__tag}
-                        alt={tag.name}
+                      <Chip
                         key={tag.name}
-                      />
+                        color="default"
+                        size="lg"
+                        className="mb-2 mr-2 p-5"
+                        avatar={
+                          <Image
+                            src={tag.icon}
+                            width={variant === 'featured' ? 44 : 24}
+                            height={variant === 'featured' ? 44 : 24}
+                            className={styles.ProjectCard__tag}
+                            alt={tag.name}
+                            key={tag.name}
+                          />
+                        }
+                      >
+                        {tag.name}
+                      </Chip>
                     )
                 )}
 
@@ -80,7 +91,7 @@ const ProjectCard = ({
         src={image}
         width={200}
         height={100}
-        className={styles.CardProject__image}
+        className={styles.ProjectCard__image}
       />
     </div>
   )

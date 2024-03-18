@@ -1,15 +1,43 @@
 // RENDER STRATEGY: SSR (Server Side Rendering)
-import { Pagination } from '@nextui-org/react'
 import Breadcrumb from '@/components/Breadcrumb'
 import ProjectCard from '@/components/ProjectCard'
 import BlockGradient from '@/components/BlockGradient'
+import contentfulClient from '@/clients/contentfulClient'
+import PaginationTrack from '@/components/PaginationTrack'
+import {
+  GetProjectsDocument,
+  GetProjectsQuery,
+  GetProjectsQueryVariables
+} from '@/generated/contentful.schema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'projects'
 }
 
-export default function Projects() {
+export default async function Projects({
+  searchParams
+}: {
+  searchParams: { page: string }
+}) {
+  const page = parseInt(searchParams.page) || 0
+  const itemsPerPage = 10
+
+  const client = contentfulClient()
+  const response = await client.query<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >({
+    query: GetProjectsDocument,
+    variables: {
+      limit: itemsPerPage,
+      skip: (page - 1) * itemsPerPage
+    }
+  })
+
+  const projects = response.data.projectCollection?.items || []
+  const total = response.data.projectCollection?.total || 0
+
   return (
     <>
       <BlockGradient variant="left" />
@@ -22,33 +50,29 @@ export default function Projects() {
           helped by members of the Chrome team.
         </p>
       </div>
-      <div className="mx-auto mb-6 grid max-w-screen-xl grid-cols-1 gap-6 px-6 md:grid-cols-2">
-        {[...new Array(6)].map((_, i) => (
+      <div className="mx-auto mb-6 grid max-w-screen-xl grid-cols-1 gap-8 px-6 md:grid-cols-2">
+        {projects.map((i) => (
           <ProjectCard
-            key={i}
+            key={i?.name}
             variant="card"
-            slug="123"
-            name="TBK Landing Page"
-            description="Company website with multilanguage support, dark mode and fully responsive for thebouncingkoala agency"
-            image="https://www.luisfalconmx.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Ff6zp47ogowku%2F7hJ7RtxKHtwBTCYzTbBxYU%2F09cfd651845768734b2b2e389b170dd7%2Fthebouncingkoala-cover.jpg&w=640&q=75"
-            tags={[]}
+            slug={i?.slug || ''}
+            name={i?.name || ''}
+            description={i?.description || ''}
+            image={i?.featuredImage?.url || ''}
+            tags={
+              i?.technologiesCollection?.items?.map((i: any) => ({
+                icon: i.icon.url,
+                name: i.name
+              })) || []
+            }
           />
         ))}
       </div>
       <div className="mx-auto w-fit">
-        <Pagination
-          showControls
-          total={10}
-          initialPage={1}
-          color="default"
-          className="mb-16"
-          classNames={{
-            wrapper: ' p-12',
-            next: 'text-2xl',
-            prev: 'text-2xl',
-            cursor: 'text-2xl bg-gradient-to-r from-primary to-secondary',
-            item: 'text-xl'
-          }}
+        <PaginationTrack
+          currentPage={page || 1}
+          itemsPerPage={itemsPerPage}
+          total={total}
         />
       </div>
     </>

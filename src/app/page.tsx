@@ -147,10 +147,10 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-2 gap-6">
+          {/* <CertificationCard />
           <CertificationCard />
           <CertificationCard />
-          <CertificationCard />
-          <CertificationCard />
+          <CertificationCard /> */}
         </div>
       </section>
 

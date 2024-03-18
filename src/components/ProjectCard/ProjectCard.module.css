@@ -1,67 +1,67 @@
-.CardProject {
+.ProjectCard {
   @apply flex h-full min-h-[480px] max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg text-nightfall shadow-lg;
 }
 
-.CardProject--featured {
+.ProjectCard--featured {
   @apply flex h-full max-w-full flex-col-reverse gap-x-32 overflow-hidden rounded-lg text-nightfall shadow-lg lg:grid lg:min-h-[480px] lg:grid-cols-2;
 }
 
-.CardProject__content {
+.ProjectCard__content {
   @apply h-full gap-x-6 rounded-t py-8;
 }
 
-.CardProject--featured .CardProject__content {
+.ProjectCard--featured .ProjectCard__content {
   @apply h-full gap-x-6 rounded-t pb-12 pt-16;
 }
 
-.CardProject__head {
+.ProjectCard__head {
   @apply mb-4 flex items-end;
 }
 
-.CardProject__icon {
+.ProjectCard__icon {
   @apply mr-2 h-8 w-8;
 }
 
-.CardProject__name {
+.ProjectCard__name {
   @apply block pb-1 text-4xl font-bold text-white;
 }
 
-.CardProject--featured .CardProject__name {
+.ProjectCard--featured .ProjectCard__name {
   @apply text-3xl md:text-5xl lg:text-4xl;
 }
 
-.CardProject__description {
-  @apply mb-6 block max-w-[700px] text-smoke;
+.ProjectCard__description {
+  @apply mb-6 block max-w-[700px] text-xl text-smoke;
 }
 
-.CardProject--featured .CardProject__description {
+.ProjectCard--featured .ProjectCard__description {
   @apply mb-6 block max-w-[700px] text-base text-smoke md:text-2xl lg:text-xl;
 }
 
-.CardProject__tags {
+.ProjectCard__tags {
   @apply mb-8 flex flex-wrap;
 }
 
-.CardProject__tag {
-  @apply mb-1 mr-1 block h-8 w-8 p-1 text-sm text-smoke last:mr-0;
-}
+/* .ProjectCard__tag {
+  @apply mb-1 mr-1 block h-12 w-12 p-1 text-sm text-smoke last:mr-0;
+} */
 
-.CardProject--featured .CardProject__tag {
+.ProjectCard--featured .ProjectCard__tag {
   @apply mb-1 mr-1 block h-11 w-11 p-1 text-sm text-smoke last:mr-0;
 }
 
-.CardProject__image {
+.ProjectCard__image {
   @apply h-full max-h-[400px] w-full rounded-lg object-cover;
 }
 
-.CardProject--featured .CardProject__image {
+.ProjectCard--featured .ProjectCard__image {
   @apply h-full max-h-[480px] w-full rounded-lg object-cover;
 }
 
-.CardProject__track {
+.ProjectCard__track {
   @apply flex w-full rounded-b border-t border-smoke/40 bg-onyx px-4 py-3;
 }
 
-.CardProject__item {
+.ProjectCard__item {
   @apply mr-4 flex items-center text-sm last:mr-0;
 }

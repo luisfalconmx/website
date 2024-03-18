@@ -1,0 +1,14 @@
+query GetTags {
+  technologyCollection {
+    items {
+      name
+      sys {
+        id
+      }
+      icon {
+        url
+        title
+      }
+    }
+  }
+}
