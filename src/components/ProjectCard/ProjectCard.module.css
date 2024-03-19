@@ -1,0 +1,67 @@
+.ProjectCard {
+  @apply flex h-full min-h-[480px] max-w-full flex-col-reverse gap-x-10 overflow-hidden rounded-lg text-nightfall shadow-lg;
+}
+
+.ProjectCard--featured {
+  @apply flex h-full max-w-full flex-col-reverse gap-x-32 overflow-hidden rounded-lg text-nightfall shadow-lg lg:grid lg:min-h-[480px] lg:grid-cols-2;
+}
+
+.ProjectCard__content {
+  @apply h-full gap-x-6 rounded-t py-8;
+}
+
+.ProjectCard--featured .ProjectCard__content {
+  @apply h-full gap-x-6 rounded-t pb-12 pt-16;
+}
+
+.ProjectCard__head {
+  @apply mb-4 flex items-end;
+}
+
+.ProjectCard__icon {
+  @apply mr-2 h-8 w-8;
+}
+
+.ProjectCard__name {
+  @apply block pb-1 text-4xl font-bold text-white;
+}
+
+.ProjectCard--featured .ProjectCard__name {
+  @apply text-3xl md:text-5xl lg:text-4xl;
+}
+
+.ProjectCard__description {
+  @apply mb-6 block max-w-[700px] text-xl text-smoke;
+}
+
+.ProjectCard--featured .ProjectCard__description {
+  @apply mb-6 block max-w-[700px] text-base text-smoke md:text-2xl lg:text-xl;
+}
+
+.ProjectCard__tags {
+  @apply mb-8 flex flex-wrap;
+}
+
+/* .ProjectCard__tag {
+  @apply mb-1 mr-1 block h-12 w-12 p-1 text-sm text-smoke last:mr-0;
+} */
+
+.ProjectCard--featured .ProjectCard__tag {
+  @apply mb-1 mr-1 block h-11 w-11 p-1 text-sm text-smoke last:mr-0;
+}
+
+.ProjectCard__image {
+  @apply h-full max-h-[400px] w-full rounded-lg object-cover;
+}
+
+.ProjectCard--featured .ProjectCard__image {
+  @apply h-full max-h-[480px] w-full rounded-lg object-cover;
+}
+
+.ProjectCard__track {
+  @apply flex w-full rounded-b border-t border-smoke/40 bg-onyx px-4 py-3;
+}
+
+.ProjectCard__item {
+  @apply mr-4 flex items-center text-sm last:mr-0;
+}

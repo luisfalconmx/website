@@ -1088,9 +1088,24 @@ export type ProjectDesignDescriptionLinks = {
 
 export type ProjectDesignDescriptionResources = {
   __typename?: 'ProjectDesignDescriptionResources'
-  block: Array<ResourceLink>
-  hyperlink: Array<ResourceLink>
-  inline: Array<ResourceLink>
+  block: Array<ProjectDesignDescriptionResourcesBlock>
+  hyperlink: Array<ProjectDesignDescriptionResourcesHyperlink>
+  inline: Array<ProjectDesignDescriptionResourcesInline>
+}
+
+export type ProjectDesignDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'ProjectDesignDescriptionResourcesBlock'
+  sys: ResourceSys
+}
+
+export type ProjectDesignDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'ProjectDesignDescriptionResourcesHyperlink'
+  sys: ResourceSys
+}
+
+export type ProjectDesignDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'ProjectDesignDescriptionResourcesInline'
+  sys: ResourceSys
 }
 
 export type ProjectFilter = {
@@ -1263,9 +1278,24 @@ export type ProjectOverviewLinks = {
 
 export type ProjectOverviewResources = {
   __typename?: 'ProjectOverviewResources'
-  block: Array<ResourceLink>
-  hyperlink: Array<ResourceLink>
-  inline: Array<ResourceLink>
+  block: Array<ProjectOverviewResourcesBlock>
+  hyperlink: Array<ProjectOverviewResourcesHyperlink>
+  inline: Array<ProjectOverviewResourcesInline>
+}
+
+export type ProjectOverviewResourcesBlock = ResourceLink & {
+  __typename?: 'ProjectOverviewResourcesBlock'
+  sys: ResourceSys
+}
+
+export type ProjectOverviewResourcesHyperlink = ResourceLink & {
+  __typename?: 'ProjectOverviewResourcesHyperlink'
+  sys: ResourceSys
+}
+
+export type ProjectOverviewResourcesInline = ResourceLink & {
+  __typename?: 'ProjectOverviewResourcesInline'
+  sys: ResourceSys
 }
 
 export type ProjectTechnologiesCollection = {
@@ -1434,14 +1464,12 @@ export type QueryTechnologyCollectionArgs = {
 }
 
 export type ResourceLink = {
-  __typename?: 'ResourceLink'
   sys: ResourceSys
 }
 
 export type ResourceSys = {
   __typename?: 'ResourceSys'
   linkType: Scalars['String']['output']
-  type: Scalars['String']['output']
   urn: Scalars['String']['output']
 }
 
@@ -1930,16 +1958,24 @@ export type GetHomePageInfoQuery = {
     items: Array<{
       __typename?: 'Certification'
       name?: string | null
+      credentialId?: string | null
       credentialUrl?: string | null
+      expirationDate?: any | null
+      issueDate?: any | null
+      issuingOrganization?: string | null
       picture?: { __typename?: 'Asset'; url?: string | null } | null
+      issuingOrganizationImage?: {
+        __typename?: 'Asset'
+        url?: string | null
+      } | null
     } | null>
   } | null
-  skillsCollection?: {
-    __typename?: 'SkillsCollection'
+  technologyCollection?: {
+    __typename?: 'TechnologyCollection'
     items: Array<{
-      __typename?: 'Skills'
-      title?: string | null
-      description?: string | null
+      __typename?: 'Technology'
+      name?: string | null
+      icon?: { __typename?: 'Asset'; url?: string | null } | null
     } | null>
   } | null
 }
@@ -2083,7 +2119,11 @@ export function useFindProjectIdBySlugQuery(
   baseOptions: Apollo.QueryHookOptions<
     FindProjectIdBySlugQuery,
     FindProjectIdBySlugQueryVariables
-  >
+  > &
+    (
+      | { variables: FindProjectIdBySlugQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<
@@ -2171,7 +2211,11 @@ export function useGetCertificationsQuery(
   baseOptions: Apollo.QueryHookOptions<
     GetCertificationsQuery,
     GetCertificationsQueryVariables
-  >
+  > &
+    (
+      | { variables: GetCertificationsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<
@@ -2400,16 +2444,25 @@ export const GetHomePageInfoDocument = gql`
       total
       items {
         name
-        credentialUrl
         picture {
+          url
+        }
+        credentialId
+        credentialUrl
+        expirationDate
+        issueDate
+        issuingOrganization
+        issuingOrganizationImage {
           url
         }
       }
     }
-    skillsCollection(limit: 12) {
+    technologyCollection(limit: 50, order: name_ASC) {
       items {
-        title
-        description
+        name
+        icon {
+          url
+        }
       }
     }
   }
@@ -2540,7 +2593,11 @@ export function useGetProjectByIdQuery(
   baseOptions: Apollo.QueryHookOptions<
     GetProjectByIdQuery,
     GetProjectByIdQueryVariables
-  >
+  > &
+    (
+      | { variables: GetProjectByIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetProjectByIdQuery, GetProjectByIdQueryVariables>(
@@ -2632,7 +2689,11 @@ export function useGetProjectsQuery(
   baseOptions: Apollo.QueryHookOptions<
     GetProjectsQuery,
     GetProjectsQueryVariables
-  >
+  > &
+    (
+      | { variables: GetProjectsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(

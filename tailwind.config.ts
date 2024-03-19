@@ -1,16 +1,16 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Poppins', ...defaultTheme.fontFamily.sans]
-      },
       colors: {
-        primary: '#3183FF',
-        secondary: '#8F00FF',
         nightfall: '#080808',
         onyx: '#121212',
         iron: '#6c6d6e',
@@ -18,6 +18,25 @@ const config: Config = {
         ghost: '#F8F8FF'
       }
     }
-  }
+  },
+  plugins: [
+    nextui({
+      themes: {
+        dark: {
+          colors: {
+            primary: {
+              DEFAULT: '#BD3F32',
+              foreground: '#ffffff'
+            },
+            secondary: {
+              DEFAULT: '#CB356B',
+              foreground: '#ffffff'
+            },
+            focus: '#BD3F32'
+          }
+        }
+      }
+    })
+  ]
 }
 export default config

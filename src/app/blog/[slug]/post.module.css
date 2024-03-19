@@ -1,0 +1,52 @@
+.post {
+  @apply mb-10 px-4 text-lg md:text-xl lg:pl-0 lg:pr-8;
+}
+
+.post p {
+  @apply pb-5 text-smoke;
+}
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+  @apply pb-6 pt-12 text-2xl font-bold md:text-3xl;
+}
+
+.post h1 {
+  @apply text-4xl md:text-5xl;
+}
+
+.post h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+.post ul {
+  @apply list-disc pb-8 ps-4 md:ps-12;
+}
+
+.post ul p {
+  @apply pb-2;
+}
+
+.post img {
+  @apply mb-8 ml-0 mr-auto h-full max-w-[920px] rounded-xl border border-divider;
+}
+
+.post a {
+  @apply border-b border-primary bg-gradient-to-r from-primary to-secondary bg-clip-text font-semibold text-transparent underline;
+}
+
+.post hr {
+  @apply mb-5 block;
+}
+
+.post pre {
+  @apply !mb-8 !mt-0 block w-full max-w-[912px] overflow-hidden rounded-xl border border-divider bg-[#282c34] p-4 text-lg;
+}
+
+.post mark {
+  @apply bg-secondary;
+}
