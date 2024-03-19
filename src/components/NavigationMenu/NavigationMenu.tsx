@@ -43,7 +43,9 @@ const NavigationMenu = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">luisfalconmx.dev</p>
+          <Link href="/" className="font-bold text-inherit">
+            luisfalconmx.dev
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 

@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const getPosts = async () => {
   try {
-    const API_KEY = process.env.NEXT_PUBLIC_DEVTO_API_KEY
+    const API_KEY = process.env.DEVTO_API_KEY
     const response = await axios.get(
       `https://dev.to/api/articles/me?page=1&per_page=1000`,
       {

@@ -1958,16 +1958,24 @@ export type GetHomePageInfoQuery = {
     items: Array<{
       __typename?: 'Certification'
       name?: string | null
+      credentialId?: string | null
       credentialUrl?: string | null
+      expirationDate?: any | null
+      issueDate?: any | null
+      issuingOrganization?: string | null
       picture?: { __typename?: 'Asset'; url?: string | null } | null
+      issuingOrganizationImage?: {
+        __typename?: 'Asset'
+        url?: string | null
+      } | null
     } | null>
   } | null
-  skillsCollection?: {
-    __typename?: 'SkillsCollection'
+  technologyCollection?: {
+    __typename?: 'TechnologyCollection'
     items: Array<{
-      __typename?: 'Skills'
-      title?: string | null
-      description?: string | null
+      __typename?: 'Technology'
+      name?: string | null
+      icon?: { __typename?: 'Asset'; url?: string | null } | null
     } | null>
   } | null
 }
@@ -2436,16 +2444,25 @@ export const GetHomePageInfoDocument = gql`
       total
       items {
         name
-        credentialUrl
         picture {
+          url
+        }
+        credentialId
+        credentialUrl
+        expirationDate
+        issueDate
+        issuingOrganization
+        issuingOrganizationImage {
           url
         }
       }
     }
-    skillsCollection(limit: 12) {
+    technologyCollection(limit: 50, order: name_ASC) {
       items {
-        title
-        description
+        name
+        icon {
+          url
+        }
       }
     }
   }
