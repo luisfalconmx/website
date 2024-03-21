@@ -15,9 +15,16 @@ import {
   GetHomePageInfoQueryVariables,
   GetHomePageInfoDocument
 } from '@/generated/contentful.schema'
+import type { Metadata } from 'next'
 
 // revalidate every 5 minutes
 export const revalidate = 300
+
+export const metadata: Metadata = {
+  title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
+  description:
+    'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.'
+}
 
 export default async function Home() {
   const client = contentfulClient()
@@ -54,7 +61,6 @@ export default async function Home() {
   const position = response.data.profile?.position || ''
   const description = response.data.profile?.description || ''
   const cvDownloadLink = response.data.profile?.cv?.url || ''
-  const socialLinks = response.data.profile?.socialLinksCollection?.items || []
   const englishLevel = response.data.profile?.englishLevel || ''
   const totalProjects = response.data.projectCollection?.total || 0
   const latestProjects = response.data.projectCollection?.items || []
