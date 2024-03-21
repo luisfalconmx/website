@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import Image from 'next/image'
 import BlockGradient from '@/components/BlockGradient'
 import { Button } from '@nextui-org/react'
@@ -15,6 +16,7 @@ import {
   GetHomePageInfoQueryVariables,
   GetHomePageInfoDocument
 } from '@/generated/contentful.schema'
+import schemaMarkup from './schema.json'
 import type { Metadata } from 'next'
 
 // revalidate every 5 minutes
@@ -23,11 +25,13 @@ export const revalidate = 300
 export const metadata: Metadata = {
   title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
   description:
-    'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.',
+    'I am frontend developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
+  creator: 'Luis Falcon (luisfalconmx)',
+  robots: 'index, follow',
   openGraph: {
     title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
     description:
-      'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.',
+      'I am frontend developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
     type: 'website',
     url: 'https://www.luisfalconmx.dev',
     images: [
@@ -37,7 +41,12 @@ export const metadata: Metadata = {
     ]
   },
   twitter: {
-    images: []
+    card: 'summary_large_image',
+    images: [
+      {
+        url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
+      }
+    ]
   }
 }
 
@@ -242,6 +251,10 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      <Script id="schema" type="application/ld+json">
+        {JSON.stringify(schemaMarkup)}
+      </Script>
     </>
   )
 }
