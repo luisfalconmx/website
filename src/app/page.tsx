@@ -23,7 +23,22 @@ export const revalidate = 300
 export const metadata: Metadata = {
   title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
   description:
-    'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.'
+    'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.',
+  openGraph: {
+    title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
+    description:
+      'I am frontend developer with experience in modern web technologies. I have more than 100 certifications related on software development.',
+    type: 'website',
+    url: 'https://www.luisfalconmx.dev',
+    images: [
+      {
+        url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
+      }
+    ]
+  },
+  twitter: {
+    images: []
+  }
 }
 
 export default async function Home() {
