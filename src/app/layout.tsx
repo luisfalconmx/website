@@ -1,9 +1,9 @@
 import { Poppins } from 'next/font/google'
-import { Providers } from './providers'
+import { Providers } from '@/config/providers'
 import NavigationMenu from '@/components/NavigationMenu'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
-import './globals.css'
+import '@/styles/main.css'
 
 const font = Poppins({ weight: '400', subsets: ['latin'] })
 
