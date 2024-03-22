@@ -1,5 +1,8 @@
 import 'dotenv/config'
 
+// SITE
+export const BASE_URL = process.env.BASE_URL || ''
+
 // DEV TO
 export const DEVTO_USERNAME = process.env.DEVTO_USERNAME || ''
 export const DEVTO_API_KEY = process.env.DEVTO_API_KEY || ''
