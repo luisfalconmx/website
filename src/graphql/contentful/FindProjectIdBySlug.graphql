@@ -1,9 +1,0 @@
-query FindProjectIdBySlug($slug: String!) {
-  projectCollection(where: { slug: $slug }) {
-    items {
-      sys {
-        id
-      }
-    }
-  }
-}

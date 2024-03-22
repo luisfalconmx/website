@@ -1,260 +1,113 @@
-import Link from 'next/link'
-import Script from 'next/script'
-import Image from 'next/image'
-import BlockGradient from '@/components/BlockGradient'
-import { Button } from '@nextui-org/react'
-import { BriefcaseIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import AccordionTrack from '@/components/AccordionTrack'
-import ProjectCard from '@/components/ProjectCard'
-import CertificationCard from '@/components/CertificationCard'
-import SkillCard from '@/components/SkillCard'
-import contentfulClient from '@/clients/contentfulClient'
-import dayjs from 'dayjs'
-import addInitialZero from '@/utils/addInitialZero'
-import {
-  GetHomePageInfoQuery,
-  GetHomePageInfoQueryVariables,
-  GetHomePageInfoDocument
-} from '@/generated/contentful.schema'
-import schemaMarkup from './schema.json'
-import type { Metadata } from 'next'
+import Image from "next/image";
 
-// revalidate every 5 minutes
-export const revalidate = 300
-
-export const metadata: Metadata = {
-  title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
-  description:
-    'I am frontend developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
-  creator: 'Luis Falcon (luisfalconmx)',
-  robots: 'index, follow',
-  openGraph: {
-    title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
-    description:
-      'I am frontend developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
-    type: 'website',
-    url: 'https://www.luisfalconmx.dev',
-    images: [
-      {
-        url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
-      }
-    ]
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
-      }
-    ]
-  }
-}
-
-export default async function Home() {
-  const client = contentfulClient()
-
-  const response = await client.query<
-    GetHomePageInfoQuery,
-    GetHomePageInfoQueryVariables
-  >({
-    query: GetHomePageInfoDocument,
-    variables: {}
-  })
-
-  let tempTotalExperience = 0
-
-  const monthsOfExperience = response.data.experienceCollection?.items.map(
-    (i) => {
-      const now = dayjs()
-      const startDate = dayjs(i?.startDate?.substring(0, 10))
-      const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
-
-      return endDate.diff(startDate, 'month')
-    }
-  )
-
-  if (monthsOfExperience) {
-    const sumExperience =
-      monthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
-
-    tempTotalExperience = Math.round(sumExperience * 2) / 2
-  }
-
-  const username = response.data.profile?.username || ''
-  const profilePicture = response.data.profile?.picture?.url || ''
-  const position = response.data.profile?.position || ''
-  const description = response.data.profile?.description || ''
-  const cvDownloadLink = response.data.profile?.cv?.url || ''
-  const englishLevel = response.data.profile?.englishLevel || ''
-  const totalProjects = response.data.projectCollection?.total || 0
-  const latestProjects = response.data.projectCollection?.items || []
-  const totalExperience = tempTotalExperience || 0
-  const experiences = response.data.experienceCollection?.items || []
-  const totalCertifications = response.data.certificationCollection?.total || 0
-  const certifications = response.data.certificationCollection?.items || []
-  const technologies = response.data.technologyCollection?.items || []
-
+export default function Home() {
   return (
-    <>
-      <BlockGradient variant="default" />
-
-      <section className="mx-auto mb-32 mt-7 max-w-[683px] px-6 lg:px-0">
-        <Image
-          width={190}
-          height={190}
-          src={profilePicture}
-          alt="Luis Falcon (luisfalconmx) profile picture"
-          className="mx-auto mb-10 h-auto w-auto rounded-full shadow-none shadow-black"
-        />
-
-        <h1 className="mb-10 text-center text-5xl font-bold leading-[115.195%] lg:text-[3.438rem]">
-          Hello, I am {username}{' '}
-          <span className="m-0 w-fit bg-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            {position}
-          </span>
-        </h1>
-
-        <p className="mb-12 text-center text-2xl text-smoke lg:text-lg">
-          {description}
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          Get started by editing&nbsp;
+          <code className="font-mono font-bold">src/app/page.tsx</code>
         </p>
-
-        <div className="mx-auto mb-16 flex w-fit flex-col text-center lg:flex-row">
-          <Link href="/projects" className="mb-3 mr-4  block lg:mb-0 ">
-            <Button
-              size="lg"
-              radius="full"
-              variant="shadow"
-              className="bg-gradient-to-r from-primary to-secondary p-8 text-xl lg:w-auto"
-              startContent={<BriefcaseIcon width={24} />}
-            >
-              View Projects
-            </Button>
-          </Link>
-          <a href={cvDownloadLink} className="block" target="_blank">
-            <Button
-              size="lg"
-              radius="full"
-              className="p-8 text-xl"
-              startContent={<ArrowDownTrayIcon width={24} />}
-            >
-              Download CV
-            </Button>
+        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+          <a
+            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            By{" "}
+            <Image
+              src="/vercel.svg"
+              alt="Vercel Logo"
+              className="dark:invert"
+              width={100}
+              height={24}
+              priority
+            />
           </a>
         </div>
-      </section>
+      </div>
 
-      <section className="mb-32 border-y border-divider py-16 shadow-none">
-        <div className="mx-auto grid max-w-screen-xl grid-cols-1 place-items-center gap-x-6 gap-y-14 text-center md:grid-cols-2 md:place-items-start md:gap-y-10 md:px-16 md:text-left lg:grid-cols-4 lg:place-items-center lg:gap-y-0 lg:px-0">
-          <div>
-            <strong className="mb-4 block text-5xl font-bold">
-              {addInitialZero(totalProjects)}
-            </strong>
-            <p className="block text-xl uppercase">projects</p>
-          </div>
-          <div>
-            <strong className="mb-4 block text-5xl font-bold">
-              {addInitialZero(totalExperience)}
-            </strong>
-            <p className="block text-xl uppercase">years of experience</p>
-          </div>
-
-          <div>
-            <strong className="mb-4 block text-5xl font-bold">
-              {addInitialZero(totalCertifications)}
-            </strong>
-            <p className="block text-xl uppercase">certifications</p>
-          </div>
-
-          <div>
-            <strong className="mb-4 block text-5xl font-bold">
-              {englishLevel}
-            </strong>
-            <p className="block text-xl uppercase">English level</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">
-          Latest Projects
-        </h2>
-
-        <div className="grid grid-cols-1 gap-y-24 lg:mx-0">
-          {latestProjects.map((project) => (
-            <ProjectCard
-              key={project?.slug}
-              variant="featured"
-              slug={project?.slug || ''}
-              name={project?.name || ''}
-              description={project?.description || ''}
-              image={project?.featuredImage?.url || ''}
-              tags={
-                project?.technologiesCollection?.items?.map((i: any) => ({
-                  icon: i.icon.url,
-                  name: i.name
-                })) || []
-              }
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">
-          Work Experience
-        </h2>
-
-        <AccordionTrack
-          items={experiences.map((i) => ({
-            title: i?.title || '',
-            description: i?.description || '',
-            companyName: i?.companyName || '',
-            companyImage: i?.companyImage?.url || '',
-            startDate: i?.startDate || '',
-            endDate: i?.endDate || ''
-          }))}
+      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
+        <Image
+          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+          src="/next.svg"
+          alt="Next.js Logo"
+          width={180}
+          height={37}
+          priority
         />
-      </section>
+      </div>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">
-          Recent Certifications
-        </h2>
+      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <a
+          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Docs{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Find in-depth information about Next.js features and API.
+          </p>
+        </a>
 
-        <div className="grid grid-cols-2 gap-6">
-          {certifications.map((certification) => (
-            <CertificationCard
-              key={certification?.credentialUrl}
-              credentialUrl={certification?.credentialUrl || ''}
-              image={certification?.picture?.url || ''}
-              date={certification?.issueDate || ''}
-              name={certification?.name || ''}
-              organizationImage={
-                certification?.issuingOrganizationImage?.url || ''
-              }
-              organizationName={certification?.issuingOrganization || ''}
-            />
-          ))}
-        </div>
-      </section>
+        <a
+          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Learn{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Learn about Next.js in an interactive course with&nbsp;quizzes!
+          </p>
+        </a>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">Skills</h2>
+        <a
+          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Templates{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Explore starter templates for Next.js.
+          </p>
+        </a>
 
-        <div className="grid grid-cols-4 gap-6">
-          {technologies.map((i) => (
-            <SkillCard
-              key={i?.name}
-              name={i?.name || ''}
-              icon={i?.icon?.url || ''}
-            />
-          ))}
-        </div>
-      </section>
-
-      <Script id="schema" type="application/ld+json">
-        {JSON.stringify(schemaMarkup)}
-      </Script>
-    </>
-  )
+        <a
+          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Deploy{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
+            Instantly deploy your Next.js site to a shareable URL with Vercel.
+          </p>
+        </a>
+      </div>
+    </main>
+  );
 }

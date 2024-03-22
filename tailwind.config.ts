@@ -1,42 +1,20 @@
-import { nextui } from '@nextui-org/react'
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      colors: {
-        nightfall: '#080808',
-        onyx: '#121212',
-        iron: '#6c6d6e',
-        smoke: '#CECECE',
-        ghost: '#F8F8FF'
-      }
-    }
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+    },
   },
-  plugins: [
-    nextui({
-      themes: {
-        dark: {
-          colors: {
-            primary: {
-              DEFAULT: '#BD3F32',
-              foreground: '#ffffff'
-            },
-            secondary: {
-              DEFAULT: '#CB356B',
-              foreground: '#ffffff'
-            },
-            focus: '#BD3F32'
-          }
-        }
-      }
-    })
-  ]
-}
-export default config
+  plugins: [],
+};
+export default config;
