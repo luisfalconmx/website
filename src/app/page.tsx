@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "luisfalconmx.dev",
-  description: "Personal website of Luis Falcon",
+  title: 'luisfalconmx.dev',
+  description: 'Personal website of Luis Falcon'
 }
 
 export default function Home() {
@@ -10,5 +10,5 @@ export default function Home() {
     <main>
       <h1>luisfalconmx.dev</h1>
     </main>
-  );
+  )
 }
