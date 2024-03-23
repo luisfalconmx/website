@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { devtools, persist } from 'zustand/middleware'
+import { SITE_STORAGE_KEY } from '@/config/env'
 
 interface BearState {
   bears: number
@@ -7,14 +8,16 @@ interface BearState {
 }
 
 const useBearStore = create<BearState>()(
-  persist(
-    (set) => ({
-      bears: 0,
-      increase: (by) => set((state) => ({ bears: state.bears + by }))
-    }),
-    {
-      name: 'bear-storage'
-    }
+  devtools(
+    persist(
+      (set) => ({
+        bears: 0,
+        increase: (by) => set((state) => ({ bears: state.bears + by }))
+      }),
+      {
+        name: SITE_STORAGE_KEY
+      }
+    )
   )
 )
 

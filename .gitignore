@@ -2,9 +2,9 @@
 
 # env files
 .env
+.env.test
 .env.local
 .env.development
-.env.test
 .env.production
 
 # dependencies
@@ -41,6 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+*storybook.log
 /test-results/
 /playwright-report/
 /blob-report/
