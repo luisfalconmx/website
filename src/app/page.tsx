@@ -1,3 +1,4 @@
+import ThemeSwitch from '@/components/ThemeSwitch'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <main>
       <h1>luisfalconmx.dev</h1>
+      <ThemeSwitch />
     </main>
   )
 }

@@ -1,3 +1,4 @@
+import { ThemeProvider } from 'next-themes'
 import type { Metadata } from 'next'
 import '@/styles/main.css'
 
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-white text-black dark:bg-black dark:text-white">
+        <ThemeProvider attribute="class">{children}</ThemeProvider>
+      </body>
     </html>
   )
 }
