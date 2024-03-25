@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'next-themes'
+import Navbar from '@/components/Navbar'
 import type { Metadata, Viewport } from 'next'
 import '@/styles/main.css'
 
@@ -19,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-white text-black dark:bg-black dark:text-white">
-        <ThemeProvider attribute="data-theme">{children}</ThemeProvider>
+        <ThemeProvider attribute="data-theme">
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
