@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-white text-black dark:bg-black dark:text-white">
+      <body className="bg-ghost text-black dark:bg-black dark:text-white">
         <ThemeProvider attribute="data-theme">
           <Navbar />
           {children}
