@@ -111,7 +111,12 @@ const Navbar = () => {
   return (
     <header className={styles['Navbar']}>
       <div className={styles['Navbar__content']}>
-        <button onClick={toggleMenu} className={styles['Navbar__toggle']}>
+        <button
+          id="open-menu"
+          aria-label="Open navigation menu"
+          onClick={toggleMenu}
+          className={styles['Navbar__toggle']}
+        >
           <Bars2Icon className={styles['Navbar__icon']} />
         </button>
 
@@ -124,7 +129,12 @@ const Navbar = () => {
             [styles['Navbar__nav--open']]: isMenuOpen
           })}
         >
-          <button onClick={toggleMenu} className={styles['Navbar__toggle']}>
+          <button
+            id="close-menu"
+            aria-label="Close navigation menu"
+            onClick={toggleMenu}
+            className={styles['Navbar__toggle']}
+          >
             <XMarkIcon className={styles['Navbar__icon']} />
           </button>
 
