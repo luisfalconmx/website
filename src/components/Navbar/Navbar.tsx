@@ -29,6 +29,7 @@ const Navbar = () => {
 
   const location = usePathname()
   const { theme, setTheme } = useTheme()
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
   const links = [
@@ -67,7 +68,7 @@ const Navbar = () => {
     },
     {
       name: 'Facebook profile',
-      url: 'https://www.facebook.com/luisfalconmx',
+      url: 'https://www.facebook.com/luisfalconmx.dev',
       icon: FacebookIcon
     },
     {
@@ -161,7 +162,11 @@ const Navbar = () => {
         </nav>
 
         <div className={styles['Navbar__actions']}>
-          <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          <button
+            id="toggle-theme"
+            aria-label="Toggle current theme"
+            onClick={toggleTheme}
+          >
             {theme === 'dark' ? (
               <SunIcon className={styles['Navbar__icon']} />
             ) : (
