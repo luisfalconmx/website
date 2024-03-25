@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-white text-black dark:bg-black dark:text-white">
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <ThemeProvider attribute="data-theme">{children}</ThemeProvider>
       </body>
     </html>
   )

@@ -1,5 +1,4 @@
 import Script from 'next/script'
-import ThemeSwitch from '@/components/ThemeSwitch'
 import schemaMarkup from './schema.json'
 import type { Metadata } from 'next'
 
@@ -42,7 +41,6 @@ export default function Home() {
   return (
     <main>
       <h1>luisfalconmx.dev</h1>
-      <ThemeSwitch />
 
       <Script id="schema" type="application/ld+json">
         {JSON.stringify(schemaMarkup)}
