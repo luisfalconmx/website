@@ -2,12 +2,13 @@ import { DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
 import Link from 'next/link'
 import humanDate from '@/utils/humanDate'
 
-export default async function Blog(searchParams: {
-  page: number
-  per_page: number
+export default async function Blog({
+  searchParams
+}: {
+  searchParams: { page: string }
 }) {
   const currentPage = searchParams.page || 1
-  const perPage = searchParams.per_page || 9
+  const perPage = 9
 
   const response = await fetch(
     `${DEVTO_API_URL}/articles?page=${currentPage}&per_page=${perPage}&username=luisfalconmx`,
