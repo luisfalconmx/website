@@ -3,6 +3,7 @@ const registerEnv = (value: string) => {
 }
 
 // SITE
+export const SITE_NAME = registerEnv('SITE_NAME')
 export const SITE_URL = registerEnv('SITE_URL')
 export const SITE_STORAGE_KEY = registerEnv('SITE_STORAGE_KEY')
 export const SITE_BUNDLE_ANALYZER = registerEnv('SITE_BUNDLE_ANALYZER')

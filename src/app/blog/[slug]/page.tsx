@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Script from 'next/script'
 import humanDate from '@/utils/humanDate'
 import parse from 'html-react-parser'
 import { notFound } from 'next/navigation'
@@ -8,11 +9,14 @@ import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
 import { DEVTO_USERNAME, DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
 import GithubIcon from '@/assets/icons/GithubIcon.svg'
 import TwitterIcon from '@/assets/icons/TwitterIcon.svg'
+import { SITE_NAME, SITE_URL } from '@/config/env'
 import styles from './post.module.css'
+import type { Metadata } from 'next'
+import type { Article } from '@/types/Article'
 
-export default async function Post({ params }: { params: { slug: string } }) {
+const fetchPost = async (slug: string) => {
   const response = await fetch(
-    `${DEVTO_API_URL}/articles/${DEVTO_USERNAME}/${params.slug}`,
+    `${DEVTO_API_URL}/articles/${DEVTO_USERNAME}/${slug}`,
     {
       headers: {
         'api-key': DEVTO_API_KEY,
@@ -28,7 +32,69 @@ export default async function Post({ params }: { params: { slug: string } }) {
     return notFound()
   }
 
-  const post = await response.json()
+  const post = (await response.json()) as Article
+
+  return post
+}
+
+export const generateMetadata = async ({
+  params
+}: {
+  params: { slug: string }
+}): Promise<Metadata> => {
+  const post = await fetchPost(params.slug)
+
+  return {
+    title: `${post.title} - luisfalconmx.dev`,
+    description: post.description,
+    creator: post.user.username,
+    alternates: {
+      canonical: `${SITE_URL}/blog/${post.slug}/`
+    },
+    applicationName: SITE_NAME,
+    generator: 'Next.js',
+    keywords: post.tags,
+    authors: [
+      {
+        name: `${post.user.username} (${post.user.name})`,
+        url: post.user.website_url
+      }
+    ],
+    robots: 'index, follow',
+    openGraph: {
+      title: `${post.title} - luisfalconmx.dev`,
+      description: post.description,
+      type: 'article',
+      url: `${SITE_URL}/blog/${post.slug}`,
+      publishedTime: post.published_at,
+      modifiedTime: post.edited_at,
+      siteName: 'luisfalconmx.dev',
+      tags: post.tags,
+      authors: `${post.user.name} (${post.user.username})`,
+      images: [
+        {
+          url: post.social_image
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: SITE_URL,
+      title: `${post.title} - luisfalconmx.dev`,
+      description: post.description,
+      creator: post.user.username,
+      images: [
+        {
+          url: post.social_image
+        }
+      ]
+    },
+    manifest: `${SITE_URL}/manifest.json`
+  }
+}
+
+export default async function Post({ params }: { params: { slug: string } }) {
+  const post = await fetchPost(params.slug)
 
   return (
     <>
@@ -46,7 +112,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             dateTime={post.published_at}
             className="mb-6 block w-fit rounded-xl border border-divider-soft px-3 py-2 text-sm font-medium text-black dark:border-divider-hard dark:text-white"
           >
-            {humanDate(post.published_at)}
+            {humanDate(new Date(post.published_at))}
           </time>
 
           <h1 className="mb-6 text-3xl font-bold lg:text-5xl">{post.title}</h1>
@@ -108,7 +174,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
               <li>
                 <Link
                   href={`https://twitter.com/${post.user.twitter_username}`}
-                  aria-label={`go to ${post.user.profile} twitter name`}
+                  aria-label={`go to ${post.user.twitter_username} twitter name`}
                 >
                   <Image
                     src={TwitterIcon}
@@ -142,6 +208,30 @@ export default async function Post({ params }: { params: { slug: string } }) {
       </aside>
 
       <CodeHighlight />
+
+      {/* Schema Org */}
+      <Script id={`${post.title} - schema metadata`} type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://www.luisfalconmx.dev/blog/${post.slug}"
+            },
+            "headline": "${post.title}",
+            "description": "${post.description}",
+            "image": "${post.social_image}",  
+            "author": {
+              "@type": "Person",
+              "name": "${post.user.username}",
+              "url": "${post.user.website_url}"
+            },  
+            "datePublished": "${post.published_at}",
+            "dateModified": "${post.edited_at}"
+          }
+        `}
+      </Script>
     </>
   )
 }
