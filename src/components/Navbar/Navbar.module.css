@@ -1,9 +1,9 @@
 .Navbar {
-  @apply border-divider-soft dark:border-divider-hard dark:bg-night relative flex justify-between border-b bg-white;
+  @apply relative flex justify-between border-b border-divider-soft bg-white dark:border-divider-hard dark:bg-night;
 }
 
 .Navbar__content {
-  @apply mx-auto grid w-full max-w-screen-2xl grid-cols-[auto_1fr_auto] items-center px-4 py-5;
+  @apply mx-auto grid w-full max-w-screen-xl grid-cols-[auto_1fr_auto] items-center px-4 py-5;
 }
 
 .Navbar__toggle {
@@ -35,7 +35,7 @@
 }
 
 .Navbar__link--active {
-  @apply text-primary font-bold;
+  @apply font-bold text-primary;
 }
 
 .Navbar__icon {
