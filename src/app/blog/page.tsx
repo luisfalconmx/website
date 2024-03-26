@@ -1,4 +1,4 @@
-import { DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
+import { DEVTO_USERNAME, DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
 import Link from 'next/link'
 import humanDate from '@/utils/humanDate'
 
@@ -11,7 +11,7 @@ export default async function Blog({
   const perPage = 9
 
   const response = await fetch(
-    `${DEVTO_API_URL}/articles?page=${currentPage}&per_page=${perPage}&username=luisfalconmx`,
+    `${DEVTO_API_URL}/articles?page=${currentPage}&per_page=${perPage}&username=${DEVTO_USERNAME}`,
     {
       headers: {
         'api-key': DEVTO_API_KEY,

@@ -11,7 +11,7 @@
 }
 
 .Navbar__sitename {
-  @apply text-xl font-bold lg:text-lg;
+  @apply block w-fit text-xl font-bold lg:text-lg;
 }
 
 .Navbar__nav {
