@@ -44,7 +44,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         <div className="px-4 lg:px-12">
           <time
             dateTime={post.published_at}
-            className="mb-6 block w-fit rounded-xl border border-divider-soft px-3 py-2 text-sm font-medium text-black/75 dark:border-divider-hard dark:text-white/75"
+            className="mb-6 block w-fit rounded-xl border border-divider-soft px-3 py-2 text-sm font-medium text-black dark:border-divider-hard dark:text-white"
           >
             {humanDate(post.published_at)}
           </time>
@@ -70,12 +70,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
             <Link
               href={post.user.website_url}
               rel="author"
-              className="mb-4 block text-black/75 underline dark:text-white/75"
+              className="mb-4 block text-black underline dark:text-white"
             >
               @{post.user.username}
             </Link>
 
-            <p className="mb-6 text-base text-night/50 dark:text-white/75">
+            <p className="mb-6 text-base text-night dark:text-white">
               I am frontend developer with 4 years of experience, B1 English
               level and more than 100 certifications related to software
               development.
@@ -131,7 +131,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
               {post.tags.map((tag: string) => (
                 <li
                   key={tag}
-                  className="rounded-full border border-divider-soft px-3 py-1 text-sm text-black/75 dark:border-divider-hard dark:text-white/75"
+                  className="rounded-full border border-divider-soft px-3 py-1 text-sm text-black dark:border-divider-hard dark:text-white"
                 >
                   {tag}
                 </li>
