@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
+import dynamic from 'next/dynamic'
 import humanDate from '@/utils/humanDate'
 import { notFound } from 'next/navigation'
-import { CodeHighlight } from '@/components/CodeHighlight/CodeHighlight'
 import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
 import { DEVTO_USERNAME, DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
 import GithubIcon from '@/assets/icons/GithubIcon.svg'
@@ -13,6 +13,11 @@ import styles from './post.module.css'
 import type { Metadata } from 'next'
 import type { Article } from '@/types/Article'
 import Markdown from 'react-markdown'
+
+const CodeHighlight = dynamic(
+  () => import('../../../components/CodeHighlight/CodeHighlight'),
+  { ssr: false }
+)
 
 const fetchPost = async (slug: string) => {
   const response = await fetch(
