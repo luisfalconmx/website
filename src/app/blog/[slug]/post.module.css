@@ -46,7 +46,7 @@
 }
 
 .post pre {
-  @apply !mb-8 !mt-0 block w-full max-w-[360px] overflow-x-auto rounded-xl border border-divider-soft bg-[#282c34] p-4 text-lg dark:border-divider-hard md:max-w-[560px] lg:max-w-screen-xl;
+  @apply !mb-8 !mt-0 block w-full max-w-[360px] overflow-x-auto rounded-xl border border-divider-soft bg-[#282c34] p-4 text-base dark:border-divider-hard md:max-w-[560px] lg:max-w-screen-xl lg:text-lg;
 }
 
 .post mark {

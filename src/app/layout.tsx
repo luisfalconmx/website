@@ -1,6 +1,5 @@
 import { ThemeProvider } from 'next-themes'
 import Navbar from '@/components/Navbar'
-import { WebVitals } from '@/config/web-vitals'
 import type { Metadata, Viewport } from 'next'
 import '@/styles/main.css'
 
@@ -21,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className="bg-ghost text-black dark:bg-black dark:text-white">
-        <WebVitals />
         <ThemeProvider attribute="data-theme">
           <Navbar />
           {children}
