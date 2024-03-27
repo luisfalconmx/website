@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import dynamic from 'next/dynamic'
 import humanDate from '@/utils/humanDate'
 import { notFound } from 'next/navigation'
 import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
@@ -13,11 +12,6 @@ import styles from './post.module.css'
 import type { Metadata } from 'next'
 import type { Article } from '@/types/Article'
 import Markdown from 'react-markdown'
-
-const CodeHighlight = dynamic(
-  () => import('../../../components/CodeHighlight/CodeHighlight'),
-  { ssr: false }
-)
 
 const fetchPost = async (slug: string) => {
   const response = await fetch(
@@ -212,8 +206,6 @@ export default async function Post({ params }: { params: { slug: string } }) {
           </div>
         )}
       </aside>
-
-      <CodeHighlight />
 
       {/* Schema Org */}
       <Script id={`${post.title} - schema metadata`} type="application/ld+json">
