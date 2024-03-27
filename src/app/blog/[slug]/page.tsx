@@ -12,6 +12,7 @@ import styles from './post.module.css'
 import type { Metadata } from 'next'
 import type { Article } from '@/types/Article'
 import Markdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 
 const fetchPost = async (slug: string) => {
   const response = await fetch(
@@ -116,7 +117,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <h1 className="mb-6 text-3xl font-bold lg:text-5xl">{post.title}</h1>
 
           <section className={styles['post']}>
-            <Markdown>{post.body_markdown}</Markdown>
+            <Markdown rehypePlugins={[rehypeHighlight]}>
+              {post.body_markdown}
+            </Markdown>
           </section>
         </div>
       </main>
