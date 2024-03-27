@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import humanDate from '@/utils/humanDate'
-import parse from 'html-react-parser'
 import { notFound } from 'next/navigation'
 import { CodeHighlight } from '@/components/CodeHighlight/CodeHighlight'
 import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
@@ -13,6 +12,7 @@ import { SITE_NAME, SITE_URL } from '@/config/env'
 import styles from './post.module.css'
 import type { Metadata } from 'next'
 import type { Article } from '@/types/Article'
+import Markdown from 'react-markdown'
 
 const fetchPost = async (slug: string) => {
   const response = await fetch(
@@ -88,8 +88,7 @@ export const generateMetadata = async ({
           url: post.social_image
         }
       ]
-    },
-    manifest: `${SITE_URL}/manifest.json`
+    }
   }
 }
 
@@ -117,7 +116,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
           <h1 className="mb-6 text-3xl font-bold lg:text-5xl">{post.title}</h1>
 
-          <section className={styles['post']}>{parse(post.body_html)}</section>
+          <section className={styles['post']}>
+            <Markdown>{post.body_markdown}</Markdown>
+          </section>
         </div>
       </main>
 
