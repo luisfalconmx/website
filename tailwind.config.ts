@@ -10,9 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#0046B8',
         ghost: '#f0f0f0',
-        night: '#0a0a0a',
+        night: '#121212',
         divider: {
           soft: '#e6e6e6',
           hard: '#2d2d2d'

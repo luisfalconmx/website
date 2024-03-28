@@ -45,7 +45,7 @@ export const generateMetadata = async ({
   const post = await fetchPost(params.slug)
 
   return {
-    title: `${post.title} - luisfalconmx.dev`,
+    title: post.title,
     description: post.description,
     creator: post.user.username,
     alternates: {
@@ -62,7 +62,7 @@ export const generateMetadata = async ({
     ],
     robots: 'index, follow',
     openGraph: {
-      title: `${post.title} - luisfalconmx.dev`,
+      title: post.title,
       description: post.description,
       type: 'article',
       url: `${SITE_URL}/blog/${post.slug}`,

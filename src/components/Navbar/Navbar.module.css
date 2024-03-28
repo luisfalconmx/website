@@ -31,15 +31,19 @@
 }
 
 .Navbar__link {
-  @apply flex items-center space-x-2 text-xl lg:text-lg;
+  @apply flex items-center space-x-2 text-xl text-black/60 dark:text-white/60 lg:text-lg;
 }
 
 .Navbar__link--active {
-  @apply font-bold text-primary;
+  @apply font-bold text-black dark:text-white;
 }
 
 .Navbar__icon {
-  @apply h-8 w-8;
+  @apply h-8 w-8 text-black/60 dark:text-white/60;
+}
+
+.Navbar__link--active .Navbar__icon {
+  @apply text-black dark:text-white;
 }
 
 .Navbar__social-list {
