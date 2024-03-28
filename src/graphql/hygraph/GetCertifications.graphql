@@ -1,0 +1,6 @@
+query GetCertifications {
+  certifications {
+    slug
+    name
+  }
+}
