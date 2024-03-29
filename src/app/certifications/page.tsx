@@ -5,6 +5,7 @@ import { getCertifications } from '@/services/hygraph'
 import humanDate from '@/utils/humanDate'
 import Link from 'next/link'
 import { defaultBlurImage } from '@/config/blurImages'
+import { Pagination } from '@/components/Pagination'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import type { Metadata } from 'next'
 
@@ -44,7 +45,7 @@ export default async function Certifications({
     skip
   })
 
-  const totalCertifications = res?.certificationsConnection.aggregate.count
+  const totalCertifications = res?.certificationsConnection.aggregate.count || 0
 
   return (
     <main className="mx-auto max-w-screen-xl px-4 py-12 lg:py-24">
@@ -117,6 +118,12 @@ export default async function Certifications({
           </li>
         ))}
       </ul>
+
+      <Pagination
+        total={totalCertifications}
+        limit={limit}
+        currentPage={currentPage}
+      />
     </main>
   )
 }
