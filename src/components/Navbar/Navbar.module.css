@@ -1,5 +1,5 @@
 .Navbar {
-  @apply relative flex justify-between border-b border-divider-soft bg-white dark:border-divider-hard dark:bg-night;
+  @apply sticky top-0 z-50 flex justify-between border-b border-divider-soft bg-white bg-opacity-20 backdrop-blur-lg backdrop-filter dark:border-divider-hard dark:bg-night dark:bg-opacity-20;
 }
 
 .Navbar__content {

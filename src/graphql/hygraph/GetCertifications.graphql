@@ -1,6 +1,22 @@
-query GetCertifications {
-  certifications {
+query GetCertifications($first: Int, $skip: Int) {
+  certifications(first: $first, skip: $skip, orderBy: date_DESC) {
+    id
     slug
     name
+    createdAt
+    date
+    url
+    organizationName
+    organizationImage {
+      url
+    }
+    image {
+      url
+    }
+  }
+  certificationsConnection {
+    aggregate {
+      count
+    }
   }
 }

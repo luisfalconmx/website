@@ -24,7 +24,7 @@ export default function Home() {
     <main>
       <h1>luisfalconmx.dev</h1>
 
-      <Script id="schema">
+      <Script id="schema" type="application/ld+json">
         {`{
           "@context": "https://schema.org/",
           "@type": "Person",

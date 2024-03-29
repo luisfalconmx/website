@@ -70,6 +70,7 @@ export type Asset = Entity &
     localizations: Array<Asset>
     /** The mime type of the file */
     mimeType?: Maybe<Scalars['String']['output']>
+    organizationImageCertification: Array<Certification>
     /** The time the document was published. Null on documents in draft stage. */
     publishedAt?: Maybe<Scalars['DateTime']['output']>
     /** User that last published this document */
@@ -136,6 +137,19 @@ export type AssetLocalizationsArgs = {
 }
 
 /** Asset system model */
+export type AssetOrganizationImageCertificationArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  before?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
+  last?: InputMaybe<Scalars['Int']['input']>
+  locales?: InputMaybe<Array<Locale>>
+  orderBy?: InputMaybe<CertificationOrderByInput>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<CertificationWhereInput>
+}
+
+/** Asset system model */
 export type AssetPublishedAtArgs = {
   variation?: SystemDateTimeFieldVariation
 }
@@ -197,6 +211,7 @@ export type AssetCreateInput = {
   imageCertification?: InputMaybe<CertificationCreateManyInlineInput>
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>
+  organizationImageCertification?: InputMaybe<CertificationCreateManyInlineInput>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** Optionally the system can upload a file for you, for that you need to provide a publicly accessible url */
   uploadUrl?: InputMaybe<Scalars['String']['input']>
@@ -295,6 +310,9 @@ export type AssetManyWhereInput = {
   imageCertification_every?: InputMaybe<CertificationWhereInput>
   imageCertification_none?: InputMaybe<CertificationWhereInput>
   imageCertification_some?: InputMaybe<CertificationWhereInput>
+  organizationImageCertification_every?: InputMaybe<CertificationWhereInput>
+  organizationImageCertification_none?: InputMaybe<CertificationWhereInput>
+  organizationImageCertification_some?: InputMaybe<CertificationWhereInput>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -382,6 +400,7 @@ export type AssetUpdateInput = {
   imageCertification?: InputMaybe<CertificationUpdateManyInlineInput>
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>
+  organizationImageCertification?: InputMaybe<CertificationUpdateManyInlineInput>
   /** Use this to define if its a reupload for the asset */
   reUpload?: InputMaybe<Scalars['Boolean']['input']>
   /** Optionally the system can upload a file for you, for that you need to provide a publicly accessible url */
@@ -747,6 +766,9 @@ export type AssetWhereInput = {
   mimeType_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   mimeType_starts_with?: InputMaybe<Scalars['String']['input']>
+  organizationImageCertification_every?: InputMaybe<CertificationWhereInput>
+  organizationImageCertification_none?: InputMaybe<CertificationWhereInput>
+  organizationImageCertification_some?: InputMaybe<CertificationWhereInput>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -849,27 +871,30 @@ export type Certification = Entity &
     createdAt: Scalars['DateTime']['output']
     /** User that created this document */
     createdBy?: Maybe<User>
-    date?: Maybe<Scalars['Date']['output']>
+    date: Scalars['Date']['output']
     /** Get the document in other stages */
     documentInStages: Array<Certification>
     /** List of Certification versions */
     history: Array<Version>
     /** The unique identifier */
     id: Scalars['ID']['output']
-    image?: Maybe<Asset>
-    name?: Maybe<Scalars['String']['output']>
+    image: Asset
+    name: Scalars['String']['output']
+    organizationImage: Asset
+    organizationName: Scalars['String']['output']
     /** The time the document was published. Null on documents in draft stage. */
     publishedAt?: Maybe<Scalars['DateTime']['output']>
     /** User that last published this document */
     publishedBy?: Maybe<User>
     scheduledIn: Array<ScheduledOperation>
-    slug?: Maybe<Scalars['String']['output']>
+    slug: Scalars['String']['output']
     /** System stage field */
     stage: Stage
     /** The time the document was updated */
     updatedAt: Scalars['DateTime']['output']
     /** User that last updated this document */
     updatedBy?: Maybe<User>
+    url: Scalars['String']['output']
   }
 
 export type CertificationCreatedByArgs = {
@@ -890,6 +915,12 @@ export type CertificationHistoryArgs = {
 }
 
 export type CertificationImageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
+  locales?: InputMaybe<Array<Locale>>
+  where?: InputMaybe<AssetSingleRelationWhereInput>
+}
+
+export type CertificationOrganizationImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
   locales?: InputMaybe<Array<Locale>>
   where?: InputMaybe<AssetSingleRelationWhereInput>
@@ -935,11 +966,14 @@ export type CertificationConnection = {
 
 export type CertificationCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  date?: InputMaybe<Scalars['Date']['input']>
-  image?: InputMaybe<AssetCreateOneInlineInput>
-  name?: InputMaybe<Scalars['String']['input']>
-  slug?: InputMaybe<Scalars['String']['input']>
+  date: Scalars['Date']['input']
+  image: AssetCreateOneInlineInput
+  name: Scalars['String']['input']
+  organizationImage: AssetCreateOneInlineInput
+  organizationName: Scalars['String']['input']
+  slug: Scalars['String']['input']
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+  url: Scalars['String']['input']
 }
 
 export type CertificationCreateManyInlineInput = {
@@ -1048,6 +1082,30 @@ export type CertificationManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']['input']>
+  organizationImage?: InputMaybe<AssetWhereInput>
+  organizationName?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  organizationName_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  organizationName_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  organizationName_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** Any other value that exists and is not equal to the given value. */
+  organizationName_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  organizationName_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  organizationName_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  organizationName_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** All values not starting with the given string. */
+  organizationName_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  organizationName_starts_with?: InputMaybe<Scalars['String']['input']>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -1104,6 +1162,25 @@ export type CertificationManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   updatedBy?: InputMaybe<UserWhereInput>
+  url?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  url_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  url_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  url_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  url_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  url_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  url_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  url_starts_with?: InputMaybe<Scalars['String']['input']>
 }
 
 export enum CertificationOrderByInput {
@@ -1115,19 +1192,26 @@ export enum CertificationOrderByInput {
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  OrganizationNameAsc = 'organizationName_ASC',
+  OrganizationNameDesc = 'organizationName_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC'
+  UpdatedAtDesc = 'updatedAt_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 export type CertificationUpdateInput = {
   date?: InputMaybe<Scalars['Date']['input']>
   image?: InputMaybe<AssetUpdateOneInlineInput>
   name?: InputMaybe<Scalars['String']['input']>
+  organizationImage?: InputMaybe<AssetUpdateOneInlineInput>
+  organizationName?: InputMaybe<Scalars['String']['input']>
   slug?: InputMaybe<Scalars['String']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
 }
 
 export type CertificationUpdateManyInlineInput = {
@@ -1150,6 +1234,8 @@ export type CertificationUpdateManyInlineInput = {
 export type CertificationUpdateManyInput = {
   date?: InputMaybe<Scalars['Date']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  organizationName?: InputMaybe<Scalars['String']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
 }
 
 export type CertificationUpdateManyWithNestedWhereInput = {
@@ -1284,6 +1370,30 @@ export type CertificationWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']['input']>
+  organizationImage?: InputMaybe<AssetWhereInput>
+  organizationName?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  organizationName_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  organizationName_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  organizationName_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** Any other value that exists and is not equal to the given value. */
+  organizationName_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  organizationName_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  organizationName_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  organizationName_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** All values not starting with the given string. */
+  organizationName_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  organizationName_starts_with?: InputMaybe<Scalars['String']['input']>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -1340,6 +1450,25 @@ export type CertificationWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   updatedBy?: InputMaybe<UserWhereInput>
+  url?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  url_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  url_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  url_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  url_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  url_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  url_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  url_starts_with?: InputMaybe<Scalars['String']['input']>
 }
 
 /** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
@@ -3729,22 +3858,52 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetCertificationsQueryVariables = Exact<{ [key: string]: never }>
+export type GetCertificationsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+}>
 
 export type GetCertificationsQuery = {
   __typename?: 'Query'
   certifications: Array<{
     __typename?: 'Certification'
-    slug?: string | null
-    name?: string | null
+    id: string
+    slug: string
+    name: string
+    createdAt: any
+    date: any
+    url: string
+    organizationName: string
+    organizationImage: { __typename?: 'Asset'; url: string }
+    image: { __typename?: 'Asset'; url: string }
   }>
+  certificationsConnection: {
+    __typename?: 'CertificationConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
 }
 
 export const GetCertificationsDocument = gql`
-  query GetCertifications {
-    certifications {
+  query GetCertifications($first: Int, $skip: Int) {
+    certifications(first: $first, skip: $skip, orderBy: date_DESC) {
+      id
       slug
       name
+      createdAt
+      date
+      url
+      organizationName
+      organizationImage {
+        url
+      }
+      image {
+        url
+      }
+    }
+    certificationsConnection {
+      aggregate {
+        count
+      }
     }
   }
 `
@@ -3761,6 +3920,8 @@ export const GetCertificationsDocument = gql`
  * @example
  * const { data, loading, error } = useGetCertificationsQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
