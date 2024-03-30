@@ -11,6 +11,9 @@ export const { getClient: hygraphClient } = registerApolloClient(() => {
     cache: new InMemoryCache(),
     link: new HttpLink({
       uri: HYGRAPH_CONTENT_API_URL,
+      fetchOptions: {
+        cache: 'no-store'
+      },
       headers: {
         Authorization: `Bearer ${HYGRAPH_API_KEY}`
       }
