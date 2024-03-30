@@ -22,6 +22,7 @@ export const getCertifications = async (props: getCertificationsProps) => {
 
     return data
   } catch (error) {
+    // add sentry here
     console.error(error)
   }
 }

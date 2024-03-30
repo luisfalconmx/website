@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   generates: {
     './src/generated/hygraph.schema.ts': {
       schema: `${HYGRAPH_CONTENT_API_URL}`,
-      documents: ['src/graphql/hygraph/**/*.graphql'],
+      documents: ['src/services/hygraph/**/*.graphql'],
       plugins: [
         'typescript',
         'typescript-operations',

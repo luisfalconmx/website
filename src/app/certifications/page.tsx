@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import { CalendarDaysIcon } from '@heroicons/react/24/solid'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
-import { getCertifications } from '@/services/hygraph'
+import {
+  getCertifications,
+  searchCertificationsByTerm
+} from '@/services/hygraph'
 import humanDate from '@/utils/humanDate'
 import Link from 'next/link'
 import { defaultBlurImage } from '@/config/blurImages'
+import { Search } from '@/components/Search'
 import { Pagination } from '@/components/Pagination'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -33,17 +36,29 @@ export default async function Certifications({
   searchParams
 }: {
   searchParams: {
+    search: string
     page: string
   }
 }) {
   const currentPage = parseInt(searchParams.page) || 1
-  const limit = 9
+  const limit = 3
   const skip = (currentPage - 1) * limit
+  let res = null
 
-  const res = await getCertifications({
-    limit,
-    skip
-  })
+  if (searchParams.search) {
+    res = await searchCertificationsByTerm({
+      first: limit,
+      skip,
+      term: searchParams.search
+    })
+  }
+
+  if (!searchParams.search) {
+    res = await getCertifications({
+      limit,
+      skip
+    })
+  }
 
   const totalCertifications = res?.certificationsConnection.aggregate.count || 0
 
@@ -57,17 +72,7 @@ export default async function Certifications({
         certificate has a <b>unique credential ID</b> that can be verified.
       </p>
 
-      {/* search bar component */}
-      <div className="relative mx-auto mb-14 flex max-w-md justify-center">
-        <input
-          type="text"
-          placeholder="Search certifications"
-          className="w-full max-w-md rounded-full border border-divider-soft px-6 py-4 dark:border-divider-hard"
-        />
-        <button className="absolute bottom-0 right-5 top-0 m-auto">
-          <ArrowRightIcon className="h-6 w-6" />
-        </button>
-      </div>
+      <Search className="mx-auto" />
 
       <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {res?.certifications?.map((certification) => (

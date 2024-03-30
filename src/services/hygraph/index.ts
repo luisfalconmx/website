@@ -1,3 +1,4 @@
 import { getCertifications } from './getCertifications/getCertifications'
+import { searchCertificationsByTerm } from './searchCertificationsByTerms'
 
-export { getCertifications }
+export { getCertifications, searchCertificationsByTerm }

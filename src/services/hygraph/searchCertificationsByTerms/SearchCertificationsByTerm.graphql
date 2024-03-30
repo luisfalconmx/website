@@ -1,0 +1,27 @@
+query SearchCertificationsByTerm($first: Int, $skip: Int, $term: String) {
+  certificationsConnection(where: { name_contains: $term }) {
+    aggregate {
+      count
+    }
+  }
+  certifications(
+    first: $first
+    skip: $skip
+    where: { name_contains: $term }
+    orderBy: date_DESC
+  ) {
+    id
+    slug
+    name
+    createdAt
+    date
+    url
+    organizationName
+    organizationImage {
+      url
+    }
+    image {
+      url
+    }
+  }
+}

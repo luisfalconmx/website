@@ -3883,6 +3883,32 @@ export type GetCertificationsQuery = {
   }
 }
 
+export type SearchCertificationsByTermQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  term?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type SearchCertificationsByTermQuery = {
+  __typename?: 'Query'
+  certificationsConnection: {
+    __typename?: 'CertificationConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
+  certifications: Array<{
+    __typename?: 'Certification'
+    id: string
+    slug: string
+    name: string
+    createdAt: any
+    date: any
+    url: string
+    organizationName: string
+    organizationImage: { __typename?: 'Asset'; url: string }
+    image: { __typename?: 'Asset'; url: string }
+  }>
+}
+
 export const GetCertificationsDocument = gql`
   query GetCertifications($first: Int, $skip: Int) {
     certifications(first: $first, skip: $skip, orderBy: date_DESC) {
@@ -3973,4 +3999,101 @@ export type GetCertificationsSuspenseQueryHookResult = ReturnType<
 export type GetCertificationsQueryResult = Apollo.QueryResult<
   GetCertificationsQuery,
   GetCertificationsQueryVariables
+>
+export const SearchCertificationsByTermDocument = gql`
+  query SearchCertificationsByTerm($first: Int, $skip: Int, $term: String) {
+    certificationsConnection(where: { name_contains: $term }) {
+      aggregate {
+        count
+      }
+    }
+    certifications(
+      first: $first
+      skip: $skip
+      where: { name_contains: $term }
+      orderBy: date_DESC
+    ) {
+      id
+      slug
+      name
+      createdAt
+      date
+      url
+      organizationName
+      organizationImage {
+        url
+      }
+      image {
+        url
+      }
+    }
+  }
+`
+
+/**
+ * __useSearchCertificationsByTermQuery__
+ *
+ * To run a query within a React component, call `useSearchCertificationsByTermQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchCertificationsByTermQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchCertificationsByTermQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
+ *      term: // value for 'term'
+ *   },
+ * });
+ */
+export function useSearchCertificationsByTermQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >(SearchCertificationsByTermDocument, options)
+}
+export function useSearchCertificationsByTermLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >(SearchCertificationsByTermDocument, options)
+}
+export function useSearchCertificationsByTermSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    SearchCertificationsByTermQuery,
+    SearchCertificationsByTermQueryVariables
+  >(SearchCertificationsByTermDocument, options)
+}
+export type SearchCertificationsByTermQueryHookResult = ReturnType<
+  typeof useSearchCertificationsByTermQuery
+>
+export type SearchCertificationsByTermLazyQueryHookResult = ReturnType<
+  typeof useSearchCertificationsByTermLazyQuery
+>
+export type SearchCertificationsByTermSuspenseQueryHookResult = ReturnType<
+  typeof useSearchCertificationsByTermSuspenseQuery
+>
+export type SearchCertificationsByTermQueryResult = Apollo.QueryResult<
+  SearchCertificationsByTermQuery,
+  SearchCertificationsByTermQueryVariables
 >
