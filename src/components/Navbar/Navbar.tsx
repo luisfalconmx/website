@@ -147,7 +147,6 @@ const Navbar = () => {
                     [styles['Navbar__link--active']]: location === link.path
                   })}
                 >
-                  {link.icon}
                   <span>{link.name}</span>
                 </Link>
               </li>

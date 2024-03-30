@@ -1,0 +1,12 @@
+query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
+  projectsConnection {
+    aggregate {
+      count
+    }
+  }
+  projects(first: $limit, skip: $skip, where: { name_contains: $term }) {
+    id
+    slug
+    name
+  }
+}

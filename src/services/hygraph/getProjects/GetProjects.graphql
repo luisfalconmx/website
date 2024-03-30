@@ -1,0 +1,12 @@
+query GetProjects($limit: Int, $skip: Int) {
+  projectsConnection {
+    aggregate {
+      count
+    }
+  }
+  projects(first: $limit, skip: $skip) {
+    id
+    slug
+    name
+  }
+}
