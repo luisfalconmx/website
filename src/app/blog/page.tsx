@@ -28,8 +28,6 @@ export default async function Blog({
 
   const data = await response.json()
 
-  console.log(data)
-
   return (
     <main className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">
       <h1 className="mb-8 text-3xl">Blog</h1>

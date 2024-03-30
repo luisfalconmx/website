@@ -18,7 +18,7 @@ export const Pagination = ({ total, limit, currentPage }: PaginationProps) => {
     return `${pathname}?${params.toString()}`
   }
 
-  if (total <= limit) {
+  if (total <= limit || currentPage > pagesCount) {
     return null
   }
 

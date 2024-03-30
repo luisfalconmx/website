@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { defaultBlurImage } from '@/config/blurImages'
 import { Search } from '@/components/Search'
 import { Pagination } from '@/components/Pagination'
+import Button from '@/components/Button'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -77,22 +78,23 @@ export default async function Certifications({
 
       <Search className="mx-auto" />
 
-      {totalCertifications === 0 && (
+      {res?.certifications && res.certifications.length === 0 && (
         <div className="mx-auto flex max-w-lg flex-col border-4 border-dashed border-divider-soft px-4 py-12 text-center dark:border-divider-hard">
           <EyeSlashIcon className="mx-auto mb-6 h-16 w-16" />
           <div className="">
-            <p className="mb-2 text-xl font-bold">No certifications found</p>
-            <p>
-              Try searching for another term or{' '}
-              <Link href="/certifications" className="font-bold underline">
-                view all
-              </Link>
+            <b className="mb-2 block text-xl font-bold">No results found</b>
+            <p className="mb-8 text-sm">
+              We couldn&apos;t find any certifications matching with the search
+              term provided or the url was typed incorrectly.
             </p>
+            <Link href="/certifications" className="font-bold underline">
+              <Button>View all results</Button>
+            </Link>
           </div>
         </div>
       )}
 
-      {totalCertifications > 0 && (
+      {res?.certifications && res.certifications.length > 0 && (
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {res?.certifications?.map((certification) => (
             <li key={certification.id}>
