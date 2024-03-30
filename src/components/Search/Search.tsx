@@ -8,7 +8,7 @@ import type { ChangeEvent, FormEvent } from 'react'
 import type { SearchProps } from './Search.d'
 
 export const Search = ({ className = '' }: SearchProps) => {
-  const [serchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const { push } = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -17,16 +17,16 @@ export const Search = ({ className = '' }: SearchProps) => {
     const target = event.target as HTMLInputElement
     const value = target.value
 
-    if (value !== '') {
-      setSearchTerm(value)
-    }
+    setSearchTerm(value)
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    if (serchTerm) {
-      push(`${pathname}?search=${serchTerm}`)
+    if (searchTerm) {
+      push(`${pathname}?search=${searchTerm}`)
+    } else {
+      push(pathname)
     }
   }
 
@@ -35,6 +35,8 @@ export const Search = ({ className = '' }: SearchProps) => {
 
     if (searchValue) {
       setSearchTerm(searchValue)
+    } else {
+      setSearchTerm('')
     }
   }, [searchParams])
 
@@ -49,7 +51,7 @@ export const Search = ({ className = '' }: SearchProps) => {
         className={styles['Search__input']}
         maxLength={50}
         onChange={(event) => updateSearchTerm(event)}
-        defaultValue={serchTerm}
+        value={searchTerm}
       />
       <button
         type="submit"

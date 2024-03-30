@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import { CalendarDaysIcon } from '@heroicons/react/24/solid'
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowTopRightOnSquareIcon,
+  EyeSlashIcon
+} from '@heroicons/react/24/outline'
 import {
   getCertifications,
   searchCertificationsByTerm
@@ -41,7 +44,7 @@ export default async function Certifications({
   }
 }) {
   const currentPage = parseInt(searchParams.page) || 1
-  const limit = 3
+  const limit = 9
   const skip = (currentPage - 1) * limit
   let res = null
 
@@ -66,63 +69,82 @@ export default async function Certifications({
     <main className="mx-auto max-w-screen-xl px-4 py-12 lg:py-24">
       <h1 className="mx-auto mb-4 w-fit text-3xl font-bold">Certifications</h1>
       <p className="mx-auto mb-12 max-w-2xl text-center text-black/80 dark:text-white/80 lg:text-lg">
-        I have obtained <b>{totalCertifications} certifications</b> to
-        demonstrate my knowledge as a <b>Frontend Developer</b>. These
-        certifications are issued by <b>recognized organizations</b> and each
-        certificate has a <b>unique credential ID</b> that can be verified.
+        I have obtained multiple certifications to demonstrate my knowledge as a{' '}
+        <b>Frontend Developer</b>. These certifications are issued by{' '}
+        <b>recognized organizations</b> and each certificate has a{' '}
+        <b>unique credential ID</b> that can be verified.
       </p>
 
       <Search className="mx-auto" />
 
-      <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {res?.certifications?.map((certification) => (
-          <li key={certification.id}>
-            <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night">
-              <Image
-                src={certification.image.url}
-                alt={`Certificate for ${certification.name}`}
-                width={400}
-                height={300}
-                placeholder="blur"
-                blurDataURL={defaultBlurImage}
-              />
-              <div className="flex h-full flex-col border-t border-divider-soft p-4 dark:border-divider-hard">
-                <h2 className="mb-2 text-lg font-bold">{certification.name}</h2>
-                <time
-                  dateTime={certification.date}
-                  className="mb-6 flex items-center text-sm text-black/80 dark:text-white/80"
-                >
-                  <CalendarDaysIcon className="mr-1 inline-block h-5 w-5" />
-                  {humanDate(certification.date)}
-                </time>
-                <div className="mt-auto flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Image
-                      src={certification.organizationImage.url}
-                      alt={certification.organizationName}
-                      width={32}
-                      height={32}
-                      className="mr-2 rounded-full"
-                    />
-                    <p className="font-bold">
-                      {certification.organizationName}
-                    </p>
-                  </div>
-                  <Link
-                    className="flex"
-                    href={certification.url}
-                    target="_blank"
-                    rel="nofollow"
-                    aria-label={`View ${certification.name} certificate`}
+      {totalCertifications === 0 && (
+        <div className="mx-auto flex max-w-lg flex-col border-4 border-dashed border-divider-soft px-4 py-12 text-center dark:border-divider-hard">
+          <EyeSlashIcon className="mx-auto mb-6 h-16 w-16" />
+          <div className="">
+            <p className="mb-2 text-xl font-bold">No certifications found</p>
+            <p>
+              Try searching for another term or{' '}
+              <Link href="/certifications" className="font-bold underline">
+                view all
+              </Link>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {totalCertifications > 0 && (
+        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {res?.certifications?.map((certification) => (
+            <li key={certification.id}>
+              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night">
+                <Image
+                  src={certification.image.url}
+                  alt={`Certificate for ${certification.name}`}
+                  width={400}
+                  height={300}
+                  placeholder="blur"
+                  blurDataURL={defaultBlurImage}
+                />
+                <div className="flex h-full flex-col border-t border-divider-soft p-4 dark:border-divider-hard">
+                  <h2 className="mb-2 text-lg font-bold">
+                    {certification.name}
+                  </h2>
+                  <time
+                    dateTime={certification.date}
+                    className="mb-6 flex items-center text-sm text-black/80 dark:text-white/80"
                   >
-                    <ArrowTopRightOnSquareIcon className="inline-block h-6 w-6" />
-                  </Link>
+                    <CalendarDaysIcon className="mr-1 inline-block h-5 w-5" />
+                    {humanDate(certification.date)}
+                  </time>
+                  <div className="mt-auto flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Image
+                        src={certification.organizationImage.url}
+                        alt={certification.organizationName}
+                        width={32}
+                        height={32}
+                        className="mr-2 rounded-full"
+                      />
+                      <p className="font-bold">
+                        {certification.organizationName}
+                      </p>
+                    </div>
+                    <Link
+                      className="flex"
+                      href={certification.url}
+                      target="_blank"
+                      rel="nofollow"
+                      aria-label={`View ${certification.name} certificate`}
+                    >
+                      <ArrowTopRightOnSquareIcon className="inline-block h-6 w-6" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
-          </li>
-        ))}
-      </ul>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <Pagination
         total={totalCertifications}
