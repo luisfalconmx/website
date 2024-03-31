@@ -95,7 +95,7 @@ export default async function Certifications({
       )}
 
       {res?.certifications && res.certifications.length > 0 && (
-        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {res?.certifications?.map((certification) => (
             <li key={certification.id}>
               <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night">

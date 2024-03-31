@@ -5039,7 +5039,7 @@ export type SearchCertificationsByTermQueryResult = Apollo.QueryResult<
 >
 export const SearchProjectsByTermDocument = gql`
   query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
-    projectsConnection {
+    projectsConnection(where: { name_contains: $term }) {
       aggregate {
         count
       }

@@ -84,7 +84,7 @@ export default async function Projects({
               We couldn&apos;t find any Projects matching with the search term
               provided or the url was typed incorrectly.
             </p>
-            <Link href="/Projects" className="font-bold underline">
+            <Link href="/projects" className="font-bold underline">
               <Button>View all results</Button>
             </Link>
           </div>
@@ -92,7 +92,7 @@ export default async function Projects({
       )}
 
       {res?.projects && res.projects.length > 0 && (
-        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-1">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
           {res?.projects?.map((project) => (
             <li key={project.id}>
               <article className="grid h-full grid-cols-1 gap-x-10 overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night lg:grid-cols-[1fr_500px] lg:px-12 lg:pt-12">
