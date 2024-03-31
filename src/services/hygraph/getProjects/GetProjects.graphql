@@ -8,5 +8,11 @@ query GetProjects($limit: Int, $skip: Int) {
     id
     slug
     name
+    description
+    date
+    tags
+    image {
+      url
+    }
   }
 }

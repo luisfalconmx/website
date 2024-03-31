@@ -2247,22 +2247,25 @@ export type Project = Entity &
     createdAt: Scalars['DateTime']['output']
     /** User that created this document */
     createdBy?: Maybe<User>
+    date: Scalars['Date']['output']
+    description: Scalars['String']['output']
     /** Get the document in other stages */
     documentInStages: Array<Project>
     /** List of Project versions */
     history: Array<Version>
     /** The unique identifier */
     id: Scalars['ID']['output']
-    image?: Maybe<Asset>
-    name?: Maybe<Scalars['String']['output']>
+    image: Asset
+    name: Scalars['String']['output']
     /** The time the document was published. Null on documents in draft stage. */
     publishedAt?: Maybe<Scalars['DateTime']['output']>
     /** User that last published this document */
     publishedBy?: Maybe<User>
     scheduledIn: Array<ScheduledOperation>
-    slug?: Maybe<Scalars['String']['output']>
+    slug: Scalars['String']['output']
     /** System stage field */
     stage: Stage
+    tags: Array<Technologies>
     /** The time the document was updated */
     updatedAt: Scalars['DateTime']['output']
     /** User that last updated this document */
@@ -2332,9 +2335,12 @@ export type ProjectConnection = {
 
 export type ProjectCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
-  image?: InputMaybe<AssetCreateOneInlineInput>
-  name?: InputMaybe<Scalars['String']['input']>
-  slug?: InputMaybe<Scalars['String']['input']>
+  date: Scalars['Date']['input']
+  description: Scalars['String']['input']
+  image: AssetCreateOneInlineInput
+  name: Scalars['String']['input']
+  slug: Scalars['String']['input']
+  tags?: InputMaybe<Array<Technologies>>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
 }
 
@@ -2387,6 +2393,40 @@ export type ProjectManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   createdBy?: InputMaybe<UserWhereInput>
+  date?: InputMaybe<Scalars['Date']['input']>
+  /** All values greater than the given value. */
+  date_gt?: InputMaybe<Scalars['Date']['input']>
+  /** All values greater than or equal the given value. */
+  date_gte?: InputMaybe<Scalars['Date']['input']>
+  /** All values that are contained in given list. */
+  date_in?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>
+  /** All values less than the given value. */
+  date_lt?: InputMaybe<Scalars['Date']['input']>
+  /** All values less than or equal the given value. */
+  date_lte?: InputMaybe<Scalars['Date']['input']>
+  /** Any other value that exists and is not equal to the given value. */
+  date_not?: InputMaybe<Scalars['Date']['input']>
+  /** All values that are not contained in given list. */
+  date_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>
+  description?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  description_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  description_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  description_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  description_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  description_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  description_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  description_starts_with?: InputMaybe<Scalars['String']['input']>
   documentInStages_every?: InputMaybe<ProjectWhereStageInput>
   documentInStages_none?: InputMaybe<ProjectWhereStageInput>
   documentInStages_some?: InputMaybe<ProjectWhereStageInput>
@@ -2469,6 +2509,16 @@ export type ProjectManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** Matches if the field array contains *all* items provided to the filter and order does match */
+  tags?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array contains *all* items provided to the filter */
+  tags_contains_all?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array does not contain any of the items provided to the filter */
+  tags_contains_none?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array contains at least one item provided to the filter */
+  tags_contains_some?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
+  tags_not?: InputMaybe<Array<Technologies>>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -2490,6 +2540,10 @@ export type ProjectManyWhereInput = {
 export enum ProjectOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
+  DateAsc = 'date_ASC',
+  DateDesc = 'date_DESC',
+  DescriptionAsc = 'description_ASC',
+  DescriptionDesc = 'description_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
@@ -2498,14 +2552,19 @@ export enum ProjectOrderByInput {
   PublishedAtDesc = 'publishedAt_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
+  TagsAsc = 'tags_ASC',
+  TagsDesc = 'tags_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type ProjectUpdateInput = {
+  date?: InputMaybe<Scalars['Date']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
   image?: InputMaybe<AssetUpdateOneInlineInput>
   name?: InputMaybe<Scalars['String']['input']>
   slug?: InputMaybe<Scalars['String']['input']>
+  tags?: InputMaybe<Array<Technologies>>
 }
 
 export type ProjectUpdateManyInlineInput = {
@@ -2526,7 +2585,10 @@ export type ProjectUpdateManyInlineInput = {
 }
 
 export type ProjectUpdateManyInput = {
+  date?: InputMaybe<Scalars['Date']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  tags?: InputMaybe<Array<Technologies>>
 }
 
 export type ProjectUpdateManyWithNestedWhereInput = {
@@ -2604,6 +2666,40 @@ export type ProjectWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   createdBy?: InputMaybe<UserWhereInput>
+  date?: InputMaybe<Scalars['Date']['input']>
+  /** All values greater than the given value. */
+  date_gt?: InputMaybe<Scalars['Date']['input']>
+  /** All values greater than or equal the given value. */
+  date_gte?: InputMaybe<Scalars['Date']['input']>
+  /** All values that are contained in given list. */
+  date_in?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>
+  /** All values less than the given value. */
+  date_lt?: InputMaybe<Scalars['Date']['input']>
+  /** All values less than or equal the given value. */
+  date_lte?: InputMaybe<Scalars['Date']['input']>
+  /** Any other value that exists and is not equal to the given value. */
+  date_not?: InputMaybe<Scalars['Date']['input']>
+  /** All values that are not contained in given list. */
+  date_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>
+  description?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  description_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  description_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  description_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  description_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  description_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  description_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  description_starts_with?: InputMaybe<Scalars['String']['input']>
   documentInStages_every?: InputMaybe<ProjectWhereStageInput>
   documentInStages_none?: InputMaybe<ProjectWhereStageInput>
   documentInStages_some?: InputMaybe<ProjectWhereStageInput>
@@ -2686,6 +2782,16 @@ export type ProjectWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** Matches if the field array contains *all* items provided to the filter and order does match */
+  tags?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array contains *all* items provided to the filter */
+  tags_contains_all?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array does not contain any of the items provided to the filter */
+  tags_contains_none?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array contains at least one item provided to the filter */
+  tags_contains_some?: InputMaybe<Array<Technologies>>
+  /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
+  tags_not?: InputMaybe<Array<Technologies>>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -4050,6 +4156,13 @@ export enum SystemDateTimeFieldVariation {
   Localization = 'LOCALIZATION'
 }
 
+export enum Technologies {
+  Javascript = 'javascript',
+  NextJs = 'next_js',
+  React = 'react',
+  Vue = 'vue'
+}
+
 export type UnpublishLocaleInput = {
   /** Locales to unpublish */
   locale: Locale
@@ -4592,8 +4705,12 @@ export type GetProjectsQuery = {
   projects: Array<{
     __typename?: 'Project'
     id: string
-    slug?: string | null
-    name?: string | null
+    slug: string
+    name: string
+    description: string
+    date: any
+    tags: Array<Technologies>
+    image: { __typename?: 'Asset'; url: string }
   }>
 }
 
@@ -4638,8 +4755,12 @@ export type SearchProjectsByTermQuery = {
   projects: Array<{
     __typename?: 'Project'
     id: string
-    slug?: string | null
-    name?: string | null
+    slug: string
+    name: string
+    description: string
+    date: any
+    tags: Array<Technologies>
+    image: { __typename?: 'Asset'; url: string }
   }>
 }
 
@@ -4745,6 +4866,12 @@ export const GetProjectsDocument = gql`
       id
       slug
       name
+      description
+      date
+      tags
+      image {
+        url
+      }
     }
   }
 `
@@ -4921,6 +5048,12 @@ export const SearchProjectsByTermDocument = gql`
       id
       slug
       name
+      description
+      date
+      tags
+      image {
+        url
+      }
     }
   }
 `

@@ -8,5 +8,11 @@ query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
     id
     slug
     name
+    description
+    date
+    tags
+    image {
+      url
+    }
   }
 }

@@ -47,7 +47,7 @@ export const Search = ({ className = '' }: SearchProps) => {
     >
       <input
         type="text"
-        placeholder="Search certifications"
+        placeholder="Search"
         className={styles['Search__input']}
         maxLength={50}
         onChange={(event) => updateSearchTerm(event)}
