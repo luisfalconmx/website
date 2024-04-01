@@ -1,11 +1,11 @@
 @import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/onedark.min.css';
 
 .post {
-  @apply text-lg;
+  @apply mb-12 overflow-hidden text-wrap break-words px-4 text-lg lg:px-12 lg:text-xl;
 }
 
 .post p {
-  @apply pb-5 text-black/80 dark:text-white/80;
+  @apply pb-5 text-black dark:text-white;
 }
 
 .post h1,

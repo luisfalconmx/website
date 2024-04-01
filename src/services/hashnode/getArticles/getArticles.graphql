@@ -1,0 +1,30 @@
+query GetArticles($username: String!, $pageSize: Int!, $page: Int!) {
+  user(username: $username) {
+    posts(pageSize: $pageSize, page: $page, sortBy: DATE_PUBLISHED_DESC) {
+      edges {
+        node {
+          id
+          slug
+          title
+          brief
+          coverImage {
+            url
+          }
+          tags {
+            id
+            name
+          }
+          publishedAt
+          readTimeInMinutes
+          content {
+            markdown
+          }
+        }
+      }
+      totalDocuments
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+}

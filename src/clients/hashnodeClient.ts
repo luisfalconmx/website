@@ -1,17 +1,17 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { registerApolloClient } from '@apollo/experimental-nextjs-app-support/rsc'
-import { HYGRAPH_SCHEMA_URL, HYGRAPH_ACCESS_TOKEN } from '@/config/env'
+import { HASHNODE_GRAPHQL_ENDPOINT, HASHNODE_ACCESS_TOKEN } from '@/config/env'
 
-export const { getClient: hygraphClient } = registerApolloClient(() => {
+export const { getClient: hashnodeClient } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: HYGRAPH_SCHEMA_URL,
+      uri: HASHNODE_GRAPHQL_ENDPOINT,
       fetchOptions: {
         cache: 'no-store'
       },
       headers: {
-        Authorization: `Bearer ${HYGRAPH_ACCESS_TOKEN}`
+        Authorization: `Bearer ${HASHNODE_ACCESS_TOKEN}`
       }
     })
   })

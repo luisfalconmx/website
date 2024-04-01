@@ -11,11 +11,14 @@ export const SITE_STORAGE_KEY = registerEnv('SITE_STORAGE_KEY')
 export const SITE_BUNDLE_ANALYZER = registerEnv('SITE_BUNDLE_ANALYZER')
 
 // HYGRAPH
-export const HYGRAPH_API_URL = registerEnv('HYGRAPH_API_URL')
-export const HYGRAPH_CONTENT_API_URL = registerEnv('HYGRAPH_CONTENT_API_URL')
-export const HYGRAPH_API_KEY = registerEnv('HYGRAPH_API_KEY')
+export const HYGRAPH_GRAPHQL_ENDPOINT = registerEnv('HYGRAPH_GRAPHQL_ENDPOINT')
+export const HYGRAPH_SCHEMA_URL = registerEnv('HYGRAPH_SCHEMA_URL')
+export const HYGRAPH_ACCESS_TOKEN = registerEnv('HYGRAPH_ACCESS_TOKEN')
 
-// DEVTO
-export const DEVTO_USERNAME = registerEnv('DEVTO_USERNAME')
-export const DEVTO_API_URL = registerEnv('DEVTO_API_URL')
-export const DEVTO_API_KEY = registerEnv('DEVTO_API_KEY')
+// HASHNODE
+export const HASHNODE_GRAPHQL_ENDPOINT = registerEnv(
+  'HASHNODE_GRAPHQL_ENDPOINT'
+)
+export const HASHNODE_ACCESS_TOKEN = registerEnv('HASHNODE_ACCESS_TOKEN')
+export const HASHNODE_USERNAME = registerEnv('HASHNODE_USERNAME')
+export const HASHNODE_HOST = registerEnv('HASHNODE_HOST')

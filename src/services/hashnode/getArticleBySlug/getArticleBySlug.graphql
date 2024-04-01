@@ -1,0 +1,41 @@
+query GetArticleBySlug($host: String!, $slug: String!) {
+  publication(host: $host) {
+    post(slug: $slug) {
+      id
+      slug
+      title
+      subtitle
+      brief
+      coverImage {
+        url
+      }
+      tags {
+        id
+        name
+      }
+      author {
+        name
+        username
+        tagline
+        profilePicture
+        socialMediaLinks {
+          website
+          github
+          twitter
+          instagram
+          facebook
+          linkedin
+        }
+      }
+      publishedAt
+      updatedAt
+      readTimeInMinutes
+      ogMetaData {
+        image
+      }
+      content {
+        markdown
+      }
+    }
+  }
+}

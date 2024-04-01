@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="bg-ghost text-black dark:bg-black dark:text-white">
+      <body className="text-black dark:bg-black dark:text-white">
         <ThemeProvider attribute="data-theme">
           <Navbar />
           {children}

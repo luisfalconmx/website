@@ -4,88 +4,69 @@ import Script from 'next/script'
 import humanDate from '@/utils/humanDate'
 import { notFound } from 'next/navigation'
 import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
-import { DEVTO_USERNAME, DEVTO_API_URL, DEVTO_API_KEY } from '@/config/env'
+import { HASHNODE_HOST } from '@/config/env'
 import GithubIcon from '@/assets/icons/GithubIcon.svg'
 import TwitterIcon from '@/assets/icons/TwitterIcon.svg'
 import { SITE_NAME, SITE_URL } from '@/config/env'
+import { getArticleBySlug } from '@/services/hashnode'
 import styles from './post.module.css'
-import type { Metadata } from 'next'
-import type { Article } from '@/types/Article'
 import Markdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-
-const fetchPost = async (slug: string) => {
-  const response = await fetch(
-    `${DEVTO_API_URL}/articles/${DEVTO_USERNAME}/${slug}`,
-    {
-      headers: {
-        'api-key': DEVTO_API_KEY,
-        Accept: 'application/vnd.forem.api-v1+json'
-      },
-      next: {
-        revalidate: 10
-      }
-    }
-  )
-
-  if (!response.ok) {
-    return notFound()
-  }
-
-  const post = (await response.json()) as Article
-
-  return post
-}
+import type { Metadata } from 'next'
 
 export const generateMetadata = async ({
   params
 }: {
   params: { slug: string }
 }): Promise<Metadata> => {
-  const post = await fetchPost(params.slug)
+  const response = await getArticleBySlug({
+    host: HASHNODE_HOST,
+    slug: params.slug
+  })
+
+  const post = response?.data.publication?.post
 
   return {
-    title: post.title,
-    description: post.description,
-    creator: post.user.username,
+    title: post?.title,
+    description: post?.brief,
+    creator: post?.author.username,
     alternates: {
-      canonical: `${SITE_URL}/blog/${post.slug}/`
+      canonical: `${SITE_URL}/blog/${post?.slug}/`
     },
     applicationName: SITE_NAME,
     generator: 'Next.js',
-    keywords: post.tags,
     authors: [
       {
-        name: `${post.user.username} (${post.user.name})`,
-        url: post.user.website_url
+        name: `${post?.author.name} (${post?.author.username})`,
+        url: post?.author.socialMediaLinks?.website || ''
       }
     ],
     robots: 'index, follow',
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title: post?.title,
+      description: post?.brief,
       type: 'article',
-      url: `${SITE_URL}/blog/${post.slug}`,
-      publishedTime: post.published_at,
-      modifiedTime: post.edited_at,
-      siteName: 'luisfalconmx.dev',
-      tags: post.tags,
-      authors: `${post.user.name} (${post.user.username})`,
+      url: `${SITE_URL}/blog/${post?.slug}`,
+      publishedTime: post?.publishedAt,
+      modifiedTime: post?.updatedAt,
+      siteName: SITE_NAME,
+      tags: post?.tags ? post.tags.map((tag) => tag.name) : [],
+      authors: `${post?.author.name} (${post?.author.username})`,
       images: [
         {
-          url: post.social_image
+          url: post?.ogMetaData?.image || ''
         }
       ]
     },
     twitter: {
       card: 'summary_large_image',
       site: SITE_URL,
-      title: `${post.title} - luisfalconmx.dev`,
-      description: post.description,
-      creator: post.user.username,
+      title: `${post?.title} - luisfalconmx.dev`,
+      description: post?.brief,
+      creator: post?.author.username,
       images: [
         {
-          url: post.social_image
+          url: post?.ogMetaData?.image || ''
         }
       ]
     }
@@ -93,80 +74,112 @@ export const generateMetadata = async ({
 }
 
 export default async function Post({ params }: { params: { slug: string } }) {
-  const post = await fetchPost(params.slug)
+  const response = await getArticleBySlug({
+    host: HASHNODE_HOST,
+    slug: params.slug
+  })
+
+  if (!response?.data.publication?.post) {
+    return notFound()
+  }
+
+  const post = response.data.publication?.post
+  const content = post.content.markdown.replaceAll(
+    /align="(left|center|right)"/g,
+    ''
+  )
 
   return (
     <>
-      <main className="bg-white dark:bg-night lg:border lg:border-divider-soft lg:dark:border-divider-hard">
-        <Image
-          src={post.cover_image}
-          alt={post.title}
-          width={1000}
-          height={400}
-          className="mb-6"
-          priority={false}
-        />
-        <div className="px-4 lg:px-12">
+      <main className="mx-auto my-12 mb-16 max-w-screen-lg gap-x-6 lg:my-24 lg:px-4">
+        <section className="mb-2 box-content px-4 md:mb-5 lg:pl-0 lg:pr-4">
+          <h1 className="mx-auto mb-6 text-3xl font-bold leading-tight md:text-5xl lg:text-center">
+            {post?.title}
+          </h1>
+
+          {/* subtitle */}
+          <p className="mx-auto mb-8 text-xl text-night dark:text-white lg:max-w-screen-sm lg:text-center">
+            {post?.subtitle}
+          </p>
+
           <time
-            dateTime={post.published_at}
-            className="mb-6 block w-fit rounded-xl border border-divider-soft px-3 py-2 text-sm font-medium text-black dark:border-divider-hard dark:text-white"
+            dateTime={post.publishedAt}
+            className="mb-8 block text-lg font-bold underline lg:text-center"
           >
-            {humanDate(post.published_at)}
+            {humanDate(post.publishedAt)} - {post.readTimeInMinutes} min read
           </time>
 
-          <h1 className="mb-6 text-3xl font-bold lg:text-5xl">{post.title}</h1>
-
-          <section className={styles['post']}>
-            <Markdown rehypePlugins={[rehypeHighlight]}>
-              {post.body_markdown}
-            </Markdown>
-          </section>
-        </div>
-      </main>
-
-      <aside className="px-4 lg:px-0">
-        <div className="flex flex-col border border-divider-soft bg-white px-4 pb-12 pt-6 text-center dark:border-divider-hard dark:bg-night">
           <Image
-            src={post.user.profile_image_90}
-            alt={post.user.name}
-            width={90}
-            height={90}
-            className="mx-auto mb-4 block rounded-full"
-            priority={false}
+            src={post?.coverImage?.url || ''}
+            alt={post?.title || ''}
+            width="912"
+            height="550"
+            className="mb-12 aspect-video w-full rounded-lg"
           />
-          <div className="text-center">
-            <h2 className="text-lg font-bold">{post.user.name}</h2>
-            <Link
-              href={post.user.website_url}
-              rel="author"
-              className="mb-4 block text-black underline dark:text-white"
-            >
-              @{post.user.username}
-            </Link>
+        </section>
 
-            <p className="mb-6 text-base text-night dark:text-white">
-              I am frontend developer with 4 years of experience, B1 English
-              level and more than 100 certifications related to software
-              development.
+        <section className={styles['post']}>
+          <Markdown rehypePlugins={[rehypeHighlight]}>{content}</Markdown>
+        </section>
+
+        {post.tags && (
+          <ul className="mb-12 flex flex-wrap gap-2 px-4 lg:px-12">
+            {post.tags.map((tag) => (
+              <li
+                key={tag.id}
+                className="rounded-full border border-divider-soft px-3 py-1 text-sm text-black dark:border-divider-hard dark:bg-night dark:text-white"
+              >
+                {tag.name}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <section className="mx-4 flex flex-col rounded-lg border border-divider-soft bg-white px-4 pb-12 pt-6 dark:border-divider-hard dark:bg-night lg:grid-cols-2 lg:flex-row lg:place-content-center">
+          <figure className="mx-auto mb-2 block lg:mx-0 lg:mr-4">
+            <Image
+              src={post?.author.profilePicture || ''}
+              alt={`${post?.author.name} (${post?.author.username}) profile picture`}
+              width={60}
+              height={60}
+              className="block rounded-full"
+              priority={false}
+            />
+          </figure>
+          <div className="ml-0 block">
+            <div className="mb-0 ml-0 flex justify-center lg:justify-start">
+              <h2 className="mr-2 text-xl font-bold">{post?.author.name}</h2>
+              <Link
+                href={post?.author.socialMediaLinks?.website || ''}
+                rel="author"
+                className="block text-xl text-black underline dark:text-white"
+                target="_blank"
+              >
+                ({post?.author.username})
+              </Link>
+            </div>
+
+            <p className="mb-3 text-center text-sm text-night dark:text-white lg:text-start">
+              {post?.author.tagline}
             </p>
 
-            <ul className="mx-auto flex w-fit items-center space-x-4">
+            <ul className="mx-auto flex w-fit items-center space-x-1 lg:mx-0 lg:space-x-4">
               <li>
                 <Link
-                  href={post.user.website_url}
-                  aria-label={`go to ${post.user.username} official website`}
+                  href={post?.author.socialMediaLinks?.website || ''}
+                  aria-label={`go to ${post?.author.name} (${post?.author.username}) official website`}
                 >
                   <GlobeAmericasIcon className="h-8 w-8 text-black dark:text-white" />
                 </Link>
               </li>
               <li>
                 <Link
-                  href={`https://github.com/${post.user.github_username}`}
-                  aria-label={`go to ${post.user.username} github profile`}
+                  href={post?.author.socialMediaLinks?.github || ''}
+                  aria-label={`go to ${post?.author.name} (${post?.author.username}) github profile`}
                 >
                   <Image
                     src={GithubIcon}
-                    alt={`${post.user.name}'s GitHub profile`}
+                    alt="github icon"
                     width={28}
                     height={28}
                     className="dark:invert"
@@ -176,12 +189,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
               </li>
               <li>
                 <Link
-                  href={`https://twitter.com/${post.user.twitter_username}`}
-                  aria-label={`go to ${post.user.twitter_username} twitter name`}
+                  href={post?.author.socialMediaLinks?.twitter || ''}
+                  aria-label={`go to ${post?.author.name} (${post?.author.username}) twitter name`}
                 >
                   <Image
                     src={TwitterIcon}
-                    alt={`${post.user.name}'s Twitter profile`}
+                    alt="twitter icon"
                     width={26}
                     height={26}
                     className="dark:invert"
@@ -191,45 +204,32 @@ export default async function Post({ params }: { params: { slug: string } }) {
               </li>
             </ul>
           </div>
-        </div>
-
-        {post.tags.length > 0 && (
-          <div className="mt-6 border border-divider-soft bg-white px-4 py-6 dark:border-divider-hard dark:bg-night">
-            <strong className="mb-4 block text-lg font-bold">Tags</strong>
-            <ul className="flex flex-wrap gap-2">
-              {post.tags.map((tag: string) => (
-                <li
-                  key={tag}
-                  className="rounded-full border border-divider-soft px-3 py-1 text-sm text-black dark:border-divider-hard dark:text-white"
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </aside>
+        </section>
+      </main>
 
       {/* Schema Org */}
-      <Script id={`${post.title} - schema metadata`} type="application/ld+json">
+      <Script
+        id={`${post?.title} - schema metadata`}
+        type="application/ld+json"
+      >
         {`
           {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "https://www.luisfalconmx.dev/blog/${post.slug}"
+              "@id": "https://www.luisfalconmx.dev/blog/${post?.slug}"
             },
-            "headline": "${post.title}",
-            "description": "${post.description}",
-            "image": "${post.social_image}",  
+            "headline": "${post?.title}",
+            "description": "${post?.brief}",
+            "image": "${post?.ogMetaData?.image}",  
             "author": {
               "@type": "Person",
-              "name": "${post.user.username}",
-              "url": "${post.user.website_url}"
+              "name": "${post?.author.name} (${post?.author.username})",
+              "url": "${post?.author.socialMediaLinks?.website}"
             },  
-            "datePublished": "${post.published_at}",
-            "dateModified": "${post.edited_at}"
+            "datePublished": "${post?.publishedAt}",
+            "dateModified": "${post?.updatedAt}"
           }
         `}
       </Script>
