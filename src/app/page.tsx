@@ -3,9 +3,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import { socialLinks } from '@/config/socialLinks'
-import { getProjects } from '@/services/hygraph'
+import {
+  getProjects,
+  getCertifications,
+  getWorks,
+  getTechnologies
+} from '@/services/hygraph'
 import { ProjectCard } from '@/components/ProjectCard'
+import { WorkCard } from '@/components/WorkCard'
+import { CertificationCard } from '@/components/CertificationCard'
 import type { Metadata } from 'next'
+import dayjs from 'dayjs'
 
 export const metadata: Metadata = {
   title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
@@ -27,6 +35,29 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const projectsResponse = await getProjects({ limit: 3, skip: 0 })
+  const certificationsResponse = await getCertifications({ limit: 6, skip: 0 })
+  const worksResponse = await getWorks()
+  const technologiesResponse = await getTechnologies()
+
+  const totalProjects = projectsResponse?.projectsConnection.aggregate.count
+  const totalCertifications =
+    certificationsResponse?.certificationsConnection.aggregate.count
+  let totalExperience = 0
+
+  const monthsOfExperience = worksResponse?.works.map((i) => {
+    const now = dayjs()
+    const startDate = dayjs(i?.startDate?.substring(0, 10))
+    const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
+
+    return endDate.diff(startDate, 'month')
+  })
+
+  if (monthsOfExperience) {
+    const sumExperience =
+      monthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
+
+    totalExperience = Math.round(sumExperience * 2) / 2
+  }
 
   return (
     <main>
@@ -44,19 +75,22 @@ export default async function Home() {
           <span className="m-0 w-fit">Frontend Developer</span>
         </h1>
 
-        <p className="text-smoke mb-12 text-center text-xl lg:text-lg">
+        <p className="text-smoke mb-12 text-center text-xl">
           I have 4 years of experience, B1 English level and more than 100
           certifications related to software development.
         </p>
 
-        <div className="mx-auto mb-16 flex flex-col text-center lg:w-fit lg:flex-row">
-          <Link href="/projects" className="mb-3 mr-4 block lg:mb-0">
+        <div className="mx-auto mb-16 flex flex-col text-center lg:w-fit lg:flex-row lg:space-x-4">
+          <Link href="/projects" className="mb-3 block lg:mb-0">
             <Button className="flex w-full justify-center lg:w-auto">
               View Projects
             </Button>
           </Link>
-          <Link href="/projects" className="mb-3 mr-4 block lg:mb-0">
-            <Button className="flex w-full justify-center bg-transparent lg:w-auto">
+          <Link href="/projects" className="mb-3 block lg:mb-0">
+            <Button
+              variant="outline"
+              className="flex w-full justify-center lg:w-auto"
+            >
               Download CV
             </Button>
           </Link>
@@ -79,19 +113,25 @@ export default async function Home() {
         </ul>
       </section>
 
-      <section className="mb-32 border-y border-divider-soft bg-white py-16 shadow-none dark:border-divider-hard dark:bg-night">
+      <section className="mb-16 border-y border-divider-soft bg-white py-16 shadow-none dark:border-divider-hard dark:bg-night lg:mb-32">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 place-items-center gap-x-6 gap-y-14 text-center md:grid-cols-2 md:place-items-start md:gap-y-10 md:px-16 md:text-left lg:grid-cols-4 lg:place-items-center lg:gap-y-0 lg:px-0">
           <div>
-            <strong className="mb-4 block text-5xl font-bold">12</strong>
+            <strong className="mb-4 block text-5xl font-bold">
+              {totalProjects}
+            </strong>
             <p className="block text-xl uppercase">projects</p>
           </div>
           <div>
-            <strong className="mb-4 block text-5xl font-bold">4</strong>
+            <strong className="mb-4 block text-5xl font-bold">
+              {totalExperience.toString().padStart(2, '0')}
+            </strong>
             <p className="block text-xl uppercase">years of experience</p>
           </div>
 
           <div>
-            <strong className="mb-4 block text-5xl font-bold">100+</strong>
+            <strong className="mb-4 block text-5xl font-bold">
+              {totalCertifications}
+            </strong>
             <p className="block text-xl uppercase">certifications</p>
           </div>
 
@@ -102,19 +142,23 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-12 text-center text-4xl font-bold lg:mb-24 lg:text-5xl">
+      <section className="mx-auto mb-24 box-border max-w-screen-xl px-4 lg:mb-32 lg:px-6">
+        <h2 className="mb-12 text-center text-4xl font-bold lg:mb-16 lg:text-5xl">
           Latest Projects
         </h2>
 
-        <div className="grid grid-cols-1 gap-y-12">
+        <div className="grid grid-cols-1 gap-y-6">
           {projectsResponse?.projects.map((project) => (
             <ProjectCard
               key={project.id}
               name={project.name}
               description={project.description}
               image={project.image.url}
-              tags={project.tags}
+              technologies={project.technologies.map(({ id, name, icon }) => ({
+                id,
+                name,
+                icon: icon.url
+              }))}
               date={project.date}
               url={`/projects/${project.slug}`}
             />
@@ -122,57 +166,70 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">
+      <section className="mx-auto mb-24 box-border max-w-screen-xl px-4 lg:mb-32 lg:px-6">
+        <h2 className="mb-12 text-center text-4xl font-bold lg:mb-24 lg:text-5xl">
           Work Experience
         </h2>
 
-        {/* <AccordionTrack
-          items={experiences.map((i) => ({
-            title: i?.title || '',
-            description: i?.description || '',
-            companyName: i?.companyName || '',
-            companyImage: i?.companyImage?.url || '',
-            startDate: i?.startDate || '',
-            endDate: i?.endDate || ''
-          }))}
-        /> */}
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
+          {worksResponse?.works.map((work) => (
+            <li key={work.id}>
+              <WorkCard
+                name={work.name}
+                companyName={work.companyName}
+                companyImage={work.companyImage}
+                location={work.location}
+                startDate={work.startDate}
+                endDate={work.endDate}
+                industry={work.industry}
+                description={work.description}
+              />
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">
+      <section className="mx-auto mb-24 box-border max-w-screen-xl px-4 lg:mb-32 lg:px-6">
+        <h2 className="mb-12 text-center text-4xl font-bold lg:mb-24 lg:text-5xl">
           Recent Certifications
         </h2>
 
-        <div className="grid grid-cols-2 gap-6">
-          {/* {certifications.map((certification) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {certificationsResponse?.certifications.map((certification) => (
             <CertificationCard
-              key={certification?.credentialUrl}
-              credentialUrl={certification?.credentialUrl || ''}
-              image={certification?.picture?.url || ''}
-              date={certification?.issueDate || ''}
-              name={certification?.name || ''}
-              organizationImage={
-                certification?.issuingOrganizationImage?.url || ''
-              }
-              organizationName={certification?.issuingOrganization || ''}
+              key={certification.id}
+              name={certification.name}
+              date={certification.date}
+              image={certification.image.url}
+              organizationImage={certification.organizationImage.url}
+              organizationName={certification.organizationName}
+              url={certification.url}
             />
-          ))} */}
+          ))}
         </div>
       </section>
 
-      <section className="mx-auto mb-32 box-border max-w-screen-xl px-2 md:px-4 lg:px-6">
-        <h2 className="mb-24 text-center text-5xl font-bold">Skills</h2>
+      <section className="mx-auto mb-32 box-border max-w-screen-xl px-4 lg:px-6">
+        <h2 className="mb-12 text-center text-4xl font-bold lg:mb-24 lg:text-5xl">
+          Hard Skills
+        </h2>
 
-        <div className="grid grid-cols-4 gap-6">
-          {/* {technologies.map((i) => (
-            <SkillCard
-              key={i?.name}
-              name={i?.name || ''}
-              icon={i?.icon?.url || ''}
-            />
-          ))} */}
-        </div>
+        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+          {technologiesResponse?.technologies.map((technology) => (
+            <li key={technology.name}>
+              <div className="flex h-full items-center space-x-3 rounded-xl border border-divider-soft bg-white px-4 py-4 dark:border-divider-hard dark:bg-night">
+                <Image
+                  src={technology.icon.url}
+                  alt={technology.name}
+                  width={32}
+                  height={32}
+                  unoptimized
+                />
+                <p className="lg:text-xl">{technology.name}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <Script id="schema" type="application/ld+json">

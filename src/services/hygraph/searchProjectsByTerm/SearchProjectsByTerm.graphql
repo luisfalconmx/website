@@ -10,9 +10,15 @@ query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
     name
     description
     date
-    tags
     image {
       url
+    }
+    technologies {
+      id
+      name
+      icon {
+        url
+      }
     }
   }
 }

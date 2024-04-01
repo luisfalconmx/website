@@ -1,0 +1,13 @@
+query GetTechnologies {
+  technologiesConnection {
+    aggregate {
+      count
+    }
+  }
+  technologies(orderBy: name_ASC) {
+    name
+    icon {
+      url
+    }
+  }
+}

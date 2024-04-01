@@ -11,6 +11,7 @@ import {
 import humanDate from '@/utils/humanDate'
 import Link from 'next/link'
 import { defaultBlurImage } from '@/config/blurImages'
+import { CertificationCard } from '@/components/CertificationCard'
 import { Search } from '@/components/Search'
 import { Pagination } from '@/components/Pagination'
 import Button from '@/components/Button'
@@ -98,51 +99,14 @@ export default async function Certifications({
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {res?.certifications?.map((certification) => (
             <li key={certification.id}>
-              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night">
-                <Image
-                  src={certification.image.url}
-                  alt={`Certificate for ${certification.name}`}
-                  width={400}
-                  height={300}
-                  placeholder="blur"
-                  blurDataURL={defaultBlurImage}
-                />
-                <div className="flex h-full flex-col border-t border-divider-soft p-4 dark:border-divider-hard">
-                  <h2 className="mb-2 text-lg font-bold">
-                    {certification.name}
-                  </h2>
-                  <time
-                    dateTime={certification.date}
-                    className="mb-6 flex items-center text-sm text-black/80 dark:text-white/80"
-                  >
-                    <CalendarDaysIcon className="mr-1 inline-block h-5 w-5" />
-                    {humanDate(certification.date)}
-                  </time>
-                  <div className="mt-auto flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Image
-                        src={certification.organizationImage.url}
-                        alt={certification.organizationName}
-                        width={32}
-                        height={32}
-                        className="mr-2 rounded-full"
-                      />
-                      <p className="font-bold">
-                        {certification.organizationName}
-                      </p>
-                    </div>
-                    <Link
-                      className="flex"
-                      href={certification.url}
-                      target="_blank"
-                      rel="nofollow"
-                      aria-label={`View ${certification.name} certificate`}
-                    >
-                      <ArrowTopRightOnSquareIcon className="inline-block h-6 w-6" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
+              <CertificationCard
+                date={humanDate(certification.date)}
+                name={certification.name}
+                image={certification.image.url}
+                organizationImage={certification.organizationImage.url}
+                organizationName={certification.organizationName}
+                url={certification.url}
+              />
             </li>
           ))}
         </ul>

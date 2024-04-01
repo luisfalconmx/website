@@ -1,3 +1,7 @@
 .Button {
-  @apply rounded bg-black px-6 py-4 font-bold text-white dark:bg-white dark:text-black;
+  @apply rounded border border-black bg-black px-6 py-4 font-bold text-white dark:border-white dark:bg-white dark:text-black;
+}
+
+.Button--outline {
+  @apply border border-black bg-transparent text-black dark:border dark:border-white dark:bg-transparent dark:text-white;
 }

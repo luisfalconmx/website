@@ -3,6 +3,10 @@ export interface ProjectCardProps {
   name: string
   description: string
   image: string
-  tags: string[]
+  technologies: {
+    id: string
+    name: string
+    icon: string
+  }[]
   date: string
 }
