@@ -12,13 +12,12 @@ export default async function Blog({
   const perPage = 12
 
   const response = await fetch(
-    `${DEVTO_API_URL}/articles?page=${currentPage}&per_page=${perPage}&username=${DEVTO_USERNAME}`,
+    `${DEVTO_API_URL}/articles/latest?&username=${DEVTO_USERNAME}&page=${currentPage - 1}&per_page=${perPage}`,
     {
       headers: {
-        'api-key': DEVTO_API_KEY,
         Accept: 'application/vnd.forem.api-v1+json'
       },
-      cache: 'no-store' // enables ssr
+      cache: 'no-store'
     }
   )
 
@@ -28,6 +27,7 @@ export default async function Blog({
   }
 
   const posts = (await response.json()) || []
+  console.log(posts.length)
 
   return (
     <main className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">
@@ -40,93 +40,101 @@ export default async function Blog({
         </p>
       </div>
 
-      <section className="mx-auto mb-16 mt-8 max-w-screen-xl px-8">
-        {posts
-          ?.slice(0, 1)
-          .map((post: any) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              link={`/blog/${post.slug}`}
-              image={post.cover_image || ''}
-              date={post.published_at}
-              readingTime={post.reading_time_minutes}
-              tag={
-                post.tag_list?.map((tag: any, index: any) =>
-                  index === 0 ? tag : ''
-                )[0]
-              }
-              variant="jumbo"
-            />
-          ))}
-      </section>
+      {posts.length >= 1 && (
+        <section className="mx-auto mb-16 mt-8 max-w-screen-xl px-8">
+          {posts
+            ?.slice(0, 1)
+            .map((post: any) => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                description={post.description}
+                link={`/blog/${post.slug}`}
+                image={post.cover_image || ''}
+                date={post.published_at}
+                readingTime={post.reading_time_minutes}
+                tag={
+                  post.tag_list?.map((tag: any, index: any) =>
+                    index === 0 ? tag : ''
+                  )[0]
+                }
+                variant="jumbo"
+              />
+            ))}
+        </section>
+      )}
 
-      <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-4 px-2 md:grid-cols-2 md:px-4 lg:grid-cols-3 lg:px-6">
-        {posts
-          ?.slice(1, 7)
-          .map((post: any) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              link={`/blog/${post.slug}`}
-              image={post.cover_image || ''}
-              date={post.published_at}
-              readingTime={post.reading_time_minutes}
-              tag={
-                post.tag_list?.map((tag: any, index: any) =>
-                  index === 0 ? tag : ''
-                )[0]
-              }
-              variant="default"
-            />
-          ))}
-      </section>
+      {posts.length >= 2 && (
+        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-4 px-2 md:grid-cols-2 md:px-4 lg:grid-cols-3 lg:px-6">
+          {posts
+            ?.slice(1, 7)
+            .map((post: any) => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                description={post.description}
+                link={`/blog/${post.slug}`}
+                image={post.cover_image || ''}
+                date={post.published_at}
+                readingTime={post.reading_time_minutes}
+                tag={
+                  post.tag_list?.map((tag: any, index: any) =>
+                    index === 0 ? tag : ''
+                  )[0]
+                }
+                variant="default"
+              />
+            ))}
+        </section>
+      )}
 
-      <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-x-4 px-2 md:grid-cols-2 md:px-4 lg:px-6">
-        {posts
-          ?.slice(7, 9)
-          .map((post: any) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              link={`/blog/${post.slug}`}
-              image={post.cover_image || ''}
-              date={post.published_at}
-              readingTime={post.reading_time_minutes}
-              tag={
-                post.tag_list?.map((tag: any, index: any) =>
-                  index === 0 ? tag : ''
-                )[0]
-              }
-              variant="square"
-            />
-          ))}
-      </section>
+      {posts.length >= 7 && (
+        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-x-4 px-2 md:grid-cols-2 md:px-4 lg:px-6">
+          {posts
+            ?.slice(7, 9)
+            .map((post: any) => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                description={post.description}
+                link={`/blog/${post.slug}`}
+                image={post.cover_image || ''}
+                date={post.published_at}
+                readingTime={post.reading_time_minutes}
+                tag={
+                  post.tag_list?.map((tag: any, index: any) =>
+                    index === 0 ? tag : ''
+                  )[0]
+                }
+                variant="square"
+              />
+            ))}
+        </section>
+      )}
 
-      <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-y-8 px-6 md:grid-cols-2 md:gap-x-3 md:px-4 lg:grid-cols-1 lg:gap-x-0 lg:px-6">
-        {posts
-          ?.slice(9, 13)
-          .map((post: any) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              link={`/blog/${post.slug}`}
-              image={post.cover_image || ''}
-              date={post.published_at}
-              readingTime={post.reading_time_minutes}
-              tag={
-                post.tag_list?.map((tag: any, index: any) =>
-                  index === 0 ? tag : ''
-                )[0]
-              }
-              variant="track"
-            />
-          ))}
-      </section>
+      {posts.length >= 9 && (
+        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-y-8 px-6 md:grid-cols-2 md:gap-x-3 md:px-4 lg:grid-cols-1 lg:gap-x-0 lg:px-6">
+          {posts
+            ?.slice(9, 13)
+            .map((post: any) => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                description={post.description}
+                link={`/blog/${post.slug}`}
+                image={post.cover_image || ''}
+                date={post.published_at}
+                readingTime={post.reading_time_minutes}
+                tag={
+                  post.tag_list?.map((tag: any, index: any) =>
+                    index === 0 ? tag : ''
+                  )[0]
+                }
+                variant="track"
+              />
+            ))}
+        </section>
+      )}
 
       <Pagination
         total={stats.total}

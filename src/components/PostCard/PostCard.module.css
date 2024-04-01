@@ -1,5 +1,5 @@
 .PostCard {
-  @apply flex flex-col;
+  @apply flex h-full flex-col;
 }
 
 .PostCard__overlay {
@@ -11,15 +11,15 @@
 }
 
 .PostCard__content {
-  @apply flex h-full flex-col px-4 pt-8 text-ghost;
+  @apply flex h-full flex-col bg-white px-4 pt-8 dark:bg-night dark:text-ghost;
 }
 
 .PostCard__tag {
-  @apply block text-sm font-black uppercase text-white;
+  @apply block text-sm font-black uppercase dark:text-white;
 }
 
 .PostCard__date {
-  @apply block text-sm text-ghost lg:ml-2;
+  @apply block text-sm dark:text-ghost lg:ml-2;
 }
 
 .PostCard__title {
@@ -88,11 +88,11 @@
 }
 
 .PostCard--jumbo .PostCard__tag {
-  @apply text-base lg:text-lg;
+  @apply text-base text-white lg:text-lg;
 }
 
 .PostCard--jumbo .PostCard__date {
-  @apply ml-0 lg:ml-2;
+  @apply ml-0 text-white lg:ml-2;
 }
 
 .PostCard--jumbo .PostCard__image {
@@ -104,7 +104,7 @@
 }
 
 .PostCard--jumbo .PostCard__content {
-  @apply absolute z-20 flex h-full flex-col-reverse justify-start lg:max-w-[60%] lg:px-10;
+  @apply absolute z-20 flex h-full flex-col-reverse justify-start bg-transparent lg:max-w-[60%] lg:px-10;
 }
 
 .PostCard--jumbo .PostCard__description {
