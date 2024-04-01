@@ -108,7 +108,7 @@ const Navbar = () => {
                   className={cn(styles['Navbar__link'], {
                     [styles['Navbar__link--active']]: location === link.path
                   })}
-                  onClick={toggleMenu}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   <span>{link.name}</span>
                 </Link>

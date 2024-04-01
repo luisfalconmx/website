@@ -68,6 +68,7 @@ export default async function Home() {
           src="/images/luisfalconmx.jpg"
           alt="Luis Falcon (luisfalconmx) profile picture"
           className="mx-auto mb-10 h-auto w-auto rounded-full shadow-none shadow-black"
+          priority={false}
         />
 
         <h1 className="mb-6 text-center text-3xl font-bold leading-[115.195%] lg:text-[3.438rem]">
