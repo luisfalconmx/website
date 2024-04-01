@@ -7,6 +7,7 @@ query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
   projects(first: $limit, skip: $skip, where: { name_contains: $term }) {
     id
     slug
+    url
     name
     description
     date

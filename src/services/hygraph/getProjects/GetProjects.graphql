@@ -7,6 +7,7 @@ query GetProjects($limit: Int, $skip: Int) {
   projects(first: $limit, skip: $skip) {
     id
     slug
+    url
     name
     description
     date

@@ -2629,6 +2629,7 @@ export type Project = Entity &
     updatedAt: Scalars['DateTime']['output']
     /** User that last updated this document */
     updatedBy?: Maybe<User>
+    url: Scalars['String']['output']
   }
 
 export type ProjectCreatedByArgs = {
@@ -2713,6 +2714,7 @@ export type ProjectCreateInput = {
   slug: Scalars['String']['input']
   technologies?: InputMaybe<TechnologyCreateManyInlineInput>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
+  url: Scalars['String']['input']
 }
 
 export type ProjectCreateManyInlineInput = {
@@ -2899,6 +2901,25 @@ export type ProjectManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   updatedBy?: InputMaybe<UserWhereInput>
+  url?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  url_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  url_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  url_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  url_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  url_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  url_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  url_starts_with?: InputMaybe<Scalars['String']['input']>
 }
 
 export enum ProjectOrderByInput {
@@ -2917,7 +2938,9 @@ export enum ProjectOrderByInput {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC'
+  UpdatedAtDesc = 'updatedAt_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 export type ProjectUpdateInput = {
@@ -2927,6 +2950,7 @@ export type ProjectUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   slug?: InputMaybe<Scalars['String']['input']>
   technologies?: InputMaybe<TechnologyUpdateManyInlineInput>
+  url?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ProjectUpdateManyInlineInput = {
@@ -2950,6 +2974,7 @@ export type ProjectUpdateManyInput = {
   date?: InputMaybe<Scalars['Date']['input']>
   description?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ProjectUpdateManyWithNestedWhereInput = {
@@ -3162,6 +3187,25 @@ export type ProjectWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   updatedBy?: InputMaybe<UserWhereInput>
+  url?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  url_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  url_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  url_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  url_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  url_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  url_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  url_starts_with?: InputMaybe<Scalars['String']['input']>
 }
 
 /** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
@@ -6331,6 +6375,7 @@ export type GetProjectsQuery = {
     __typename?: 'Project'
     id: string
     slug: string
+    url: string
     name: string
     description: string
     date: any
@@ -6423,6 +6468,7 @@ export type SearchProjectsByTermQuery = {
     __typename?: 'Project'
     id: string
     slug: string
+    url: string
     name: string
     description: string
     date: any
@@ -6537,6 +6583,7 @@ export const GetProjectsDocument = gql`
     projects(first: $limit, skip: $skip) {
       id
       slug
+      url
       name
       description
       date
@@ -6887,6 +6934,7 @@ export const SearchProjectsByTermDocument = gql`
     projects(first: $limit, skip: $skip, where: { name_contains: $term }) {
       id
       slug
+      url
       name
       description
       date
