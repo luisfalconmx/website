@@ -1,0 +1,116 @@
+.PostCard {
+  @apply flex flex-col;
+}
+
+.PostCard__overlay {
+  @apply hidden;
+}
+
+.PostCard__image {
+  @apply aspect-video w-full object-cover object-center;
+}
+
+.PostCard__content {
+  @apply flex h-full flex-col px-4 pt-8 text-ghost;
+}
+
+.PostCard__tag {
+  @apply block text-sm font-black uppercase text-white;
+}
+
+.PostCard__date {
+  @apply block text-sm text-ghost lg:ml-2;
+}
+
+.PostCard__title {
+  @apply mb-5 text-xl font-bold;
+}
+
+.PostCard__description {
+  @apply mb-10 text-neutral-500;
+}
+
+.PostCard__author {
+  @apply mt-auto;
+}
+
+/* Variants */
+.PostCard--imageless .PostCard__image {
+  @apply hidden;
+}
+
+.PostCard--square {
+  @apply max-w-[732px];
+}
+
+.PostCard--square .PostCard__image {
+  @apply max-h-[300px] object-cover;
+}
+
+.PostCard--square .PostCard__title {
+  @apply text-2xl;
+}
+
+.PostCard--square .PostCard__description {
+  @apply text-lg;
+}
+
+.PostCard--track {
+  @apply grid min-h-[250px] max-w-none grid-cols-1 lg:grid-cols-[400px,1fr];
+}
+
+.PostCard--track .PostCard__content {
+  @apply py-5 pl-4 lg:pl-8;
+}
+
+.PostCard--track .PostCard__image {
+  @apply aspect-video h-full w-full object-cover;
+}
+
+.PostCard--track .PostCard__title {
+  @apply max-w-[500px] text-xl;
+}
+
+.PostCard--track .PostCard__tag {
+  @apply text-lg;
+}
+
+.PostCard--track .PostCard__description {
+  @apply mb-0 text-lg;
+}
+
+.PostCard--jumbo {
+  @apply relative min-h-[500px] max-w-none;
+}
+
+.PostCard--jumbo .PostCard__overlay {
+  @apply absolute inset-0 z-10 block bg-gradient-to-t from-black to-black/50 lg:bg-gradient-to-r lg:to-black/10;
+}
+
+.PostCard--jumbo .PostCard__tag {
+  @apply text-base lg:text-lg;
+}
+
+.PostCard--jumbo .PostCard__date {
+  @apply ml-0 lg:ml-2;
+}
+
+.PostCard--jumbo .PostCard__image {
+  @apply absolute inset-0 h-full object-cover;
+}
+
+.PostCard--jumbo .PostCard__title {
+  @apply text-2xl text-ghost lg:text-3xl;
+}
+
+.PostCard--jumbo .PostCard__content {
+  @apply absolute z-20 flex h-full flex-col-reverse justify-start lg:max-w-[60%] lg:px-10;
+}
+
+.PostCard--jumbo .PostCard__description {
+  @apply mb-10 text-sm text-neutral-500 lg:text-lg;
+}
+
+.PostCard--jumbo .PostCard__author {
+  @apply mb-auto mt-0 text-ghost;
+}

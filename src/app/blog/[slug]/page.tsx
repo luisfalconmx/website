@@ -111,7 +111,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             dateTime={post.published_at}
             className="mb-6 block w-fit rounded-xl border border-divider-soft px-3 py-2 text-sm font-medium text-black dark:border-divider-hard dark:text-white"
           >
-            {humanDate(new Date(post.published_at))}
+            {humanDate(post.published_at)}
           </time>
 
           <h1 className="mb-6 text-3xl font-bold lg:text-5xl">{post.title}</h1>
