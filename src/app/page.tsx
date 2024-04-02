@@ -3,12 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import { socialLinks } from '@/config/socialLinks'
-import {
-  getProjects,
-  getCertifications,
-  getWorks,
-  getTechnologies
-} from '@/services/hygraph'
+import { getProfileResume } from '@/services/hygraph'
 import { ProjectCard } from '@/components/ProjectCard'
 import { WorkCard } from '@/components/WorkCard'
 import { CertificationCard } from '@/components/CertificationCard'
@@ -34,17 +29,19 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const projectsResponse = await getProjects({ limit: 3, skip: 0 })
-  const certificationsResponse = await getCertifications({ limit: 6, skip: 0 })
-  const worksResponse = await getWorks()
-  const technologiesResponse = await getTechnologies()
-
-  const totalProjects = projectsResponse?.projectsConnection.aggregate.count
+  const profileResume = await getProfileResume()
+  const projects = profileResume?.data.projects || []
+  const totalProjects =
+    profileResume?.data.projectsConnection.aggregate.count || 0
+  const certifications = profileResume?.data.certifications || []
   const totalCertifications =
-    certificationsResponse?.certificationsConnection.aggregate.count
+    profileResume?.data.certificationsConnection.aggregate.count || 0
+  const works = profileResume?.data.works || []
+  const technologies = profileResume?.data.technologies || []
+
   let totalExperience = 0
 
-  const monthsOfExperience = worksResponse?.works.map((i) => {
+  const monthsOfExperience = works.map((i) => {
     const now = dayjs()
     const startDate = dayjs(i?.startDate?.substring(0, 10))
     const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
@@ -149,7 +146,7 @@ export default async function Home() {
         </h2>
 
         <div className="grid grid-cols-1 gap-y-6">
-          {projectsResponse?.projects.map((project) => (
+          {projects.map((project) => (
             <ProjectCard
               key={project.id}
               name={project.name}
@@ -173,7 +170,7 @@ export default async function Home() {
         </h2>
 
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
-          {worksResponse?.works.map((work) => (
+          {works.map((work) => (
             <li key={work.id}>
               <WorkCard
                 name={work.name}
@@ -196,7 +193,7 @@ export default async function Home() {
         </h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {certificationsResponse?.certifications.map((certification) => (
+          {certifications.map((certification) => (
             <CertificationCard
               key={certification.id}
               name={certification.name}
@@ -216,7 +213,7 @@ export default async function Home() {
         </h2>
 
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
-          {technologiesResponse?.technologies.map((technology) => (
+          {technologies.map((technology) => (
             <li key={technology.name}>
               <div className="flex h-full items-center space-x-3 rounded-xl border border-divider-soft bg-white px-4 py-4 shadow-lg dark:border-divider-hard dark:bg-night">
                 <Image

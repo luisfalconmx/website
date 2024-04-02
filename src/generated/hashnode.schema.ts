@@ -2824,8 +2824,14 @@ export type QueryUserArgs = {
 export type RssImport = Node & {
   __typename?: 'RSSImport'
   id: Scalars['ID']['output']
+  /** Indicates whether posts should be imported as drafts or not */
+  importAsDrafts: Scalars['Boolean']['output']
+  /** RSS Tag name to be considered as the post content for automatic import. */
+  rssTagName?: Maybe<Scalars['String']['output']>
   /** The URL pointing to the RSS feed. */
   rssURL: Scalars['String']['output']
+  /** Indicates whether the posts should be scraped or not */
+  scrapePosts: Scalars['Boolean']['output']
 }
 
 /**
@@ -3017,6 +3023,8 @@ export enum Scope {
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
+  DocsEditorOrOwner = 'docs_editor_or_owner',
+  DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
   PublicationMember = 'publication_member',

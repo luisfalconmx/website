@@ -6360,6 +6360,73 @@ export type GetCertificationsQuery = {
   }
 }
 
+export type GetProfileResumeQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetProfileResumeQuery = {
+  __typename?: 'Query'
+  worksConnection: {
+    __typename?: 'WorkConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
+  works: Array<{
+    __typename?: 'Work'
+    id: string
+    name: string
+    companyName: string
+    location: string
+    startDate: any
+    endDate?: any | null
+    industry: string
+    description: string
+    companyImage: { __typename?: 'Asset'; url: string }
+  }>
+  projectsConnection: {
+    __typename?: 'ProjectConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
+  projects: Array<{
+    __typename?: 'Project'
+    id: string
+    slug: string
+    url: string
+    name: string
+    description: string
+    date: any
+    image: { __typename?: 'Asset'; url: string }
+    technologies: Array<{
+      __typename?: 'Technology'
+      id: string
+      name: string
+      icon: { __typename?: 'Asset'; url: string }
+    }>
+  }>
+  certificationsConnection: {
+    __typename?: 'CertificationConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
+  certifications: Array<{
+    __typename?: 'Certification'
+    id: string
+    slug: string
+    name: string
+    createdAt: any
+    date: any
+    url: string
+    organizationName: string
+    organizationImage: { __typename?: 'Asset'; url: string }
+    image: { __typename?: 'Asset'; url: string }
+  }>
+  technologiesConnection: {
+    __typename?: 'TechnologyConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
+  technologies: Array<{
+    __typename?: 'Technology'
+    name: string
+    icon: { __typename?: 'Asset'; url: string }
+  }>
+}
+
 export type GetProjectsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
@@ -6572,6 +6639,147 @@ export type GetCertificationsSuspenseQueryHookResult = ReturnType<
 export type GetCertificationsQueryResult = Apollo.QueryResult<
   GetCertificationsQuery,
   GetCertificationsQueryVariables
+>
+export const GetProfileResumeDocument = gql`
+  query GetProfileResume {
+    worksConnection {
+      aggregate {
+        count
+      }
+    }
+    works(orderBy: endDate_DESC) {
+      id
+      name
+      companyName
+      companyImage {
+        url
+      }
+      location
+      startDate
+      endDate
+      industry
+      description
+    }
+    projectsConnection {
+      aggregate {
+        count
+      }
+    }
+    projects(first: 3) {
+      id
+      slug
+      url
+      name
+      description
+      date
+      image {
+        url
+      }
+      technologies {
+        id
+        name
+        icon {
+          url
+        }
+      }
+    }
+    certificationsConnection {
+      aggregate {
+        count
+      }
+    }
+    certifications(first: 3, orderBy: date_DESC) {
+      id
+      slug
+      name
+      createdAt
+      date
+      url
+      organizationName
+      organizationImage {
+        url
+      }
+      image {
+        url
+      }
+    }
+    technologiesConnection {
+      aggregate {
+        count
+      }
+    }
+    technologies(first: 16, orderBy: name_ASC) {
+      name
+      icon {
+        url
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProfileResumeQuery__
+ *
+ * To run a query within a React component, call `useGetProfileResumeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileResumeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileResumeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetProfileResumeQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetProfileResumeQuery,
+    GetProfileResumeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProfileResumeQuery, GetProfileResumeQueryVariables>(
+    GetProfileResumeDocument,
+    options
+  )
+}
+export function useGetProfileResumeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProfileResumeQuery,
+    GetProfileResumeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetProfileResumeQuery,
+    GetProfileResumeQueryVariables
+  >(GetProfileResumeDocument, options)
+}
+export function useGetProfileResumeSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProfileResumeQuery,
+    GetProfileResumeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetProfileResumeQuery,
+    GetProfileResumeQueryVariables
+  >(GetProfileResumeDocument, options)
+}
+export type GetProfileResumeQueryHookResult = ReturnType<
+  typeof useGetProfileResumeQuery
+>
+export type GetProfileResumeLazyQueryHookResult = ReturnType<
+  typeof useGetProfileResumeLazyQuery
+>
+export type GetProfileResumeSuspenseQueryHookResult = ReturnType<
+  typeof useGetProfileResumeSuspenseQuery
+>
+export type GetProfileResumeQueryResult = Apollo.QueryResult<
+  GetProfileResumeQuery,
+  GetProfileResumeQueryVariables
 >
 export const GetProjectsDocument = gql`
   query GetProjects($limit: Int, $skip: Int) {

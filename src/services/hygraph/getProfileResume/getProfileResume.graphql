@@ -1,0 +1,74 @@
+query GetProfileResume {
+  worksConnection {
+    aggregate {
+      count
+    }
+  }
+  works(orderBy: endDate_DESC) {
+    id
+    name
+    companyName
+    companyImage {
+      url
+    }
+    location
+    startDate
+    endDate
+    industry
+    description
+  }
+  projectsConnection {
+    aggregate {
+      count
+    }
+  }
+  projects(first: 3) {
+    id
+    slug
+    url
+    name
+    description
+    date
+    image {
+      url
+    }
+    technologies {
+      id
+      name
+      icon {
+        url
+      }
+    }
+  }
+  certificationsConnection {
+    aggregate {
+      count
+    }
+  }
+  certifications(first: 3, orderBy: date_DESC) {
+    id
+    slug
+    name
+    createdAt
+    date
+    url
+    organizationName
+    organizationImage {
+      url
+    }
+    image {
+      url
+    }
+  }
+  technologiesConnection {
+    aggregate {
+      count
+    }
+  }
+  technologies(first: 16, orderBy: name_ASC) {
+    name
+    icon {
+      url
+    }
+  }
+}
