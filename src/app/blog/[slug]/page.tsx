@@ -104,7 +104,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
           <time
             dateTime={post.publishedAt}
-            className="mb-8 block text-lg font-bold underline lg:text-center"
+            className="mb-8 block text-lg font-bold italic lg:text-center"
           >
             {humanDate(post.publishedAt)} - {post.readTimeInMinutes} min read
           </time>
@@ -114,7 +114,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             alt={post?.title || ''}
             width="912"
             height="550"
-            className="mb-12 aspect-video w-full rounded-lg"
+            className="mb-12 aspect-video w-full rounded-lg border-2 border-divider-soft shadow-xl dark:border-divider-hard"
           />
         </section>
 
@@ -123,7 +123,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         </section>
 
         {post.tags && (
-          <ul className="mb-12 flex flex-wrap gap-2 px-4 lg:px-12">
+          <ul className="mb-12 flex flex-wrap justify-center gap-2 px-4 lg:px-12">
             {post.tags.map((tag) => (
               <li
                 key={tag.id}

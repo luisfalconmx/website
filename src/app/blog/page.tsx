@@ -2,6 +2,7 @@ import { PostCard } from '@/components/PostCard'
 import { Pagination } from '@/components/Pagination'
 import { getArticles } from '@/services/hashnode/getArticles'
 import { HASHNODE_USERNAME } from '@/config/env'
+import { notFound } from 'next/navigation'
 
 export default async function Blog({
   searchParams
@@ -19,8 +20,12 @@ export default async function Blog({
 
   const posts = response?.data.user?.posts.edges.map((edge) => edge.node)
 
+  if (posts && posts?.length <= 0) {
+    return notFound()
+  }
+
   return (
-    <main className="mx-auto max-w-screen-xl px-4 py-8 lg:py-16">
+    <main className="mx-auto max-w-screen-xl px-4 pb-24 pt-4 lg:py-16">
       <div className="absolute h-[1px] max-w-screen-xl overflow-hidden">
         <h1>Blog</h1>
         <p>
@@ -31,7 +36,7 @@ export default async function Blog({
       </div>
 
       {posts && posts.length >= 1 && (
-        <section className="mx-auto mb-16 mt-8 max-w-screen-xl px-8">
+        <section className="mx-auto mb-4 mt-8 max-w-screen-xl px-0 lg:mb-16 lg:px-8">
           {posts
             ?.slice(0, 1)
             .map((post) => (
@@ -43,7 +48,6 @@ export default async function Blog({
                 image={post.coverImage?.url || ''}
                 date={post.publishedAt}
                 readingTime={post.readTimeInMinutes}
-                tag={post.tags ? post.tags[0].name : ''}
                 variant="jumbo"
               />
             ))}
@@ -51,7 +55,7 @@ export default async function Blog({
       )}
 
       {posts && posts.length >= 2 && (
-        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-4 px-2 md:grid-cols-2 md:px-4 lg:grid-cols-3 lg:px-6">
+        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-4 px-0 md:grid-cols-2 md:px-4 lg:grid-cols-3 lg:px-6">
           {posts
             ?.slice(1, 7)
             .map((post) => (
@@ -63,7 +67,6 @@ export default async function Blog({
                 image={post.coverImage?.url || ''}
                 date={post.publishedAt}
                 readingTime={post.readTimeInMinutes}
-                tag={post.tags ? post.tags[0].name : ''}
                 variant="default"
               />
             ))}
@@ -71,10 +74,10 @@ export default async function Blog({
       )}
 
       {posts && posts.length >= 7 && (
-        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-x-4 px-2 md:grid-cols-2 md:px-4 lg:px-6">
+        <section className="mx-auto mb-4 grid max-w-screen-xl grid-cols-1 gap-x-4 px-0 md:grid-cols-2 md:px-4 lg:mb-16 lg:px-6">
           {posts
             ?.slice(7, 9)
-            .map((post: any) => (
+            .map((post) => (
               <PostCard
                 key={post.id}
                 title={post.title}
@@ -83,7 +86,6 @@ export default async function Blog({
                 image={post.coverImage?.url || ''}
                 date={post.publishedAt}
                 readingTime={post.readTimeInMinutes}
-                tag={post.tags ? post.tags[0].name : ''}
                 variant="square"
               />
             ))}
@@ -91,10 +93,10 @@ export default async function Blog({
       )}
 
       {posts && posts.length >= 9 && (
-        <section className="mx-auto mb-16 grid max-w-screen-xl grid-cols-1 gap-y-8 px-6 md:grid-cols-2 md:gap-x-3 md:px-4 lg:grid-cols-1 lg:gap-x-0 lg:px-6">
+        <section className="mx-auto mb-4 grid max-w-screen-xl grid-cols-1 gap-y-8 px-0 md:grid-cols-2 md:gap-x-3 md:px-4 lg:mb-16 lg:grid-cols-1 lg:gap-x-0 lg:px-6">
           {posts
             ?.slice(9, 13)
-            .map((post: any) => (
+            .map((post) => (
               <PostCard
                 key={post.id}
                 title={post.title}
@@ -103,7 +105,6 @@ export default async function Blog({
                 image={post.coverImage?.url || ''}
                 date={post.publishedAt}
                 readingTime={post.readTimeInMinutes}
-                tag={post.tags ? post.tags[0].name : ''}
                 variant="track"
               />
             ))}

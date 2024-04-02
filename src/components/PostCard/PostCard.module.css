@@ -7,11 +7,11 @@
 }
 
 .PostCard__image {
-  @apply aspect-video w-full object-cover object-center;
+  @apply aspect-video w-full rounded-xl border border-divider-soft object-cover object-center shadow-xl dark:border-divider-hard;
 }
 
 .PostCard__content {
-  @apply flex h-full flex-col bg-white px-4 pt-8 dark:bg-night dark:text-ghost;
+  @apply flex h-full flex-col px-4 pt-8 dark:text-ghost;
 }
 
 .PostCard__tag {
@@ -19,15 +19,15 @@
 }
 
 .PostCard__date {
-  @apply block text-sm dark:text-ghost lg:ml-2;
+  @apply block text-sm dark:text-ghost;
 }
 
 .PostCard__title {
-  @apply mb-5 text-xl font-bold;
+  @apply mb-5 text-2xl font-bold lg:text-xl;
 }
 
 .PostCard__description {
-  @apply mb-10 text-neutral-500;
+  @apply mb-10 text-lg text-neutral-600 dark:text-neutral-400 lg:text-base;
 }
 
 .PostCard__author {
@@ -68,7 +68,7 @@
 }
 
 .PostCard--track .PostCard__title {
-  @apply max-w-[500px] text-xl;
+  @apply max-w-[500px] text-2xl lg:text-xl;
 }
 
 .PostCard--track .PostCard__tag {
@@ -80,11 +80,11 @@
 }
 
 .PostCard--jumbo {
-  @apply relative min-h-[500px] max-w-none;
+  @apply static max-w-none border-divider-soft dark:border-divider-hard lg:relative lg:min-h-[500px] lg:overflow-hidden lg:rounded-xl lg:border-2;
 }
 
 .PostCard--jumbo .PostCard__overlay {
-  @apply absolute inset-0 z-10 block bg-gradient-to-t from-black to-black/50 lg:bg-gradient-to-r lg:to-black/10;
+  @apply static inset-0 z-10 block bg-gradient-to-t from-black to-black/50 lg:absolute lg:bg-gradient-to-r lg:to-black/10;
 }
 
 .PostCard--jumbo .PostCard__tag {
@@ -92,25 +92,25 @@
 }
 
 .PostCard--jumbo .PostCard__date {
-  @apply ml-0 text-white lg:ml-2;
+  @apply ml-0 lg:text-white;
 }
 
 .PostCard--jumbo .PostCard__image {
-  @apply absolute inset-0 h-full object-cover;
+  @apply static inset-0 h-full w-full object-cover lg:absolute;
 }
 
 .PostCard--jumbo .PostCard__title {
-  @apply text-2xl text-ghost lg:text-3xl;
+  @apply text-2xl lg:text-3xl lg:text-white;
 }
 
 .PostCard--jumbo .PostCard__content {
-  @apply absolute z-20 flex h-full flex-col-reverse justify-start bg-transparent lg:max-w-[60%] lg:px-10;
+  @apply static z-20 flex h-full flex-col-reverse justify-start bg-transparent lg:absolute lg:max-w-[60%] lg:px-10;
 }
 
 .PostCard--jumbo .PostCard__description {
-  @apply mb-10 text-sm text-neutral-500 lg:text-lg;
+  @apply mb-10 text-lg lg:text-lg lg:text-neutral-400;
 }
 
 .PostCard--jumbo .PostCard__author {
-  @apply mb-auto mt-0 text-ghost;
+  @apply mb-auto mt-0 lg:text-ghost;
 }

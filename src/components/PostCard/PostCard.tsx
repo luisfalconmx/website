@@ -11,7 +11,6 @@ export const PostCard = ({
   title,
   description,
   image,
-  tag,
   date,
   readingTime,
   className = ''
@@ -68,8 +67,7 @@ export const PostCard = ({
         <div className={styles.PostCard__content}>
           <div>
             <div className="mb-2 flex flex-col lg:flex-row lg:items-center">
-              <span className={styles.PostCard__tag}>{tag}</span>
-              <span className={styles.PostCard__date}>- {customLabel}</span>
+              <span className={styles.PostCard__date}> {customLabel}</span>
             </div>
             <h1 className={styles.PostCard__title}>{title}</h1>
             <p className={styles.PostCard__description}>{description}</p>

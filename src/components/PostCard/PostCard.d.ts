@@ -4,7 +4,6 @@ export interface PostCardProps {
   title: string
   description: string
   image: string
-  tag: string | undefined
   date: string
   readingTime: number
   className?: string
