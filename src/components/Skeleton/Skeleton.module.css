@@ -1,0 +1,3 @@
+.Skeleton {
+  @apply animate-pulse bg-divider-soft dark:bg-divider-hard;
+}

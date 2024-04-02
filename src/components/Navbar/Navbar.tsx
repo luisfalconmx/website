@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Skeleton } from '../Skeleton'
 import cn from '@/utils/cn'
 import {
   XMarkIcon,
@@ -67,7 +68,7 @@ const Navbar = () => {
   }, [isMenuOpen])
 
   if (!mounted) {
-    return null
+    return <Skeleton width="100%" height="72px" />
   }
 
   return (
