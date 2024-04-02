@@ -114,7 +114,7 @@ export default async function Home() {
         </ul>
       </section>
 
-      <section className="mb-16 border-y border-divider-soft bg-white py-16 shadow-none dark:border-divider-hard dark:bg-night lg:mb-32">
+      <section className="mb-16 border-y border-divider-soft bg-white py-16 shadow-lg dark:border-divider-hard dark:bg-night lg:mb-32">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 place-items-center gap-x-6 gap-y-14 text-center md:grid-cols-2 md:place-items-start md:gap-y-10 md:px-16 md:text-left lg:grid-cols-4 lg:place-items-center lg:gap-y-0 lg:px-0">
           <div>
             <strong className="mb-4 block text-5xl font-bold">
@@ -218,7 +218,7 @@ export default async function Home() {
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
           {technologiesResponse?.technologies.map((technology) => (
             <li key={technology.name}>
-              <div className="flex h-full items-center space-x-3 rounded-xl border border-divider-soft bg-white px-4 py-4 dark:border-divider-hard dark:bg-night">
+              <div className="flex h-full items-center space-x-3 rounded-xl border border-divider-soft bg-white px-4 py-4 shadow-lg dark:border-divider-hard dark:bg-night">
                 <Image
                   src={technology.icon.url}
                   alt={technology.name}

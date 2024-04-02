@@ -15,7 +15,7 @@ export const ProjectCard = ({
   date
 }: ProjectCardProps) => {
   return (
-    <article className="grid h-full grid-cols-1 gap-x-14 overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night lg:grid-cols-[1fr_500px] lg:px-12 lg:pt-12">
+    <article className="grid h-full grid-cols-1 gap-x-14 overflow-hidden rounded-xl border border-divider-soft bg-white shadow-lg dark:border-divider-hard dark:bg-night lg:grid-cols-[1fr_500px] lg:px-12 lg:pt-12">
       <div className="flex flex-col px-6 py-8 text-center lg:mb-8 lg:p-0 lg:text-left">
         <time dateTime={date} className="mb-2 text-sm text-neutral-400">
           {humanDate(date)}

@@ -17,7 +17,7 @@ export const CertificationCard = ({
   image
 }: CertificationCardProps) => {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white dark:border-divider-hard dark:bg-night">
+    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-divider-soft bg-white shadow-lg dark:border-divider-hard dark:bg-night">
       <Image
         src={image}
         alt={`Certificate for ${name}`}

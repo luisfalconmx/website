@@ -13,7 +13,7 @@ export const WorkCard = ({
   description
 }: WorkCardProps) => {
   return (
-    <article className="grid h-full grid-cols-1 grid-rows-[60px_1fr] gap-6 rounded-xl border border-divider-soft bg-white px-6 py-8 dark:border-divider-hard dark:bg-night lg:grid-cols-[60px_1fr] lg:grid-rows-none">
+    <article className="grid h-full grid-cols-1 grid-rows-[60px_1fr] gap-6 rounded-xl border border-divider-soft bg-white px-6 py-8 shadow-lg dark:border-divider-hard dark:bg-night lg:grid-cols-[60px_1fr] lg:grid-rows-none">
       <Image
         src={companyImage.url}
         alt={companyName}

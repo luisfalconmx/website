@@ -1,5 +1,5 @@
 .Search {
-  @apply relative mb-14 flex max-w-md justify-center;
+  @apply relative mb-14 flex max-w-md justify-center rounded-full shadow-lg;
 }
 
 .Search__input {

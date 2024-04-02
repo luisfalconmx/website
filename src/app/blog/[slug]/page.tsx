@@ -135,7 +135,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
           </ul>
         )}
 
-        <section className="mx-4 flex flex-col rounded-lg border border-divider-soft bg-white px-4 pb-12 pt-6 dark:border-divider-hard dark:bg-night lg:grid-cols-2 lg:flex-row lg:place-content-center">
+        <section className="mx-4 flex flex-col rounded-lg border border-divider-soft bg-white px-4 pb-12 pt-6 shadow-lg dark:border-divider-hard dark:bg-night lg:grid-cols-2 lg:flex-row lg:place-content-center">
           <figure className="mx-auto mb-2 block lg:mx-0 lg:mr-4">
             <Image
               src={post?.author.profilePicture || ''}
