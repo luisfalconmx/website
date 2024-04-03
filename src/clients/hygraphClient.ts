@@ -8,7 +8,7 @@ export const { getClient: hygraphClient } = registerApolloClient(() => {
     link: new HttpLink({
       uri: HYGRAPH_SCHEMA_URL,
       fetchOptions: {
-        cache: 'no-store'
+        cache: 'force-cache'
       },
       headers: {
         Authorization: `Bearer ${HYGRAPH_ACCESS_TOKEN}`
