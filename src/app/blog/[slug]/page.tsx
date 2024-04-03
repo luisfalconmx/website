@@ -53,7 +53,7 @@ export const generateMetadata = async ({
       authors: `${post?.author.name} (${post?.author.username})`,
       images: [
         {
-          url: post?.ogMetaData?.image || ''
+          url: post?.ogMetaData?.image || post?.coverImage?.url || ''
         }
       ]
     },
@@ -65,7 +65,7 @@ export const generateMetadata = async ({
       creator: post?.author.username,
       images: [
         {
-          url: post?.ogMetaData?.image || ''
+          url: post?.ogMetaData?.image || post?.coverImage?.url || ''
         }
       ]
     }
@@ -221,7 +221,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             },
             "headline": "${post?.title}",
             "description": "${post?.brief}",
-            "image": "${post?.ogMetaData?.image}",  
+            "image": "${post?.ogMetaData?.image || post?.coverImage?.url}",  
             "author": {
               "@type": "Person",
               "name": "${post?.author.name} (${post?.author.username})",
