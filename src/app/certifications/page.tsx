@@ -99,7 +99,7 @@ export default async function Certifications({
       {res?.certifications && res.certifications.length > 0 && (
         <>
           <div className="mx-auto mb-6">
-            <b className="block text-xl font-bold">
+            <b className="block text-center text-xl font-bold md:text-left">
               {totalCertificationsDisplayed}{' '}
               {totalCertificationsDisplayed <= 1
                 ? 'Certification'

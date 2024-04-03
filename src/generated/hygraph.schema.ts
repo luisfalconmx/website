@@ -6686,7 +6686,7 @@ export const GetProfileResumeDocument = gql`
         count
       }
     }
-    projects(first: 3) {
+    projects(first: 4) {
       id
       slug
       url
@@ -6709,7 +6709,7 @@ export const GetProfileResumeDocument = gql`
         count
       }
     }
-    certifications(first: 3, orderBy: date_DESC) {
+    certifications(first: 6, orderBy: date_DESC) {
       id
       slug
       name

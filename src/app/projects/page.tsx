@@ -93,7 +93,7 @@ export default async function Projects({
       {res?.projects && res.projects.length > 0 && (
         <>
           <div className="mx-auto mb-6">
-            <b className="block text-xl font-bold">
+            <b className="block text-center text-xl font-bold lg:text-left">
               {totalProjectsDisplayed}{' '}
               {totalProjectsDisplayed <= 1 ? 'Project' : 'Projects'}{' '}
               {searchParams.search

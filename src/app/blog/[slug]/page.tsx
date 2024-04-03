@@ -90,7 +90,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <main className="mx-auto my-12 mb-16 max-w-screen-lg gap-x-6 lg:my-24 lg:px-4">
+      <main className="mx-auto my-12 mb-16 max-w-screen-lg gap-x-6 md:px-8 lg:my-24 lg:px-4">
         <section className="mb-2 box-content px-4 md:mb-5 lg:pl-0 lg:pr-4">
           <h1 className="mx-auto mb-6 text-3xl font-bold leading-tight md:text-5xl lg:text-center">
             {post?.title}
@@ -122,7 +122,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         </section>
 
         {post.tags && (
-          <ul className="mb-12 flex flex-wrap justify-center gap-2 px-4 lg:px-12">
+          <ul className="mb-12 flex flex-wrap gap-2 px-4 md:justify-center lg:px-12">
             {post.tags.map((tag) => (
               <li
                 key={tag.id}

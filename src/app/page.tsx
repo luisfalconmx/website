@@ -149,7 +149,7 @@ export default async function Home() {
           Latest Projects
         </h2>
 
-        <div className="grid grid-cols-1 gap-y-6">
+        <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-1 lg:gap-x-0">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}

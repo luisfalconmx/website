@@ -3,7 +3,7 @@
 }
 
 .Navbar__content {
-  @apply mx-auto grid w-full max-w-screen-xl grid-cols-[200px_1fr_200px] items-center px-4 py-5;
+  @apply mx-auto grid w-full max-w-screen-xl grid-cols-[auto_1fr_auto] items-center px-4 py-5 lg:grid-cols-[200px_1fr_200px];
 }
 
 .Navbar__toggle {
@@ -19,11 +19,11 @@
 }
 
 .Navbar__nav--open {
-  @apply left-0 bg-white dark:bg-black;
+  @apply left-0 bg-white dark:bg-black lg:bg-transparent dark:lg:bg-transparent;
 }
 
 .Navbar__list {
-  @apply flex flex-col items-start lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:space-x-8;
+  @apply flex flex-col items-start md:items-center lg:mt-0 lg:flex-row lg:justify-center lg:space-x-8;
 }
 
 .Navbar__item {
@@ -47,7 +47,7 @@
 }
 
 .Navbar__social-list {
-  @apply flex items-center space-x-6 lg:hidden;
+  @apply flex items-center space-x-6 md:justify-center lg:hidden lg:justify-normal;
 }
 
 .Navbar__actions {
