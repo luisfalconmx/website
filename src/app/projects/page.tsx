@@ -1,35 +1,33 @@
-import Image from 'next/image'
-import { CalendarDaysIcon } from '@heroicons/react/24/solid'
-import {
-  ArrowTopRightOnSquareIcon,
-  EyeSlashIcon
-} from '@heroicons/react/24/outline'
+import { EyeSlashIcon } from '@heroicons/react/24/outline'
 import { getProjects, searchProjectsByTerm } from '@/services/hygraph'
-import humanDate from '@/utils/humanDate'
 import Link from 'next/link'
-import { defaultBlurImage } from '@/config/blurImages'
 import { Search } from '@/components/Search'
 import { Pagination } from '@/components/Pagination'
 import Button from '@/components/Button'
 import { ProjectCard } from '@/components/ProjectCard'
+import { SITE_URL } from '@/config/env'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const total = 0
+  const projects = await getProjects({ limit: 0, skip: 0 })
+  const total = projects?.allProjects.aggregate.count || 0
 
   return {
-    title: 'Projects',
-    description: `I have obtained ${total} Projects to demonstrate my knowledge as a Frontend Developer.`,
+    title: 'Projects List',
+    description: `I have developed a total of ${total} projects in which I use modern frontend technologies such as React, Next, Tailwindcss, among others.`,
     openGraph: {
-      title: 'Projects',
-      description: `I have obtained ${total} Projects to demonstrate my knowledge as a Frontend Developer.`,
+      title: 'Projects List',
+      description: `I have developed a total of ${total} projects in which I use modern frontend technologies such as React, Next, Tailwindcss, among others.`,
       type: 'website',
-      url: 'https://www.luisfalconmx.dev',
+      url: `${SITE_URL}/projects`,
       images: [
         {
-          url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
+          url: `${SITE_URL}/images/open-graph-image.jpg`
         }
       ]
+    },
+    alternates: {
+      canonical: `${SITE_URL}/projects/`
     }
   }
 }
@@ -62,16 +60,16 @@ export default async function Projects({
     })
   }
 
-  const totalProjects = res?.projectsConnection.aggregate.count || 0
+  const totalProjects = res?.allProjects.aggregate.count || 0
+  const totalProjectsDisplayed = res?.projectsConnection.aggregate.count || 0
 
   return (
     <main className="mx-auto max-w-screen-xl px-4 py-12 lg:py-24">
       <h1 className="mx-auto mb-4 w-fit text-3xl font-bold">Projects</h1>
       <p className="mx-auto mb-12 max-w-2xl text-center text-black/80 dark:text-white/80 lg:text-lg">
-        I have obtained multiple Projects to demonstrate my knowledge as a{' '}
-        <b>Frontend Developer</b>. These Projects are issued by{' '}
-        <b>recognized organizations</b> and each certificate has a{' '}
-        <b>unique credential ID</b> that can be verified.
+        I have developed a total of <b>{totalProjects} projects</b> in which I
+        use <b>modern frontend</b> technologies such as{' '}
+        <b>React, Next, Tailwindcss</b>, among others.
       </p>
 
       <Search className="mx-auto" />
@@ -93,31 +91,42 @@ export default async function Projects({
       )}
 
       {res?.projects && res.projects.length > 0 && (
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
-          {res?.projects?.map((project) => (
-            <li key={project.id}>
-              <ProjectCard
-                key={project.id}
-                name={project.name}
-                description={project.description}
-                image={project.image.url}
-                technologies={project.technologies.map(
-                  ({ id, name, icon }) => ({
-                    id,
-                    name,
-                    icon: icon.url
-                  })
-                )}
-                date={project.date}
-                url={project.url}
-              />
-            </li>
-          ))}
-        </ul>
+        <>
+          <div className="mx-auto mb-6">
+            <b className="block text-xl font-bold">
+              {totalProjectsDisplayed}{' '}
+              {totalProjectsDisplayed <= 1 ? 'Project' : 'Projects'}{' '}
+              {searchParams.search
+                ? `for "${searchParams.search}"`
+                : 'in total'}
+            </b>
+          </div>
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
+            {res?.projects?.map((project) => (
+              <li key={project.id}>
+                <ProjectCard
+                  key={project.id}
+                  name={project.name}
+                  description={project.description}
+                  image={project.image.url}
+                  technologies={project.technologies.map(
+                    ({ id, name, icon }) => ({
+                      id,
+                      name,
+                      icon: icon.url
+                    })
+                  )}
+                  date={project.date}
+                  url={project.url}
+                />
+              </li>
+            ))}
+          </ul>
+        </>
       )}
 
       <Pagination
-        total={totalProjects}
+        total={totalProjectsDisplayed}
         limit={limit}
         currentPage={currentPage}
       />

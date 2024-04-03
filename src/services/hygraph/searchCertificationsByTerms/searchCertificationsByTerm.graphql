@@ -1,4 +1,9 @@
 query SearchCertificationsByTerm($first: Int, $skip: Int, $term: String) {
+  allCertifications: certificationsConnection {
+    aggregate {
+      count
+    }
+  }
   certificationsConnection(where: { name_contains: $term }) {
     aggregate {
       count

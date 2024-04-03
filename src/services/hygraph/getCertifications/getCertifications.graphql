@@ -19,4 +19,9 @@ query GetCertifications($first: Int, $skip: Int) {
       count
     }
   }
+  allCertifications: certificationsConnection {
+    aggregate {
+      count
+    }
+  }
 }

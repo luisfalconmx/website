@@ -1,8 +1,30 @@
 import { PostCard } from '@/components/PostCard'
 import { Pagination } from '@/components/Pagination'
 import { getArticles } from '@/services/hashnode/getArticles'
-import { HASHNODE_USERNAME } from '@/config/env'
+import { SITE_URL, HASHNODE_USERNAME } from '@/config/env'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description:
+    'A collection of articles about frontend development, web performance, best practices, tutorials, and more.',
+  openGraph: {
+    title: 'Blog',
+    description:
+      'A collection of articles about frontend development, web performance, best practices, tutorials, and more.',
+    type: 'website',
+    url: `${SITE_URL}/blog`,
+    images: [
+      {
+        url: `${SITE_URL}/images/open-graph-image.jpg`
+      }
+    ]
+  },
+  alternates: {
+    canonical: `${SITE_URL}/blog/`
+  }
+}
 
 export default async function Blog({
   searchParams
@@ -29,9 +51,8 @@ export default async function Blog({
       <div className="absolute h-[1px] max-w-screen-xl overflow-hidden">
         <h1>Blog</h1>
         <p>
-          Explore our growing collection of courses on key web design and
-          development subjects. An industry expert has written each course,
-          helped by members of the Chrome team.
+          A collection of articles about frontend development, web performance,
+          best practices, tutorials, and more.
         </p>
       </div>
 

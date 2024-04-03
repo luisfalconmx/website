@@ -7,8 +7,9 @@ import { getProfileResume } from '@/services/hygraph'
 import { ProjectCard } from '@/components/ProjectCard'
 import { WorkCard } from '@/components/WorkCard'
 import { CertificationCard } from '@/components/CertificationCard'
-import type { Metadata } from 'next'
 import dayjs from 'dayjs'
+import { SITE_URL } from '@/config/env'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
@@ -19,12 +20,15 @@ export const metadata: Metadata = {
     description:
       'I am Frontend Developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
     type: 'website',
-    url: 'https://www.luisfalconmx.dev',
+    url: `${SITE_URL}/`,
     images: [
       {
-        url: 'https://www.luisfalconmx.dev/images/open-graph-image.jpg'
+        url: `${SITE_URL}/images/open-graph-image.jpg`
       }
     ]
+  },
+  alternates: {
+    canonical: `${SITE_URL}/`
   }
 }
 

@@ -6358,6 +6358,10 @@ export type GetCertificationsQuery = {
     __typename?: 'CertificationConnection'
     aggregate: { __typename?: 'Aggregate'; count: number }
   }
+  allCertifications: {
+    __typename?: 'CertificationConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
 }
 
 export type GetProfileResumeQueryVariables = Exact<{ [key: string]: never }>
@@ -6434,6 +6438,10 @@ export type GetProjectsQueryVariables = Exact<{
 
 export type GetProjectsQuery = {
   __typename?: 'Query'
+  allProjects: {
+    __typename?: 'ProjectConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
   projectsConnection: {
     __typename?: 'ProjectConnection'
     aggregate: { __typename?: 'Aggregate'; count: number }
@@ -6501,6 +6509,10 @@ export type SearchCertificationsByTermQueryVariables = Exact<{
 
 export type SearchCertificationsByTermQuery = {
   __typename?: 'Query'
+  allCertifications: {
+    __typename?: 'CertificationConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
   certificationsConnection: {
     __typename?: 'CertificationConnection'
     aggregate: { __typename?: 'Aggregate'; count: number }
@@ -6527,6 +6539,10 @@ export type SearchProjectsByTermQueryVariables = Exact<{
 
 export type SearchProjectsByTermQuery = {
   __typename?: 'Query'
+  allProjects: {
+    __typename?: 'ProjectConnection'
+    aggregate: { __typename?: 'Aggregate'; count: number }
+  }
   projectsConnection: {
     __typename?: 'ProjectConnection'
     aggregate: { __typename?: 'Aggregate'; count: number }
@@ -6567,6 +6583,11 @@ export const GetCertificationsDocument = gql`
       }
     }
     certificationsConnection {
+      aggregate {
+        count
+      }
+    }
+    allCertifications: certificationsConnection {
       aggregate {
         count
       }
@@ -6783,6 +6804,11 @@ export type GetProfileResumeQueryResult = Apollo.QueryResult<
 >
 export const GetProjectsDocument = gql`
   query GetProjects($limit: Int, $skip: Int) {
+    allProjects: projectsConnection {
+      aggregate {
+        count
+      }
+    }
     projectsConnection {
       aggregate {
         count
@@ -7037,6 +7063,11 @@ export type GetWorksQueryResult = Apollo.QueryResult<
 >
 export const SearchCertificationsByTermDocument = gql`
   query SearchCertificationsByTerm($first: Int, $skip: Int, $term: String) {
+    allCertifications: certificationsConnection {
+      aggregate {
+        count
+      }
+    }
     certificationsConnection(where: { name_contains: $term }) {
       aggregate {
         count
@@ -7134,6 +7165,11 @@ export type SearchCertificationsByTermQueryResult = Apollo.QueryResult<
 >
 export const SearchProjectsByTermDocument = gql`
   query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
+    allProjects: projectsConnection {
+      aggregate {
+        count
+      }
+    }
     projectsConnection(where: { name_contains: $term }) {
       aggregate {
         count

@@ -3,7 +3,7 @@
 }
 
 .Navbar__content {
-  @apply mx-auto grid w-full max-w-screen-xl grid-cols-[10%_1fr_10%] items-center px-4 py-5;
+  @apply mx-auto grid w-full max-w-screen-xl grid-cols-[200px_1fr_200px] items-center px-4 py-5;
 }
 
 .Navbar__toggle {

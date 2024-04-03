@@ -1,4 +1,9 @@
 query SearchProjectsByTerm($limit: Int, $skip: Int, $term: String) {
+  allProjects: projectsConnection {
+    aggregate {
+      count
+    }
+  }
   projectsConnection(where: { name_contains: $term }) {
     aggregate {
       count
