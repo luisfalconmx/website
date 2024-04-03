@@ -841,6 +841,27 @@ export type CreateDraftTagInput = {
   slug?: InputMaybe<Scalars['String']['input']>
 }
 
+export type CreateSeriesInput = {
+  /** The cover image of the series. */
+  coverImage?: InputMaybe<Scalars['String']['input']>
+  /** The description of the series. Accepts markdown. */
+  descriptionMarkdown?: InputMaybe<Scalars['String']['input']>
+  /** The name of the series. */
+  name: Scalars['String']['input']
+  /** The id of the publication the series belongs to. */
+  publicationId: Scalars['ID']['input']
+  /** The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug */
+  slug: Scalars['String']['input']
+  /** The sort order of the series, determines if the latest posts should appear first or last in series. */
+  sortOrder?: InputMaybe<SortOrder>
+}
+
+export type CreateSeriesPayload = {
+  __typename?: 'CreateSeriesPayload'
+  /** Returns the created series. */
+  series: Series
+}
+
 export type CreateWebhookInput = {
   events: Array<WebhookEvent>
   publicationId: Scalars['ID']['input']
@@ -1505,6 +1526,8 @@ export type Mutation = {
   cancelScheduledDraft: CancelScheduledDraftPayload
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload
+  /** Creates a new series. */
+  createSeries: CreateSeriesPayload
   createWebhook: CreateWebhookPayload
   deleteWebhook: DeleteWebhookPayload
   /** Likes a comment. */
@@ -1523,6 +1546,8 @@ export type Mutation = {
   removeRecommendation: RemoveRecommendationPayload
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload
+  /** Removes a series. */
+  removeSeries: RemoveSeriesPayload
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload
   resendWebhookRequest: ResendWebhookRequestPayload
@@ -1544,6 +1569,8 @@ export type Mutation = {
   updatePost: UpdatePostPayload
   /** Updates a reply */
   updateReply: UpdateReplyPayload
+  /** Updates a series. */
+  updateSeries: UpdateSeriesPayload
   updateWebhook: UpdateWebhookPayload
 }
 
@@ -1565,6 +1592,10 @@ export type MutationCancelScheduledDraftArgs = {
 
 export type MutationCreateDraftArgs = {
   input: CreateDraftInput
+}
+
+export type MutationCreateSeriesArgs = {
+  input: CreateSeriesInput
 }
 
 export type MutationCreateWebhookArgs = {
@@ -1611,6 +1642,10 @@ export type MutationRemoveReplyArgs = {
   input: RemoveReplyInput
 }
 
+export type MutationRemoveSeriesArgs = {
+  input: RemoveSeriesInput
+}
+
 export type MutationRescheduleDraftArgs = {
   input: RescheduleDraftInput
 }
@@ -1654,6 +1689,10 @@ export type MutationUpdatePostArgs = {
 
 export type MutationUpdateReplyArgs = {
   input: UpdateReplyInput
+}
+
+export type MutationUpdateSeriesArgs = {
+  input: UpdateSeriesInput
 }
 
 export type MutationUpdateWebhookArgs = {
@@ -2915,6 +2954,17 @@ export type RemoveReplyPayload = {
   reply?: Maybe<Reply>
 }
 
+export type RemoveSeriesInput = {
+  /** The id of the series to remove. */
+  id: Scalars['ID']['input']
+}
+
+export type RemoveSeriesPayload = {
+  __typename?: 'RemoveSeriesPayload'
+  /** Returns the updated series. */
+  series: Series
+}
+
 /**
  * Contains basic information about the reply.
  * A reply is a response to a comment.
@@ -3451,6 +3501,27 @@ export type UpdateReplyInput = {
 export type UpdateReplyPayload = {
   __typename?: 'UpdateReplyPayload'
   reply?: Maybe<Reply>
+}
+
+export type UpdateSeriesInput = {
+  /** The cover image of the series. */
+  coverImage?: InputMaybe<Scalars['String']['input']>
+  /** The description of the series. Accepts markdown. */
+  descriptionMarkdown?: InputMaybe<Scalars['String']['input']>
+  /** The id of the series to update. */
+  id: Scalars['ID']['input']
+  /** The name of the series. */
+  name?: InputMaybe<Scalars['String']['input']>
+  /** The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug */
+  slug?: InputMaybe<Scalars['String']['input']>
+  /** The sort order of the series, determines if the latest posts should appear first or last in series. */
+  sortOrder?: InputMaybe<SortOrder>
+}
+
+export type UpdateSeriesPayload = {
+  __typename?: 'UpdateSeriesPayload'
+  /** Returns the updated series. */
+  series: Series
 }
 
 export type UpdateWebhookInput = {
