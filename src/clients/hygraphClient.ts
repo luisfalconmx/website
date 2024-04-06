@@ -9,8 +9,7 @@ export const { getClient: hygraphClient } = registerApolloClient(() => {
       uri: HYGRAPH_SCHEMA_URL,
       fetchOptions: {
         next: {
-          // revalidate in a day
-          revalidate: 60 * 60 * 24
+          revalidate: 60 * 60
         }
       },
       headers: {

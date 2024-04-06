@@ -9,7 +9,6 @@ export const { getClient: hashnodeClient } = registerApolloClient(() => {
       uri: HASHNODE_GRAPHQL_ENDPOINT,
       fetchOptions: {
         next: {
-          // revalidate in a hour
           revalidate: 60 * 60
         }
       },
