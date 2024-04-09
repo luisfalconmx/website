@@ -8,9 +8,7 @@ export const { getClient: hashnodeClient } = registerApolloClient(() => {
     link: new HttpLink({
       uri: HASHNODE_GRAPHQL_ENDPOINT,
       fetchOptions: {
-        next: {
-          revalidate: 60 * 60
-        }
+        cache: 'no-store'
       },
       headers: {
         Authorization: `Bearer ${HASHNODE_ACCESS_TOKEN}`
