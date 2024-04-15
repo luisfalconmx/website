@@ -15,8 +15,8 @@ export const ProjectCard = ({
   date
 }: ProjectCardProps) => {
   return (
-    <article className="flex h-full flex-col-reverse gap-x-14 overflow-hidden rounded-xl border border-divider-soft bg-white shadow-lg dark:border-divider-hard dark:bg-night lg:grid lg:grid-cols-[1fr_500px] lg:grid-rows-none lg:px-12 lg:pt-12">
-      <div className="flex h-full flex-col justify-start px-6 py-8 text-center lg:p-0 lg:pb-8 lg:text-left">
+    <article className="flex h-full flex-col-reverse gap-x-14 overflow-hidden rounded-xl border border-divider-soft bg-white shadow-lg dark:border-divider-hard dark:bg-night lg:grid lg:grid-cols-[1fr_500px] lg:grid-rows-none lg:px-12 lg:py-8">
+      <div className="flex h-full flex-col justify-start px-6 py-8 text-center lg:p-0 lg:pb-8 lg:pt-6 lg:text-left">
         <time dateTime={date} className="mb-2 text-sm text-neutral-400">
           {humanDate(date)}
         </time>
@@ -57,7 +57,7 @@ export const ProjectCard = ({
         width={500}
         height={500}
         blurDataURL={defaultBlurImage}
-        className="lg:mt-auto"
+        className="lg:self-center lg:rounded-xl"
       />
     </article>
   )
