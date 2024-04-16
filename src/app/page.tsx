@@ -185,7 +185,7 @@ export default async function Home() {
                 icon: icon.url
               }))}
               date={project.date}
-              url={project.url}
+              url={`/projects/${project.slug}`}
             />
           ))}
         </div>
