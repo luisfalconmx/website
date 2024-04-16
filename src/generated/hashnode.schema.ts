@@ -909,6 +909,19 @@ export type DarkModePreferences = {
   logo?: Maybe<Scalars['String']['output']>
 }
 
+export type DeleteRoleBasedInviteInput = {
+  /** The ID of the role based invite. */
+  inviteId: Scalars['ID']['input']
+  publicationId: Scalars['ID']['input']
+}
+
+/** Response to deleting a role based invite. */
+export type DeleteRoleBasedInvitePayload = {
+  __typename?: 'DeleteRoleBasedInvitePayload'
+  /** Deleted invite. */
+  invite: RoleBasedInvite
+}
+
 export type DeleteWebhookPayload = {
   __typename?: 'DeleteWebhookPayload'
   webhook?: Maybe<Webhook>
@@ -1505,6 +1518,17 @@ export type LikePostPayload = {
   post?: Maybe<Post>
 }
 
+export type LikeReplyInput = {
+  commentId: Scalars['ID']['input']
+  likesCount?: InputMaybe<Scalars['Int']['input']>
+  replyId: Scalars['ID']['input']
+}
+
+export type LikeReplyPayload = {
+  __typename?: 'LikeReplyPayload'
+  reply?: Maybe<Reply>
+}
+
 /** Contains information about meta tags. Used for SEO purpose. */
 export type MetaTagsInput = {
   /** The description of the post used in og:description for SEO. */
@@ -1529,11 +1553,15 @@ export type Mutation = {
   /** Creates a new series. */
   createSeries: CreateSeriesPayload
   createWebhook: CreateWebhookPayload
+  /** Deletes a role based invite. */
+  deleteRoleBasedInvite: DeleteRoleBasedInvitePayload
   deleteWebhook: DeleteWebhookPayload
   /** Likes a comment. */
   likeComment: LikeCommentPayload
   /** Likes a post. */
   likePost: LikePostPayload
+  /** Likes a reply. */
+  likeReply: LikeReplyPayload
   /** Publishes an existing draft as a post. */
   publishDraft: PublishDraftPayload
   /** Creates a new post. */
@@ -1602,6 +1630,10 @@ export type MutationCreateWebhookArgs = {
   input: CreateWebhookInput
 }
 
+export type MutationDeleteRoleBasedInviteArgs = {
+  input: DeleteRoleBasedInviteInput
+}
+
 export type MutationDeleteWebhookArgs = {
   id: Scalars['ID']['input']
 }
@@ -1612,6 +1644,10 @@ export type MutationLikeCommentArgs = {
 
 export type MutationLikePostArgs = {
   input: LikePostInput
+}
+
+export type MutationLikeReplyArgs = {
+  input: LikeReplyInput
 }
 
 export type MutationPublishDraftArgs = {
@@ -2578,10 +2614,22 @@ export type PublicationMember = Node & {
   __typename?: 'PublicationMember'
   /** The ID of the publication member. */
   id: Scalars['ID']['output']
+  /**
+   * Denotes if the member is public or private
+   * A private member is not visible on members page
+   */
+  privacyState?: Maybe<PublicationMemberPrivacyState>
   /** The role of the user in the publication. */
   role: UserPublicationRole
   /** The user who is a member of the publication. */
   user?: Maybe<User>
+}
+
+export enum PublicationMemberPrivacyState {
+  /** The member is private and not visible on the members page. */
+  Private = 'PRIVATE',
+  /** The member is public and visible on the members page. */
+  Public = 'PUBLIC'
 }
 
 /** Contains the publication's navbar items. */
@@ -3022,6 +3070,22 @@ export type RestorePostPayload = {
   post?: Maybe<Post>
 }
 
+export type RoleBasedInvite = Node & {
+  __typename?: 'RoleBasedInvite'
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: Maybe<Scalars['Int']['output']>
+  /** The expiry date of the invite. */
+  expiryDate?: Maybe<Scalars['DateTime']['output']>
+  /** The ID of the role based invite. */
+  id: Scalars['ID']['output']
+  /** Invite link of the role based invite. */
+  inviteLink?: Maybe<Scalars['String']['output']>
+  /** Boolean that signifies if the invite has unlimited capacity. */
+  isUnlimitedCapacity?: Maybe<Scalars['Boolean']['output']>
+  /** The role assigned to the user in the publication. */
+  role: UserPublicationRole
+}
+
 /** Information to help in seo related meta tags. */
 export type Seo = {
   __typename?: 'SEO'
@@ -3076,6 +3140,7 @@ export enum Scope {
   DocsEditorOrOwner = 'docs_editor_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
+  InvitedTeamUser = 'invited_team_user',
   PublicationAdmin = 'publication_admin',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',

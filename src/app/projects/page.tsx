@@ -117,7 +117,7 @@ export default async function Projects({
                     })
                   )}
                   date={project.date}
-                  url={project.url}
+                  url={`/projects/${project.slug}`}
                 />
               </li>
             ))}

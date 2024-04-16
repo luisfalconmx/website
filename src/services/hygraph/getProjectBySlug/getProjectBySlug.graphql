@@ -1,0 +1,29 @@
+query GetProjectBySlug($slug: String!) {
+  project(where: { slug: $slug }) {
+    id
+    name
+    date
+    updatedAt
+    description
+    url
+    repository
+    license
+    slug
+    overview {
+      markdown
+    }
+    image {
+      url
+    }
+    openGraphImage {
+      url
+    }
+    technologies {
+      id
+      name
+      icon {
+        url
+      }
+    }
+  }
+}

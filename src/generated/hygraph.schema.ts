@@ -73,6 +73,7 @@ export type Asset = Entity &
     localizations: Array<Asset>
     /** The mime type of the file */
     mimeType?: Maybe<Scalars['String']['output']>
+    openGraphImageProject: Array<Project>
     organizationImageCertification: Array<Certification>
     /** The time the document was published. Null on documents in draft stage. */
     publishedAt?: Maybe<Scalars['DateTime']['output']>
@@ -179,6 +180,19 @@ export type AssetLocalizationsArgs = {
 }
 
 /** Asset system model */
+export type AssetOpenGraphImageProjectArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  before?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
+  last?: InputMaybe<Scalars['Int']['input']>
+  locales?: InputMaybe<Array<Locale>>
+  orderBy?: InputMaybe<ProjectOrderByInput>
+  skip?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ProjectWhereInput>
+}
+
+/** Asset system model */
 export type AssetOrganizationImageCertificationArgs = {
   after?: InputMaybe<Scalars['String']['input']>
   before?: InputMaybe<Scalars['String']['input']>
@@ -256,6 +270,7 @@ export type AssetCreateInput = {
   imageProject?: InputMaybe<ProjectCreateManyInlineInput>
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>
+  openGraphImageProject?: InputMaybe<ProjectCreateManyInlineInput>
   organizationImageCertification?: InputMaybe<CertificationCreateManyInlineInput>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** Optionally the system can upload a file for you, for that you need to provide a publicly accessible url */
@@ -364,6 +379,9 @@ export type AssetManyWhereInput = {
   imageProject_every?: InputMaybe<ProjectWhereInput>
   imageProject_none?: InputMaybe<ProjectWhereInput>
   imageProject_some?: InputMaybe<ProjectWhereInput>
+  openGraphImageProject_every?: InputMaybe<ProjectWhereInput>
+  openGraphImageProject_none?: InputMaybe<ProjectWhereInput>
+  openGraphImageProject_some?: InputMaybe<ProjectWhereInput>
   organizationImageCertification_every?: InputMaybe<CertificationWhereInput>
   organizationImageCertification_none?: InputMaybe<CertificationWhereInput>
   organizationImageCertification_some?: InputMaybe<CertificationWhereInput>
@@ -457,6 +475,7 @@ export type AssetUpdateInput = {
   imageProject?: InputMaybe<ProjectUpdateManyInlineInput>
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>
+  openGraphImageProject?: InputMaybe<ProjectUpdateManyInlineInput>
   organizationImageCertification?: InputMaybe<CertificationUpdateManyInlineInput>
   /** Use this to define if its a reupload for the asset */
   reUpload?: InputMaybe<Scalars['Boolean']['input']>
@@ -832,6 +851,9 @@ export type AssetWhereInput = {
   mimeType_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   mimeType_starts_with?: InputMaybe<Scalars['String']['input']>
+  openGraphImageProject_every?: InputMaybe<ProjectWhereInput>
+  openGraphImageProject_none?: InputMaybe<ProjectWhereInput>
+  openGraphImageProject_some?: InputMaybe<ProjectWhereInput>
   organizationImageCertification_every?: InputMaybe<CertificationWhereInput>
   organizationImageCertification_none?: InputMaybe<CertificationWhereInput>
   organizationImageCertification_some?: InputMaybe<CertificationWhereInput>
@@ -937,6 +959,7 @@ export type Certification = Entity &
     createdAt: Scalars['DateTime']['output']
     /** User that created this document */
     createdBy?: Maybe<User>
+    credentialId: Scalars['String']['output']
     date: Scalars['Date']['output']
     /** Get the document in other stages */
     documentInStages: Array<Certification>
@@ -1032,6 +1055,7 @@ export type CertificationConnection = {
 
 export type CertificationCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>
+  credentialId: Scalars['String']['input']
   date: Scalars['Date']['input']
   image: AssetCreateOneInlineInput
   name: Scalars['String']['input']
@@ -1091,6 +1115,27 @@ export type CertificationManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   createdBy?: InputMaybe<UserWhereInput>
+  credentialId?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  credentialId_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  credentialId_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  credentialId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  credentialId_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  credentialId_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  credentialId_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  credentialId_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** All values not starting with the given string. */
+  credentialId_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  credentialId_starts_with?: InputMaybe<Scalars['String']['input']>
   date?: InputMaybe<Scalars['Date']['input']>
   /** All values greater than the given value. */
   date_gt?: InputMaybe<Scalars['Date']['input']>
@@ -1252,6 +1297,8 @@ export type CertificationManyWhereInput = {
 export enum CertificationOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
+  CredentialIdAsc = 'credentialId_ASC',
+  CredentialIdDesc = 'credentialId_DESC',
   DateAsc = 'date_ASC',
   DateDesc = 'date_DESC',
   IdAsc = 'id_ASC',
@@ -1271,6 +1318,7 @@ export enum CertificationOrderByInput {
 }
 
 export type CertificationUpdateInput = {
+  credentialId?: InputMaybe<Scalars['String']['input']>
   date?: InputMaybe<Scalars['Date']['input']>
   image?: InputMaybe<AssetUpdateOneInlineInput>
   name?: InputMaybe<Scalars['String']['input']>
@@ -1298,6 +1346,7 @@ export type CertificationUpdateManyInlineInput = {
 }
 
 export type CertificationUpdateManyInput = {
+  credentialId?: InputMaybe<Scalars['String']['input']>
   date?: InputMaybe<Scalars['Date']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   organizationName?: InputMaybe<Scalars['String']['input']>
@@ -1379,6 +1428,27 @@ export type CertificationWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>
   createdBy?: InputMaybe<UserWhereInput>
+  credentialId?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  credentialId_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  credentialId_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  credentialId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  credentialId_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  credentialId_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  credentialId_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  credentialId_not_in?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** All values not starting with the given string. */
+  credentialId_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  credentialId_starts_with?: InputMaybe<Scalars['String']['input']>
   date?: InputMaybe<Scalars['Date']['input']>
   /** All values greater than the given value. */
   date_gt?: InputMaybe<Scalars['Date']['input']>
@@ -2615,16 +2685,21 @@ export type Project = Entity &
     /** The unique identifier */
     id: Scalars['ID']['output']
     image: Asset
+    license: Scalars['String']['output']
     name: Scalars['String']['output']
+    openGraphImage: Asset
+    overview: RichText
     /** The time the document was published. Null on documents in draft stage. */
     publishedAt?: Maybe<Scalars['DateTime']['output']>
     /** User that last published this document */
     publishedBy?: Maybe<User>
+    repository: Scalars['String']['output']
     scheduledIn: Array<ScheduledOperation>
     slug: Scalars['String']['output']
     /** System stage field */
     stage: Stage
     technologies: Array<Technology>
+    type: ProjectTypes
     /** The time the document was updated */
     updatedAt: Scalars['DateTime']['output']
     /** User that last updated this document */
@@ -2650,6 +2725,12 @@ export type ProjectHistoryArgs = {
 }
 
 export type ProjectImageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
+  locales?: InputMaybe<Array<Locale>>
+  where?: InputMaybe<AssetSingleRelationWhereInput>
+}
+
+export type ProjectOpenGraphImageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>
   locales?: InputMaybe<Array<Locale>>
   where?: InputMaybe<AssetSingleRelationWhereInput>
@@ -2710,9 +2791,14 @@ export type ProjectCreateInput = {
   date: Scalars['Date']['input']
   description: Scalars['String']['input']
   image: AssetCreateOneInlineInput
+  license: Scalars['String']['input']
   name: Scalars['String']['input']
+  openGraphImage: AssetCreateOneInlineInput
+  overview: Scalars['RichTextAST']['input']
+  repository: Scalars['String']['input']
   slug: Scalars['String']['input']
   technologies?: InputMaybe<TechnologyCreateManyInlineInput>
+  type: ProjectTypes
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   url: Scalars['String']['input']
 }
@@ -2823,6 +2909,25 @@ export type ProjectManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>
   image?: InputMaybe<AssetWhereInput>
+  license?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  license_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  license_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  license_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  license_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  license_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  license_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  license_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  license_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  license_starts_with?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   /** All values containing the given string. */
   name_contains?: InputMaybe<Scalars['String']['input']>
@@ -2842,6 +2947,7 @@ export type ProjectManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']['input']>
+  openGraphImage?: InputMaybe<AssetWhereInput>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -2860,6 +2966,25 @@ export type ProjectManyWhereInput = {
     Array<InputMaybe<Scalars['DateTime']['input']>>
   >
   publishedBy?: InputMaybe<UserWhereInput>
+  repository?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  repository_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  repository_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  repository_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  repository_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  repository_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  repository_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  repository_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  repository_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  repository_starts_with?: InputMaybe<Scalars['String']['input']>
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>
@@ -2885,6 +3010,13 @@ export type ProjectManyWhereInput = {
   technologies_every?: InputMaybe<TechnologyWhereInput>
   technologies_none?: InputMaybe<TechnologyWhereInput>
   technologies_some?: InputMaybe<TechnologyWhereInput>
+  type?: InputMaybe<ProjectTypes>
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<ProjectTypes>>>
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<ProjectTypes>
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<ProjectTypes>>>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -2931,25 +3063,42 @@ export enum ProjectOrderByInput {
   DescriptionDesc = 'description_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  LicenseAsc = 'license_ASC',
+  LicenseDesc = 'license_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  RepositoryAsc = 'repository_ASC',
+  RepositoryDesc = 'repository_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC',
   UrlAsc = 'url_ASC',
   UrlDesc = 'url_DESC'
 }
 
+export enum ProjectTypes {
+  Blog = 'blog',
+  LandingPage = 'landing_page',
+  WebApp = 'web_app'
+}
+
 export type ProjectUpdateInput = {
   date?: InputMaybe<Scalars['Date']['input']>
   description?: InputMaybe<Scalars['String']['input']>
   image?: InputMaybe<AssetUpdateOneInlineInput>
+  license?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  openGraphImage?: InputMaybe<AssetUpdateOneInlineInput>
+  overview?: InputMaybe<Scalars['RichTextAST']['input']>
+  repository?: InputMaybe<Scalars['String']['input']>
   slug?: InputMaybe<Scalars['String']['input']>
   technologies?: InputMaybe<TechnologyUpdateManyInlineInput>
+  type?: InputMaybe<ProjectTypes>
   url?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -2973,7 +3122,11 @@ export type ProjectUpdateManyInlineInput = {
 export type ProjectUpdateManyInput = {
   date?: InputMaybe<Scalars['Date']['input']>
   description?: InputMaybe<Scalars['String']['input']>
+  license?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  overview?: InputMaybe<Scalars['RichTextAST']['input']>
+  repository?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<ProjectTypes>
   url?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -3109,6 +3262,25 @@ export type ProjectWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>
   image?: InputMaybe<AssetWhereInput>
+  license?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  license_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  license_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  license_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  license_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  license_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  license_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  license_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  license_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  license_starts_with?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   /** All values containing the given string. */
   name_contains?: InputMaybe<Scalars['String']['input']>
@@ -3128,6 +3300,7 @@ export type ProjectWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']['input']>
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']['input']>
+  openGraphImage?: InputMaybe<AssetWhereInput>
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -3146,6 +3319,25 @@ export type ProjectWhereInput = {
     Array<InputMaybe<Scalars['DateTime']['input']>>
   >
   publishedBy?: InputMaybe<UserWhereInput>
+  repository?: InputMaybe<Scalars['String']['input']>
+  /** All values containing the given string. */
+  repository_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values ending with the given string. */
+  repository_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are contained in given list. */
+  repository_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** Any other value that exists and is not equal to the given value. */
+  repository_not?: InputMaybe<Scalars['String']['input']>
+  /** All values not containing the given string. */
+  repository_not_contains?: InputMaybe<Scalars['String']['input']>
+  /** All values not ending with the given string */
+  repository_not_ends_with?: InputMaybe<Scalars['String']['input']>
+  /** All values that are not contained in given list. */
+  repository_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  /** All values not starting with the given string. */
+  repository_not_starts_with?: InputMaybe<Scalars['String']['input']>
+  /** All values starting with the given string. */
+  repository_starts_with?: InputMaybe<Scalars['String']['input']>
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>
@@ -3171,6 +3363,13 @@ export type ProjectWhereInput = {
   technologies_every?: InputMaybe<TechnologyWhereInput>
   technologies_none?: InputMaybe<TechnologyWhereInput>
   technologies_some?: InputMaybe<TechnologyWhereInput>
+  type?: InputMaybe<ProjectTypes>
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<ProjectTypes>>>
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<ProjectTypes>
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<ProjectTypes>>>
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>
@@ -6431,6 +6630,35 @@ export type GetProfileResumeQuery = {
   }>
 }
 
+export type GetProjectBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input']
+}>
+
+export type GetProjectBySlugQuery = {
+  __typename?: 'Query'
+  project?: {
+    __typename?: 'Project'
+    id: string
+    name: string
+    date: any
+    updatedAt: any
+    description: string
+    url: string
+    repository: string
+    license: string
+    slug: string
+    overview: { __typename?: 'RichText'; markdown: string }
+    image: { __typename?: 'Asset'; url: string }
+    openGraphImage: { __typename?: 'Asset'; url: string }
+    technologies: Array<{
+      __typename?: 'Technology'
+      id: string
+      name: string
+      icon: { __typename?: 'Asset'; url: string }
+    }>
+  } | null
+}
+
 export type GetProjectsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   skip?: InputMaybe<Scalars['Int']['input']>
@@ -6801,6 +7029,107 @@ export type GetProfileResumeSuspenseQueryHookResult = ReturnType<
 export type GetProfileResumeQueryResult = Apollo.QueryResult<
   GetProfileResumeQuery,
   GetProfileResumeQueryVariables
+>
+export const GetProjectBySlugDocument = gql`
+  query GetProjectBySlug($slug: String!) {
+    project(where: { slug: $slug }) {
+      id
+      name
+      date
+      updatedAt
+      description
+      url
+      repository
+      license
+      slug
+      overview {
+        markdown
+      }
+      image {
+        url
+      }
+      openGraphImage {
+        url
+      }
+      technologies {
+        id
+        name
+        icon {
+          url
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useGetProjectBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetProjectBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetProjectBySlugQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  > &
+    (
+      | { variables: GetProjectBySlugQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProjectBySlugQuery, GetProjectBySlugQueryVariables>(
+    GetProjectBySlugDocument,
+    options
+  )
+}
+export function useGetProjectBySlugLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >(GetProjectBySlugDocument, options)
+}
+export function useGetProjectBySlugSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    GetProjectBySlugQuery,
+    GetProjectBySlugQueryVariables
+  >(GetProjectBySlugDocument, options)
+}
+export type GetProjectBySlugQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugQuery
+>
+export type GetProjectBySlugLazyQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugLazyQuery
+>
+export type GetProjectBySlugSuspenseQueryHookResult = ReturnType<
+  typeof useGetProjectBySlugSuspenseQuery
+>
+export type GetProjectBySlugQueryResult = Apollo.QueryResult<
+  GetProjectBySlugQuery,
+  GetProjectBySlugQueryVariables
 >
 export const GetProjectsDocument = gql`
   query GetProjects($limit: Int, $skip: Int) {

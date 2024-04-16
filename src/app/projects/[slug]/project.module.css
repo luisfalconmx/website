@@ -1,0 +1,62 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/onedark.min.css';
+
+.project {
+  @apply mb-12 max-w-[1000px] overflow-hidden text-wrap break-words text-lg lg:text-2xl;
+}
+
+.project p {
+  @apply pb-5 text-neutral-500 dark:text-neutral-400;
+}
+
+.project h1,
+.project h2,
+.project h3,
+.project h4,
+.project h5,
+.project h6 {
+  @apply pb-6 pt-12 text-2xl font-bold md:text-3xl;
+}
+
+.project h1 {
+  @apply text-4xl md:text-5xl;
+}
+
+.project h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+.project ul {
+  @apply list-disc pb-8 ps-4 text-neutral-500 dark:text-neutral-400 md:ps-12;
+}
+
+.project ul p {
+  @apply pb-2;
+}
+
+.project img {
+  @apply mb-8 ml-0 h-full rounded-xl border border-divider-soft dark:border-divider-hard;
+}
+
+.project a {
+  @apply font-semibold underline;
+}
+
+.project hr {
+  @apply mb-5 block;
+}
+
+.project pre {
+  @apply !mb-8 !mt-0 block w-full max-w-[360px] overflow-x-auto rounded-xl border border-divider-soft bg-[#282c34] p-4 text-base text-white dark:border-divider-hard md:max-w-[560px] lg:max-w-screen-xl lg:text-lg;
+}
+
+.project div pre + div {
+  @apply !hidden;
+}
+
+.project blockquote {
+  @apply mb-8 flex flex-col justify-center gap-6 border-l-8 py-6 pl-6;
+}
+
+.project blockquote p {
+  @apply p-0;
+}
