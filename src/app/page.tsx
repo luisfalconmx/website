@@ -11,24 +11,46 @@ import dayjs from 'dayjs'
 import { SITE_URL } from '@/config/env'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
-  description:
-    'I am Frontend Developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
-  robots: 'index, follow',
-  openGraph: {
-    description:
-      'I am Frontend Developer with 4 years of experience, B1 English level and more than 100 certifications related to software development.',
-    type: 'website',
-    url: `${SITE_URL}/`,
-    images: [
-      {
-        url: `${SITE_URL}/images/open-graph-image.jpg`
-      }
-    ]
-  },
-  alternates: {
-    canonical: `${SITE_URL}/`
+export const generateMetadata = async (): Promise<Metadata> => {
+  const profileResume = await getProfileResume()
+  const totalCertifications =
+    profileResume?.data.certificationsConnection.aggregate.count || 0
+  const works = profileResume?.data.works || []
+
+  let totalExperience = 0
+
+  const monthsOfExperience = works.map((i) => {
+    const now = dayjs()
+    const startDate = dayjs(i?.startDate?.substring(0, 10))
+    const endDate = dayjs(i?.endDate?.substring(0, 10) || now)
+
+    return endDate.diff(startDate, 'month')
+  })
+
+  if (monthsOfExperience) {
+    const sumExperience =
+      monthsOfExperience.reduce((acc, curr) => acc + curr, 0) / 12
+
+    totalExperience = Math.round(sumExperience * 2) / 2
+  }
+
+  return {
+    title: 'Luis Falcon (luisfalconmx) - Frontend Developer',
+    description: `I am Frontend Developer with ${totalExperience.toString().padStart(2, '0')} years of experience, B1 English level and ${totalCertifications} certifications related to software development.`,
+    robots: 'index, follow',
+    openGraph: {
+      description: `I am Frontend Developer with ${totalExperience.toString().padStart(2, '0')} years of experience, B1 English level and ${totalCertifications} certifications related to software development.`,
+      type: 'website',
+      url: `${SITE_URL}/`,
+      images: [
+        {
+          url: `${SITE_URL}/images/open-graph-image.jpg`
+        }
+      ]
+    },
+    alternates: {
+      canonical: `${SITE_URL}/`
+    }
   }
 }
 
@@ -78,7 +100,8 @@ export default async function Home() {
         </h1>
 
         <p className="text-smoke mb-12 text-center text-xl">
-          I have 4 years of experience, B1 English level and more than 100
+          I have {totalExperience.toString().padStart(2, '0')} years of
+          experience, B1 English level and {totalCertifications}
           certifications related to software development.
         </p>
 
