@@ -9,7 +9,7 @@ query GetProjects($limit: Int, $skip: Int) {
       count
     }
   }
-  projects(first: $limit, skip: $skip) {
+  projects(first: $limit, skip: $skip, orderBy: date_DESC) {
     id
     slug
     url

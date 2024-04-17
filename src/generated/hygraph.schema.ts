@@ -7143,7 +7143,7 @@ export const GetProjectsDocument = gql`
         count
       }
     }
-    projects(first: $limit, skip: $skip) {
+    projects(first: $limit, skip: $skip, orderBy: date_DESC) {
       id
       slug
       url
