@@ -3083,7 +3083,9 @@ export enum ProjectOrderByInput {
 
 export enum ProjectTypes {
   Blog = 'blog',
+  Ecommerce = 'ecommerce',
   LandingPage = 'landing_page',
+  Spa = 'spa',
   WebApp = 'web_app'
 }
 
@@ -6914,7 +6916,7 @@ export const GetProfileResumeDocument = gql`
         count
       }
     }
-    projects(first: 4) {
+    projects(first: 4, orderBy: date_DESC) {
       id
       slug
       url

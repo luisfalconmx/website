@@ -22,7 +22,7 @@ query GetProfileResume {
       count
     }
   }
-  projects(first: 4) {
+  projects(first: 4, orderBy: date_DESC) {
     id
     slug
     url
