@@ -101,8 +101,8 @@ export default async function Home() {
 
         <p className="text-smoke mb-12 text-center text-xl">
           I have {totalExperience.toString().padStart(2, '0')} years of
-          experience, B1 English level and {totalCertifications}
-          certifications related to software development.
+          experience, A1 English level and {totalCertifications} certifications
+          related to software development.
         </p>
 
         <div className="mx-auto mb-16 flex flex-col text-center lg:w-fit lg:flex-row lg:space-x-4">
