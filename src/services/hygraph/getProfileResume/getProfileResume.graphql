@@ -65,7 +65,7 @@ query GetProfileResume {
       count
     }
   }
-  technologies(first: 16, orderBy: name_ASC) {
+  technologies(first: 32, orderBy: name_ASC) {
     name
     icon {
       url

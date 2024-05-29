@@ -161,7 +161,7 @@ export default async function Home() {
           </div>
 
           <div>
-            <strong className="mb-4 block text-5xl font-bold">B1</strong>
+            <strong className="mb-4 block text-5xl font-bold">A1</strong>
             <p className="block text-xl uppercase">English level</p>
           </div>
         </div>
