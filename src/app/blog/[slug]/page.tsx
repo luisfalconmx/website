@@ -97,8 +97,8 @@ export default async function Post({ params }: { params: { slug: string } }) {
             {post?.title}
           </h1>
 
-          <div className="mb-12 flex space-x-12">
-            <div className="flex w-fit flex-col lg:grid-cols-2 lg:flex-row">
+          <div className="mb-12 flex items-center space-x-12">
+            <div className="flex w-fit flex-col justify-center lg:grid-cols-2 lg:flex-row">
               <figure className="mx-auto block lg:mx-0 lg:mr-4">
                 <Image
                   src={post?.author.profilePicture || ''}
@@ -109,20 +109,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
                   priority={false}
                 />
               </figure>
-              <div className="ml-0 block">
-                <div className="mb-0 ml-0 flex justify-center lg:justify-start">
+              <div className="ml-0 flex flex-col justify-center">
+                <div className="mb-0 ml-0">
                   <h2 className="mr-2 font-bold">{post?.author.name}</h2>
-                  <Link
-                    href={post?.author.socialMediaLinks?.website || ''}
-                    rel="author"
-                    className="block text-black underline dark:text-white"
-                    target="_blank"
-                  >
-                    ({post?.author.username})
-                  </Link>
                 </div>
 
-                <p className="mb-3 text-center text-sm text-night dark:text-white/50 lg:text-start">
+                <p className="text-center text-sm text-night dark:text-white/50 lg:text-start">
                   {post?.author.tagline}
                 </p>
               </div>
@@ -140,7 +132,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
             <div className="flex flex-col font-bold italic">
               <span className="text-sm font-normal dark:text-white/50">
-                Time ro read:
+                Time ro read
               </span>
               {post.readTimeInMinutes} min
             </div>
@@ -152,12 +144,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
           alt={post?.title || ''}
           width="912"
           height="550"
-          className="mb-12 aspect-video w-full border-divider-soft shadow-xl dark:border-divider-hard"
+          className="mb-12 aspect-video w-full rounded-lg border-divider-soft shadow-xl dark:border-divider-hard"
         />
 
-        <section className={styles['post']}>
+        <div className={styles['post']}>
           <Markdown rehypePlugins={[rehypeHighlight]}>{content}</Markdown>
-        </section>
+        </div>
 
         {post.tags && (
           <ul className="mb-12 flex flex-wrap gap-2 px-4 md:justify-center lg:px-12">
