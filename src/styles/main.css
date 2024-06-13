@@ -3,3 +3,41 @@
 * {
   font-family: Inter, sans-serif;
 }
+
+.custom-bg {
+  background: linear-gradient(to top, #000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(
+      90deg,
+      rgba(11, 1, 1, 1) 0%,
+      rgba(212, 16, 2, 0.3) 50%,
+      rgba(4, 0, 0, 1) 100%
+    );
+  background-size:
+    100% 100%,
+    100% 100%,
+    1440px 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.custom-bg-left {
+  background: linear-gradient(to top, #000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(90deg, rgba(212, 16, 2, 0.3) 0%, rgba(4, 0, 0, 1) 100%);
+  background-size:
+    100% 100%,
+    100% 100%,
+    1440px 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.custom-bg-right {
+  background: linear-gradient(to top, #000 0, hsla(0, 0%, 100%, 0) 100%),
+    linear-gradient(90deg, rgba(4, 0, 0, 1) 0%, rgba(212, 16, 2, 0.3) 100%);
+  background-size:
+    100% 100%,
+    100% 100%,
+    1440px 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}

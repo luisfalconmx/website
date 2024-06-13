@@ -7,7 +7,7 @@
 }
 
 .Footer__title {
-  @apply text-xl font-bold;
+  @apply block w-fit text-xl font-bold;
 }
 
 .Footer__legend {
