@@ -136,17 +136,27 @@ export default async function Project({
             </Link>
           </div>
         </div>
-        <Image
+        {/* <Image
           src={project?.image.url || ''}
           alt={project?.name || ''}
           width={500}
           height={500}
+          className=""
+        /> */}
+        <iframe
+          width="630"
+          height="360"
+          src="https://www.youtube.com/embed/jvcJY89vxwk?si=gZMyLO7LPyF9l2Gm&amp;controls=0"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
           className="rounded-xl border border-divider-soft shadow-lg dark:border-divider-hard"
         />
       </section>
 
       <section className="mb-16">
-        <h2 className="mb-6 text-3xl md:text-4xl">Technologies</h2>
+        <h2 className="mb-6 text-3xl md:text-4xl">Technologies used</h2>
 
         <ul className="mb-12 grid grid-cols-1 justify-start md:grid-cols-3 lg:grid-cols-4">
           {project?.technologies.map(({ id, name, icon }) => (
