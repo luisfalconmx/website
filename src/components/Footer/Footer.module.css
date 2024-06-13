@@ -1,0 +1,19 @@
+.Footer {
+  @apply pb-20 pt-4 dark:text-white;
+}
+
+.Footer__container {
+  @apply mx-auto grid max-w-screen-xl grid-cols-3 items-center px-6;
+}
+
+.Footer__title {
+  @apply text-xl font-bold;
+}
+
+.Footer__legend {
+  @apply mx-auto block italic;
+}
+
+.Footer__social {
+  @apply ml-auto flex space-x-4;
+}

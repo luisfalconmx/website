@@ -1,5 +1,6 @@
 import { ThemeProvider } from 'next-themes'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import type { Metadata, Viewport } from 'next'
 import { SITE_NAME } from '@/config/env'
 import '@/styles/main.css'
@@ -48,6 +49,7 @@ export default function RootLayout({
         <ThemeProvider attribute="data-theme">
           <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
