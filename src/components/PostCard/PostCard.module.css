@@ -7,7 +7,7 @@
 }
 
 .PostCard__image {
-  @apply aspect-video w-full rounded-xl border border-divider-soft object-cover object-center shadow-xl dark:border-divider-hard;
+  @apply aspect-video w-full rounded-xl border-divider-soft object-cover object-center shadow-xl dark:border-divider-hard;
 }
 
 .PostCard__content {
@@ -80,7 +80,7 @@
 }
 
 .PostCard--jumbo {
-  @apply static max-w-none border-divider-soft dark:border-divider-hard lg:relative lg:min-h-[500px] lg:overflow-hidden lg:rounded-xl lg:border-2;
+  @apply static max-w-none border-divider-soft dark:border-divider-hard lg:relative lg:min-h-[500px] lg:overflow-hidden lg:rounded-xl;
 }
 
 .PostCard--jumbo .PostCard__overlay {
