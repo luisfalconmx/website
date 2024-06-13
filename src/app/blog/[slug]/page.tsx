@@ -3,9 +3,6 @@ import Link from 'next/link'
 import Script from 'next/script'
 import humanDate from '@/utils/humanDate'
 import { notFound } from 'next/navigation'
-import { GlobeAmericasIcon } from '@heroicons/react/24/outline'
-import GithubIcon from '@/assets/icons/GithubIcon.svg'
-import TwitterIcon from '@/assets/icons/TwitterIcon.svg'
 import { SITE_NAME, SITE_URL, HASHNODE_HOST } from '@/config/env'
 import { getArticleBySlug } from '@/services/hashnode'
 import styles from './post.module.css'
@@ -90,32 +87,73 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <main className="mx-auto my-12 mb-16 max-w-screen-lg gap-x-6 md:px-8 lg:my-24 lg:px-4">
-        <section className="mb-2 box-content px-4 md:mb-5 lg:pl-0 lg:pr-4">
-          <h1 className="mx-auto mb-6 text-3xl font-bold leading-tight md:text-5xl lg:text-center">
+      <main className="mx-auto my-12 mb-16 max-w-screen-xl gap-x-6 md:px-8 lg:my-16 lg:px-16">
+        <section className="mb-2 box-content px-4 md:mb-5 md:px-12">
+          <span className="mb-2 block font-bold uppercase text-red-500">
+            {post.tags ? post.tags[0].name : ''}
+          </span>
+
+          <h1 className="mx-auto mb-8 text-3xl font-bold leading-tight md:text-[40px]">
             {post?.title}
           </h1>
 
-          {/* subtitle */}
-          <p className="mx-auto mb-8 text-xl text-night dark:text-white lg:max-w-screen-sm lg:text-center">
-            {post?.subtitle}
-          </p>
+          <div className="mb-12 flex space-x-12">
+            <div className="flex w-fit flex-col lg:grid-cols-2 lg:flex-row">
+              <figure className="mx-auto block lg:mx-0 lg:mr-4">
+                <Image
+                  src={post?.author.profilePicture || ''}
+                  alt={`${post?.author.name} (${post?.author.username}) profile picture`}
+                  width={48}
+                  height={48}
+                  className="block rounded-full"
+                  priority={false}
+                />
+              </figure>
+              <div className="ml-0 block">
+                <div className="mb-0 ml-0 flex justify-center lg:justify-start">
+                  <h2 className="mr-2 font-bold">{post?.author.name}</h2>
+                  <Link
+                    href={post?.author.socialMediaLinks?.website || ''}
+                    rel="author"
+                    className="block text-black underline dark:text-white"
+                    target="_blank"
+                  >
+                    ({post?.author.username})
+                  </Link>
+                </div>
 
-          <time
-            dateTime={post.publishedAt}
-            className="mb-8 block text-lg font-bold italic lg:text-center"
-          >
-            {humanDate(post.publishedAt)} - {post.readTimeInMinutes} min read
-          </time>
+                <p className="mb-3 text-center text-sm text-night dark:text-white/50 lg:text-start">
+                  {post?.author.tagline}
+                </p>
+              </div>
+            </div>
 
-          <Image
-            src={post?.coverImage?.url || ''}
-            alt={post?.title || ''}
-            width="912"
-            height="550"
-            className="mb-12 aspect-video w-full rounded-lg border-2 border-divider-soft shadow-xl dark:border-divider-hard"
-          />
+            <time
+              dateTime={post.publishedAt}
+              className="flex flex-col font-bold italic"
+            >
+              <span className="text-sm font-normal dark:text-white/50">
+                Published at
+              </span>
+              {humanDate(post.publishedAt)}
+            </time>
+
+            <div className="flex flex-col font-bold italic">
+              <span className="text-sm font-normal dark:text-white/50">
+                Time ro read:
+              </span>
+              {post.readTimeInMinutes} min
+            </div>
+          </div>
         </section>
+
+        <Image
+          src={post?.coverImage?.url || ''}
+          alt={post?.title || ''}
+          width="912"
+          height="550"
+          className="mb-12 aspect-video w-full border-divider-soft shadow-xl dark:border-divider-hard"
+        />
 
         <section className={styles['post']}>
           <Markdown rehypePlugins={[rehypeHighlight]}>{content}</Markdown>
@@ -133,77 +171,6 @@ export default async function Post({ params }: { params: { slug: string } }) {
             ))}
           </ul>
         )}
-
-        <section className="mx-4 flex flex-col rounded-lg border border-divider-soft bg-white px-4 pb-12 pt-6 shadow-lg dark:border-divider-hard dark:bg-night lg:grid-cols-2 lg:flex-row lg:place-content-center">
-          <figure className="mx-auto mb-2 block lg:mx-0 lg:mr-4">
-            <Image
-              src={post?.author.profilePicture || ''}
-              alt={`${post?.author.name} (${post?.author.username}) profile picture`}
-              width={60}
-              height={60}
-              className="block rounded-full"
-              priority={false}
-            />
-          </figure>
-          <div className="ml-0 block">
-            <div className="mb-0 ml-0 flex justify-center lg:justify-start">
-              <h2 className="mr-2 text-xl font-bold">{post?.author.name}</h2>
-              <Link
-                href={post?.author.socialMediaLinks?.website || ''}
-                rel="author"
-                className="block text-xl text-black underline dark:text-white"
-                target="_blank"
-              >
-                ({post?.author.username})
-              </Link>
-            </div>
-
-            <p className="mb-3 text-center text-sm text-night dark:text-white lg:text-start">
-              {post?.author.tagline}
-            </p>
-
-            <ul className="mx-auto flex w-fit items-center space-x-1 lg:mx-0 lg:space-x-4">
-              <li>
-                <Link
-                  href={post?.author.socialMediaLinks?.website || ''}
-                  aria-label={`go to ${post?.author.name} (${post?.author.username}) official website`}
-                >
-                  <GlobeAmericasIcon className="h-8 w-8 text-black dark:text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={post?.author.socialMediaLinks?.github || ''}
-                  aria-label={`go to ${post?.author.name} (${post?.author.username}) github profile`}
-                >
-                  <Image
-                    src={GithubIcon}
-                    alt="github icon"
-                    width={28}
-                    height={28}
-                    className="dark:invert"
-                    priority={false}
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={post?.author.socialMediaLinks?.twitter || ''}
-                  aria-label={`go to ${post?.author.name} (${post?.author.username}) twitter name`}
-                >
-                  <Image
-                    src={TwitterIcon}
-                    alt="twitter icon"
-                    width={26}
-                    height={26}
-                    className="dark:invert"
-                    priority={false}
-                  />
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </section>
       </main>
 
       {/* Schema Org */}

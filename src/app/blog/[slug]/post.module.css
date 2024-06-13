@@ -5,7 +5,7 @@
 }
 
 .post p {
-  @apply pb-5 text-black dark:text-white;
+  @apply pb-5 text-black dark:text-white/60;
 }
 
 .post h1,
