@@ -143,8 +143,8 @@ export default async function Post({ params }: { params: { slug: string } }) {
           src={post?.coverImage?.url || ''}
           alt={post?.title || ''}
           width="912"
-          height="550"
-          className="mb-12 aspect-video w-full rounded-lg border-divider-soft shadow-xl dark:border-divider-hard"
+          height="400"
+          className="mb-12 aspect-video w-full rounded-lg border border-divider-soft object-cover shadow-xl dark:border-divider-hard"
         />
 
         <div className={styles['post']}>

@@ -136,22 +136,13 @@ export default async function Project({
             </Link>
           </div>
         </div>
-        {/* <Image
+
+        <Image
           src={project?.image.url || ''}
           alt={project?.name || ''}
           width={500}
           height={500}
-          className=""
-        /> */}
-        <iframe
-          width="630"
-          height="360"
-          src="https://www.youtube.com/embed/jvcJY89vxwk?si=gZMyLO7LPyF9l2Gm&amp;controls=0"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          className="rounded-xl border border-divider-soft shadow-lg dark:border-divider-hard"
+          className="w-full"
         />
       </section>
 

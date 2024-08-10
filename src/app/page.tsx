@@ -84,7 +84,6 @@ export default async function Home() {
 
   return (
     <main>
-      <div className="absolute left-0 top-0 -z-10 h-screen w-full" />
       <section className="mx-auto mb-16 mt-7 max-w-[683px] px-6 lg:mb-32 lg:px-0">
         <Image
           width={190}
@@ -112,14 +111,14 @@ export default async function Home() {
               View Projects
             </Button>
           </Link>
-          <Link href="/projects" className="mb-3 block lg:mb-0">
+          {/* <Link href="/projects" className="mb-3 block lg:mb-0">
             <Button
               variant="outline"
               className="flex w-full justify-center lg:w-auto"
             >
               Download CV
             </Button>
-          </Link>
+          </Link> */}
         </div>
 
         <ul className="hidden justify-center space-x-8 lg:flex">
