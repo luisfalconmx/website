@@ -89,7 +89,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
     <>
       <main className="mx-auto my-12 mb-16 max-w-screen-xl gap-x-6 md:px-8 lg:my-16 lg:px-16">
         <section className="mb-2 box-content px-4 md:mb-5 md:px-12">
-          <span className="mb-2 block font-bold uppercase text-primary">
+          <span className="mb-2 block font-bold uppercase">
             {post.tags ? post.tags[0].name : ''}
           </span>
 

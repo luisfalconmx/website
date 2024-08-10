@@ -84,7 +84,7 @@ export default async function Home() {
 
   return (
     <main>
-      <div className="custom-bg absolute left-0 top-0 -z-10 h-screen w-full" />
+      <div className="absolute left-0 top-0 -z-10 h-screen w-full" />
       <section className="mx-auto mb-16 mt-7 max-w-[683px] px-6 lg:mb-32 lg:px-0">
         <Image
           width={190}

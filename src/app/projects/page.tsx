@@ -65,7 +65,6 @@ export default async function Projects({
 
   return (
     <main className="mx-auto max-w-screen-xl px-4 py-12 lg:py-24">
-      <div className="custom-bg-right absolute left-0 top-0 -z-10 h-screen w-full" />
       <h1 className="mx-auto mb-4 w-fit text-3xl font-bold">Projects</h1>
       <p className="mx-auto mb-12 max-w-2xl text-center text-black/80 dark:text-white/80 lg:text-lg">
         I have developed a total of <b>{totalProjects} projects</b> in which I

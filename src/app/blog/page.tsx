@@ -48,7 +48,6 @@ export default async function Blog({
 
   return (
     <main className="mx-auto max-w-screen-xl px-4 pb-24 pt-4 lg:py-16">
-      <div className="custom-bg-left absolute left-0 top-0 -z-10 h-screen w-full" />
       <div className="absolute h-[1px] max-w-screen-xl overflow-hidden">
         <h1>Blog</h1>
         <p>
