@@ -3,17 +3,17 @@
 }
 
 .Footer__container {
-  @apply mx-auto grid max-w-screen-xl grid-cols-3 items-center px-6;
+  @apply mx-auto grid max-w-screen-xl grid-cols-1 items-center px-6 md:grid-cols-3;
 }
 
 .Footer__title {
-  @apply block w-fit text-xl font-bold;
+  @apply mx-auto mb-4 block w-fit text-xl font-bold md:mx-0 md:mb-0;
 }
 
 .Footer__legend {
-  @apply mx-auto block italic;
+  @apply mx-auto mb-4 block italic md:mb-0;
 }
 
 .Footer__social {
-  @apply ml-auto flex space-x-4;
+  @apply mx-auto flex space-x-4 md:ml-auto md:mr-0;
 }
