@@ -90,7 +90,7 @@ export default async function Home() {
           height={190}
           src="/images/luisfalconmx.jpg"
           alt="Luis Falcon (luisfalconmx) profile picture"
-          className="mx-auto mb-10 h-auto w-auto rounded-full shadow-none shadow-black"
+          className="mx-auto mb-10 h-[190px] w-[190px] rounded-full shadow-none shadow-black"
           priority={false}
         />
 
