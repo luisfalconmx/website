@@ -86,11 +86,11 @@ export default async function Home() {
     <main>
       <section className="mx-auto mb-16 mt-7 max-w-[683px] px-6 lg:mb-32 lg:px-0">
         <Image
-          width={190}
-          height={190}
+          width={200}
+          height={200}
           src="/images/luisfalconmx.jpg"
           alt="Luis Falcon (luisfalconmx) profile picture"
-          className="mx-auto mb-10 h-[190px] w-[190px] rounded-full shadow-none shadow-black"
+          className="mx-auto mb-10 h-auto w-auto rounded-full shadow-none shadow-black"
           priority={false}
         />
 
